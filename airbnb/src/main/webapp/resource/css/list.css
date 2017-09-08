@@ -1,115 +1,178 @@
-          /*기본 중앙 */
-            .center{
-                width: 100%;
-                border: solid black 1px;
-                margin-bottom: 10%;
-                margin-top: 150px;
-                padding-top: 2%;
-            }
-            /*소 메뉴*/
-            .menu2{
-                display: none;
-            }
+/*기본 중앙 */
+.center {
+	width: 100%;
+	margin-top: 150px;
+	padding-top: 2%;
+}
+/*소 메뉴*/
+.menu2 {
+	display: none;
+}
 
-            /*화면 변화의 기본 값들*/
-            .page{
-                display: flex;  /* 수평으로 설정이 됨 */
-                flex-direction: row;    /*기본값 */
-                flex-wrap: wrap;
-                justify-content: Flex-start;
-                align-content: stretch;
-                width: 96%;
-            }
-            
-           .page_list{
-                width: 30%;
-                height: 45%;
-                border: solid black 2px;
-                margin-bottom: 2%;
-   
-            }
-            
-             /*화면 변화*/
-            @media screen and (max-width:740px){/*1단계*/
-                
-             .center{
-                width: 100%;
-                border: solid black 1px;
-                margin-bottom: 10%;
-                margin-top: 150px;
-                padding-top: 2%;
-            }
-                .page{
-                    flex-direction: column;
-                    width: 100%;
-                    margin-bottom: 2%;
-                }
-                .page_list{
-                     border: solid black 2px;
-                    width: 95%;
-                    height: 50%;
-                    margin-bottom: 2%;
-                    margin-left: 2%;
-                }
-                 .page_list img{
-                     width: 100%;
-                     height: 70%;
-                 }
+/*화면 변화의 기본 값들*/
+.page {
+	display: flex; /* 수평으로 설정이 됨 */
+	flex-direction: row; /*기본값 */
+	flex-wrap: wrap;
+	justify-content: Flex-start;
+	align-content: stretch;
+	width: 96%;
+}
 
-                }
-            @media screen and (min-width:740px){/*2단계*/
-            .center{
-                width: 100%;
-                border: solid black 1px;
-                margin-bottom: 10%;
-                margin-top: 150px;
-                padding-top: 2%;
-            }
-                .page{
-                    flex-direction: row;
-                    margin-left: 4%;
-                }
-               .page_list{
-                    border: solid black 2px;
-                    width: 45%;
-                   margin-bottom: 2%;
-                   margin-left: 2%;
-                }
-                 .page_list img{
-                     width: 100%;
-                     height: 70%;
-                 }
-            }
-             @media screen and (min-width:1100px){/*3단계*/
-                 .center{
-                width: 100%;
-                border: solid black 1px;
-                margin-bottom: 10%;
-                margin-top: 150px;
-                padding-top: 2%;
-                
-                 }
-                 .menu2{
-                    display: inline-block;
-                    margin-left: 2%; 
-                    margin-bottom: 2%;
-                 }
-                 .menu2 button{
-                     margin-right: 20;
-                     font-size: 15px;
-                 }
-                 .page{
-                     flex-direction: row;
-                     margin-left: 3%;
-                 }
-               .page_list{
-                width: 30%;
-                height: 45%;
-                border: solid black 2px;
-                margin-bottom: 2%;
-                margin-left: 2%;
-                 }
-                 .page_list img{
-                     width: 100%;
-                     height: 70%;
-                 }
+.page_list {
+	width: 30%;
+	height: 45%;
+	margin-bottom: 2%;
+}
+
+/*화면 변화*/
+@media screen and (max-width:740px) { /*1단계*/
+	.center {
+		width: 100%;
+		margin-top: 150px;
+		padding-top: 2%;
+	}
+	.page {
+		flex-direction: column;
+		width: 100%;
+		margin-bottom: 2%;
+	}
+	.page_list {
+		width: 95%;
+		height: 50%;
+		margin-bottom: 2%;
+		margin-left: 2%;
+	}
+	.page_list img {
+		width: 100%;
+		height: 70%;
+	}
+}
+
+@media screen and (min-width:740px) { /*2단계*/
+	.center {
+		width: 100%;
+		margin-top: 150px;
+		padding-top: 2%;
+	}
+	.page {
+		flex-direction: row;
+		margin-left: 4%;
+	}
+	.page_list {
+		width: 45%;
+		margin-bottom: 2%;
+		margin-left: 2%;
+	}
+	.page_list img {
+		width: 100%;
+		height: 70%;
+	}
+}
+
+@media screen and (min-width:1100px) { /*3단계*/
+	.center {
+		width: 100%;
+		margin-top: 190px;
+		padding-top: 2%;
+	}
+	.menu2 {
+		position: fixed;
+		top: 128px;
+		background-color:white;
+		border-bottom:solid 1px darkgray;
+		width: 100%;
+		display: inline-block;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 5%;
+		margin-bottom: 2%;
+	}
+	.menu2 input {
+		font-size: 18px;
+	}
+	.b {
+		margin-right: 10px;
+	}
+	.add_type {
+		display: none;
+		margin-top: 5px;
+		background-color: white;
+		position: absolute;
+		border: solid 1px darkgray;
+		width: 400px;
+		height: 330px;
+		padding: 20px;
+	}
+	.add_type p {
+		margin-bottom: 30px;
+	}
+	#b {
+		margin-left: 80;
+	}
+	.add_price {
+		display: none;
+		margin-top: 5px;
+		background-color: white;
+		position: absolute;
+		border: solid 1px darkgray;
+		width: 400px;
+		height: 330px;
+		padding: 20px;
+	}
+	.add_filter {
+		display: none;
+		margin-top: 5px;
+		background-color: white;
+		position: absolute;
+		border: solid 1px darkgray;
+		width: 400px;
+		height: 330px;
+		padding: 20px;
+	}
+
+	#slider {
+		margin-right: 30px;
+	}
+	.page {
+		flex-direction: row;
+		margin-left: 3%;
+	}
+	.page_list {
+		width: 30%;
+		height: 45%;
+		margin-bottom: 2%;
+		margin-left: 2%;
+	}
+	.page_list img {
+		width: 100%;
+		height: 70%;
+	}
+}
+
+.row {
+	height: 50px;
+	text-align: center;
+	margin-bottom: 10%;
+}
+
+.row a {
+	color: dodgerblue;
+	font-size: 15px;
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+.this {
+	font-size: 23px !important;
+	color: white !important;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	background-color: dodgerblue;
+	border-radius: 50px;
+}
+.empty-90{
+	display: none;
+	height:100px;
+}
