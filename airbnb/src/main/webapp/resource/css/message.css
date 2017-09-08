@@ -230,23 +230,31 @@
                 margin-right: 20%;
                 margin-top: 15%;
             }
-            .area-10{
+            .m_area-10{
                 width: 10%;
             }
-            .area-20{
+            .m_area-20{
                 width: 30%;
             }
-            .area-50{
+            .m_area-50{
                 width: 50%;
             }
             text-center{
                 text-align: center;
             }
-            .border{
+            .m_border{
                 border-bottom: 1px solid black;
                 border-color: rgba(220,224,224,0.5);
+                width: 94%;
+                margin-left: 3%;
+                margin-right: 3%;
             }
-            .padding{
+            .m_padding{
                 padding-bottom: 20px;
                 padding-top: 20px;
+            }
+            .m_table{
+            	width: 100%;
+            	padding-left: 20px;
+            	padding-right: 20px;
             }

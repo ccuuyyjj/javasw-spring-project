@@ -59,25 +59,7 @@
                         </div>
                     </div>
                     <c:choose>
-                    	<c:when test="${count > 0}">
-                    		<div class="">
-	                            <div class="panel">
-	                                <div class="row1">
-	                                    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center space-8 space-top-8">
-	                                        <table width="100%">
-                                                <tr class="border">
-                                                	<td class="padding">1</td>
-                                                    <td class="padding">22</td>
-                                                    <td class="padding">${message.question}</td>
-                                                    <td class="padding">444</td>
-                                                    <td class="padding">5</td>
-                                            	</tr>
-                                            </table>
-	                                    </div>
-	                                </div>
-	                            </div>
-                        </c:when>
-                        <c:otherwise>
+                    	<c:when test="${count == 0}">
 	                        <div class="">
 	                            <div class="panel">
 	                                <div class="row1">
@@ -96,7 +78,28 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </div>                    		
+                        </c:when>
+                        <c:otherwise>
+                        	<div class="">
+	                            <div class="panel">
+	                                <div class="row1">
+	                                    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center">
+	                                        <c:forEach var="message" items="${message}">
+												<table class="m_table">
+	                                                <tr>
+	                                                	<td class="m_padding m_area-10">1</td>
+	                                                    <td class="m_padding m_area-20">22</td>
+	                                                    <td class="m_padding m_area-50">${message.question}</td>
+	                                                    <td class="m_padding m_area-10">444</td>
+	                                                    <td class="m_padding m_area-10">5</td>
+	                                            	</tr>
+                                           		</table>
+                                           		<div class="m_border"></div>
+											</c:forEach>
+	                                    </div>
+	                                </div>
+	                            </div>
                         </c:otherwise>
                    	</c:choose>
                     </div>
