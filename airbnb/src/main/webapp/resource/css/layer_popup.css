@@ -1,0 +1,34 @@
+@charset "UTF-8";
+.mask {
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9999;
+    background-color:#000;
+    display:none;
+}
+#popup_area .window {
+    width:500px;
+    display: none;
+    background-color: #ffffff;
+    height: 500px;
+    z-index:99999;
+}
+#popup_area .close{
+	cursor:pointer;
+	width: 18px;
+    height: 17px;
+    display: inline-block;
+    position: absolute;
+    z-index: 40;
+    right: 15px;
+    top: 15px;
+}
+#popup_area  a {
+    color: #008489;
+    text-decoration: none;
+}
+
+#popup_area .layer-center{
+    margin:0px auto;
+}
