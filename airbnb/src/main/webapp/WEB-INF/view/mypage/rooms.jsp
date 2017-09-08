@@ -6,7 +6,7 @@
 	<div class="menu-wrap">
 	    <ul class="w3-center">
 	        <li>
-	            <a href="#">메시지</a>
+	            <a href="${pageContext.request.contextPath}/sub/message">메시지</a>
 	        </li>
 	        <li class="hover">
 	            <a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a>
