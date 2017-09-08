@@ -44,14 +44,15 @@ public class HostController {
 	
 	@RequestMapping(value="become_host1", method=RequestMethod.POST)
 	public String become_host1(HttpServletRequest request) {
-		
+		session.setAttribute("room", new Room());
 		String house_type = request.getParameter("house_type");
 		String room_type = request.getParameter("room_type");
 		String type = house_type + " " + room_type;
 		String region = request.getParameter("region");
 		
-		session.setAttribute("type", type);
-		session.setAttribute("region", region);
+		Room room = (Room)session.getAttribute("room");
+		room.setType(type);
+		room.setRegion(region);
 		
 		return "redirect:/host/become_host1_1";
 	}
@@ -69,10 +70,11 @@ public class HostController {
 		int bedrooms = Integer.parseInt(request.getParameter("bedrooms"));
 		String bed_type = request.getParameter("bed_type");
 		
-		session.setAttribute("capacity", capacity);
-		session.setAttribute("beds", beds);
-		session.setAttribute("bedrooms", bedrooms);
-		session.setAttribute("bed_type", bed_type);
+		Room room = (Room)session.getAttribute("room");
+		room.setCapacity(capacity);
+		room.setBeds(beds);
+		room.setBedrooms(bedrooms);
+		room.setBed_type(bed_type);
 		
 		return "redirect:/host/become_host1_2";
 	}

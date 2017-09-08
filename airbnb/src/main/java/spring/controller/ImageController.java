@@ -79,11 +79,14 @@ public class ImageController {
 		}
 
 		String mode = mRequest.getParameter("mode");
+		
 		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
-
 			if (photourl != "") {
+				int room_no = (int)session.getAttribute("room_no");
 				room.setPhotoUrl(photourl);
-				roomDao.update(room);
+				room.setNo(room_no);
+				log.debug("room_no:"+room_no);
+				boolean result = roomDao.update(room);
 			}
 			return "redirect:/host/become_host2_2";
 

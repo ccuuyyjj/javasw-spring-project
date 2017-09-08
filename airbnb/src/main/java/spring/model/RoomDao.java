@@ -155,8 +155,32 @@ public class RoomDao {
 		return jdbcTemplate.queryForObject("select count(*) from room", Integer.class);
 	}
 
-	public void update(Room room) {
-		// TODO Auto-generated method stub
-
+	public boolean update(Room room) {
+		
+		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, lng=?, address=?, capacity=?, "
+				+ "beds=?, bedrooms=?, shared=?, bed_type=?, etc=?, reg=sysdate, progress=? where no = ?";
+		Object[] args = new Object[] {
+				room.getName(),
+				room.getType(),
+				room.getPhotoUrl(),
+				room.getRegion(),
+				room.getLat(),
+				room.getLng(),
+				room.getAddress(),
+				room.getCapacity(),
+				room.getBeds(),
+				room.getBedrooms(),
+				room.getShared(),
+				room.getBed_type(),
+				room.getEtc(),
+				room.getProgress(),
+				room.getNo()
+		};
+		
+		
+		return jdbcTemplate.update(sql, args) > 0;
+		
 	}
+	
+	
 }
