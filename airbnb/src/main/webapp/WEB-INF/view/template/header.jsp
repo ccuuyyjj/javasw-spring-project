@@ -74,8 +74,10 @@
     <!-- Right-sided navbar links. Hide them on small screens -->
     <div class="w3-right w3-hide-small"  id="header_right">
       <a href="${pageContext.request.contextPath}/host/become_host1" class="w3-bar-item w3-button">호스팅하기</a>
+      <a href="${pageContext.request.contextPath}/mypage/rooms" class="w3-bar-item w3-button">마이페이지</a>
       <a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
       <a href="javaScript:void(0);" class="loginbtn w3-bar-item w3-button">로그인</a>
+      <a href="javaScript:void(0);" class="loginbtn w3-bar-item w3-button">로그아웃</a>
     </div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" id="hambug" onclick="w3_open()"><i class="fa fa-bars"></i></a>  
     <!-- Overlay effect when opening sidebar on small screens -->
