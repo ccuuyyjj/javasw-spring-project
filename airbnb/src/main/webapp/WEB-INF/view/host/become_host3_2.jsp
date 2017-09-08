@@ -16,25 +16,40 @@
 				left: 'prev,next today',
 				center: 'title',
 				//right: 'month,agendaWeek,agendaDay'
-                right:''
+                right:' '
 			},
 			defaultDate: '2017-09-12',
 			navLinks: false, // can click day/week names to navigate views
 			selectable: true,
 			selectHelper: true,
 			select: function(start, end) {
+               console.log("start : "+start.format());
+               console.log("end : "+end.format());
                
-                date_change();		
-				/*var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true	
-				}$('#calendar').fullCalendar('unselect');*/
+//                $.ajax({ 
+// 	           		type: 'post' , 
+// 	           		url: 'check_date' , 
+// 	           		dataType : 'html' , 
+// 	           		data:{
+// 	           			"start" : start, 
+// 	           			"end" : end			
+// 	           		},
+// 	           		success: function(data) { 
+// 	           			var eventData;
+// 	    				eventData = {
+// 	    					start: start,
+// 	    					end: end
+// 	    				};
+// 	    				if(data){
+// 	    					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+// 	    				} else {
+// 	    					$('#calendar').fullCalendar('unselect');
+// 	    				}
+	    					 
+// 	           		} 
+// 	           	});	
+               
+                	 
 				
 			},
 			editable: true,
@@ -55,16 +70,6 @@
 			
 	});
 
-function date_change(){
-	$.ajax({ 
-		type: 'post' , 
-		url: '/list.html' , 
-		dataType : 'html' , 
-		success: function(data) { 
-			$("#listDiv").html(data); 
-		} 
-	});	
-}
 
 </script>     
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
@@ -72,6 +77,7 @@ function date_change(){
 	<div class="row w3-center">
 		<h2>예약 가능한 날짜를 설정해주세요.</h2>
 	</div>
+	<div class="w3-row host-row">&nbsp;</div>
 	<div class="calendar-wrap">
 		<div id='calendar'></div>
 	</div>

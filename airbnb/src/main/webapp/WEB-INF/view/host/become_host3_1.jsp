@@ -26,7 +26,7 @@
 			<option value="">시간을 선택해주세요</option>
 			<c:forEach var="i" begin="8" end="24" step="1">
 				<c:if test="${i==15}">
-					<option value="${i}"  selected>${i}:00</option>
+					<option value="${i}:00"  selected>${i}:00</option>
 				</c:if>
 				<option value="${i}" >${i}:00</option>
 			</c:forEach>
