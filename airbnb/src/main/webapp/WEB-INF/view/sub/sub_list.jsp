@@ -6,7 +6,7 @@
  	<div class="empty-90"></div>
    <div class="menu2">
                      <input type="button" value="방 유형" class="b">
-                     <div class="add_type">
+                     <div class="add_type slider">
                          <input type="checkbox" name="whole">집 전체
                             <p>&nbsp&nbsp&nbsp나 혼자 사용할 수 있는 숙소</p>
                          <input type="checkbox" name="private">개인 실
@@ -17,7 +17,7 @@
                          <button id="b">적용</button>
                      </div>    
                   <input type="button" value="가격 범위" class="b">
-                    <div class="add_price">
+                    <div class="add_price slider">
                         <img src="/home.png" width="300" height="150">
                         <br>평균 1박 요금은 ₩91,174입니다.
                         
@@ -37,7 +37,7 @@
                          <button id="b">적용</button>
                      </div>
                   <input type="button" value="필터 추가" class="b">
-                    <div class="add_filter">
+                    <div class="add_filter slider">
                     <h2>css 너무 싫다</h2>
                      침실 수<input type="number" name="n_room">
                     <br><br>
