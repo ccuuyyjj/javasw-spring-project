@@ -120,7 +120,7 @@
     <div class="empty"></div>
     <div class="empty"></div>
  
-  <hr>
+</div>  
   
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>
 
