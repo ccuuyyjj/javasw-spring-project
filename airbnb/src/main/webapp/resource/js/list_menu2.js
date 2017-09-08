@@ -9,7 +9,6 @@
                     $(this).next().toggle('fast');
              }); 
             $("html").on("click",function(a){
-            	console.log(a);
             	if(!a.target.classList.contains("b") &&!a.target.classList.contains("slider")  ){
             		$(".slider").hide('fast');
             		
