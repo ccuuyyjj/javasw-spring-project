@@ -9,11 +9,17 @@
 	            <a href="#">메시지</a>
 	        </li>
 	        <li class="hover">
-	            <a href="#">숙소 목록</a>
+	            <a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a>
 	        </li>
 	        <li>
 	            <a href="#">계정 관리</a>
 	        </li>
 	    </ul>
+	</div>
+	<div class="submenu_wrap area-40 w3-center">
+		<ul>
+			<li>숙소 목록</li>
+			<li>예약 관리</li>
+		</ul>
 	</div>
 </div>

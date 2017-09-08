@@ -30,3 +30,12 @@
     margin-left: 40px;
     margin-right: 40px;
 }
+.submenu_wrap{
+
+}
+.submenu_wrap > ul{
+	list-style: none;
+}
+.submenu_wrap > ul > li{
+	padding:10px;
+}
