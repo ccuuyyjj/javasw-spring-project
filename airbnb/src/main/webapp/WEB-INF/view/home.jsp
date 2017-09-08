@@ -29,8 +29,10 @@
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">Close Menu</a>
   <a href="host/become_host1" onclick="w3_close()" class="w3-bar-item w3-button">호스팅하기</a>
   <a href="sub/message" onclick="w3_close()" class="w3-bar-item w3-button">메세지</a>
+  <a href="mypage/rooms" onclick="w3_close()" class="w3-bar-item w3-button">마이페이지</a>
   <a href="javaScript:void(0);" onclick="w3_close()" class="joinbtn w3-bar-item w3-button">회원가입</a>
   <a href="javaScript:void(0);" onclick="w3_close()" class="loginbtn w3-bar-item w3-button">로그인</a>
+  <a href="javaScript:void(0);" onclick="w3_close()" class="loginbtn w3-bar-item w3-button">로그아웃</a>
 </nav>
 
 <%@ include file="/WEB-INF/view/popup/layerpop.jsp" %>
@@ -41,8 +43,10 @@
     <div class="w3-right w3-padding-16" id="header_right">
         <a href="host/become_host1" class="w3-bar-item w3-button">호스팅하기</a>
         <a href="sub/message" class="w3-bar-item w3-button">메세지</a>
+        <a href="mypage/rooms" class="w3-bar-item w3-button">마이페이지</a>
         <a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
         <a href="javaScript:void(0);"  class="loginbtn w3-bar-item w3-button">로그인</a>
+        <a href="javaScript:void(0);"  class="loginbtn w3-bar-item w3-button">로그아웃</a>
     </div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" id="hambug" onclick="w3_open()"><i class="fa fa-bars"></i></a>  
     <!-- Overlay effect when opening sidebar on small screens -->
@@ -116,7 +120,7 @@
     <div class="empty"></div>
     <div class="empty"></div>
  
-  <hr>
+</div>  
   
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>
 

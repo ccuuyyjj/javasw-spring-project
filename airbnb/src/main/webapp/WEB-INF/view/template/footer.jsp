@@ -35,8 +35,5 @@
     </div>
   </footer>
 
-<!-- page end -->  
-</div>
-
 </body>
 </html>
