@@ -155,26 +155,25 @@ public class RoomDao {
 		return jdbcTemplate.queryForObject("select count(*) from room", Integer.class);
 	}
 
+	
+	//  마이페이지 숙소 목록 리스트 
+	public List<Room> host_list() {
+		//String sql = "select * from room where progress < 4 and owner_id = ? order by no desc ";
+		String sql = "select * from room where progress < 4 order by no desc ";
+		// String sql = "select * from room order by no";
+		return jdbcTemplate.query(sql, rowMapper);
+	}
+	
 	public boolean update(Room room) {
 		
-		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, lng=?, address=?, capacity=?, "
-				+ "beds=?, bedrooms=?, shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? where no = ?";
+		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, "
+				+ "lng=?, address=?, capacity=?, beds=?, bedrooms=?, "
+				+ "shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? "
+				+ "where no = ?";
 		Object[] args = new Object[] {
-				room.getName(),
-				room.getType(),
-				room.getPhotoUrl(),
-				room.getRegion(),
-				room.getLat(),
-				room.getLng(),
-				room.getAddress(),
-				room.getCapacity(),
-				room.getBeds(),
-				room.getBedrooms(),
-				room.getShared(),
-				room.getBed_type(),
-				room.getEtc(),
-				room.getProgress(),
-				room.getOptions(),
+				room.getName(), room.getType(), room.getPhotoUrl(), room.getRegion(), room.getLat(),
+				room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(), room.getBedrooms(),
+				room.getShared(), room.getBed_type(), room.getEtc(), room.getProgress(), room.getOptions(),
 				room.getNo()
 		};
 		

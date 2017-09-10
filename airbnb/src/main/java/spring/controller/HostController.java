@@ -270,21 +270,20 @@ public class HostController {
 	@RequestMapping(value="become_host3_1", method=RequestMethod.POST)
 	public String become_host3_1(HttpServletRequest request) {
 		Room room = (Room)session.getAttribute("room");
+		
 		int price = Integer.parseInt(request.getParameter("price"));
+		session.setAttribute("price", price);
 		
 		//체크인시간은 options 테이블에 추가
-		String check_in = request.getParameter("check_in");
 		
+		String check_in = request.getParameter("check_in");
 		String options = room.getOptions();
 		options += check_in;
-		
-		room.setPrice(price);
+
 		room.setOptions(options);
 		
 		String mode = request.getParameter("mode");
 		if(mode != null && mode.equalsIgnoreCase("save")) {	//임시 저장
-			//가격은 avail 테이블에 저장.. 
-			//availDao
 			roomDao.update(room);
 			return "redirect:/host/become_host3_3";
 		}	
@@ -305,36 +304,41 @@ public class HostController {
 	
 	//달력 저장
 	@RequestMapping("check_date")
-	public void check_date(@RequestParam(value="start", required=true ) String start, 
-			@RequestParam(value="diff", required=true) int diff, Model model) {
-			
+	public void check_date() {
+			int price = (int)session.getAttribute("price");
 			Room room = (Room)session.getAttribute("room");
-			for(int i=0; i==diff; i++) {
-				start = start.split("/")[1]+i;
-				log.debug("start:"+start);
-				
-				Avail avail = availDao.select(room.getNo(), start);
-				if(avail.getRoom_no() == room.getNo() && avail.getDay().equals(start) ) {
-					String available = avail.getAvailable();
-					if(available.equals("true")) {
-						available = "false";
-					} if(available.equals("false")) {
-						available = "true";
-					}
-					boolean result = availDao.update(avail.getNo(), available);
-					if(result){
-						model.addAttribute("start", start);
-						model.addAttribute("available", available);
-					}
-				}
-				else {
-					Avail avail1 = new Avail();
-					avail1.setRoom_no(room.getNo());
-					avail1.setDay(start);
-					avail1.setAvailable("true");
-					availDao.insert(avail1);
-				}
-			}
+			log.debug("여기");
+			//log.debug("start:"+start);
+//			for(int i=0; i==diff; i++) {
+//				start = start.split("/")[1]+i;
+//				log.debug("start:"+start);
+//				
+//				Avail avail = availDao.select(room.getNo(), start);
+//				if(avail.getRoom_no() == room.getNo() && avail.getDay().equals(start) ) {
+//					String available = avail.getAvailable();
+//					if(available.equals("true")) {
+//						available = "false";
+//					} if(available.equals("false")) {
+//						available = "true";
+//					}
+//					boolean result = availDao.update(avail.getNo(), available);
+//					if(result){
+//						model.addAttribute("start", start);
+//						model.addAttribute("available", available);
+//					}
+//				}
+//				else {
+//					Avail avail1 = new Avail();
+//					//avail1.setRoom_no(room.getNo());
+//					avail1.setRoom_no(201);
+//					avail1.setDay(start);
+//					avail1.setAvailable("true");
+//					avail1.setPrice(price);
+//					availDao.insert(avail1);
+//					model.addAttribute("start", start);
+//					model.addAttribute("available", "true");
+//				}
+//			}
 	}
 	
 	@RequestMapping("become_host3_3")

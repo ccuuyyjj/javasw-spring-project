@@ -49,6 +49,27 @@
 							</div>
 						</div>
 				</li>
+				<li>
+						<div class="w3-col s5 image-wrap">
+							<img src="http://placehold.it/288x185">
+						</div>
+						<div class="w3-col s7 content-wrap">
+							<div class="w3-col content-step">
+								숙소 등록이 2단계 완료되었습니다. 
+							</div>
+							<div class="w3-col content-title">
+								숙소 제목
+							</div>
+							<div class="w3-col content-update">
+								최종 업데이트 : 
+							</div>
+							<div class="w3-col content-update">
+								<button class="w3-btn w3-round-large w3-red">등록 완료하기</button>
+								&nbsp;
+								<button class="w3-button  w3-round-large w3-white w3-border">미리보기</button>
+							</div>
+						</div>
+				</li>
 			</ul>
 	  	</div>
 	</div>
