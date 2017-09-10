@@ -48,8 +48,8 @@
 	</div>
 	<div class="empty"></div>
 	<form method="post" id="hfrm" action = "${pageContext.request.contextPath}/host/become_host1_3">
-		<input type="hidden" id="lat" name="lat">
-		<input type="hidden" id="lng" name="lng">
+		<input type="hidden" id="lat" name="lat" value="0">
+		<input type="hidden" id="lng" name="lng" value="0">
 		<input type="hidden" id="mode" name="mode" >
 		<div class="w3-row host-row">
 			<a href="javascript:history.back();" >뒤로</a>

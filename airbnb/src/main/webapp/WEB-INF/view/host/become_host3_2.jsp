@@ -25,29 +25,42 @@
 			select: function(start, end) {
                console.log("start : "+start.format());
                console.log("end : "+end.format());
-               
-//                $.ajax({ 
-// 	           		type: 'post' , 
-// 	           		url: 'check_date' , 
-// 	           		dataType : 'html' , 
-// 	           		data:{
-// 	           			"start" : start, 
-// 	           			"end" : end			
-// 	           		},
-// 	           		success: function(data) { 
-// 	           			var eventData;
-// 	    				eventData = {
-// 	    					start: start,
-// 	    					end: end
-// 	    				};
-// 	    				if(data){
-// 	    					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-// 	    				} else {
-// 	    					$('#calendar').fullCalendar('unselect');
-// 	    				}
+				start =  start.format();
+				end = end.format();
+				
+				var startYear = start.split('-')[0];
+				var startMonth = start.split('-')[1];
+				var startDay = start.split('-')[2];
+				var endDay = end.split('-')[2]-1;
+				
+				startDate = startMonth+'/'+startDay+'/'+startYear;
+				var diff = parseInt(endDay - startDay); 
+				console.log("startday : " +start);
+				console.log("diff : " +diff);
+				
+               $.ajax({ 
+	           		type: 'post' , 
+	           		url: 'check_date' , 
+	           		dataType : 'html' , 
+	           		data:{
+	           			"start" : start,
+	           			"diff" : diff
+	           		},
+	           		success: function(data) { 
+	           			console.log("data = "+data)
+	           			var eventData;
+	    				eventData = {
+	    					start: start,
+	    					end: end
+	    				};
+	    				if(data){
+	    					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+	    				} else {
+	    					$('#calendar').fullCalendar('unselect');
+	    				}
 	    					 
-// 	           		} 
-// 	           	});	
+	           		} 
+	           	});	
                
                 	 
 				

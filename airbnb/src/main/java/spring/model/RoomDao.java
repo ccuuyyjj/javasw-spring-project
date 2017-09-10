@@ -27,11 +27,11 @@ public class RoomDao {
 	public int insert(Room room) {
 		int no = jdbcTemplate.queryForObject("select room_seq.nextval from dual", Integer.class);
 
-		String sql = "insert into room values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?, ?)";
+		String sql = "insert into room values(?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    0, sysdate, ?, ?)";
 		Object[] args = new Object[] { no, room.getName(), room.getType(), room.getPhotoUrl(), room.getRegion(),
-				room.getLat(), room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(), room.getBedrooms(),
-				room.getShared(), room.getBed_type(), room.getOwner_id(), room.getEtc(), room.getProgress(),
-				room.getOptions() };
+				room.getLat(), room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(),
+				room.getBedrooms(), room.getShared(), room.getBed_type(), room.getOwner_id(), room.getEtc(), 
+				room.getProgress(), room.getOptions()};
 
 		if (jdbcTemplate.update(sql, args) > 0)
 			return no;
@@ -158,7 +158,7 @@ public class RoomDao {
 	public boolean update(Room room) {
 		
 		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, lng=?, address=?, capacity=?, "
-				+ "beds=?, bedrooms=?, shared=?, bed_type=?, etc=?, reg=sysdate, progress=? where no = ?";
+				+ "beds=?, bedrooms=?, shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? where no = ?";
 		Object[] args = new Object[] {
 				room.getName(),
 				room.getType(),
@@ -174,6 +174,7 @@ public class RoomDao {
 				room.getBed_type(),
 				room.getEtc(),
 				room.getProgress(),
+				room.getOptions(),
 				room.getNo()
 		};
 		
