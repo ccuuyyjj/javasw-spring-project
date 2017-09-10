@@ -37,11 +37,11 @@
 
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
-	<div class="row">
+	<div class="host-row1">
 		<div class="w3-round w3-teal area-10 w3-center">1단계</div>
 		<h3 id="msg">숙소의 위치입니다.</h3>
 	</div>
-	<div class="row">
+	<div class="host-row1">
 			<div id="map">
 				
 			</div>

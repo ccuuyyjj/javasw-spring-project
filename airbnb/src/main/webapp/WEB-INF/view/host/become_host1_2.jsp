@@ -4,12 +4,12 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
-	<div class="row">
+	<div class="host-row1">
 		<div class="w3-round w3-teal area-10 w3-center">1단계</div>
 		<h3>숙소의 위치를 알려주세요.</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_2">
-	<div class="row host-label">
+	<div class="host-row1 host-label">
 		<input class="area-50 host-input" type="text" name="address"  placeholder="전체주소">
 	</div>
 	

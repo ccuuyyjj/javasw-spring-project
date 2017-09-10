@@ -5,7 +5,7 @@
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
 	
-		<div class="row">
+		<div class="host-row1">
 			<h2>숙소의 모습을 보여 주세요.</h2>
 		</div>
 		

@@ -167,7 +167,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .flex .currency1 {
     padding-right:4px;
 }  
-.row{
+.host-row1{
     display:block;
     margin:15px 0px;
 }
@@ -175,6 +175,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     padding-top: 8px;
     padding-bottom: 8px;
     padding-right: 2em;
+    text-align-last:center;
 }
 .host-row{
 	padding-top:5px;

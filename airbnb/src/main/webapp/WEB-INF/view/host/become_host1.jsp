@@ -8,15 +8,15 @@
 		<h2>지현님 안녕하세요!<br>회원님의 숙소 등록을 도와드리겠습니다</h2>
 	</div>	
 	
-	<div class="row">
+	<div class="host-row1">
 		<div class="w3-round w3-teal area-10 w3-center">1단계</div>
 		<h3>회원님의 숙소 유형은 무엇인가요?</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1">
-	<div class="row host-label">
+	<div class="host-row host-label">
 		숙소의 건물 유형을 알려주세요.
 	</div>
-	<div  class="row">
+	<div  class="host-row1">
 		<select class="host-select area-25" name="house_type" required >
 			<option value="">하나를 선택해주세요.</option>
 			<option>아파트</option>
@@ -40,10 +40,10 @@
 			<option>기타</option>
 		</select>
 	</div>
-	<div class="row host-label">
+	<div class="host-row1 host-label">
 		게스트가 묵을 방 유형
 	</div>
-	<div  class="row">
+	<div  class="host-row1">
 		<select class="host-select area-25" name="room_type" >
 			<option>집 전체</option>
 			<option>개인실</option>

@@ -4,13 +4,13 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>    
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
-	<div class="row">
+	<div class="host-row1">
 		<h2>마지막 단계!</h2>
 	</div>
 	<div class="w3-row host-row">
 			가격과 호스팅 달력을 설정하겠습니다.
 	</div>
-	<div class="row host-label">
+	<div class="host-row1 host-label">
 		침대, 욕실, 편의시설 등 &nbsp;&nbsp;&nbsp;
 		<a href="${pageContext.request.contextPath}/host/become_host1" class="host-a w3-green w3-button w3-round">변경</a>
 		
@@ -26,7 +26,7 @@
 	</div>
 	
 	<hr>
-	<div class="row host-label"">
+	<div class="host-row1 host-label"">
 		<div class="w3-round w3-teal area-10 w3-center">3단계</div>
 		<h3>게스트를 맞이할 준비를 하세요</h3>
 		<small>예약 설정, 달력, 요금</small>
