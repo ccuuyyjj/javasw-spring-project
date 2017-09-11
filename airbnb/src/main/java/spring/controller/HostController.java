@@ -87,9 +87,10 @@ public class HostController {
 	@RequestMapping(value="become_host1_2", method=RequestMethod.POST)
 	public String become_host1_2(HttpServletRequest request) {
 		String address = request.getParameter("address");
+		log.debug(address);
 		
 		Room room = (Room)session.getAttribute("room");
-		room.setType(address);
+		room.setAddress(address);
 		
 		return "redirect:/host/become_host1_3";
 	}
@@ -186,15 +187,15 @@ public class HostController {
 				options += option[i]+"l";
 			}
 			log.debug("options =>"+options);
-			if(room.getNo() > 0 ) {
-				room.setOptions(options);
-				roomDao.update(room);
-			}
-			else {
-				//호스팅 새로 등록
-				int room_no = roomDao.insert(room);
-				room.setNo(room_no);
-			}
+		}
+		if(room.getNo() > 0 ) {
+			room.setOptions(options);
+			roomDao.update(room);
+		}
+		else {
+			//호스팅 새로 등록
+			int room_no = roomDao.insert(room);
+			room.setNo(room_no);
 		}
 		
 		return "redirect:/host/become_host1_6";
@@ -277,9 +278,14 @@ public class HostController {
 		//체크인시간은 options 테이블에 추가
 		
 		String check_in = request.getParameter("check_in");
+		log.debug("check_in=>"+check_in);
 		String options = room.getOptions();
-		options += check_in;
-
+		if(options != null) {
+			options += check_in;
+		} else {
+			options = check_in;
+		}
+		log.debug("options=>"+options);
 		room.setOptions(options);
 		
 		String mode = request.getParameter("mode");

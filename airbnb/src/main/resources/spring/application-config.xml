@@ -25,5 +25,6 @@
 	</bean>
 	
 	<context:component-scan base-package="spring.model"/>
+    <context:component-scan base-package="spring.settings"/>
 	
 </beans>
