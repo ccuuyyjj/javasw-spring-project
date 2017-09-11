@@ -1,0 +1,84 @@
+@charset "UTF-8";
+            .container_1{
+                margin-left: 10%;
+                margin-right: 10%;
+                margin-top: 15%;
+                margin-bottom: 15%;
+            }
+            .container_2{
+                display: inline-block;
+                width: 40%;
+            }
+            .container_3{
+                width: 441px;
+                text-align: center;
+                background-color: #dce0e0;
+                
+            }
+            .container_4{
+                height: 60px;
+            }
+            .container_5{
+                height: 60px;
+                text-align: right;
+                padding-top: 25px;
+                padding-right: 10px;
+                
+                
+            }
+            .container_6{
+                border-bottom: 1px solid #c4c4c4;
+                width: 500px;
+                margin-left: -10%;
+                margin-top: 70px;
+                display: inline-block;
+            }
+            .container_7{
+                margin-bottom: 12px;
+                margin-bottom: 12px;
+            }
+            .container_8{
+                text-align: left;
+                margin-top: 50px;
+                margin-bottom: 20px;
+                padding-top: 5%;
+                padding-bottom: 5%;
+                padding-left: 10%;
+                width: 400px;
+                border: 1px solid #c4c4c4;
+                font-size: 14px;
+            }
+            .container_9{
+                color: #767676;
+                margin-top: 12px;
+            }
+            .area-58{
+                width: 20%;
+                height: 80;
+                text-align: center;
+                margin-left: 10%;
+            }
+            .area-33{
+                width: 25%;
+                height: 80;
+                float: left;
+                margin-left: 10%;
+                border: 1px solid #c4c4c4;
+            }
+            .m-btn{
+                width: 150px;
+                height: 30px;
+                font-size: 11px;
+                font-weight: bold;
+                background-color: white;
+                border: 1px solid #c4c4c4;
+                border-radius: 3px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                padding-left: 8px;
+                padding-right: 8px;
+                vertical-align: middle;
+            }
+            textarea{
+                border: 1px solid #c4c4c4;
+            }
