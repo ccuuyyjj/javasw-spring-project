@@ -27,18 +27,27 @@
                console.log("end : "+end.format());
 				start =  start.format();
 				end = end.format();
+				 
 				
 				var startYear = start.split('-')[0];
 				var startMonth = start.split('-')[1];
 				var startDay = start.split('-')[2];
-				var endDay = end.split('-')[2]-1;
+				var endYear = end.split('-')[0];
+				var endMonth = end.split('-')[1];
+				var endDay = end.split('-')[2];
 				
 				startDate = startMonth+'/'+startDay+'/'+startYear;
-				var diff = parseInt(endDay - startDay); 
+				endDate = endMonth+'/'+endDay+'/'+endYear;
+
+				var date1 = new Date(startDate);
+				var date2 = new Date(endDate);
+				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
 				console.log("startday : " +start);
-				console.log("diff : " +diff);
+				console.log("diffDays : " +diffDays);
 				
-               check_date(start, diff);
+               check_date(startDate, diffDays);
                
                 	 
 				
@@ -62,18 +71,24 @@
 	});
 
 function check_date(start, diff){
+	console.log("start="+start);
+	console.log("diff="+diff);
 	$.ajax({
 		   type: "POST",
 		   url: "${pageContext.request.contextPath}/host/check_date",
-		   data: "",
+		   data: {
+			   "start" : start,
+			   "diff" : diff
+			   },
 		   DateType: "html",
 		   cache: false,
 		   success: function(msg){
-			console.log("durl");
+			//console.log("start"+"${start}");
+			//console.log("available"+"${available}");
+			console.log(msg);
 		  },
 		  error:function(a, b, c){
 				console.log(a, b, c);
-				alert("오류가 발생했습니다");
 			}
 	});
 	

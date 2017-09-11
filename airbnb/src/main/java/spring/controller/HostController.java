@@ -2,6 +2,12 @@ package spring.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +16,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Avail;
 import spring.model.AvailDao;
@@ -309,42 +318,66 @@ public class HostController {
 	}
 	
 	//달력 저장
-	@RequestMapping("check_date")
-	public void check_date() {
-			int price = (int)session.getAttribute("price");
+	@RequestMapping("check_date") 
+	@ResponseBody
+	public String check_date(@RequestParam(value="start", required=true) String start, 
+			@RequestParam(value="diff", required=true) int diff) {
+			//int price = (int)session.getAttribute("price");
+			int price = 222222;
 			Room room = (Room)session.getAttribute("room");
-			log.debug("여기");
-			//log.debug("start:"+start);
-//			for(int i=0; i==diff; i++) {
-//				start = start.split("/")[1]+i;
-//				log.debug("start:"+start);
-//				
-//				Avail avail = availDao.select(room.getNo(), start);
-//				if(avail.getRoom_no() == room.getNo() && avail.getDay().equals(start) ) {
-//					String available = avail.getAvailable();
-//					if(available.equals("true")) {
-//						available = "false";
-//					} if(available.equals("false")) {
-//						available = "true";
-//					}
-//					boolean result = availDao.update(avail.getNo(), available);
-//					if(result){
-//						model.addAttribute("start", start);
-//						model.addAttribute("available", available);
-//					}
-//				}
-//				else {
-//					Avail avail1 = new Avail();
-//					//avail1.setRoom_no(room.getNo());
-//					avail1.setRoom_no(201);
-//					avail1.setDay(start);
-//					avail1.setAvailable("true");
-//					avail1.setPrice(price);
-//					availDao.insert(avail1);
-//					model.addAttribute("start", start);
-//					model.addAttribute("available", "true");
-//				}
-//			}
+			String msg = "";
+			log.debug("start:"+start);
+			log.debug("diff:"+diff);
+			for(int i=0; i<diff; i++) { 
+				if(i > 0) {
+					DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				    try {
+				        Date date = df.parse(start);
+				        // 날짜 더하기
+				        Calendar cal = Calendar.getInstance();
+				        cal.setTime(date);
+				        cal.add(Calendar.DATE, i);
+				        log.debug("날짜 : " + df.format(cal.getTime()));
+				        start = df.format(cal.getTime());
+				    } catch (ParseException e) {
+				        e.printStackTrace();
+				    }
+					
+					log.debug("start:"+start);
+				}
+				Avail avail = availDao.select(201, start); //room.getNo()
+				if(avail != null) {
+					log.debug("기존 데이터 있음");
+					String available = avail.getAvailable();
+					log.debug("available:",available);
+					if(available.equals("true")) {
+						available = "false";
+					} if(available.equals("false")) {
+						available = "true";
+					}
+					//boolean result = availDao.update(avail.getNo(), available);
+					boolean result = availDao.update(201, available);
+					if(result){
+						msg += start + "|" + available;
+					}
+				}
+				else {
+					log.debug("기존 데이터 없음");
+					Avail avail1 = new Avail();
+					//avail1.setRoom_no(room.getNo());
+					avail1.setRoom_no(201);
+					avail1.setDay(start);
+					avail1.setAvailable("true");
+					avail1.setPrice(price);
+					boolean result = availDao.insert(avail1);
+					
+					if(result) {
+						msg += start + "|" + "true";
+						
+					}
+				}
+			}
+			return msg;
 	}
 	
 	@RequestMapping("become_host3_3")
