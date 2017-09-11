@@ -1,5 +1,7 @@
 package spring.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -27,7 +29,15 @@ public class SubController {
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "startDate", required = false) String startDate,
-			@RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
+			@RequestParam(value = "endDate", required = false) String endDate,
+			@RequestParam(value="type", required = false) String[] type,
+			@RequestParam(value="price", required = false) String[] price,
+			@RequestParam(value="filter",required=false) String[] filter ) throws ParseException {
+		/*
+		 * 	type = 방 유형
+		 * price = 숙박 가격
+		 * filter = 침실, 침대, 욕실 순
+		 * */
 		List<Room> list;
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수

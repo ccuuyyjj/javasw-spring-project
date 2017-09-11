@@ -7,20 +7,34 @@
    <div class="menu2">
                      <input type="button" value="방 유형" class="b">
                      <div class="add_type slider">
-                         <input type="checkbox" name="whole">집 전체
+                     <form  class="slider" action="sub_list" method="post">
+                     		<input type="hidden" name="location" value="${param.location}">
+                     		<input type="hidden"name="startDat" value="${param.startDat }">
+                     		<input type="hidden"name="endDat" value="${param.endDat }">
+                     		<input type="hidden"name="amount" value="${param.amount }">
+                     		
+                     	<input class="slider"  type="checkbox" name="type" value="전체">집 전체
                             <p>&nbsp&nbsp&nbsp나 혼자 사용할 수 있는 숙소</p>
-                         <input type="checkbox" name="private">개인 실
+                         <input class="slider"  type="checkbox" name="type" value="개인">개인 실
                           <p>&nbsp&nbsp&nbsp개인실이 있고 공동 공간은 함께 사용하는 숙소</p>
-                         <input type="checkbox" name="share">다인 실
+                         <input class="slider"  type="checkbox" name="type" value="다인">다인 실
                          <p>&nbsp&nbsp&nbsp다인실과 같은 공유 공간을 이용하는 숙소</p>
                          <button id="b">취소</button>
-                         <button id="b">적용</button>
+                         <input type="submit" value="적용">
+                     </form>
                      </div>    
+                     
+                     
                   <input type="button" value="가격 범위" class="b">
                     <div class="add_price slider">
+                    <form  class="slider" action="sub_list" method="post">
+                     		<input type="hidden" name="location" value="${param.location}">
+                     		<input type="hidden"name="startDat" value="${param.startDat }">
+                     		<input type="hidden"name="endDat" value="${param.endDat }">
+                     		<input type="hidden"name="amount" value="${param.amount }">
+                     		
                         <img src="/home.png" width="300" height="150">
                         <br>평균 1박 요금은 ₩91,174입니다.
-                        
                           <input 
                                 data-addui='slider'
                                  data-min='10000'
@@ -31,22 +45,33 @@
                                  data-timeout='50000'
                                  value='10000,1000000'
                                 data-max='1000000'
+                                name='price'
+                                class='slider'
                                  />
                         <br><br>
                          <button id="b">취소</button>
-                         <button id="b">적용</button>
+                         <input type="submit" value="적용">
+                     </form>
                      </div>
+                     
+                     
                   <input type="button" value="필터 추가" class="b">
                     <div class="add_filter slider">
-                    <h2>css 너무 싫다</h2>
-                     침실 수<input type="number" name="n_room">
+                    <form  class="slider" action="sub_list" method="post">
+                     		<input type="hidden" name="location" value="${param.location}">
+                     		<input type="hidden"name="startDat" value="${param.startDat }">
+                     		<input type="hidden"name="endDat" value="${param.endDat }">
+                     		<input type="hidden"name="amount" value="${param.amount }">
+                    
+                     침실 수<input class="slider" type="number" name="filter" >
                     <br><br>
-                    침대 수<input type="number" name="n_bed">
+                    침대 수<input class="slider" type="number" name="filter" >
                     <br><br>
-                    침실 수<input type="number" name="n_bath">
+                    욕실 수<input class="slider" type="number" name="filter" >
                     <br><br>
                         <button id="b">취소</button>
-                         <button id="b">적용</button>
+                         <input type="submit" value="적용">
+                    </form>
                      </div>
              </div>
 
