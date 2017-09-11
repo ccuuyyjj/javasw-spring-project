@@ -39,6 +39,13 @@ $(document).ready(function(){
             e.preventDefault();
             wrapWindowByMask();
 	});
+	
+	$('.messagebtn').click(function(e){
+		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
+			$("#message").show();
+            e.preventDefault();
+            wrapWindowByMask();
+	});
  
     // 닫기(close)를 눌렀을 때 작동합니다.
 	$('.window .close').click(function (e) {
