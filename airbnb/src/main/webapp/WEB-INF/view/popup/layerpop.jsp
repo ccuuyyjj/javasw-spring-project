@@ -42,7 +42,8 @@
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
 			<div class="area-60  layer-center">
-		    <form action="#" method="post">
+		    <form action="${pageContext.request.contextPath}/member/join" method="post">
+		    
 		        <div class="row">
 		            <input type="email" name="email" placeholder="Email" class="w3-input" required>
 		        </div>
@@ -51,6 +52,9 @@
 		        </div>
 		        <div class="row">
 		            <input type="text" name="name" placeholder="이름" class="w3-input" required>
+		        </div>
+		         <div class="row">
+		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input" required>
 		        </div>
 		        <div class="row">
 		            <input type="submit" value="회원가입" class="input-btn area-80">
