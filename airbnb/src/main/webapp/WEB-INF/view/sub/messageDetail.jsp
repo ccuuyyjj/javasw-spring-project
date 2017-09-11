@@ -25,20 +25,51 @@
 <body>
 	<div class="container_1">
                 <div class="area-33">
-                    1
+                        <div class="d-container">
+                            <div class="d-container_9">호스트 아이디</div>
+                            <div class="d-container_1">여행 세부정보</div>
+                            <div class="d-container_2">serene peaceful tower retreat</div>
+                            <div class="d-container_6">
+                                <div class="d-container_3">
+                                    <span>체크인
+                                        <div class="d-container_5">9월12일</div>
+                                    </span>
+                                </div>
+                                <div class="d-container_8">
+                                    <span>▷
+                                    </span>
+                                </div>
+                                <div class="d-container_3">
+                                    <span>체크아웃
+                                        <div class="d-container_5">9월30일</div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-container_4"><span>게스트</span>
+                                <div class="d-container_5">인원2명</div>
+                            </div>
+                            <div class="d-container_1">
+                            언제나 에어비앤비를 통해 대화하세요.
+                            </div>
+                            <div class="d-container_7">
+                            안전한 결제를 위해 에어비앤비 웹사이트나 앱 외부에서 송금하거나 대화를 나누지 마세요.
+                            </div>
+                        </div>
                 </div>
                 <div class="container_2 area-58">
-                    <div class="container_3">
-                        <textarea rows="6" cols="60"></textarea>
-                        <div class="container_4">
-                            <div class="container_5">
-                                <botton class="m-btn">메세지 보내기</botton>
+                    <div class="container_10">
+                        <textarea rows="6" cols="50"></textarea>
+                        <div class="container_3">
+                            <div class="container_4">
+                                <div class="container_5">
+                                    <botton class="m-btn">메세지 보내기</botton>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="container_6"></div>
                     <div class="container_8">
-                        <div class="container_7">이름</div>
+                        <div class="container_7">아이디</div>
                         <div>내용
                         </div>
                         <div class="container_9">날짜
