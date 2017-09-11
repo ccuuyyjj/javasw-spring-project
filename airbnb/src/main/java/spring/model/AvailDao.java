@@ -49,11 +49,11 @@ public class AvailDao {
 	
 	public boolean insert(Avail avail) {
 		int no = jdbcTemplate.queryForObject("select available_date_seq.nextval from dual", Integer.class);
-		
+			
 			String sql = "insert into available_date values(?, ?, to_date(?, 'mm/dd/yyyy'), ?, ?)";
 			Object[] args = new Object[] {
 					no,
-					avail.getNo(),
+					avail.getRoom_no(),
 					avail.getDay(),
 					avail.getAvailable(),
 					avail.getPrice()
@@ -63,8 +63,10 @@ public class AvailDao {
 	}
 	
 	public boolean update(int no, String available) {
+		log.debug("no:"+no);
+		log.debug("available:"+available);
 		String sql = "update available_date set available = ? where no = ?";
-		Object[] args = new Object[] {no, available};
+		Object[] args = new Object[] {available, no};
 		return jdbcTemplate.update(sql, args)>0;
 	}
 	

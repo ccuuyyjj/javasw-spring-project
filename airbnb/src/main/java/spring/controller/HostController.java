@@ -347,18 +347,16 @@ public class HostController {
 				}
 				Avail avail = availDao.select(201, start); //room.getNo()
 				if(avail != null) {
-					log.debug("기존 데이터 있음");
 					String available = avail.getAvailable();
-					log.debug("available:",available);
-					if(available.equals("true")) {
+					log.debug("available:"+available);
+					if(available.equalsIgnoreCase("true")) {
 						available = "false";
-					} if(available.equals("false")) {
+					} else if(available.equalsIgnoreCase("false")) {
 						available = "true";
 					}
-					//boolean result = availDao.update(avail.getNo(), available);
-					boolean result = availDao.update(201, available);
+					boolean result = availDao.update(avail.getNo(), available);
 					if(result){
-						msg += start + "|" + available;
+						msg += "@"+start + "|" + available;
 					}
 				}
 				else {
@@ -370,14 +368,15 @@ public class HostController {
 					avail1.setAvailable("true");
 					avail1.setPrice(price);
 					boolean result = availDao.insert(avail1);
-					
+					log.debug("result :"+result); 
 					if(result) {
-						msg += start + "|" + "true";
+						msg += "@"+start + "|" + "true";
 						
 					}
 				}
 			}
-			return msg;
+			
+			return msg.substring(1);
 	}
 	
 	@RequestMapping("become_host3_3")

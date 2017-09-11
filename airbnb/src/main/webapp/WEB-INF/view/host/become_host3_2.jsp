@@ -25,16 +25,16 @@
 			select: function(start, end) {
                console.log("start : "+start.format());
                console.log("end : "+end.format());
-				start =  start.format();
-				end = end.format();
+				startForm =  start.format();
+				endForm = end.format();
 				 
 				
-				var startYear = start.split('-')[0];
-				var startMonth = start.split('-')[1];
-				var startDay = start.split('-')[2];
-				var endYear = end.split('-')[0];
-				var endMonth = end.split('-')[1];
-				var endDay = end.split('-')[2];
+				var startYear 	= startForm.split('-')[0];
+				var startMonth 	= startForm.split('-')[1];
+				var startDay 		= startForm.split('-')[2];
+				var endYear 		= endForm.split('-')[0];
+				var endMonth 	= endForm.split('-')[1];
+				var endDay 		= endForm.split('-')[2];
 				
 				startDate = startMonth+'/'+startDay+'/'+startYear;
 				endDate = endMonth+'/'+endDay+'/'+endYear;
@@ -70,14 +70,14 @@
 			
 	});
 
-function check_date(start, diff){
-	console.log("start="+start);
+function check_date(startDate, diff){
+	console.log("startDate="+startDate);
 	console.log("diff="+diff);
 	$.ajax({
 		   type: "POST",
 		   url: "${pageContext.request.contextPath}/host/check_date",
 		   data: {
-			   "start" : start,
+			   "start" : startDate,
 			   "diff" : diff
 			   },
 		   DateType: "html",
@@ -86,6 +86,25 @@ function check_date(start, diff){
 			//console.log("start"+"${start}");
 			//console.log("available"+"${available}");
 			console.log(msg);
+			var arr = msg.split("@");
+			for(var i=0; i<arr.length; i++){
+				var subArr = arr[i].split("|");
+				var day = subArr[0].split("/")[2]+"-"+subArr[0].split("/")[0]+"-"+subArr[0].split("/")[1];
+				var available = subArr[1];
+				console.log("s=>"+day);
+				console.log("a=>"+available);
+				
+				var eventData;
+				if (available === "true") {
+					eventData = {
+						start: day
+					};
+					 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true	
+				} else {
+					$('#calendar').fullCalendar('unselect');
+				}
+			}
+			
 		  },
 		  error:function(a, b, c){
 				console.log(a, b, c);
