@@ -208,7 +208,7 @@
                     <div class="host_2">
                         <div>어쩌구저쩌꾸 We are creative types who left Los Angeles in 2010 seeking a richer, more serene lifestyle inside nature. Stephanie is an architect, Jay is founder/editor of Arthur Magazine. We live in Joshua Tree full-time and rent out our three restored homestead cabins (with a fourth on the way). We're active in the local community and we also maintain ties to friends and colleagues in LA and beyond. We're excited to meet you and we offer you a warm welcome. 어쩌구저쩌구</div>
                     </div>
-                    <button class="messagebtn host_3" id="message">
+                    <button class="messagebtn host_3">
                     	<div>호스트에게 연락하기</div>
                     </button>
                     <div>
