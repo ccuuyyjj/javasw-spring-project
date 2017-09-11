@@ -136,6 +136,13 @@ public class RoomDao {
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
+								} else if (type.equalsIgnoreCase("type")) {
+									String[] types = (String[]) arg;
+									for(int j=0; j<types.length; j++) {
+										if(j > 0) OR();
+										WHERE(type + " like ?");
+										list.add("%" + types[j]);
+									}
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);
