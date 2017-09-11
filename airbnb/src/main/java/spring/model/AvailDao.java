@@ -32,4 +32,29 @@ public class AvailDao {
 		Object[] args = new Object[] { room_no, day };
 		return jdbcTemplate.query(sql, args, rowMapper).get(0);
 	}
+	
+	public int insert(Avail avail) {
+		int no = jdbcTemplate.queryForObject("select available_date_seq.nextval from dual", Integer.class);
+		
+			String sql = "insert into available_date values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, sysdate, ?, ?)";
+			Object[] args = new Object[] {
+					no,
+					avail.getNo(),
+					avail.getDay(),
+					avail.getAvailable(),
+					avail.getPrice()
+			};
+		
+		if (jdbcTemplate.update(sql, args) > 0)
+			return no;
+		else
+			return -1;
+	}
+	
+	public boolean update(int no, String available) {
+		String sql = "update available_date set avalable = ? where no = ?";
+		Object[] args = new Object[] {no, available};
+		return jdbcTemplate.update(sql, args)>0;
+	}
+	
 }

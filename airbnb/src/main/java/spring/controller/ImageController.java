@@ -39,15 +39,13 @@ public class ImageController {
 	@Autowired
 	ServletContext context;
 
-	Room room = new Room();
-
 	private String[] typeFilter = new String[] { "image/png", "image/jpeg", "image/gif" };
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(MultipartHttpServletRequest mRequest, Model model) throws Exception {
 		String photourl = "";
 		MultipartFile file = mRequest.getFile("file");
-
+		Room room = (Room)session.getAttribute("room");
 		if (file.getOriginalFilename() != "") {
 			log.debug("파일 업로드 요청 수신");
 			log.debug("파일 이름 = " + file.getOriginalFilename());
@@ -74,16 +72,15 @@ public class ImageController {
 
 			File target = new File(saveFolder, photourl);
 			file.transferTo(target);
-
-			session.setAttribute("photourl", photourl);
+			
+			room.setPhotoUrl(photourl);
 		}
 
 		String mode = mRequest.getParameter("mode");
+		
 		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
-
 			if (photourl != "") {
-				room.setPhotoUrl(photourl);
-				roomDao.update(room);
+				boolean result = roomDao.update(room);
 			}
 			return "redirect:/host/become_host2_2";
 

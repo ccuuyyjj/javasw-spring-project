@@ -6,13 +6,13 @@
 
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
-	<div class="row">
+	<div class="host-row1">
 		<h2>지현님, 좋아요!</h2>
 	</div>
-	<div class="row host-label">
+	<div class="host-row1 host-label">
 		이제 숙소를 등록할 수 있도록 몇 가지 세부정보를 추가하도록 하겠습니다.
 	</div>
-	<div class="row host-label">
+	<div class="host-row1 host-label">
 		침대, 욕실, 편의시설 등 &nbsp;&nbsp;&nbsp;
 		
 		<c:choose>
@@ -26,7 +26,7 @@
 		
 	</div>
 	<hr>
-	<div class="row host-label"">
+	<div class="host-row1 host-label"">
 		<div class="w3-round w3-teal area-10 w3-center">2단계</div>
 		<h3>상세 정보를 제공해 주세요</h3>
 		<small>사진, 간단한 설명, 제목</small>

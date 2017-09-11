@@ -90,7 +90,7 @@
 	                                                <tr>
 	                                                	<td class="m_padding m_area-10">1</td>
 	                                                    <td class="m_padding m_area-20">22</td>
-	                                                    <td class="m_padding m_area-50">${message.question}</td>
+	                                                    <td class="m_padding m_area-50"><a>${message.question}</a></td>
 	                                                    <td class="m_padding m_area-10">444</td>
 	                                                    <td class="m_padding m_area-10">5</td>
 	                                            	</tr>

@@ -5,11 +5,12 @@
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
 	
-		<div class="row">
+		<div class="host-row1">
 			<h2>숙소의 모습을 보여 주세요.</h2>
 		</div>
 		
 		<form method="post" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
+			<input type="hidden" name="mode" id="mode">
 			<div class="filebox"> 
 				<label for="ex_file">업로드</label> 
 				<input type="file" id="ex_file" name="file"> 
@@ -26,7 +27,14 @@
 				<input type="submit" id="save" class="w3-btn w3-round-large" value="저장 후 나가기">
 			</div>
 		</form>
-	
+</div>		
+<script>
+$(document).ready(function(){
+	$("#save").on("click", function(){
+		document.getElementById('mode').value = 'save';
+	});
+});
+</script>		
 <script>
 var upload = document.getElementById('ex_file'),
 holder = document.getElementById('holder');
@@ -68,11 +76,7 @@ upload.onchange = function (e) {
 	
 	return false;
 };
-$(document).ready(function(){
-	$("#save").on("click", function(){
-		document.getElementById('mode').value = 'save';
-	});
-});
-</script>	
-</div>	
+</script>
+
+	
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>    	

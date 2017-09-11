@@ -25,29 +25,20 @@
 			select: function(start, end) {
                console.log("start : "+start.format());
                console.log("end : "+end.format());
-               
-//                $.ajax({ 
-// 	           		type: 'post' , 
-// 	           		url: 'check_date' , 
-// 	           		dataType : 'html' , 
-// 	           		data:{
-// 	           			"start" : start, 
-// 	           			"end" : end			
-// 	           		},
-// 	           		success: function(data) { 
-// 	           			var eventData;
-// 	    				eventData = {
-// 	    					start: start,
-// 	    					end: end
-// 	    				};
-// 	    				if(data){
-// 	    					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-// 	    				} else {
-// 	    					$('#calendar').fullCalendar('unselect');
-// 	    				}
-	    					 
-// 	           		} 
-// 	           	});	
+				start =  start.format();
+				end = end.format();
+				
+				var startYear = start.split('-')[0];
+				var startMonth = start.split('-')[1];
+				var startDay = start.split('-')[2];
+				var endDay = end.split('-')[2]-1;
+				
+				startDate = startMonth+'/'+startDay+'/'+startYear;
+				var diff = parseInt(endDay - startDay); 
+				console.log("startday : " +start);
+				console.log("diff : " +diff);
+				
+               check_date(start, diff);
                
                 	 
 				
@@ -70,7 +61,23 @@
 			
 	});
 
-
+function check_date(start, diff){
+	$.ajax({
+		   type: "POST",
+		   url: "${pageContext.request.contextPath}/host/check_date",
+		   data: "",
+		   DateType: "html",
+		   cache: false,
+		   success: function(msg){
+			console.log("durl");
+		  },
+		  error:function(a, b, c){
+				console.log(a, b, c);
+				alert("오류가 발생했습니다");
+			}
+	});
+	
+}
 </script>     
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
