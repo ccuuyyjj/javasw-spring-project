@@ -132,24 +132,30 @@ public class RoomDao {
 									} catch (ParseException e) {
 									}
 								} else if (type.equalsIgnoreCase("name")) {
+									//name
 									WHERE(type + " like ?");
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
 								} else if (type.equalsIgnoreCase("type")) {
+									//type
 									String[] types = (String[]) arg;
 									for(int j=0; j<types.length; j++) {
 										if(j > 0) OR();
 										WHERE(type + " like ?");
 										list.add("%" + types[j]);
 									}
-//								} else if (type.equalsIgnoreCase("price")) {
+								} else if (type.equalsIgnoreCase("price")) {
+									//price
 //									String[] price = (String[]) arg;
 //									for(int j=0; j<price.length; j++) {
 //										if(j > 0) OR();
 //										WHERE(type + " like ?");
 //										list.add("%" + price[j]);
 //									}
+								} else if (type.equalsIgnoreCase("filter")) {
+									//filter
+									
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);

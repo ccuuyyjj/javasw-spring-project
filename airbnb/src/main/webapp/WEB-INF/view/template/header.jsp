@@ -47,7 +47,7 @@
                 <img src="${pageContext.request.contextPath}/img/paper.png" width="50">
             </a>
         </div>    
-	    <form method="post" action="${pageContext.request.contextPath}/sub/sub_list">
+	    <form id="mainSearchForm" method="post" action="${pageContext.request.contextPath}/sub/sub_list">
 	    	<input type="hidden" id="from">
 	    	<input type="hidden" id="to">
  	        <div class="w3-rest w3-border">

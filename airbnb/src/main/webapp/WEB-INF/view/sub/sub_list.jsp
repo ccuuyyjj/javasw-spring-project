@@ -8,11 +8,6 @@
 		<input type="button" value="방 유형" class="b">
 		<div class="add_type slider">
 			<form class="slider" action="sub_list" method="post">
-				<input type="hidden" name="location" value="${param.location}">
-				<input type="hidden" name="startDate" value="${param.startDate }">
-				<input type="hidden" name="endDate" value="${param.endDate }">
-				<input type="hidden" name="amount" value="${param.amount }">
-
 				<input class="slider" type="checkbox" name="type" value="전체">집
 				전체
 				<p>&nbsp;&nbsp;&nbsp;나 혼자 사용할 수 있는 숙소</p>
@@ -31,14 +26,9 @@
 		<input type="button" value="가격 범위" class="b">
 		<div class="add_price slider">
 			<form class="slider" action="sub_list" method="post">
-				<input type="hidden" name="location" value="${param.location}">
-				<input type="hidden" name="startDate" value="${param.startDate }">
-				<input type="hidden" name="endDate" value="${param.endDate }">
-				<input type="hidden" name="amount" value="${param.amount }">
-
 				<img src="/home.png" width="300" height="150"> <br>평균 1박
 				요금은 ₩91,174입니다. <input data-addui='slider' data-min='10000'
-					data-formatter='krw' data-fontsize='12' data-step='5'
+					data-formatter='usd' data-fontsize='12' data-step='5'
 					data-range='true' data-timeout='50000' value='10000,1000000'
 					data-max='1000000' name='price' class='slider' />
 				<br>
@@ -52,11 +42,6 @@
 		<input type="button" value="필터 추가" class="b">
 		<div class="add_filter slider">
 			<form class="slider" action="sub_list" method="post">
-				<input type="hidden" name="location" value="${param.location}">
-				<input type="hidden" name="startDate" value="${param.startDate }">
-				<input type="hidden" name="endDate" value="${param.endDate }">
-				<input type="hidden" name="amount" value="${param.amount }">
-
 				침실 수<input class="slider" type="number" name="filter"> <br>
 				<br> 침대 수<input class="slider" type="number" name="filter">
 				<br>
