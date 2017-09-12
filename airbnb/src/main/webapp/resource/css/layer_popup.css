@@ -14,6 +14,13 @@
     height: 500px;
     z-index:99999;
 }
+#popup_area .messageWindow {
+    width:600px;
+    display: none;
+    background-color: #ffffff;
+    height: 700px;
+    z-index:99999;
+}
 #popup_area .close{
 	cursor:pointer;
 	width: 18px;

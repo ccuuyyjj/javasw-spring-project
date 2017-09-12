@@ -31,21 +31,21 @@
                             <div class="d-container_2">serene peaceful tower retreat</div>
                             <div class="d-container_6">
                                 <div class="d-container_3">
-                                    <span>체크인
+                                    <span class="span_1">체크인
                                         <div class="d-container_5">9월12일</div>
                                     </span>
                                 </div>
                                 <div class="d-container_8">
-                                    <span>▷
+                                    <span class="span_1">▷
                                     </span>
                                 </div>
                                 <div class="d-container_3">
-                                    <span>체크아웃
+                                    <span class="span_1">체크아웃
                                         <div class="d-container_5">9월30일</div>
                                     </span>
                                 </div>
                             </div>
-                            <div class="d-container_4"><span>게스트</span>
+                            <div class="d-container_4"><span class="span_1">게스트</span>
                                 <div class="d-container_5">인원2명</div>
                             </div>
                             <div class="d-container_1">
