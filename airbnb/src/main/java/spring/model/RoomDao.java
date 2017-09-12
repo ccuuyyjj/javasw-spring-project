@@ -140,24 +140,42 @@ public class RoomDao {
 									} catch (ParseException e) {
 									}
 								} else if (type.equalsIgnoreCase("name")) {
-									WHERE(type + " like ?");
+									//name
+									WHERE("name like ?");
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
 								} else if (type.equalsIgnoreCase("type")) {
+									//type
 									String[] types = (String[]) arg;
 									for(int j=0; j<types.length; j++) {
 										if(j > 0) OR();
-										WHERE(type + " like ?");
+										WHERE("type like ?");
 										list.add("%" + types[j]);
 									}
-//								} else if (type.equalsIgnoreCase("price")) {
-//									String[] price = (String[]) arg;
-//									for(int j=0; j<price.length; j++) {
-//										if(j > 0) OR();
-//										WHERE(type + " like ?");
-//										list.add("%" + price[j]);
-//									}
+								} else if (type.equalsIgnoreCase("price")) {
+									//price
+									Integer price_min = ((int[]) arg)[0];
+									Integer price_max = ((int[]) arg)[1];
+									WHERE("no = any(select no from (select room_no as no, min(price) as min from available_date group by room_no) where min between ? and ?)");
+									list.add(price_min);
+									list.add(price_max);
+								} else if (type.equalsIgnoreCase("filter")) {
+									//filter
+									try {
+										Integer bedrooms = ((Integer[]) arg)[0];
+										if(bedrooms != null) {
+											WHERE("bedrooms >= ?");
+											list.add(bedrooms);
+										}
+									} catch(Exception e) {}
+									try {
+										Integer beds = ((Integer[]) arg)[1];
+										if(beds != null) {
+											WHERE("beds >= ?");
+											list.add(beds);
+										}
+									} catch(Exception e) {}
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);
