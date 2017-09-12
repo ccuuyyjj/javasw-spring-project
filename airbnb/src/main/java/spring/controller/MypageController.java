@@ -37,4 +37,10 @@ public class MypageController {
 		m.addAttribute("message", messageDao.getMessage(member_no));
 		return "sub/message";
 	}
+	
+	@RequestMapping("/setting")
+	public String setting(Model m) {
+		
+		return "mypage/setting";
+	}
 }
