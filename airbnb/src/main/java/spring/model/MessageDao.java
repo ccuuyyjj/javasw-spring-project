@@ -1,5 +1,7 @@
 package spring.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +38,12 @@ public class MessageDao {
 		Object[] args = new Object[] { member_no };
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
+	}
+	public Integer getRoom_no(int member_no) {
+		String sql = "select room_no from message where member_no = ?";
+		Object[] args = new Object[] { member_no };
+		jdbcTemplate.queryForObject(sql, args, Integer.class);
+		int room_no = jdbcTemplate.queryForObject(sql, args, Integer.class);
+		return 1;
 	}
 }
