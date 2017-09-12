@@ -245,6 +245,7 @@ public class HostController {
 		
 		room.setEtc(etc);
 		room.setName(name);
+		room.setProgress(2); //2단계
 		roomDao.update(room);
 		
 		return "redirect:/host/become_host2_2";
@@ -299,6 +300,7 @@ public class HostController {
 		
 		String mode = request.getParameter("mode");
 		if(mode != null && mode.equalsIgnoreCase("save")) {	//임시 저장
+			room.setProgress(3); //3단계
 			roomDao.update(room);
 			return "redirect:/host/become_host3_3";
 		}	
@@ -386,6 +388,9 @@ public class HostController {
 	}
 	@RequestMapping(value="become_host3_3", method=RequestMethod.POST)
 	public String become_host3_3(HttpServletRequest request) {
+		Room room = (Room)session.getAttribute("room");
+		room.setProgress(4); //4단계
+		roomDao.update(room);
 		return "redirect:/host/become_host3_4";
 	}
 	
