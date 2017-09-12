@@ -2,12 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html>
+<head>
 <title>airbnb</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/layer_popup.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/messageSend.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
@@ -15,6 +17,16 @@
 <script src="${pageContext.request.contextPath}/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>    
 <script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>  
+
+<!-- 리스트에 필요한것들  -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css"/>
+<!-- 그래프 -->
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/addSlider.css"/>
+ <script src="${pageContext.request.contextPath}/js/list_menu2.js"></script>
+ <script src="${pageContext.request.contextPath}/js/Obj.min.js"></script>
+ <script src="${pageContext.request.contextPath}/js/addSlider.js"></script>
+</head>
+
 <body>
 
 <!-- Sidebar (hidden by default) -->
@@ -36,10 +48,10 @@
                 <img src="${pageContext.request.contextPath}/img/paper.png" width="50">
             </a>
         </div>    
-	    <form method="post" action="${pageContext.request.contextPath}/sub/sub_list">
+	    <form id="mainSearchForm" method="post" action="${pageContext.request.contextPath}/sub/sub_list">
 	    	<input type="hidden" id="from">
 	    	<input type="hidden" id="to">
-	        <div class="w3-rest w3-border">
+ 	        <div class="w3-rest w3-border">
 	            <div class="w3-col s4 w3-left">
 	                <input class="w3-input border_bottom0 " type="text" placeholder="모든 위치" name="location" value="${param.location}">
 	            </div>

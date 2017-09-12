@@ -40,6 +40,9 @@ public class Avail {
 	public String getDay() {
 		return day;
 	}
+	public String getDate() {
+		return day.substring(0, 10);
+	}
 
 	public void setDay(String day) {
 		this.day = day;
