@@ -12,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
+		
         <script>
             $(document).ready(function(){
             	
@@ -132,7 +133,7 @@
             </div>
             <!-- fixed 예약(S) -->
            	
-		    <div class="btnFixed w3-display-right">
+		    <div class="btnFixed">
 		    	<div class="w3-row content_1 booking-title w3-center">
 		    		최소 : <span>\</span><span>295,041</span>/박
 		    	</div>

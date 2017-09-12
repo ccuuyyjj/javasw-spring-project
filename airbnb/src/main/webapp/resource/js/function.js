@@ -18,11 +18,13 @@ $(document).ready(function(){
     $( window ).scroll( function() {
     	console.log("doc="+$( document ).scrollTop())
     	console.log("top="+jbOffset.top)
-      if ( $( document ).scrollTop() > jbOffset.top ) {
+      if ( $( document ).scrollTop() >= jbOffset.top ) {
         $( '.btnFixed' ).addClass( 'jbFixed' );
+        $( '.btnFixed' ).css("top", "200px");
       }
       else {
-        $( '.btnFixed' ).removeClass( 'jbFixed' );
+    	  $( '.btnFixed' ).css("top", 800); 
+    	  $( '.btnFixed' ).removeClass( 'jbFixed' );
       }
     });
     
