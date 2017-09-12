@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/layer_popup.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/messageSend.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-3.2.1.js"></script>

@@ -107,4 +107,9 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/messageDetail")
+	public String messageDetail(Model m) {
+		return "sub/messageDetail";
+	}
 }

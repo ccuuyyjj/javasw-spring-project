@@ -10,8 +10,7 @@
 <script>
 
 	$(document).ready(function() {
-		
-		$('#calendar').fullCalendar({
+		$('#calendar, .fc-event-container').fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -20,60 +19,93 @@
 			},
 			defaultDate: '2017-09-12',
 			navLinks: false, // can click day/week names to navigate views
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end) {
-               console.log("start : "+start.format());
-               console.log("end : "+end.format());
-				start =  start.format();
-				end = end.format();
-				
-				var startYear = start.split('-')[0];
-				var startMonth = start.split('-')[1];
-				var startDay = start.split('-')[2];
-				var endDay = end.split('-')[2]-1;
-				
-				startDate = startMonth+'/'+startDay+'/'+startYear;
-				var diff = parseInt(endDay - startDay); 
-				console.log("startday : " +start);
-				console.log("diff : " +diff);
-				
-               check_date(start, diff);
-               
-                	 
-				
-			},
-			editable: true,
+			editable: false,
 			eventLimit: true, // allow "more" link when too many events
-			/*events: [
+			events: [
+			  <c:forEach var="avail" items="${availList}">	
 				{
-					title: 'All Day Event',
-					start: '2017-09-01'
+					id: '${avail.getDate()}',
+					start: '${avail.getDate()}'
 				},
-				{
-					title: 'Long Event',
-					start: '2017-09-07',
-					end: '2017-09-10'
-				},
+			   </c:forEach>	
+			],
+			selectable: true,
+			selectHelper: false,
+			select: function(start, end) {
+				console.log("start : "+start.format());
+		    	console.log("end : "+end.format());
+				var startForm =  start.format();
+				var endForm = end.format();
+				 
+				var startYear 	= startForm.split('-')[0];
+				var startMonth 	= startForm.split('-')[1];
+				var startDay 		= startForm.split('-')[2];
+				var endYear 		= endForm.split('-')[0];
+				var endMonth 	= endForm.split('-')[1];
+				var endDay 		= endForm.split('-')[2];
 				
-			]*/
+				var startDate = startMonth+'/'+startDay+'/'+startYear;
+				var endDate = endMonth+'/'+endDay+'/'+endYear;
+
+				var date1 = new Date(startDate);
+				var date2 = new Date(endDate);
+				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+				
+		        check_date(startDate, diffDays); 
+			},
+			eventClick: function(calEvent, jsEvent, view) {
+				
+				var startForm =  calEvent.start.format();
+				var startYear 	= startForm.split('-')[0];
+				var startMonth 	= startForm.split('-')[1];
+				var startDay 		= startForm.split('-')[2];
+				var startDate = startMonth+'/'+startDay+'/'+startYear;
+				
+				check_date(startDate, 1);
+			}
+			
 		});
 			
 	});
 
-function check_date(start, diff){
+function check_date(startDate, diff){
+	console.log("startDate="+startDate);
+	console.log("diff="+diff);
 	$.ajax({
 		   type: "POST",
 		   url: "${pageContext.request.contextPath}/host/check_date",
-		   data: "",
+		   data: {
+			   "start" : startDate,
+			   "diff" : diff
+			   },
 		   DateType: "html",
 		   cache: false,
 		   success: function(msg){
-			console.log("durl");
+			console.log(msg);
+			var arr = msg.split("@");
+			for(var i=0; i<arr.length; i++){
+				var subArr = arr[i].split("|");
+				var day = subArr[0].split("/")[2]+"-"+subArr[0].split("/")[0]+"-"+subArr[0].split("/")[1];
+				var available = subArr[1];
+				console.log("s=>"+day);
+				console.log("a=>"+available);
+				
+				var eventData = {
+					id:day,	
+					start: day
+				};
+				if (available === "true") {
+					$('#calendar').fullCalendar('renderEvent', eventData, true); 	
+				} else {
+					$('#calendar').fullCalendar('removeEvents', day);
+				}
+				
+			}
+			
 		  },
 		  error:function(a, b, c){
 				console.log(a, b, c);
-				alert("오류가 발생했습니다");
 			}
 	});
 	
