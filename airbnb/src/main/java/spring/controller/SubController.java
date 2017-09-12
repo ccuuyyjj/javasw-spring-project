@@ -1,6 +1,7 @@
 package spring.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,17 @@ public class SubController {
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "startDate", required = false) String startDate,
-			@RequestParam(value = "endDate", required = false) String endDate) throws ParseException {
-		List<Room> list;
+			@RequestParam(value = "endDate", required = false) String endDate,
+			@RequestParam(value="type", required = false) String[] type,
+			@RequestParam(value="price", required = false) int[] price,
+			@RequestParam(value="filter",required=false) String[] filter ) throws ParseException {
+		/*
+		 * 	type = 방 유형
+		 * price = 숙박 가격
+		 * filter = 침실, 침대, 욕실 순
+		 * */
+		List<String> type_list = new ArrayList<String>();
+		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
 		int pagePosts = 21; // 현재 페이지 출력될 게시물 수
@@ -53,11 +63,27 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty())
-			list = roomDao.search(page, pagePosts, new String[] { "date" }, startDate + "~" + endDate);
-		else
-			list = roomDao.selectPages(page, pagePosts);
+		if(startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+			type_list.add("date");
+			args_list.add(startDate + "~" + endDate);
+		}
+		
+		if(type != null) {
+			type_list.add("type");
+			args_list.add(type);
+		}
+		
+		if(price != null) {
+			type_list.add("price");
+			args_list.add(price);
+		}
+
+		if(filter != null) {
+			type_list.add("filter");
+			args_list.add(filter);
+		}
+		
+		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
 	}
@@ -80,5 +106,10 @@ public class SubController {
 		System.out.println(message.toString());
 		messageDao.insert(message);
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/messageDetail")
+	public String messageDetail(Model m) {
+		return "sub/messageDetail";
 	}
 }

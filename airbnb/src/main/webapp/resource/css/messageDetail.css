@@ -1,0 +1,150 @@
+@charset "UTF-8";
+			.container_1{
+                margin-left: 12%;
+                margin-right: 10%;
+                margin-top: 15%;
+                margin-bottom: 25%;
+            }
+            .container_2{
+                display: inline-block;
+                width: 40%;
+            }
+            .container_3{
+                width: 441px;
+                text-align: center;
+                background-color: #dce0e0;
+                
+            }
+            .container_4{
+                height: 60px;
+                margin-top: 20px;
+            }
+            .container_5{
+                height: 60px;
+                text-align: right;
+                padding-top: 25px;
+                padding-right: 10px;
+                
+                
+            }
+            .container_6{
+                border-bottom: 1px solid #c4c4c4;
+                width: 500px;
+                margin-left: -10%;
+                margin-top: 70px;
+                display: inline-block;
+            }
+            .container_7{
+                margin-bottom: 12px;
+                margin-bottom: 12px;
+            }
+            .container_8{
+                text-align: left;
+                margin-top: 50px;
+                margin-bottom: 20px;
+                padding-top: 5%;
+                padding-bottom: 5%;
+                padding-left: 10%;
+                width: 400px;
+                border: 1px solid #c4c4c4;
+                font-size: 14px;
+            }
+            .container_9{
+                color: #767676;
+                margin-top: 12px;
+            }
+            .container_10{
+                width: 441px;
+                text-align: center;
+                background-color: white;
+                border: 1px solid #c4c4c4;
+                padding-top: 20px;
+            }
+            .area-58{
+                width: 20%;
+                height: 80;
+                text-align: center;
+                margin-left: 10%;
+            }
+            .area-33{
+                width: 32%;
+                height: 80;
+                float: left;
+            }
+            .m-btn{
+                width: 150px;
+                height: 30px;
+                font-size: 11px;
+                font-weight: bold;
+                background-color: white;
+                border: 1px solid #c4c4c4;
+                border-radius: 3px;
+                padding-top: 6px;
+                padding-bottom: 6px;
+                padding-left: 8px;
+                padding-right: 8px;
+                vertical-align: middle;
+            }
+            textarea{
+                border: 1px solid white;
+            }
+            .d-container{
+                padding-left: 50px;
+                padding-right: 50px;
+                margin-bottom: 50px;
+                border: 1px solid #c4c4c4;
+            }
+            .d-container_1{
+                font-size: 18px;
+                padding-top: 30px;
+            }
+            .d-container_2{
+                font-size: 15px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid #c4c4c4;
+            }
+            .d-container_3{
+                display: inline-block;
+                margin-right: 33px;
+            }
+            .d-container_4{
+                padding-top: 30px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid #c4c4c4;
+            }
+            .d-container_5{
+                padding-top: 10px;
+                width: 100%;
+                color: black;
+            }
+            span{
+                color: #9b9b9b;
+                vertical-align: middle;
+            }
+            .d-container_6{
+                width: 100%;
+                text-align: center;
+                display: inline-block;
+                padding-top: 30px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #c4c4c4;
+            }
+            .d-container_7{
+                padding-top: 10px;
+                padding-bottom: 100px;
+                width: 100%;
+            }
+            .d-container_8{
+                height: 60px;
+                display: inline-block;
+                margin-right: 33px;
+                vertical-align: middle
+            }
+            .d-container_9{
+                text-align: center;
+                font-weight: bold;
+                font-size: 18px;
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }

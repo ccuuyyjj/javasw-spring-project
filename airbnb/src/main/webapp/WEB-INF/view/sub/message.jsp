@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script src="js/datepicker.js"></script>
 <script src="js/function.js"></script>
-<script src="js/layer_popup.js"></script>  
+<script src="js/layer_popup.js"></script>
 </head>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
         <div class="container1">
@@ -89,8 +89,8 @@
 												<table class="m_table">
 	                                                <tr>
 	                                                	<td class="m_padding m_area-10">1</td>
-	                                                    <td class="m_padding m_area-20">22</td>
-	                                                    <td class="m_padding m_area-50"><a>${message.question}</a></td>
+	                                                    <td class="m_padding m_area-20">${message.reg}</td>
+	                                                    <td class="m_padding m_area-50"><a href="messageDetail">${message.question}</a></td>
 	                                                    <td class="m_padding m_area-10">444</td>
 	                                                    <td class="m_padding m_area-10">5</td>
 	                                            	</tr>

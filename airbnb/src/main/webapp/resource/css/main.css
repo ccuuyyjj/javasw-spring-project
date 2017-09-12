@@ -84,7 +84,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 /*~~~~ 메뉴 태그 ~~~~ */
  			.menu_tag{
                width: 300;
-                display: inline-block;
                 margin-left: 1%;
             }
             .menu_tag a{

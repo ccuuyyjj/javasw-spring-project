@@ -69,7 +69,7 @@ public class RoomDao {
 		//// String sql = "select * from (select rownum RN, room.* from room) where RN
 		// between " + startBlock + " and " + endBlock + " order by no";
 		// return jdbcTemplate.query(sql, rowMapper);
-		return search(page, blockSize, new String[] {});
+		return search(page, blockSize, new String[] {}, new Object[] {});
 	}
 
 	public Room select(int no) {
@@ -93,12 +93,12 @@ public class RoomDao {
 		// int length = end.compareTo(start)+1;
 		// Object[] args = new Object[] {start, end, length};
 		// return jdbcTemplate.query(sql, args, rowMapper);
-		return search(1, Integer.MAX_VALUE, new String[] { "date" }, date);
+		return search(1, Integer.MAX_VALUE, new String[] { "date" }, new Object[] {date});
 	}
 
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
-	public List<Room> search(int page, int blockSize, String[] arg_types, Object... args) {
+	public List<Room> search(int page, int blockSize, Object[] arg_types, Object[] args) {
 		int startBlock = (page - 1) * blockSize + 1;
 		int endBlock = startBlock + blockSize - 1;
 
@@ -114,7 +114,7 @@ public class RoomDao {
 							SELECT("rownum RN", "room.*");
 							FROM("room");
 							for (int i = 0; i < arg_types.length; i++) {
-								String type = arg_types[i];
+								String type = (String) arg_types[i];
 								Object arg = args[i];
 								if (type.equalsIgnoreCase("date")) {
 									try {
@@ -136,6 +136,20 @@ public class RoomDao {
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
+								} else if (type.equalsIgnoreCase("type")) {
+									String[] types = (String[]) arg;
+									for(int j=0; j<types.length; j++) {
+										if(j > 0) OR();
+										WHERE(type + " like ?");
+										list.add("%" + types[j]);
+									}
+//								} else if (type.equalsIgnoreCase("price")) {
+//									String[] price = (String[]) arg;
+//									for(int j=0; j<price.length; j++) {
+//										if(j > 0) OR();
+//										WHERE(type + " like ?");
+//										list.add("%" + price[j]);
+//									}
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);
