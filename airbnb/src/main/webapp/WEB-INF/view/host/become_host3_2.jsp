@@ -10,8 +10,7 @@
 <script>
 
 	$(document).ready(function() {
-		
-		$('#calendar').fullCalendar({
+		$('#calendar, .fc-event-container').fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -20,15 +19,24 @@
 			},
 			defaultDate: '2017-09-12',
 			navLinks: false, // can click day/week names to navigate views
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+			  <c:forEach var="avail" items="${availList}">	
+				{
+					id: '${avail.getDate()}',
+					start: '${avail.getDate()}'
+				},
+			   </c:forEach>	
+			],
 			selectable: true,
-			selectHelper: true,
+			selectHelper: false,
 			select: function(start, end) {
-               console.log("start : "+start.format());
-               console.log("end : "+end.format());
-				startForm =  start.format();
-				endForm = end.format();
+				console.log("start : "+start.format());
+		    	console.log("end : "+end.format());
+				var startForm =  start.format();
+				var endForm = end.format();
 				 
-				
 				var startYear 	= startForm.split('-')[0];
 				var startMonth 	= startForm.split('-')[1];
 				var startDay 		= startForm.split('-')[2];
@@ -36,36 +44,27 @@
 				var endMonth 	= endForm.split('-')[1];
 				var endDay 		= endForm.split('-')[2];
 				
-				startDate = startMonth+'/'+startDay+'/'+startYear;
-				endDate = endMonth+'/'+endDay+'/'+endYear;
+				var startDate = startMonth+'/'+startDay+'/'+startYear;
+				var endDate = endMonth+'/'+endDay+'/'+endYear;
 
 				var date1 = new Date(startDate);
 				var date2 = new Date(endDate);
 				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-				console.log("startday : " +start);
-				console.log("diffDays : " +diffDays);
 				
-               check_date(startDate, diffDays);
-               
-                	 
-				
+		        check_date(startDate, diffDays); 
 			},
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			/*events: [
-				{
-					title: 'All Day Event',
-					start: '2017-09-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2017-09-07',
-					end: '2017-09-10'
-				},
+			eventClick: function(calEvent, jsEvent, view) {
 				
-			]*/
+				var startForm =  calEvent.start.format();
+				var startYear 	= startForm.split('-')[0];
+				var startMonth 	= startForm.split('-')[1];
+				var startDay 		= startForm.split('-')[2];
+				var startDate = startMonth+'/'+startDay+'/'+startYear;
+				
+				check_date(startDate, 1);
+			}
+			
 		});
 			
 	});
@@ -83,8 +82,6 @@ function check_date(startDate, diff){
 		   DateType: "html",
 		   cache: false,
 		   success: function(msg){
-			//console.log("start"+"${start}");
-			//console.log("available"+"${available}");
 			console.log(msg);
 			var arr = msg.split("@");
 			for(var i=0; i<arr.length; i++){
@@ -94,15 +91,16 @@ function check_date(startDate, diff){
 				console.log("s=>"+day);
 				console.log("a=>"+available);
 				
-				var eventData;
+				var eventData = {
+					id:day,	
+					start: day
+				};
 				if (available === "true") {
-					eventData = {
-						start: day
-					};
-					 $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true	
+					$('#calendar').fullCalendar('renderEvent', eventData, true); 	
 				} else {
-					$('#calendar').fullCalendar('unselect');
+					$('#calendar').fullCalendar('removeEvents', day);
 				}
+				
 			}
 			
 		  },
