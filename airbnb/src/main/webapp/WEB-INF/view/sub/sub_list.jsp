@@ -26,12 +26,11 @@
 		<input type="button" value="가격 범위" class="b">
 		<div class="add_price slider">
 			<form class="slider" action="sub_list" method="post">
-				<img src="/home.png" width="300" height="150"> <br>평균 1박
+				<!-- <img src="/home.png" width="300" height="150"> --> <br>평균 1박
 				요금은 ₩91,174입니다. <input data-addui='slider' data-min='10000'
 					data-formatter='usd' data-fontsize='12' data-step='5'
 					data-range='true' data-timeout='50000' value='10000,1000000'
 					data-max='1000000' name='price' class='slider' />
-				<br>
 				<br>
 				<button id="b">취소</button>
 				<input type="submit" value="적용">
@@ -44,9 +43,6 @@
 			<form class="slider" action="sub_list" method="post">
 				침실 수<input class="slider" type="number" name="filter"> <br>
 				<br> 침대 수<input class="slider" type="number" name="filter">
-				<br>
-				<br> 욕실 수<input class="slider" type="number" name="filter">
-				<br>
 				<br>
 				<button id="b">취소</button>
 				<input type="submit" value="적용">
