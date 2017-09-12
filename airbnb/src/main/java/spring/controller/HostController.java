@@ -2,6 +2,13 @@ package spring.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +17,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Avail;
 import spring.model.AvailDao;
@@ -276,7 +286,6 @@ public class HostController {
 		session.setAttribute("price", price);
 		
 		//체크인시간은 options 테이블에 추가
-		
 		String check_in = request.getParameter("check_in");
 		log.debug("check_in=>"+check_in);
 		String options = room.getOptions();
@@ -299,7 +308,12 @@ public class HostController {
 	}
 	
 	@RequestMapping("become_host3_2")
-	public String become_host3_2() {
+	public String become_host3_2(Model m) {
+		//달력에 available_date의 available이 true이면 달력에 표시해주기 위해 데이터를 가져온다 
+		Room room = (Room)session.getAttribute("room");
+		List<Avail> list = availDao.selectAvailable(room.getNo());
+		m.addAttribute("availList", list);
+		
 		return "host/become_host3_2";
 	}
 	@RequestMapping(value="become_host3_2", method=RequestMethod.POST)
@@ -309,42 +323,61 @@ public class HostController {
 	}
 	
 	//달력 저장
-	@RequestMapping("check_date")
-	public void check_date() {
+	@RequestMapping("check_date") 
+	@ResponseBody
+	public String check_date(@RequestParam(value="start", required=true) String start, 
+			@RequestParam(value="diff", required=true) int diff) {
 			int price = (int)session.getAttribute("price");
 			Room room = (Room)session.getAttribute("room");
-			log.debug("여기");
-			//log.debug("start:"+start);
-//			for(int i=0; i==diff; i++) {
-//				start = start.split("/")[1]+i;
-//				log.debug("start:"+start);
-//				
-//				Avail avail = availDao.select(room.getNo(), start);
-//				if(avail.getRoom_no() == room.getNo() && avail.getDay().equals(start) ) {
-//					String available = avail.getAvailable();
-//					if(available.equals("true")) {
-//						available = "false";
-//					} if(available.equals("false")) {
-//						available = "true";
-//					}
-//					boolean result = availDao.update(avail.getNo(), available);
-//					if(result){
-//						model.addAttribute("start", start);
-//						model.addAttribute("available", available);
-//					}
-//				}
-//				else {
-//					Avail avail1 = new Avail();
-//					//avail1.setRoom_no(room.getNo());
-//					avail1.setRoom_no(201);
-//					avail1.setDay(start);
-//					avail1.setAvailable("true");
-//					avail1.setPrice(price);
-//					availDao.insert(avail1);
-//					model.addAttribute("start", start);
-//					model.addAttribute("available", "true");
-//				}
-//			}
+			String msg = "";
+			log.debug("start:"+start);
+			log.debug("diff:"+diff);
+			for(int i=0; i<diff; i++) { 
+				if(i > 0) {
+					DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+				    try {
+				        Date date = df.parse(start);
+				        // 날짜 더하기
+				        Calendar cal = Calendar.getInstance();
+				        cal.setTime(date);
+				        cal.add(Calendar.DATE, 1);
+				        start = df.format(cal.getTime());
+				    } catch (ParseException e) {
+				        e.printStackTrace();
+				    }
+					
+					log.debug("start:"+start);
+				}
+				Avail avail = availDao.select(room.getNo(), start);
+				if(avail != null) {
+					String available = avail.getAvailable();
+					log.debug("available:"+available);
+					if(available.equalsIgnoreCase("true")) {
+						available = "false";
+					} else if(available.equalsIgnoreCase("false")) {
+						available = "true";
+					}
+					boolean result = availDao.update(avail.getNo(), available);
+					if(result){
+						msg += "@"+start + "|" + available;
+					}
+				}
+				else {
+					Avail avail1 = new Avail();
+					avail1.setRoom_no(room.getNo());
+					avail1.setDay(start);
+					avail1.setAvailable("true");
+					avail1.setPrice(price);
+					boolean result = availDao.insert(avail1);
+					 
+					if(result) {
+						msg += "@"+start + "|" + "true";
+						
+					}
+				}
+			}
+			
+			return msg.substring(1);
 	}
 	
 	@RequestMapping("become_host3_3")
