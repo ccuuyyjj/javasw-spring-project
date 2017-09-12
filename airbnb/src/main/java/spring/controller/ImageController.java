@@ -95,7 +95,9 @@ public class ImageController {
 	@RequestMapping(value = "/viewPhoto/{id}")
 	public void photo(HttpServletResponse response, @PathVariable int id) throws IOException {
 		String saveFolder = context.getRealPath("/file");
+		log.debug("id:"+id);
 		Room room = roomDao.select(id);
+		log.debug("photo:"+room.getPhotoUrl());
 		if (room.getPhotoUrl().startsWith("local:")) {
 			String filename = room.getPhotoUrl().substring(6);
 			File target = new File(saveFolder, filename);

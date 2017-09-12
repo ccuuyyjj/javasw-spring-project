@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.SQL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,12 +17,18 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoomDao {
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Room> rowMapper = (rs, i) -> {
 		Room room = new Room(rs);
-		room.setPrice(jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
-				new Object[] { room.getNo() }, Integer.class));
+		
+		Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
+				new Object[] { room.getNo() }, Integer.class);
+		if(price != null) {
+			room.setPrice(price);
+		}
 		return room;
 	};
 

@@ -206,7 +206,11 @@ public class Room {
 	public String getReg() {
 		return reg;
 	}
-
+	
+	public String getDate() {
+		return reg.substring(0, 10);
+	}
+	
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
