@@ -42,8 +42,8 @@
 	<div  class="host-row1">
 		<select class="host-select area-25" name="bed_type" >
 			<option value="">하나를 선택해주세요</option>
-			<option>싱글</option>
-			<option>더블</option>
+			<option>싱글침대</option>
+			<option>더블침대</option>
 			<option>매트리스(요와 이불)</option>
 			<option>소파</option>
 			<option>소파베드</option>
