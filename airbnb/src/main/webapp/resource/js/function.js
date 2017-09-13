@@ -14,18 +14,22 @@ $(document).ready(function(){
 	});
 	
 	//상세페이지 메뉴 상단 고정
-    var jbOffset = $( '.btnFixed' ).offset();
+    var jbOffset = $( '.w3-top' ).offset();
     $( window ).scroll( function() {
     	console.log("doc="+$( document ).scrollTop())
     	console.log("top="+jbOffset.top)
-      if ( $( document ).scrollTop() >= jbOffset.top ) {
-        $( '.btnFixed' ).addClass( 'jbFixed' );
-        $( '.btnFixed' ).css("top", "200px");
+    	$( '.btnFixed' ).fadeIn();
+    	if($( document ).scrollTop()==0 &&  jbOffset.top==0){
+       	  	//$( '.btnFixed' ).css("top", 600);
+    		$( '.btnFixed' ).fadeOut();
+    	}		
+    	else if ( $(window).scrollTop() >= jbOffset.top ) {
+    		$( '.btnFixed' ).css("top", "130px");
       }
       else {
-    	  $( '.btnFixed' ).css("top", 800); 
-    	  $( '.btnFixed' ).removeClass( 'jbFixed' );
+    	  $( '.btnFixed' ).css("top", 600);
       }
+    	
     });
     
 	

@@ -139,12 +139,21 @@
 		    	</div>
 		    	<div class="booking-wrap">
 			    	<div class="w3-row content_1">
-			    		<span class="booking-menu">체크인</span>
-			    		<input type="text" placeholder="년/월/일" class="booking-height">
+			    		<div class="w3-col s3">
+			    			<label class="booking-menu">체크인</label>
+			    		</div>
+			    		<div class="w3-col s4">
+			    			<input type="text" placeholder="년/월/일" class="booking-height">
+			    		</div>
+			    		
 			    	</div>		
 			    	<div class="w3-row content_1">
-			    		<span class="booking-menu">체크아웃</span>
-			    		<input type="text" placeholder="년/월/일"  class="booking-height">
+			    		<div class="w3-col s3">
+			    			<label class="booking-menu">체크아웃</label>
+			    		</div>
+			    		<div class="w3-col s4">
+			    			<input type="text" placeholder="년/월/일" class="booking-height">
+			    		</div>
 			    	</div>
 			    	<div class="w3-row content_1">
 			    		<div class="w3-col s12">

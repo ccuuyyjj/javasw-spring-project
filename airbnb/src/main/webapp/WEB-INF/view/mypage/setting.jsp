@@ -29,23 +29,25 @@
 		  		<div class="subtab">
 					비밀번호 변경
 				</div>
-				<div class="w3-col s3 text-right host-row1">
-					<label>이전 비밀번호</label>
-				</div>
-				<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
-		  		</div>
-		  		<div class="w3-col s3 text-right host-row1">
-			  		<label>새 비밀번호</label>
-			  	</div>
-		  		<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
-		  		</div>
-		  		<div class="w3-col s3 text-right host-row1">
-			  		<label>비밀번호 확인</label>
-			  	</div>
-		  		<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
+				<div class="area-50">
+					<div class="w3-col s3 text-right host-row1">
+						<label>이전 비밀번호</label>
+					</div>
+					<div class="w3-col s4 w3-left host-row1">	
+				  		<input type="password" name="">
+			  		</div>
+			  		<div class="w3-col s3 text-right host-row1">
+				  		<label>새 비밀번호</label>
+				  	</div>
+			  		<div class="w3-col s4 w3-left host-row1">	
+				  		<input type="password" name="">
+			  		</div>
+			  		<div class="w3-col s3 text-right host-row1">
+				  		<label>비밀번호 확인</label>
+				  	</div>
+			  		<div class="w3-col s4 w3-left host-row1">	
+				  		<input type="password" name="">
+			  		</div>
 		  		</div>
 		  	</div>
 		  
