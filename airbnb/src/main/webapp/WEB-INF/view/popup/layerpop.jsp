@@ -42,20 +42,22 @@
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
 			<div class="area-60  layer-center">
-		    <form action="${pageContext.request.contextPath}/member/join" method="post">
-		    
+			
+		    <form id="check" action="${pageContext.request.contextPath}/member/join" method="post">
+		    		<!-- 회원가입 폼 -->
 		        <div class="row">
-		            <input type="email" name="email" placeholder="Email" class="w3-input" required>
+		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input default" required>
 		        </div>
 		        <div class="row">
-		           <input type="password" name="pw" placeholder="Password" class="w3-input" required>
+		           <input type="password" name="pw" placeholder="Password" class="w3-input default" required>
 		        </div>
 		        <div class="row">
-		            <input type="text" name="name" placeholder="이름" class="w3-input" required>
+		            <input type="text" name="name" placeholder="이름" class="w3-input default" required>
 		        </div>
 		         <div class="row">
-		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input" required>
+		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input default" required>
 		        </div>
+		        <br><br>
 		        <div class="row">
 		            <input type="submit" value="회원가입" class="input-btn area-80">
 		        </div>

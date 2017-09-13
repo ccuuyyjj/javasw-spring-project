@@ -39,3 +39,11 @@
 #popup_area .layer-center{
     margin:0px auto;
 }
+
+.cant{
+	padding: 8px;
+    display: block;
+    border: none;
+    border: 2px solid red;
+    width: 100%;
+}

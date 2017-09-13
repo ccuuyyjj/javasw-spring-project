@@ -19,6 +19,12 @@ public class MemberDao {
 		jdbcTemplate.update(sql,args);
 	}
 	
-	
+	public boolean check(String email) {
+		String sql ="select count(*) from member where email=? ";
+		
+		// 조회가 되면 !=1 로 false 가 반환된다
+		return jdbcTemplate.queryForObject(sql,new Object[] {email},Integer.class) ==0; 
+		
+	}
 	
 }
