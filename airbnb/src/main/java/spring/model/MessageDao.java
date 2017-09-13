@@ -3,6 +3,7 @@ package spring.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,11 +40,15 @@ public class MessageDao {
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}
-	public Integer getRoom_no(int member_no) {
+	public List getRoom_no(int member_no) {
 		String sql = "select room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
-		jdbcTemplate.queryForObject(sql, args, Integer.class);
-		int room_no = jdbcTemplate.queryForObject(sql, args, Integer.class);
-		return 1;
+		List list = jdbcTemplate.queryForList(sql, args, Integer.class);
+		List room_no = new ArrayList ();
+		Iterator it = list.iterator ();
+		while(it.hasNext()) {
+			room_no.add(it);
+		}
+		return room_no;
 	}
 }

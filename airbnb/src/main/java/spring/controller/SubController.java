@@ -103,12 +103,16 @@ public class SubController {
 	@RequestMapping("/message")
 	public String message(Model m) {
 		int member_no = 1;
-		int no = messageDao.getRoom_no(member_no);
-		Room room = roomDao.select(no);
+		List room_no = messageDao.getRoom_no(member_no);
+		List<Room> list = new ArrayList<>();
+		for(int i=0;i<room_no.size();i++) {
+			int no = (int) room_no.get(i);			
+			Room room = roomDao.select(no);
+			list.add(room);
+		}
+		m.addAttribute("list", list);
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", messageDao.getMessage(member_no));
-		m.addAttribute("name", room.getName());
-		m.addAttribute("owner_id", room.getOwner_id());
 		return "sub/message";
 	}
 

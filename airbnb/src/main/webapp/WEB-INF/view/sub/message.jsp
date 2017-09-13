@@ -86,16 +86,18 @@
 	                                <div class="row1">
 	                                    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center">
 	                                        <c:forEach var="message" items="${message}">
-												<table class="m_table">
-	                                                <tr>
-	                                                	<td class="m_padding m_area-10">1</td>
-	                                                    <td class="m_padding m_area-20">${message.reg}</td>
-	                                                    <td class="m_padding m_area-50"><a href="messageDetail">${message.question}</a></td>
-	                                                    <td class="m_padding m_area-10">444</td>
-	                                                    <td class="m_padding m_area-10">5</td>
-	                                            	</tr>
-                                           		</table>
-                                           		<div class="m_border"></div>
+		                                        <c:forEach var="list" items="${list}">
+													<table class="m_table">
+			                                            <tr>
+			                                              	<td class="m_padding m_area-10">${list.owner_id}</td>
+			                                                <td class="m_padding m_area-20">${message.reg}</td>
+			                                                <td class="m_padding m_area-50"><a href="messageDetail">${message.question}</a></td>
+			                                                <td class="m_padding m_area-10">${list.price}</td>
+			                                                <td class="m_padding m_area-10">5</td>
+			                                            </tr>
+		                                           	</table>
+		                                           	<div class="m_border"></div>
+												</c:forEach>
 											</c:forEach>
 	                                    </div>
 	                                </div>
