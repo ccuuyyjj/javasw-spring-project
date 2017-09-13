@@ -29,26 +29,55 @@
 		  		<div class="subtab">
 					비밀번호 변경
 				</div>
-				<div class="w3-col s3 text-right host-row1">
-					<label>이전 비밀번호</label>
+				<div class="area-60">
+					<div class="w3-row">
+						<div class="w3-col s3 text-right host-row1">
+							<label>이전 비밀번호</label>
+						</div>
+						<div class="w3-col s5 host-row1">	
+					  		<input type="password" name="">
+				  		</div>
+			  		</div>
+			  		<div class="w3-row">
+				  		<div class="w3-col s3 text-right host-row1">
+					  		<label>새 비밀번호</label>
+					  	</div>
+				  		<div class="w3-col s5 host-row1">	
+					  		<input type="password" name="pw">
+				  		</div>
+				  	</div>
+				  	<div class="w3-row">	
+				  		<div class="w3-col s3 text-right host-row1">
+					  		<label>비밀번호 확인</label>
+					  	</div>
+				  		<div class="w3-col s5 host-row1">	
+					  		<input type="password" name="pw_confirm">
+				  		</div>
+				  	</div>	
+		  		</div>
+		  		<div class="pw-wrap">
+		  			<div class="w3-right pw-btn">
+						<input type="submit" class="w3-btn w3-round w3-red" value="비밀번호 업데이트">
+					</div>
 				</div>
-				<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
-		  		</div>
-		  		<div class="w3-col s3 text-right host-row1">
-			  		<label>새 비밀번호</label>
-			  	</div>
-		  		<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
-		  		</div>
-		  		<div class="w3-col s3 text-right host-row1">
-			  		<label>비밀번호 확인</label>
-			  	</div>
-		  		<div class="w3-col s4 w3-left host-row1">	
-			  		<input type="password" name="">
-		  		</div>
 		  	</div>
 		  
 	  	</form>
-	</div>
+	 </div> 	
+	 	<form id="dfrm" method="post" action="#">
+	  		<div class="w3-row host-row1">
+	  			<div class="w3-col s4" >&nbsp;</div>
+			  	<div class="w3-col l6 m3 s4 subcontent">
+			  		<div class="subtab">
+						계정 해지
+					</div>
+					<div class="pw-wrap">
+			  			<div class="pw-btn w3-left">
+							<input type="submit" class="w3-btn w3-round w3-red" value="계정 해지하기">
+						</div>
+					</div>
+			  	</div>
+		  	</div>
+	  	</form>
+	
 </div>

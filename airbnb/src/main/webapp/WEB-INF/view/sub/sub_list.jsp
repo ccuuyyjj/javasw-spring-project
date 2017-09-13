@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri ="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/WEB-INF/view/template/header.jsp"%>
 <div class="center">
 	<div class="empty-90"></div>
@@ -8,14 +9,35 @@
 		<input type="button" value="방 유형" class="b">
 		<div class="add_type slider">
 			<form class="slider" action="sub_list" method="post">
-				<input class="slider" type="checkbox" name="type" value="전체">집
-				전체
+				<c:choose>
+					<c:when test="${fn:contains(param.type, '전체')}">
+						<input class="slider" type="checkbox" name="type" value="전체" checked>
+					</c:when>
+					<c:otherwise>
+						<input class="slider" type="checkbox" name="type" value="전체">
+					</c:otherwise>
+				</c:choose>
+				집 전체
 				<p>&nbsp;&nbsp;&nbsp;나 혼자 사용할 수 있는 숙소</p>
-				<input class="slider" type="checkbox" name="type" value="개인실">개인
-				실
+				<c:choose>
+					<c:when test="${fn:contains(param.type, '개인실')}">
+						<input class="slider" type="checkbox" name="type" value="개인실" checked>
+					</c:when>
+					<c:otherwise>
+						<input class="slider" type="checkbox" name="type" value="개인실">
+					</c:otherwise>
+				</c:choose>
+				개인실
 				<p>&nbsp;&nbsp;&nbsp;개인실이 있고 공동 공간은 함께 사용하는 숙소</p>
-				<input class="slider" type="checkbox" name="type" value="다인실">다인
-				실
+				<c:choose>
+					<c:when test="${fn:contains(param.type, '다인실')}">
+						<input class="slider" type="checkbox" name="type" value="다인실" checked>
+					</c:when>
+					<c:otherwise>
+						<input class="slider" type="checkbox" name="type" value="다인실">
+					</c:otherwise>
+				</c:choose>
+				다인실
 				<p>&nbsp;&nbsp;&nbsp;다인실과 같은 공유 공간을 이용하는 숙소</p>
 				<button id="b">취소</button>
 				<input type="submit" value="적용">
@@ -29,7 +51,7 @@
 				<!-- <img src="/home.png" width="300" height="150"> --> <br>평균 1박
 				요금은 ₩91,174입니다. <input data-addui='slider' data-min='10000'
 					data-formatter='usd' data-fontsize='12' data-step='5'
-					data-range='true' data-timeout='50000' value='10000,1000000'
+					data-range='true' data-timeout='50000' value='${param.price}'
 					data-max='1000000' name='price' class='slider' />
 				<br>
 				<button id="b">취소</button>
@@ -41,8 +63,8 @@
 		<input type="button" value="필터 추가" class="b">
 		<div class="add_filter slider">
 			<form class="slider" action="sub_list" method="post">
-				침실 수<input class="slider" type="number" name="filter"> <br>
-				<br> 침대 수<input class="slider" type="number" name="filter">
+				침실 수<input class="slider" type="number" name="filter" value="${paramValues.filter[0]}"> <br>
+				<br> 침대 수<input class="slider" type="number" name="filter" value="${paramValues.filter[1]}">
 				<br>
 				<button id="b">취소</button>
 				<input type="submit" value="적용">

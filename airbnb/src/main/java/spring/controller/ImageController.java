@@ -45,7 +45,7 @@ public class ImageController {
 	public String upload(MultipartHttpServletRequest mRequest, Model model) throws Exception {
 		String photourl = "";
 		MultipartFile file = mRequest.getFile("file");
-		Room room = (Room)session.getAttribute("room");
+		Room room = (Room) session.getAttribute("room");
 		if (file.getOriginalFilename() != "") {
 			log.debug("파일 업로드 요청 수신");
 			log.debug("파일 이름 = " + file.getOriginalFilename());
@@ -72,12 +72,12 @@ public class ImageController {
 
 			File target = new File(saveFolder, photourl);
 			file.transferTo(target);
-			
+
 			room.setPhotoUrl(photourl);
 		}
 
 		String mode = mRequest.getParameter("mode");
-		
+
 		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
 			if (photourl != "") {
 				boolean result = roomDao.update(room);
@@ -95,9 +95,9 @@ public class ImageController {
 	@RequestMapping(value = "/viewPhoto/{id}")
 	public void photo(HttpServletResponse response, @PathVariable int id) throws IOException {
 		String saveFolder = context.getRealPath("/file");
-		log.debug("id:"+id);
+		log.debug("id:" + id);
 		Room room = roomDao.select(id);
-		log.debug("photo:"+room.getPhotoUrl());
+		log.debug("photo:" + room.getPhotoUrl());
 		if (room.getPhotoUrl().startsWith("local:")) {
 			String filename = room.getPhotoUrl().substring(6);
 			File target = new File(saveFolder, filename);

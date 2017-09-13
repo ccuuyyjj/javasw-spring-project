@@ -139,9 +139,9 @@ public class RoomDao {
 										list.add(length);
 									} catch (ParseException e) {
 									}
-								} else if (type.equalsIgnoreCase("name")) {
+								} else if (type.equalsIgnoreCase("name") || type.equalsIgnoreCase("region")) {
 									//name
-									WHERE("name like ?");
+									WHERE(type + " like ?");
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
@@ -163,17 +163,26 @@ public class RoomDao {
 								} else if (type.equalsIgnoreCase("filter")) {
 									//filter
 									try {
-										Integer bedrooms = ((Integer[]) arg)[0];
+										Integer bedrooms = ((int[]) arg)[0];
 										if(bedrooms != null) {
 											WHERE("bedrooms >= ?");
 											list.add(bedrooms);
 										}
 									} catch(Exception e) {}
 									try {
-										Integer beds = ((Integer[]) arg)[1];
+										Integer beds = ((int[]) arg)[1];
 										if(beds != null) {
 											WHERE("beds >= ?");
 											list.add(beds);
+										}
+									} catch(Exception e) {}
+								} else if (type.equalsIgnoreCase("capacity")) {
+									//amount
+									try {
+										Integer amount = (Integer) arg;
+										if(amount != null) {
+											WHERE("capacity >= ?");
+											list.add(amount);
 										}
 									} catch(Exception e) {}
 								} else {

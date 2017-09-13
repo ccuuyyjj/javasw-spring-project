@@ -147,13 +147,15 @@
     height: 420px;
     margin-top: 490px;
     border:1px solid #ccc;*/
+    display:none;
     position:fixed;
     border:1px solid #ccc;
     width:300px;
     height:450px;
-    top:800px;
     right:70px;
-    z-index:999;
+    z-index:1000;
+    bottom: 228px;
+    background-color:#fff;
   }
   .booking-title{
   	font-size:16px;
