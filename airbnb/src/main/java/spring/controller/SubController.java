@@ -29,14 +29,14 @@ public class SubController {
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "startDate", required = false) String startDate,
 			@RequestParam(value = "endDate", required = false) String endDate,
-			@RequestParam(value="type", required = false) String[] type,
-			@RequestParam(value="price", required = false) int[] price,
-			@RequestParam(value="filter",required=false) String[] filter ) throws ParseException {
+			@RequestParam(value = "amount", required = false) Integer amount,
+			@RequestParam(value = "type", required = false) String[] type,
+			@RequestParam(value = "price", required = false) int[] price,
+			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
+			throws ParseException {
 		/*
-		 * 	type = 방 유형
-		 * price = 숙박 가격
-		 * filter = 침실, 침대, 욕실 순
-		 * */
+		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
+		 */
 		List<String> type_list = new ArrayList<String>();
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
@@ -63,26 +63,36 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 
-		if(startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
 			type_list.add("date");
 			args_list.add(startDate + "~" + endDate);
 		}
-		
-		if(type != null) {
+
+		if (location != null) {
+			type_list.add("region");
+			args_list.add(location);
+		}
+
+		if (amount != null) {
+			type_list.add("capacity");
+			args_list.add(amount);
+		}
+
+		if (type != null) {
 			type_list.add("type");
 			args_list.add(type);
 		}
-		
-		if(price != null) {
+
+		if (price != null) {
 			type_list.add("price");
 			args_list.add(price);
 		}
 
-		if(filter != null) {
+		if (filter != null) {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
-		
+
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -95,9 +105,14 @@ public class SubController {
 	}
 
 	@RequestMapping("/message")
-	public String message(Model m, int member_no) {
+	public String message(Model m) {
+		int member_no = 1;
+		int no = messageDao.getRoom_no(member_no);
+		Room room = roomDao.select(no);
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", messageDao.getMessage(member_no));
+		m.addAttribute("name", room.getName());
+		m.addAttribute("owner_id", room.getOwner_id());
 		return "sub/message";
 	}
 
@@ -107,7 +122,7 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/messageDetail")
 	public String messageDetail(Model m) {
 		return "sub/messageDetail";

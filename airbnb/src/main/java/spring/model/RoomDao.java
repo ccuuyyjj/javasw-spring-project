@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.SQL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,12 +17,18 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoomDao {
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Room> rowMapper = (rs, i) -> {
 		Room room = new Room(rs);
-		room.setPrice(jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
-				new Object[] { room.getNo() }, Integer.class));
+		
+		Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
+				new Object[] { room.getNo() }, Integer.class);
+		if(price != null) {
+			room.setPrice(price);
+		}
 		return room;
 	};
 
@@ -131,25 +139,52 @@ public class RoomDao {
 										list.add(length);
 									} catch (ParseException e) {
 									}
-								} else if (type.equalsIgnoreCase("name")) {
+								} else if (type.equalsIgnoreCase("name") || type.equalsIgnoreCase("region")) {
+									//name
 									WHERE(type + " like ?");
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
 								} else if (type.equalsIgnoreCase("type")) {
+									//type
 									String[] types = (String[]) arg;
 									for(int j=0; j<types.length; j++) {
 										if(j > 0) OR();
-										WHERE(type + " like ?");
+										WHERE("type like ?");
 										list.add("%" + types[j]);
 									}
-//								} else if (type.equalsIgnoreCase("price")) {
-//									String[] price = (String[]) arg;
-//									for(int j=0; j<price.length; j++) {
-//										if(j > 0) OR();
-//										WHERE(type + " like ?");
-//										list.add("%" + price[j]);
-//									}
+								} else if (type.equalsIgnoreCase("price")) {
+									//price
+									Integer price_min = ((int[]) arg)[0];
+									Integer price_max = ((int[]) arg)[1];
+									WHERE("no = any(select no from (select room_no as no, min(price) as min from available_date group by room_no) where min between ? and ?)");
+									list.add(price_min);
+									list.add(price_max);
+								} else if (type.equalsIgnoreCase("filter")) {
+									//filter
+									try {
+										Integer bedrooms = ((int[]) arg)[0];
+										if(bedrooms != null) {
+											WHERE("bedrooms >= ?");
+											list.add(bedrooms);
+										}
+									} catch(Exception e) {}
+									try {
+										Integer beds = ((int[]) arg)[1];
+										if(beds != null) {
+											WHERE("beds >= ?");
+											list.add(beds);
+										}
+									} catch(Exception e) {}
+								} else if (type.equalsIgnoreCase("capacity")) {
+									//amount
+									try {
+										Integer amount = (Integer) arg;
+										if(amount != null) {
+											WHERE("capacity >= ?");
+											list.add(amount);
+										}
+									} catch(Exception e) {}
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);
