@@ -87,15 +87,15 @@
 	                                    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center">
 	                                        <c:forEach var="message" items="${message}">
 												<table class="m_table">
-	                                                <tr>
-	                                                	<td class="m_padding m_area-10">1</td>
-	                                                    <td class="m_padding m_area-20">${message.reg}</td>
-	                                                    <td class="m_padding m_area-50"><a href="messageDetail">${message.question}</a></td>
-	                                                    <td class="m_padding m_area-10">444</td>
-	                                                    <td class="m_padding m_area-10">5</td>
-	                                            	</tr>
-                                           		</table>
-                                           		<div class="m_border"></div>
+		                                            <tr>
+		                                              	<td class="m_padding m_area-10">호스트 이름</td>
+		                                                <td class="m_padding m_area-20">${message.name}<br>${message.reg}</td>
+		                                                <td class="m_padding m_area-50"><a href="messageDetail/${message.room_no}">${message.question}</a></td>
+		                                                <td class="m_padding m_area-10">￦${message.price}</td>
+		                                                <td class="m_padding m_area-10">5</td>
+		                                            </tr>
+	                                           	</table>
+	                                           	<div class="m_border"></div>
 											</c:forEach>
 	                                    </div>
 	                                </div>

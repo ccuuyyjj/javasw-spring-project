@@ -32,6 +32,13 @@ public class MessageDao {
 		List<Message> list = jdbcTemplate.query(sql, args, rowMapper);
 		return list;
 	}
+	
+	public List<Message> getMessage(int member_no, int room_no) {
+		String sql = "select * from message where member_no = ? and room_no = ?";
+		Object[] args = new Object[] { member_no, room_no };
+		List<Message> list = jdbcTemplate.query(sql, args, rowMapper);
+		return list;
+	}
 
 	public int count(int member_no) {
 		String sql = "select count(*) from message where member_no = ?";
@@ -39,11 +46,19 @@ public class MessageDao {
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}
-	public Integer getRoom_no(int member_no) {
+	public List getRoom_no(int member_no) {
 		String sql = "select room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
-		jdbcTemplate.queryForObject(sql, args, Integer.class);
-		int room_no = jdbcTemplate.queryForObject(sql, args, Integer.class);
-		return 1;
+		List room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
+		System.out.println("room_no = "+ room_no);
+		System.out.println("room_no = "+ room_no.size());
+		System.out.println("room_no = "+ room_no.get(0));
+		return room_no;
+	}
+	
+	public void update(String name, int price, int member_no, int room_no) {
+		String sql = "update message set name = ?, price = ? where member_no = ? and room_no = ?";
+		Object[] args = new Object[] { name, price, member_no, room_no };
+		jdbcTemplate.update(sql, args);
 	}
 }

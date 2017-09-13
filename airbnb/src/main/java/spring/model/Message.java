@@ -14,6 +14,24 @@ public class Message {
 	private int quantity;
 	private String question;
 	private String reg;
+	private String name;
+	private int price;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	public Message() {
 		super();
@@ -28,6 +46,8 @@ public class Message {
 		setQuantity(rs.getInt("quantity"));
 		setQuestion(rs.getString("question"));
 		setReg(rs.getString("reg"));
+		setName(rs.getString("name"));
+		setPrice(rs.getInt("price"));
 	}
 
 	public Message(HttpServletRequest request) {
