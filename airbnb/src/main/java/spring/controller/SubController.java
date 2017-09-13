@@ -4,11 +4,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.Message;
@@ -105,10 +109,17 @@ public class SubController {
 		return "sub/detail";
 	}
 
+
+	
 	@RequestMapping("/message")
-	public String message(Model m, int member_no) {
+	public String message(Model m) {
+		int member_no = 1;
+		int no = messageDao.getRoom_no(member_no);
+		Room room = roomDao.select(no);
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", messageDao.getMessage(member_no));
+		m.addAttribute("name", room.getName());
+		m.addAttribute("owner_id", room.getOwner_id());
 		return "sub/message";
 	}
 

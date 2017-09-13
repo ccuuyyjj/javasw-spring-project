@@ -12,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
+		
         <script>
             $(document).ready(function(){
             	
@@ -130,6 +131,44 @@
                             </tr>
                     </table>
             </div>
+            <!-- fixed 예약(S) -->
+           	
+		    <div class="btnFixed">
+		    	<div class="w3-row content_1 booking-title w3-center">
+		    		최소 : <span>\</span><span>295,041</span>/박
+		    	</div>
+		    	<div class="booking-wrap">
+			    	<div class="w3-row content_1">
+			    		<span class="booking-menu">체크인</span>
+			    		<input type="text" placeholder="년/월/일" class="booking-height">
+			    	</div>		
+			    	<div class="w3-row content_1">
+			    		<span class="booking-menu">체크아웃</span>
+			    		<input type="text" placeholder="년/월/일"  class="booking-height">
+			    	</div>
+			    	<div class="w3-row content_1">
+			    		<div class="w3-col s12">
+			    			<span>인원</span>
+			    			<input type="number" class="booking-width booking-height inputNum" > 명
+			    		</div>
+			    	</div>
+			    	<div class="w3-row w3-center">
+			    			<input type="button" class="booking-width booking-height w3-red w3-round-large" value="예약 요청">
+			    	</div>
+			    	<div class="w3-row booking-comment">
+			    		100% 환불 가능ㆍ예약 확정 전에는 요금이 청구되지 않습니다.
+			    	</div>
+			    	<hr>
+			    	<div class="w3-row w3-center">
+			    			<input type="button" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
+			    	</div>
+		    	</div>
+		    </div>
+		    <!-- btnFixed3// -->
+
+
+            
+            <!-- fixed 예약(E) -->
             <div class="reviewsContainer">
                 <div class="reviews">후기 000개
                     <span class="star">★★★★★</span>
