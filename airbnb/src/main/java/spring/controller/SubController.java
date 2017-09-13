@@ -29,9 +29,10 @@ public class SubController {
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "startDate", required = false) String startDate,
 			@RequestParam(value = "endDate", required = false) String endDate,
+			@RequestParam(value="amount", required = false) Integer amount,
 			@RequestParam(value="type", required = false) String[] type,
 			@RequestParam(value="price", required = false) int[] price,
-			@RequestParam(value="filter",required=false) String[] filter ) throws ParseException {
+			@RequestParam(value="filter",required=false, defaultValue= "0,0") int[] filter ) throws ParseException {
 		/*
 		 * 	type = 방 유형
 		 * price = 숙박 가격
@@ -66,6 +67,16 @@ public class SubController {
 		if(startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
 			type_list.add("date");
 			args_list.add(startDate + "~" + endDate);
+		}
+
+		if(location != null) {
+			type_list.add("region");
+			args_list.add(location);
+		}
+
+		if(amount != null) {
+			type_list.add("capacity");
+			args_list.add(amount);
 		}
 		
 		if(type != null) {
