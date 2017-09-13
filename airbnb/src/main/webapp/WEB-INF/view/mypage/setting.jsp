@@ -20,7 +20,7 @@
 		<div class="w3-col s4 w3-white w3-center submenu_wrap">
 			<ul>
 				<li class="hover"><a href="${pageContext.request.contextPath}/mypage/setting">계정관리</a></li>
-				<li><a href="">대금수령내역</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/transaction_history">대금수령내역</a></li>
 			
 			</ul>
 		</div>
@@ -81,3 +81,4 @@
 	  	</form>
 	
 </div>
+<%@ include file="/WEB-INF/view/template/footer.jsp" %>
