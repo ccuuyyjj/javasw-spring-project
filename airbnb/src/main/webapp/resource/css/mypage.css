@@ -59,6 +59,18 @@
 	text-align:left;
 	border-bottom:1px solid #edefed;
 }
+.subtab > ul{
+	list-style: none;
+	margin:0px;
+}
+.subtab > ul > li{
+	padding-left:10px;
+	display:inline-block;
+}
+.subtab a{
+    text-decoration: none;
+}
+
 .list-layout{
 	padding-left: 0;
     list-style: none;
