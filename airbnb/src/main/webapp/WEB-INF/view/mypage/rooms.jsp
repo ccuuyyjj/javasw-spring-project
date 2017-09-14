@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mypage.css"/>
+<script>
+function reg(pVal){
+	document.getElementById("rfrm").action = '${pageContext.request.contextPath}/host/become_host'+pVal;
+	document.getElementById("rfrm").submit();
+}
+</script>
 <div class="w3-main w3-content w3-padding" style="max-width:100%;margin-top:100px">
 	<div class="menu-wrap">
 	    <ul class="w3-center">
@@ -58,10 +64,10 @@
 							</div>
 							<div class="w3-col content-update">
 								<c:if test="${room.progress < 3}">
-									<input type="submit" formaction="${pageContext.request.contextPath}/host/become_host${room.progress+1}" value="등록 완료하기" class="w3-btn w3-round-large w3-red" >
+									<input type="button" onclick = "javascript:reg('${room.progress+1}');" value="등록 완료하기" class="w3-btn w3-round-large w3-red" >
 								</c:if>
 								<c:if test="${room.progress eq 3}">
-									<input type="submit" formaction="${pageContext.request.contextPath}/host/become_host3_3" value="숙소 등록" class="w3-btn w3-round-large w3-red">숙소 등록
+									<input type="button" onclick = "javascript:reg('3_3');" value="숙소 등록" class="w3-btn w3-round-large w3-red">숙소 등록
 								</c:if>
 								&nbsp;
 <!-- 								<button class="w3-button  w3-round-large w3-white w3-border">미리보기</button> -->
