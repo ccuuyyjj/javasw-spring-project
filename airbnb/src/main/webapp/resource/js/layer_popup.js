@@ -65,20 +65,22 @@ $(document).ready(function(){
 //		$('.window').hide();
 //    });
 	
+	
+	//회원가입 ,회원 탈퇴 기능 구현
 		//이메일 중복 검사
-		$("#email").on("blur",function(){
+		$("#a_email").on("blur",function(){
 			$.ajax({
 				type:"POST",
 				url:"/airbnb/member/check",
 				data:{
-					"email":$("#email").val()
+					"email":$("#a_email").val()
 				},
 				success:function(data){
 					if(data=="false"){
 						alert("중복된 아이디 입니다!!")
-						$("#email").addClass("cant");
+						$("#a_email").addClass("cant");
 					}else{
-						$("#email").removeClass("cant");
+						$("#a_email").removeClass("cant");
 					}
 				},
 				error:function(request,status,error){
@@ -88,21 +90,23 @@ $(document).ready(function(){
 		});
 	
 		//중복 아닐시 데이터 전송
-		$("#check").on("submit",function(){
+		$("#a_join").on("submit",function(){
 			event.preventDefault();		//submit 이벤트를 없애자
 			
-			if($("#email").hasClass("cant")){
+			if($("#a_email").hasClass("cant")){
 				alert("잘못된 정보 입니다!");
 			}else{
 				$.ajax({
 					type:"POST",
 					url:"/airbnb/member/join",
-					data:$("#check").serialize(),
-					success:function(){
+					data:$("#a_join").serialize(),
+					success:function(data){
 						alert("회원가입 완료~")
-						$(".resource").val(null);
-						$(".window").css("display","none");
-						$(".mask").css("display","none");
+						location.href=data;
+//						window.location=data;
+//						$(".resource").val(null);
+//						$(".window").css("display","none");
+//						$(".mask").css("display","none");
         			}				
 				});
 			}
@@ -111,7 +115,9 @@ $(document).ready(function(){
 		//회원가입 팝업창 close 누를시 리셋
 		$(".close").on("click",function(){
 			$(".resource").val(null);
-			$("#email").removeClass("cant");
+			$("#a_email").removeClass("cant");
 		});
+
+		
 		
 });
