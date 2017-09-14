@@ -153,7 +153,13 @@ public class SubController {
 	@RequestMapping("/messageDetail/{room_no}")
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
 		int member_no = 1;
-		m.addAttribute("message", messageDao.getMessage(member_no, room_no));
+		List<Message> message = messageDao.getMessage(member_no, room_no);
+		m.addAttribute("message", message);
+		m.addAttribute("checkin", message.get(0).getCheckin());
+		m.addAttribute("checkout", message.get(0).getCheckout());
+		m.addAttribute("name", message.get(0).getName());
+		m.addAttribute("quantity", message.get(0).getQuantity());
+		
 		return "sub/messageDetail";
 	}
 }
