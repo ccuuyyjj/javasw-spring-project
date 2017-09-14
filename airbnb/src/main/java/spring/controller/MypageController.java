@@ -43,4 +43,16 @@ public class MypageController {
 
 		return "mypage/setting";
 	}
+	
+	
+	@RequestMapping("/my_reservations")
+	public String my_reservations(Model m) {
+		return "mypage/my_reservations";
+	}
+	
+	
+	@RequestMapping("/transaction_history")
+	public String transaction_history(Model m) {
+		return "mypage/transaction_history";
+	}
 }

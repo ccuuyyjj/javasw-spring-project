@@ -64,4 +64,54 @@ $(document).ready(function(){
 //		$(this).hide();
 //		$('.window').hide();
 //    });
+	
+		//이메일 중복 검사
+		$("#email").on("blur",function(){
+			$.ajax({
+				type:"POST",
+				url:"/airbnb/member/check",
+				data:{
+					"email":$("#email").val()
+				},
+				success:function(data){
+					if(data=="false"){
+						alert("중복된 아이디 입니다!!")
+						$("#email").addClass("cant");
+					}else{
+						$("#email").removeClass("cant");
+					}
+				},
+				error:function(request,status,error){
+					console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error); 
+				}
+			});
+		});
+	
+		//중복 아닐시 데이터 전송
+		$("#check").on("submit",function(){
+			event.preventDefault();		//submit 이벤트를 없애자
+			
+			if($("#email").hasClass("cant")){
+				alert("잘못된 정보 입니다!");
+			}else{
+				$.ajax({
+					type:"POST",
+					url:"/airbnb/member/join",
+					data:$("#check").serialize(),
+					success:function(){
+						alert("회원가입 완료~")
+						$(".resource").val(null);
+						$(".window").css("display","none");
+						$(".mask").css("display","none");
+        			}				
+				});
+			}
+		});
+
+		//회원가입 팝업창 close 누를시 리셋
+		$(".close").on("click",function(){
+			$(".resource").val(null);
+			$("#email").removeClass("cant");
+		});
+		
 });

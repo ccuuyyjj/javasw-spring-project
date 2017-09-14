@@ -20,7 +20,7 @@
 		<div class="w3-col s4 w3-white w3-center submenu_wrap">
 			<ul>
 				<li class="hover"><a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a></li>
-				<li><a href="">예약 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/my_reservations">예약 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/host/become_host1">
 						<button class="w3-btn w3-round-large w3-green">새로운 숙소 추가</button>
 				</a></li>
@@ -71,3 +71,4 @@
 	  	</form>
 	</div>
 </div>
+<%@ include file="/WEB-INF/view/template/footer.jsp" %>

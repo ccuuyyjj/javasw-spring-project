@@ -105,17 +105,24 @@ public class SubController {
 		return "sub/detail";
 	}
 
+
+	
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
-		if(token != null)
-			System.out.println(token.toString());
-		int no = messageDao.getRoom_no(member_no);
-		Room room = roomDao.select(no);
+		List no = messageDao.getRoom_no(member_no);
+		List<Room> roomList = new ArrayList<>();
+		for(int i=0; i < no.size(); i++) {
+			Room room = roomDao.select((int) no.get(i));
+			roomList.add(room);
+			System.out.println("room = "+roomList.get(i));
+			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo());
+		}
+		List message = messageDao.getMessage(member_no);
 		m.addAttribute("count", messageDao.count(member_no));
-		m.addAttribute("message", messageDao.getMessage(member_no));
-		m.addAttribute("name", room.getName());
-		m.addAttribute("owner_id", room.getOwner_id());
+		m.addAttribute("message", message);
+		System.out.println("message = "+ message.get(0).toString());
+		System.out.println("message = "+ message.get(1).toString());
 		return "sub/message";
 	}
 
@@ -125,9 +132,11 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-
-	@RequestMapping("/messageDetail")
-	public String messageDetail(Model m) {
+	
+	@RequestMapping("/messageDetail/{room_no}")
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
+		int member_no = 1;
+		m.addAttribute("message", messageDao.getMessage(member_no, room_no));
 		return "sub/messageDetail";
 	}
 }
