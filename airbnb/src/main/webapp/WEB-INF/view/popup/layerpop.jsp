@@ -80,6 +80,8 @@
 		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="member_no" value="1">
+	        <input type="hidden" name="name" value="${room.name}">
+	        <input type="hidden" name="price" value="${room.price}">
 	        <input type="hidden" name="room_no" value="${room.no}">
             <div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
             <div class="md-container_2">언제 여행하실 계획인가요?</div>
