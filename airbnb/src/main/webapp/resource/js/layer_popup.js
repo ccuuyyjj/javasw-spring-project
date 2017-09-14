@@ -100,12 +100,18 @@ $(document).ready(function(){
 					data:$("#check").serialize(),
 					success:function(){
 						alert("회원가입 완료~")
-						$(".default").val(null);
+						$(".resource").val(null);
 						$(".window").css("display","none");
 						$(".mask").css("display","none");
         			}				
 				});
 			}
-		
 		});
+
+		//회원가입 팝업창 close 누를시 리셋
+		$(".close").on("click",function(){
+			$(".resource").val(null);
+			$("#email").removeClass("cant");
+		});
+		
 });

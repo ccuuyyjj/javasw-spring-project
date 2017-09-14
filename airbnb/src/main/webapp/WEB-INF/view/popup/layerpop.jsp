@@ -46,16 +46,16 @@
 		    <form id="check" action="${pageContext.request.contextPath}/member/join" method="post">
 		    		<!-- 회원가입 폼 -->
 		        <div class="row">
-		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input default" required>
+		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input resource" required>
 		        </div>
 		        <div class="row">
-		           <input type="password" name="pw" placeholder="Password" class="w3-input default" required>
+		           <input type="password" name="pw" placeholder="Password" class="w3-input resource" required>
 		        </div>
 		        <div class="row">
-		            <input type="text" name="name" placeholder="이름" class="w3-input default" required>
+		            <input type="text" name="name" placeholder="이름" class="w3-input resource" required>
 		        </div>
 		         <div class="row">
-		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input default" required>
+		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input resource" required>
 		        </div>
 		        <br><br>
 		        <div class="row">
