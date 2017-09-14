@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,8 +106,10 @@ public class SubController {
 	}
 
 	@RequestMapping("/message")
-	public String message(Model m) {
+	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
+		if(token != null)
+			System.out.println(token.toString());
 		int no = messageDao.getRoom_no(member_no);
 		Room room = roomDao.select(no);
 		m.addAttribute("count", messageDao.count(member_no));

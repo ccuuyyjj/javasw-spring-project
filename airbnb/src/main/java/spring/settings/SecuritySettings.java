@@ -31,11 +31,16 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+				.antMatchers("/**")
+					.permitAll()
 				.anyRequest()
 					.permitAll()
-				.and()
+			.and()
+			
 			.formLogin()
-				.and()
+				.loginPage("/login")
+			.and()
+			
 			.csrf()
 				.disable();
 	}
