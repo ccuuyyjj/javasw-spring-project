@@ -2,6 +2,8 @@ package spring.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javassist.runtime.Desc;
 import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
@@ -112,13 +115,27 @@ public class SubController {
 		int member_no = 1;
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
+		List<Message> message = new ArrayList<>();
 		for(int i=0; i < no.size(); i++) {
 			Room room = roomDao.select((int) no.get(i));
 			roomList.add(room);
 			System.out.println("room = "+roomList.get(i));
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo());
+			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
+			message.add(getMessage);
+			Collections.sort(message, new Comparator<Message>() {
+
+				public int compare(Message o1, Message o2) {
+					if(o1.getNo() < o2.getNo()) {
+						return 1;
+					} else if(o1.getNo() > o2.getNo()) {
+						return -1;
+					}else {
+						return 0;
+					}
+				}
+			});
 		}
-		List message = messageDao.getMessage(member_no);
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
 		System.out.println("message = "+ message.get(0).toString());
