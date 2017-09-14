@@ -46,16 +46,16 @@
 		    <form id="check" action="${pageContext.request.contextPath}/member/join" method="post">
 		    		<!-- 회원가입 폼 -->
 		        <div class="row">
-		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input default" required>
+		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input resource" required>
 		        </div>
 		        <div class="row">
-		           <input type="password" name="pw" placeholder="Password" class="w3-input default" required>
+		           <input type="password" name="pw" placeholder="Password" class="w3-input resource" required>
 		        </div>
 		        <div class="row">
-		            <input type="text" name="name" placeholder="이름" class="w3-input default" required>
+		            <input type="text" name="name" placeholder="이름" class="w3-input resource" required>
 		        </div>
 		         <div class="row">
-		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input default" required>
+		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input resource" required>
 		        </div>
 		        <br><br>
 		        <div class="row">
@@ -80,6 +80,8 @@
 		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="member_no" value="1">
+	        <input type="hidden" name="name" value="${room.name}">
+	        <input type="hidden" name="price" value="${room.price}">
 	        <input type="hidden" name="room_no" value="${room.no}">
             <div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
             <div class="md-container_2">언제 여행하실 계획인가요?</div>
