@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,8 +34,21 @@ public class MessageDao {
 		return list;
 	}
 	
+	public Message Message(int member_no, int room_no) {
+		String sql = new SQL() {
+			{
+				SELECT("*");
+				FROM("message");
+				WHERE("member_no = ? and room_no = ?");
+			}
+		}.toString();
+		Object[] args = new Object[] { member_no, room_no };
+		return jdbcTemplate.query(sql, args, rowMapper).get(0);
+	}
+	
 	public List<Message> getMessage(int member_no, int room_no) {
-		String sql = "select * from message where member_no = ? and room_no = ?";
+		String sql = "select * from " + 
+				"(select * from message where member_no = ? and room_no = ? order by reg desc)";
 		Object[] args = new Object[] { member_no, room_no };
 		List<Message> list = jdbcTemplate.query(sql, args, rowMapper);
 		return list;
@@ -46,8 +60,9 @@ public class MessageDao {
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}
+	
 	public List getRoom_no(int member_no) {
-		String sql = "select room_no from message where member_no = ?";
+		String sql = "select DISTINCT room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
 		List room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
 		System.out.println("room_no = "+ room_no);
