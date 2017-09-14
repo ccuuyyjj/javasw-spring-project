@@ -24,11 +24,13 @@ public class RoomDao {
 	private RowMapper<Room> rowMapper = (rs, i) -> {
 		Room room = new Room(rs);
 		
-		/*Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
-				new Object[] { room.getNo() }, Integer.class);
-		if(price != null) {
-			room.setPrice(price);
-		}*/
+		if(room.getProgress() == 4) {
+			Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
+					new Object[] { room.getNo() }, Integer.class);
+			if(price != null) {
+				room.setPrice(price);
+			}
+		}
 		return room;
 	};
 
