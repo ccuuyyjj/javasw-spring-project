@@ -11,6 +11,9 @@
 	        <li>
 	            <a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a>
 	        </li>
+	        <li>
+	            <a href="${pageContext.request.contextPath}/mypage/trips">여행 목록</a>
+	        </li>
 	        <li class="hover">
 	            <a href="${pageContext.request.contextPath}/mypage/setting">계정 관리</a>
 	        </li>
