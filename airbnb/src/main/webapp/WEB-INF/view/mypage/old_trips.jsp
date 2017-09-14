@@ -8,10 +8,10 @@
 	        <li>
 	            <a href="${pageContext.request.contextPath}/sub/message">메시지</a>
 	        </li>
-	        <li class="hover">
+	        <li>
 	            <a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a>
 	        </li>
-	        <li>
+	        <li class="hover">
 	            <a href="${pageContext.request.contextPath}/mypage/trips">여행 목록</a>
 	        </li>
 	        <li>
@@ -22,21 +22,35 @@
 	<div class="w3-row">
 		<div class="w3-col s4 w3-white w3-center submenu_wrap">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a></li>
-				<li class="hover"><a href="${pageContext.request.contextPath}/mypage/my_reservations">예약 관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/host/become_host1">
-						<button class="w3-btn w3-round-large w3-green">새로운 숙소 추가</button>
-				</a></li>
+				<li class="hover"><a href="${pageContext.request.contextPath}/mypage/trips">예정된 여행</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/old_trips">지나간 여행</a></li>
 			</ul>
 		</div>
 		<form id="rfrm" method="post">
 	  	<div class="w3-col l6 m3 s4w3-white w3-center subcontent">
 	  		<div class="subtab">
-				예약현황
+				지나간 여행
 			</div>
-			
+			<div class="w3-row">
+				<div class="host-row1 area-100">	
+			  		<table class="history_table" >
+			  			<thead>
+			  				<th>상태</th>
+			  				<th>숙소/위치</th>
+			  				<th>호스트</th>
+			  				<th>날짜</th>
+			  				<th>옵션</th>
+			  			</thead>
+			  			<tbody>
+			  				<td colspan="5" align="center"><b>거래 없음</b></td>
+			  			</tbody>
+			  		</table>
+			  	</div>	
+			</div>
 	  	</div>
 	  	</form>
 	</div>
 </div>
+<div class="empty"></div>
+<div class="empty"></div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

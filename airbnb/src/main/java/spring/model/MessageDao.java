@@ -19,9 +19,9 @@ public class MessageDao {
 	};
 
 	public void insert(Message message) {
-		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate)";
+		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 		Object[] args = new Object[] { message.getMember_no(), message.getRoom_no(), message.getCheckin(),
-				message.getCheckout(), message.getQuantity(), message.getQuestion(), };
+				message.getCheckout(), message.getQuantity(), message.getQuestion(), message.getName(), message.getPrice() };
 
 		jdbcTemplate.update(sql, args);
 	}

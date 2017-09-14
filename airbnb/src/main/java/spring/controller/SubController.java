@@ -4,10 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -110,7 +108,7 @@ public class SubController {
 
 	
 	@RequestMapping("/message")
-	public String message(Model m) {
+	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
