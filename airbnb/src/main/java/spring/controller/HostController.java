@@ -51,7 +51,7 @@ public class HostController {
 	@RequestMapping(value = "become_host1", method = RequestMethod.POST)
 	public String become_host1(HttpServletRequest request) {
 		session.setAttribute("room", new Room());
-		
+
 		String house_type = request.getParameter("house_type");
 		String room_type = request.getParameter("room_type");
 		String type = house_type + " " + room_type;
@@ -107,7 +107,7 @@ public class HostController {
 	@RequestMapping("become_host1_3")
 	public String become_host1_3(Model model) {
 		Room room = (Room) session.getAttribute("room");
-		if(room == null) {
+		if (room == null) {
 			room = new Room();
 		}
 		model.addAttribute("address", room.getAddress());
@@ -121,10 +121,10 @@ public class HostController {
 		Room room = (Room) session.getAttribute("room");
 		double lat = Double.parseDouble(request.getParameter("lat"));
 		double lng = Double.parseDouble(request.getParameter("lng"));
-		log.debug("lat : "+lat + ", lng : "+lng);
+		log.debug("lat : " + lat + ", lng : " + lng);
 		room.setLat(lat);
 		room.setLng(lng);
-		
+
 		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
 			if (room.getNo() > 0) {
 				// 호스팅 수정
@@ -132,7 +132,7 @@ public class HostController {
 
 			} else {
 				// 호스팅 새로 등록
-				room.setProgress(1); //1단계
+				room.setProgress(1); // 1단계
 				int room_no = roomDao.insert(room);
 				room.setNo(room_no);
 			}
@@ -170,7 +170,7 @@ public class HostController {
 				roomDao.update(room);
 			} else {
 				// 호스팅 새로 등록
-				room.setProgress(1); //1단계
+				room.setProgress(1); // 1단계
 				int room_no = roomDao.insert(room);
 				room.setNo(room_no);
 			}
@@ -202,7 +202,7 @@ public class HostController {
 			roomDao.update(room);
 		} else {
 			// 호스팅 새로 등록
-			room.setProgress(1); //1단계
+			room.setProgress(1); // 1단계
 			int room_no = roomDao.insert(room);
 			room.setNo(room_no);
 		}
@@ -255,8 +255,8 @@ public class HostController {
 	@RequestMapping("become_host2_2")
 	public String become_host2_2(Model model) {
 		Room room = (Room) session.getAttribute("room");
-		
-		if(room == null) {
+
+		if (room == null) {
 			room = new Room();
 		}
 		String photourl = room.getPhotoUrl();
@@ -277,10 +277,10 @@ public class HostController {
 	}
 
 	@RequestMapping(value = "become_host3", method = RequestMethod.POST)
-	public String become_host3(@RequestParam(name="room_no", required=false, defaultValue="-1") int room_no) {
-		
-	log.debug("room_no:"+room_no);
-		if(room_no > 0) {
+	public String become_host3(@RequestParam(name = "room_no", required = false, defaultValue = "-1") int room_no) {
+
+		log.debug("room_no:" + room_no);
+		if (room_no > 0) {
 			Room room = roomDao.select(room_no);
 			session.setAttribute("room", room);
 		}
@@ -289,14 +289,14 @@ public class HostController {
 
 	@RequestMapping("become_host3_1")
 	public String become_host3_1() {
-		
+
 		return "host/become_host3_1";
 	}
 
 	@RequestMapping(value = "become_host3_1", method = RequestMethod.POST)
 	public String become_host3_1(HttpServletRequest request, Model m) {
 		Room room = (Room) session.getAttribute("room");
-		
+
 		int price = Integer.parseInt(request.getParameter("price"));
 		session.setAttribute("price", price);
 

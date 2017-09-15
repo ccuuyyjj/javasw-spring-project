@@ -30,16 +30,14 @@ public class SubController {
 	private MessageDao messageDao;
 
 	@RequestMapping("/sub_list")
-	public String sub(Model m, 
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "location", required = false, defaultValue = "") String location,
 			@RequestParam(value = "startDate", required = false, defaultValue = "") String startDate,
 			@RequestParam(value = "endDate", required = false, defaultValue = "") String endDate,
 			@RequestParam(value = "amount", required = false, defaultValue = "0") Integer amount,
 			@RequestParam(value = "type", required = false, defaultValue = "") String types,
 			@RequestParam(value = "price", required = false, defaultValue = "0,1000000") int[] price,
-			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter
-			)
+			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
 		System.out.println("sub");
 		/*
@@ -89,7 +87,7 @@ public class SubController {
 		if (types != null && !types.isEmpty()) {
 			String[] type = types.split(",");
 			type_list.add("type");
-			for(String str : type)
+			for (String str : type)
 				System.out.println("type = " + str);
 			args_list.add(type);
 		}
@@ -114,29 +112,28 @@ public class SubController {
 		return "sub/detail";
 	}
 
-
-	
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
 		List<Message> message = new ArrayList<>();
-		for(int i=0; i < no.size(); i++) {
+		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select((int) no.get(i));
 			roomList.add(room);
-			System.out.println("room = "+roomList.get(i));
-			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo());
+			System.out.println("room = " + roomList.get(i));
+			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
+					roomList.get(i).getNo());
 			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
 
 				public int compare(Message o1, Message o2) {
-					if(o1.getNo() < o2.getNo()) {
+					if (o1.getNo() < o2.getNo()) {
 						return 1;
-					} else if(o1.getNo() > o2.getNo()) {
+					} else if (o1.getNo() > o2.getNo()) {
 						return -1;
-					}else {
+					} else {
 						return 0;
 					}
 				}
@@ -144,8 +141,8 @@ public class SubController {
 		}
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
-		System.out.println("message = "+ message.get(0).toString());
-		System.out.println("message = "+ message.get(1).toString());
+		System.out.println("message = " + message.get(0).toString());
+		System.out.println("message = " + message.get(1).toString());
 		return "sub/message";
 	}
 
@@ -155,7 +152,7 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/messageDetail/{room_no}")
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
 		int member_no = 1;
@@ -166,11 +163,11 @@ public class SubController {
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
 		m.addAttribute("price", message.get(0).getPrice());
-		
+
 		return "sub/messageDetail";
 	}
-	
-	@RequestMapping(value="/messageDetail/{room_no}", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
 		messageDao.insert(message);
 		m.addAttribute("message", message);
@@ -179,7 +176,7 @@ public class SubController {
 		m.addAttribute("name", message.getName());
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
-		
-		return "redirect:/sub/messageDetail/"+ room_no;
+
+		return "redirect:/sub/messageDetail/" + room_no;
 	}
 }

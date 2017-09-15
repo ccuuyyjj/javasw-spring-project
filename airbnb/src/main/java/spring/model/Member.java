@@ -12,12 +12,12 @@ public class Member {
 	private String enabled;
 	private String authority;
 	private String reg;
-	
+
 	public Member() {
 		super();
 	}
 
-	Member(ResultSet rs) throws SQLException{
+	Member(ResultSet rs) throws SQLException {
 		setNo(rs.getInt("no"));
 		setEmail(rs.getString("Email"));
 		setPw(rs.getString("pw"));
@@ -97,9 +97,5 @@ public class Member {
 		return "Member [no=" + no + ", email=" + email + ", pw=" + pw + ", name=" + name + ", phone=" + phone
 				+ ", enabled=" + enabled + ", authority=" + authority + ", reg=" + reg + "]";
 	}
-	
-	
 
-	
-	
 }
