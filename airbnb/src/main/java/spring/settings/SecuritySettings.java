@@ -23,15 +23,24 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/host/**", "/mypage/**", "/sub/message/**").authenticated()
+		http
+			.authorizeRequests()
+				.antMatchers("/host/**", "/mypage/**", "/sub/message/**")
+					.authenticated()
 				// .antMatchers("/권한설정 필요한 URL**")
 				// .authenticated() //모든 인증된 사용자
 				// .hasRole("권한명") // 사용자 보유 권한
-				.anyRequest().permitAll().and()
+				.anyRequest()
+					.permitAll()
+					.and()
 
-				.formLogin().loginProcessingUrl("/loginProc").usernameParameter("email").passwordParameter("pw")
-				.loginPage("/member/login").and()
+				.formLogin()
+					.loginProcessingUrl("/loginProc")
+					.usernameParameter("email")
+					.passwordParameter("pw")
+					.loginPage("/member/login").and()
 
-				.csrf().disable();
+				.csrf()
+					.disable();
 	}
 }
