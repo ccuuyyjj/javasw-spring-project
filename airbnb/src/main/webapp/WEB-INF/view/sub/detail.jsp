@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
+<script src="${pageContext.request.contextPath}/js/wishList.js"></script>
 <script>
  $(document).ready(function(){
 	 
@@ -19,7 +20,6 @@
          lat:'${room.lat}'		//위도
          ,lng:'${room.lng}'	//경도                 
      });
-	 
 	 
 	 
 	 var enabledays = new Array();
@@ -229,13 +229,12 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<form action="#" class="WishList">
-    			<input type="hidden" name="status" value="status">
+    		<form action="mypage/trips" class="WishList">
     			<input type="hidden" name="address" value="address">
     			<input type="hidden" name="host" value="host">
     			<input type="hidden" name="checkin" value="checkin">
     			<input type="hidden" name="checkout" value="checkout">
-    			<input type="button" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
+    			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
     		</form>
     	</div>
    	</div>
