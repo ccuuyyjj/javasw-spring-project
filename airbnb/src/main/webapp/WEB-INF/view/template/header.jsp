@@ -56,14 +56,14 @@
 	                <input class="w3-input border_bottom0 " type="text" placeholder="모든 위치" name="location" value="${param.location}">
 	            </div>
 	            <div class="w3-col s4 w3-left" id="changDate" >
-	                <div class="w3-col s3 w3-left">
-	                    <input class="w3-input width100 border_bottom0 " type="text" id="startDate" name="startDate" placeholder="체크인" style="text-align:right;" value="${param.startDate}">
+	                <div class="w3-col s4 w3-left">
+	                    <input class="w3-input area-100 border_bottom0 " type="text" id="startDate" name="startDate" placeholder="체크인" style="text-align:right;" value="${param.startDate}">
 	                </div>
 	                <div class="w3-col s3 w3-left border_bottom0 " style="width:20px;padding-top:5px;">
 	                    ─
 	                </div>
 	                <div class="w3-col s4 w3-left">
-	                    <input class="w3-input width100 border_bottom0 " type="text" id="endDate" name="endDate" placeholder="체크아웃" value="${param.endDate}">
+	                    <input class="w3-input area-100 border_bottom0 " type="text" id="endDate" name="endDate" placeholder="체크아웃" value="${param.endDate}">
 	                </div>
 	                
 	            </div>

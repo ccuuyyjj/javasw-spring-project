@@ -31,7 +31,7 @@
 	</div>
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" id="free_parking" value="주차">&nbsp;
-		<lable for="free_parking">주차</lable>
+		<label for="free_parking">주차</label>
 	</div>
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" id="elevator" value="엘리베이터">&nbsp;
