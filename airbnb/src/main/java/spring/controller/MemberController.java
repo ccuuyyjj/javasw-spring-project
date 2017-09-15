@@ -22,17 +22,19 @@ public class MemberController {
 	String login() {
 		return "member/login";
 	}
-	
+
+	//회원가입
+	@ResponseBody
 	@RequestMapping("/join")
 	String join(Member member, @RequestHeader("referer") String referer) {
 		memberDao.insert(member);
-		return "redirect:" + referer;
+		return referer;
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
+	// 중복 이메일 검사
 	@ResponseBody 
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
 	String check(@RequestParam(value = "email") String email) {
-		// 중복 이메일 검사
 		boolean result = memberDao.check(email);
 		return String.valueOf(result);
 	}

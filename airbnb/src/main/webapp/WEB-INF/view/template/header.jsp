@@ -55,6 +55,7 @@
 
 	<%@ include file="/WEB-INF/view/popup/layerpop.jsp"%>
 
+<<<<<<< HEAD
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top header-z">
 		<div class="w3-bar w3-white w3-padding w3-card-2"
@@ -89,6 +90,72 @@
 									id="endDate" name="endDate" placeholder="체크아웃"
 									value="${param.endDate}">
 							</div>
+=======
+<!-- Navbar (sit on top) -->
+<div class="w3-top header-z" >
+	<div class="w3-bar w3-white w3-padding w3-card-2" style="letter-spacing:4px;">
+    <div class="w3-twothird">
+		<div class="w3-col" style="width:100px">
+            <a href="${pageContext.request.contextPath}/home" class="w3-bar-item w3-button">
+                <img src="${pageContext.request.contextPath}/img/paper.png" width="50">
+            </a>
+        </div>    
+	    <form id="mainSearchForm" method="post" action="${pageContext.request.contextPath}/sub/sub_list">
+	    	<input type="hidden" id="from">
+	    	<input type="hidden" id="to">
+ 	        <div class="w3-rest w3-border">
+	            <div class="w3-col s4 w3-left">
+	                <input class="w3-input border_bottom0 " type="text" placeholder="모든 위치" name="location" value="${param.location}">
+	            </div>
+	            <div class="w3-col s4 w3-left" id="changDate" >
+	                <div class="w3-col s4 w3-left">
+	                    <input class="w3-input area-100 border_bottom0 " type="text" id="startDate" name="startDate" placeholder="체크인" style="text-align:right;" value="${param.startDate}">
+	                </div>
+	                <div class="w3-col s3 w3-left border_bottom0 " style="width:20px;padding-top:5px;">
+	                    ─
+	                </div>
+	                <div class="w3-col s4 w3-left">
+	                    <input class="w3-input area-100 border_bottom0 " type="text" id="endDate" name="endDate" placeholder="체크아웃" value="${param.endDate}">
+	                </div>
+	                
+	            </div>
+	            
+	            <div class="w3-col s4 w3-left" style="border:0px;">
+	               <div class="w3-col s8 w3-left flex">
+                        <span class="currency">인원</span>
+                        <input id="personInput" name="amount" type="number" max="9999" maxlength="4" oninput="maxLengthCheck(this)" value="${param.amount}"/>
+                        <span class="currency1">명</span>
+                	</div>
+	                <div class="w3-col s4 w3-center" style="padding-top:3px;">
+	                    <button class="w3-button w3-red w3-tiny">검색</button>
+	                </div>
+	                
+	            </div>
+	        </div>
+	    </form> 
+    </div>  
+      
+    <!-- Right-sided navbar links. Hide them on small screens -->
+    <div class="w3-right w3-hide-small"  id="header_right">
+      <a href="${pageContext.request.contextPath}/host/become_host1" class="w3-bar-item w3-button">호스팅하기</a>
+      <a href="${pageContext.request.contextPath}/mypage/rooms" class="w3-bar-item w3-button">마이페이지</a>
+      <a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
+      <a href="javaScript:void(0);" class="loginbtn w3-bar-item w3-button">로그인</a>
+      <a href="javaScript:void(0);" class="loginbtn w3-bar-item w3-button">로그아웃</a>
+    </div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" id="hambug" onclick="w3_open()"><i class="fa fa-bars"></i></a>  
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>  
+ 
+<!--  ~~~~ 메뉴 태그 ~~~~  -->
+    <br><br><br><br>
+    <div class="menu_tag">
+        <a>추천</a>
+        <a>장소</a>
+    </div>
+</div>
+  </div>
+>>>>>>> branch 'master' of https://github.com/ccuuyyjj/javasw-spring-project.git
 
 						</div>
 

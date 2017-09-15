@@ -31,7 +31,7 @@
 	</div>
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" id="free_parking" value="주차">&nbsp;
-		<lable for="free_parking">주차</lable>
+		<label for="free_parking">주차</label>
 	</div>
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" id="elevator" value="엘리베이터">&nbsp;
@@ -47,7 +47,7 @@
 	</div>
 	<div class="empty"></div>
 	<div class="w3-row host-row">
-		<a href="javascript:history.back();" >뒤로</a>
+		<a href="${pageContext.request.contextPath}/host/become_host1_4" >뒤로</a>
 		<span class="space">&nbsp;</span>
 		<input type="submit" class="w3-btn w3-round-large w3-green" value="완료">
 	</div>
