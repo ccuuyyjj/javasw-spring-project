@@ -59,15 +59,26 @@
 	text-align:left;
 	border-bottom:1px solid #edefed;
 }
+.subtab > ul{
+	list-style: none;
+	margin:0px;
+}
+.subtab > ul > li{
+	padding-left:10px;
+	display:inline-block;
+}
+.subtab a{
+    text-decoration: none;
+}
+
 .list-layout{
 	padding-left: 0;
     list-style: none;
 }
 .subcontent{
-	border:1px solid #edefed;;
+	border:1px solid #edefed;
 }
 .image-wrap{
-	
 	height:195px;
 }
 .content-wrap{
@@ -84,4 +95,11 @@
 }
 .content-wrap .content-update{
 	padding:5px;
+}
+.pw-wrap{
+	height: 50px;
+    border-top: 1px solid #edefed;
+}
+.pw-btn{
+	padding:10px;
 }

@@ -12,15 +12,18 @@
 	            <a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a>
 	        </li>
 	        <li>
-	            <a href="#">계정 관리</a>
+	            <a href="${pageContext.request.contextPath}/mypage/setting">계정 관리</a>
 	        </li>
 	    </ul>
 	</div>
 	<div class="w3-row">
 		<div class="w3-col s4 w3-white w3-center submenu_wrap">
 			<ul>
-				<li class="hover"><a href="">숙소 목록</a></li>
-				<li><a href="">예약 관리</a></li>
+				<li class="hover"><a href="${pageContext.request.contextPath}/mypage/rooms">숙소 목록</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/my_reservations">예약 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/host/become_host1">
+						<button class="w3-btn w3-round-large w3-green">새로운 숙소 추가</button>
+				</a></li>
 			</ul>
 		</div>
 		<form id="rfrm" method="post">
@@ -33,7 +36,12 @@
 				<input type="hidden" name="room_no" value="${room.no}">
 				<li class="w3-left">
 						<div class="w3-col s5 image-wrap">
-							<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="288" height="185">
+							<c:if test="${room.photoUrl ne null}">
+								<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="288" height="185">
+							</c:if>	
+							<c:if test="${room.photoUrl eq null}">
+								<img src="http://placehold.it/288x185" width="288" height="185">
+							</c:if>	
 						</div>
 						<div class="w3-col s7 content-wrap">
 							<div class="w3-col content-step">
@@ -53,7 +61,7 @@
 									<input type="submit" formaction="${pageContext.request.contextPath}/host/become_host3_3" value="숙소 등록" class="w3-btn w3-round-large w3-red">숙소 등록
 								</c:if>
 								&nbsp;
-								<button class="w3-button  w3-round-large w3-white w3-border">미리보기</button>
+<!-- 								<button class="w3-button  w3-round-large w3-white w3-border">미리보기</button> -->
 							</div>
 						</div>
 				</li>
@@ -63,3 +71,4 @@
 	  	</form>
 	</div>
 </div>
+<%@ include file="/WEB-INF/view/template/footer.jsp" %>

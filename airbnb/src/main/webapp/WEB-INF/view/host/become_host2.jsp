@@ -13,10 +13,15 @@
 			<input type="hidden" name="mode" id="mode">
 			<div class="filebox"> 
 				<label for="ex_file">업로드</label> 
-				<input type="file" id="ex_file" name="file"> 
+				<input type="file" id="ex_file" name="file" > ${photourl}
 			</div>
 			
-			<div id="holder" class="w3-center area-80"></div>
+			<div id="holder" class="w3-center area-80">
+				<c:if test="${photourl != null}">
+					<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}">
+				</c:if>
+					
+			</div>
 			<div class="empty"></div>	
 			<div class="w3-row host-row">
 				<a href="javascript:history.back();" >뒤로</a>
