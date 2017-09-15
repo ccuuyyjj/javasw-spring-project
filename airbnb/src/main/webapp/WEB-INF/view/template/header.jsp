@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/main.css" />
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/review.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/layer_popup.css" />
 <link rel="stylesheet" type="text/css"
@@ -24,6 +26,7 @@
 <script src="${pageContext.request.contextPath}/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
+<script src="${pageContext.request.contextPath}/js/review.js"></script> 
 
 <!-- 리스트에 필요한것들  -->
 <link rel="stylesheet" type="text/css"
@@ -33,7 +36,7 @@
 	href="${pageContext.request.contextPath}/css/addSlider.css" />
 <script src="${pageContext.request.contextPath}/js/list_menu2.js"></script>
 <script src="${pageContext.request.contextPath}/js/Obj.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/addSlider.js"></script>
+<script src="${pageContext.request.contextPath}/js/addSlider.js"></script> 
 </head>
 
 <body>
