@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+   //home, header 사용
 	var dateFormat = "mm/dd/yy",
 	  from = $( "#startDate" )
 	    .datepicker({
@@ -42,8 +42,6 @@ $(document).ready(function(){
 	      
 	  });
 	
-	
-	
 	function getDate( element ) {
 	  var date;
 	  try {
@@ -60,12 +58,16 @@ $(document).ready(function(){
 	    $("#changDate").show();
 	});    
 	
-	
 	$("#personInput").on("blur ", function(){
 		if($("#personInput").val() != null && $("#personInput").val() <= 0){
 			$("#personInput").val('');
 		}
 		
 	});
+	
+	
+	
+
+	
 	
 });	

@@ -277,9 +277,9 @@ public class HostController {
 	}
 
 	@RequestMapping(value = "become_host3", method = RequestMethod.POST)
-	public String become_host3(HttpServletRequest request) {
-		int room_no = Integer.parseInt(request.getParameter("room_no"));
-		log.debug("room_no:"+room_no);
+	public String become_host3(@RequestParam(name="room_no", required=false, defaultValue="-1") int room_no) {
+		
+	log.debug("room_no:"+room_no);
 		if(room_no > 0) {
 			Room room = roomDao.select(room_no);
 			session.setAttribute("room", room);
