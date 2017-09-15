@@ -12,17 +12,6 @@
         </param-value>
     </context-param>
     
-    <!-- spring security의 설정을 수행할 필터를 등록 -->
-    <filter>
-    	<filter-name>springSecurityFilterChain</filter-name>
-    	<filter-class>
-    		org.springframework.web.filter.DelegatingFilterProxy
-    	</filter-class>	
-    </filter>
-    <filter-mapping>
-    	<filter-name>springSecurityFilterChain</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -67,4 +56,16 @@
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+    <!-- spring security의 설정을 수행할 필터를 등록 -->
+    <filter>
+    	<filter-name>springSecurityFilterChain</filter-name>
+    	<filter-class>
+    		org.springframework.web.filter.DelegatingFilterProxy
+    	</filter-class>	
+    </filter>
+    <filter-mapping>
+    	<filter-name>springSecurityFilterChain</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

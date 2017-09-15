@@ -26,19 +26,22 @@ public class SubController {
 	private MessageDao messageDao;
 
 	@RequestMapping("/sub_list")
-	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "location", required = false) String location,
-			@RequestParam(value = "startDate", required = false) String startDate,
-			@RequestParam(value = "endDate", required = false) String endDate,
-			@RequestParam(value = "amount", required = false) Integer amount,
-			@RequestParam(value = "type", required = false) String[] type,
-			@RequestParam(value = "price", required = false) int[] price,
-			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
+	public String sub(Model m, 
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "location", required = false, defaultValue = "") String location,
+			@RequestParam(value = "startDate", required = false, defaultValue = "") String startDate,
+			@RequestParam(value = "endDate", required = false, defaultValue = "") String endDate,
+			@RequestParam(value = "amount", required = false, defaultValue = "0") Integer amount,
+			@RequestParam(value = "type", required = false, defaultValue = "") String types,
+			@RequestParam(value = "price", required = false, defaultValue = "0,1000000") int[] price,
+			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter
+			)
 			throws ParseException {
+		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
-		List<String> type_list = new ArrayList<String>();
+		List<String> type_list = new ArrayList<>();
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
@@ -69,7 +72,7 @@ public class SubController {
 			args_list.add(startDate + "~" + endDate);
 		}
 
-		if (location != null) {
+		if (location != null && !location.isEmpty()) {
 			type_list.add("region");
 			args_list.add(location);
 		}
@@ -79,21 +82,23 @@ public class SubController {
 			args_list.add(amount);
 		}
 
-		if (type != null) {
+		if (types != null && !types.isEmpty()) {
+			String[] type = types.split(",");
 			type_list.add("type");
+			for(String str : type)
+				System.out.println("type = " + str);
 			args_list.add(type);
 		}
 
-		if (price != null) {
+		if (price != null && price.length != 0) {
 			type_list.add("price");
 			args_list.add(price);
 		}
 
-		if (filter != null) {
+		if (filter != null && filter.length != 0) {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
-
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";

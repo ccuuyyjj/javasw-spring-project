@@ -7,7 +7,7 @@
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
 			<div class="area-60  layer-center">
-		    <form action="#" method="post">
+		    <form action="${pageContext.request.contextPath}/loginProc" method="post">
 		        <div class="row">
 		            <input type="email" name="email" placeholder="Email" class="w3-input" required>
 		        </div>
