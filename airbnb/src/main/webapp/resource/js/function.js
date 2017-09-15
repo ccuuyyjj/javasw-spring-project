@@ -16,8 +16,6 @@ $(document).ready(function(){
 	//상세페이지 메뉴 상단 고정
     var jbOffset = $( '.w3-top' ).offset();
     $( window ).scroll( function() {
-    	console.log("doc="+$( document ).scrollTop())
-    	console.log("top="+jbOffset.top)
     	$( '.btnFixed' ).fadeIn();
     	if($( document ).scrollTop()==0 &&  jbOffset.top==0){
        	  	//$( '.btnFixed' ).css("top", 600);
