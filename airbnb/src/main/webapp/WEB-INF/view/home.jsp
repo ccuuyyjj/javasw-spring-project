@@ -137,10 +137,10 @@
 							<label style="padding-left: 8px;">인원</label>
 						</p>
 						<div class="flex1">
-							<span class="currency">&nbsp;</span> <input id="personInput"
-								name="amount" type="number" max="9999" maxlength="4"
-								oninput="maxLengthCheck(this)" style="width: 150px;"> <span
-								class="currency1">명</span>
+							<span class="currency">&nbsp;</span> 
+							<input id="personInput" name="amount" type="number" max="9999" maxlength="4" value ="1"
+								oninput="maxLengthCheck(this)" style="width: 150px;"> 
+							<span class="currency1">명</span>
 						</div>
 					</div>
 					<div class="w3-col s3 w3-right"
