@@ -119,7 +119,7 @@ public class Message {
 	public String getReg() {
 		return reg;
 	}
-	
+
 	public String getDate() {
 		return reg.substring(0, 16);
 	}

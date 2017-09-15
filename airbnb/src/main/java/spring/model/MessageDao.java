@@ -1,7 +1,5 @@
 package spring.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.SQL;
@@ -22,7 +20,8 @@ public class MessageDao {
 	public void insert(Message message) {
 		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 		Object[] args = new Object[] { message.getMember_no(), message.getRoom_no(), message.getCheckin(),
-				message.getCheckout(), message.getQuantity(), message.getQuestion(), message.getName(), message.getPrice() };
+				message.getCheckout(), message.getQuantity(), message.getQuestion(), message.getName(),
+				message.getPrice() };
 
 		jdbcTemplate.update(sql, args);
 	}
@@ -33,7 +32,7 @@ public class MessageDao {
 		List<Message> list = jdbcTemplate.query(sql, args, rowMapper);
 		return list;
 	}
-	
+
 	public Message Message(int member_no, int room_no) {
 		String sql = new SQL() {
 			{
@@ -45,10 +44,9 @@ public class MessageDao {
 		Object[] args = new Object[] { member_no, room_no };
 		return jdbcTemplate.query(sql, args, rowMapper).get(0);
 	}
-	
+
 	public List<Message> getMessage(int member_no, int room_no) {
-		String sql = "select * from " + 
-				"(select * from message where member_no = ? and room_no = ? order by reg desc)";
+		String sql = "select * from " + "(select * from message where member_no = ? and room_no = ? order by reg desc)";
 		Object[] args = new Object[] { member_no, room_no };
 		List<Message> list = jdbcTemplate.query(sql, args, rowMapper);
 		return list;
@@ -60,17 +58,17 @@ public class MessageDao {
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}
-	
+
 	public List getRoom_no(int member_no) {
 		String sql = "select DISTINCT room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
 		List room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
-		System.out.println("room_no = "+ room_no);
-		System.out.println("room_no = "+ room_no.size());
-		System.out.println("room_no = "+ room_no.get(0));
+		System.out.println("room_no = " + room_no);
+		System.out.println("room_no = " + room_no.size());
+		System.out.println("room_no = " + room_no.get(0));
 		return room_no;
 	}
-	
+
 	public void update(String name, int price, int member_no, int room_no) {
 		String sql = "update message set name = ?, price = ? where member_no = ? and room_no = ?";
 		Object[] args = new Object[] { name, price, member_no, room_no };

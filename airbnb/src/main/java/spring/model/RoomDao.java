@@ -18,16 +18,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RoomDao {
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Room> rowMapper = (rs, i) -> {
 		Room room = new Room(rs);
-		
-		if(room.getProgress() == 4) {
+
+		if (room.getProgress() == 4) {
 			Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
 					new Object[] { room.getNo() }, Integer.class);
-			if(price != null) {
+			if (price != null) {
 				room.setPrice(price);
 			}
 		}
@@ -39,9 +39,9 @@ public class RoomDao {
 
 		String sql = "insert into room values(?, ?, ?, ?, ?,     ?, ?, ?, ?, ?,    ?, ?, ?, ?, ?,    0, sysdate, ?, ?)";
 		Object[] args = new Object[] { no, room.getName(), room.getType(), room.getPhotoUrl(), room.getRegion(),
-				room.getLat(), room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(),
-				room.getBedrooms(), room.getShared(), room.getBed_type(), room.getOwner_id(), room.getEtc(), 
-				room.getProgress(), room.getOptions()};
+				room.getLat(), room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(), room.getBedrooms(),
+				room.getShared(), room.getBed_type(), room.getOwner_id(), room.getEtc(), room.getProgress(),
+				room.getOptions() };
 
 		if (jdbcTemplate.update(sql, args) > 0)
 			return no;
@@ -103,7 +103,7 @@ public class RoomDao {
 		// int length = end.compareTo(start)+1;
 		// Object[] args = new Object[] {start, end, length};
 		// return jdbcTemplate.query(sql, args, rowMapper);
-		return search(1, Integer.MAX_VALUE, new String[] { "date" }, new Object[] {date});
+		return search(1, Integer.MAX_VALUE, new String[] { "date" }, new Object[] { date });
 	}
 
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
@@ -142,51 +142,55 @@ public class RoomDao {
 									} catch (ParseException e) {
 									}
 								} else if (type.equalsIgnoreCase("name") || type.equalsIgnoreCase("region")) {
-									//name
+									// name
 									WHERE(type + " like ?");
 									list.add("%" + arg + "%");
 									// } else if(type.equalsIgnoreCase("none")) {
 									// break;
 								} else if (type.equalsIgnoreCase("type")) {
-									//type
+									// type
 									String[] types = (String[]) arg;
-									for(int j=0; j<types.length; j++) {
-										if(j > 0) OR();
+									for (int j = 0; j < types.length; j++) {
+										if (j > 0)
+											OR();
 										WHERE("type like ?");
 										list.add("%" + types[j]);
 									}
 								} else if (type.equalsIgnoreCase("price")) {
-									//price
+									// price
 									Integer price_min = ((int[]) arg)[0];
 									Integer price_max = ((int[]) arg)[1];
 									WHERE("no = any(select no from (select room_no as no, min(price) as min from available_date group by room_no) where min between ? and ?)");
 									list.add(price_min);
 									list.add(price_max);
 								} else if (type.equalsIgnoreCase("filter")) {
-									//filter
+									// filter
 									try {
 										Integer bedrooms = ((int[]) arg)[0];
-										if(bedrooms != null) {
+										if (bedrooms != null) {
 											WHERE("bedrooms >= ?");
 											list.add(bedrooms);
 										}
-									} catch(Exception e) {}
+									} catch (Exception e) {
+									}
 									try {
 										Integer beds = ((int[]) arg)[1];
-										if(beds != null) {
+										if (beds != null) {
 											WHERE("beds >= ?");
 											list.add(beds);
 										}
-									} catch(Exception e) {}
+									} catch (Exception e) {
+									}
 								} else if (type.equalsIgnoreCase("capacity")) {
-									//amount
+									// amount
 									try {
 										Integer amount = (Integer) arg;
-										if(amount != null) {
+										if (amount != null) {
 											WHERE("capacity >= ?");
 											list.add(amount);
 										}
-									} catch(Exception e) {}
+									} catch (Exception e) {
+									}
 								} else {
 									WHERE(type + " = ?");
 									list.add(arg);
@@ -206,32 +210,27 @@ public class RoomDao {
 		return jdbcTemplate.queryForObject("select count(*) from room", Integer.class);
 	}
 
-	
-	//  마이페이지 숙소 목록 리스트 
+	// 마이페이지 숙소 목록 리스트
 	public List<Room> host_list() {
-		//String sql = "select * from room where progress < 4 and owner_id = ? order by no desc ";
+		// String sql = "select * from room where progress < 4 and owner_id = ? order by
+		// no desc ";
 		String sql = "select * from room where progress < 4 order by no desc ";
 		// String sql = "select * from room order by no";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
-	
+
 	public boolean update(Room room) {
-		
+
 		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, "
 				+ "lng=?, address=?, capacity=?, beds=?, bedrooms=?, "
-				+ "shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? "
-				+ "where no = ?";
-		Object[] args = new Object[] {
-				room.getName(), room.getType(), room.getPhotoUrl(), room.getRegion(), room.getLat(),
-				room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(), room.getBedrooms(),
+				+ "shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? " + "where no = ?";
+		Object[] args = new Object[] { room.getName(), room.getType(), room.getPhotoUrl(), room.getRegion(),
+				room.getLat(), room.getLng(), room.getAddress(), room.getCapacity(), room.getBeds(), room.getBedrooms(),
 				room.getShared(), room.getBed_type(), room.getEtc(), room.getProgress(), room.getOptions(),
-				room.getNo()
-		};
-		
-		
+				room.getNo() };
+
 		return jdbcTemplate.update(sql, args) > 0;
-		
+
 	}
-	
-	
+
 }
