@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javassist.runtime.Desc;
@@ -30,18 +31,19 @@ public class SubController {
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "location", required = false) String location,
-			@RequestParam(value = "startDate", required = false) String startDate,
-			@RequestParam(value = "endDate", required = false) String endDate,
-			@RequestParam(value = "amount", required = false) Integer amount,
-			@RequestParam(value = "type", required = false) String[] type,
-			@RequestParam(value = "price", required = false) int[] price,
+			@RequestParam(value = "location", required = false, defaultValue = "") String location,
+			@RequestParam(value = "startDate", required = false, defaultValue = "") String startDate,
+			@RequestParam(value = "endDate", required = false, defaultValue = "") String endDate,
+			@RequestParam(value = "amount", required = false, defaultValue = "0") Integer amount,
+			@RequestParam(value = "type", required = false, defaultValue = "") String types,
+			@RequestParam(value = "price", required = false, defaultValue = "0,1000000") int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
+		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
-		List<String> type_list = new ArrayList<String>();
+		List<String> type_list = new ArrayList<>();
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
@@ -72,7 +74,7 @@ public class SubController {
 			args_list.add(startDate + "~" + endDate);
 		}
 
-		if (location != null) {
+		if (location != null && !location.isEmpty()) {
 			type_list.add("region");
 			args_list.add(location);
 		}
@@ -82,21 +84,23 @@ public class SubController {
 			args_list.add(amount);
 		}
 
-		if (type != null) {
+		if (types != null && !types.isEmpty()) {
+			String[] type = types.split(",");
 			type_list.add("type");
+			for (String str : type)
+				System.out.println("type = " + str);
 			args_list.add(type);
 		}
 
-		if (price != null) {
+		if (price != null && price.length != 0) {
 			type_list.add("price");
 			args_list.add(price);
 		}
 
-		if (filter != null) {
+		if (filter != null && filter.length != 0) {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
-
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -108,29 +112,28 @@ public class SubController {
 		return "sub/detail";
 	}
 
-
-	
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
 		List<Message> message = new ArrayList<>();
-		for(int i=0; i < no.size(); i++) {
+		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select((int) no.get(i));
 			roomList.add(room);
-			System.out.println("room = "+roomList.get(i));
-			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo());
+			System.out.println("room = " + roomList.get(i));
+			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
+					roomList.get(i).getNo());
 			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
 
 				public int compare(Message o1, Message o2) {
-					if(o1.getNo() < o2.getNo()) {
+					if (o1.getNo() < o2.getNo()) {
 						return 1;
-					} else if(o1.getNo() > o2.getNo()) {
+					} else if (o1.getNo() > o2.getNo()) {
 						return -1;
-					}else {
+					} else {
 						return 0;
 					}
 				}
@@ -138,8 +141,8 @@ public class SubController {
 		}
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
-		System.out.println("message = "+ message.get(0).toString());
-		System.out.println("message = "+ message.get(1).toString());
+		System.out.println("message = " + message.get(0).toString());
+		System.out.println("message = " + message.get(1).toString());
 		return "sub/message";
 	}
 
@@ -149,7 +152,7 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/messageDetail/{room_no}")
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
 		int member_no = 1;
@@ -159,7 +162,21 @@ public class SubController {
 		m.addAttribute("checkout", message.get(0).getCheckout());
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
-		
+		m.addAttribute("price", message.get(0).getPrice());
+
 		return "sub/messageDetail";
+	}
+
+	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
+		messageDao.insert(message);
+		m.addAttribute("message", message);
+		m.addAttribute("checkin", message.getCheckin());
+		m.addAttribute("checkout", message.getCheckout());
+		m.addAttribute("name", message.getName());
+		m.addAttribute("quantity", message.getQuantity());
+		m.addAttribute("price", message.getPrice());
+
+		return "redirect:/sub/messageDetail/" + room_no;
 	}
 }

@@ -120,6 +120,10 @@ public class Message {
 		return reg;
 	}
 
+	public String getDate() {
+		return reg.substring(0, 16);
+	}
+
 	public void setReg(String reg) {
 		this.reg = reg;
 	}

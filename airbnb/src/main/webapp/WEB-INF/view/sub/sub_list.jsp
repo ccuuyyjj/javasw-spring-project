@@ -63,8 +63,8 @@
 		<input type="button" value="필터 추가" class="b">
 		<div class="add_filter slider">
 			<form class="slider" action="sub_list" method="post">
-				침실 수<input class="slider" type="number" name="filter" value="${paramValues.filter[0]}"> <br>
-				<br> 침대 수<input class="slider" type="number" name="filter" value="${paramValues.filter[1]}">
+				침실 수<input class="slider" type="number" name="filter" value="0${paramValues.filter[0]}"> <br>
+				<br> 침대 수<input class="slider" type="number" name="filter" value="0${paramValues.filter[1]}">
 				<br>
 				<button id="b">취소</button>
 				<input type="submit" value="적용">

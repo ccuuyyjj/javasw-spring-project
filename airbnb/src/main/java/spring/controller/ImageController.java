@@ -69,10 +69,10 @@ public class ImageController {
 
 			File target = new File(saveFolder, file.getOriginalFilename());
 			file.transferTo(target);
-			
+
 			// 파일명에 'local:' 구분자를 넣어 기존 url과 차별을 둔다
 			photourl = "local:" + file.getOriginalFilename();
-			
+
 			room.setPhotoUrl(photourl);
 		}
 

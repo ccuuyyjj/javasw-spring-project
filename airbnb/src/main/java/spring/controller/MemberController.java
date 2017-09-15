@@ -1,7 +1,5 @@
 package spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,12 @@ public class MemberController {
 	@Autowired
 	MemberDao memberDao;
 
-	//회원가입
+	@RequestMapping("/login")
+	String login() {
+		return "member/login";
+	}
+
+	// 회원가입
 	@ResponseBody
 	@RequestMapping("/join")
 	String join(Member member, @RequestHeader("referer") String referer) {
@@ -31,7 +34,7 @@ public class MemberController {
 	}
 
 	// 중복 이메일 검사
-	@ResponseBody 
+	@ResponseBody
 	@RequestMapping(value = "/check", method = RequestMethod.POST)
 	String check(@RequestParam(value = "email") String email) {
 		boolean result = memberDao.check(email);
