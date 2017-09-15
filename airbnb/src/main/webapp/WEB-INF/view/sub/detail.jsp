@@ -1,37 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
 <script>
-var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
+	var enableDays = new Array(); 
+	<c:forEach items="${availday}" var="avail">
+	enableDays.push("${avail.getDate()}");
+	</c:forEach>
 
  $(document).ready(function(){
 	 
 	 jQuery('#checkin').datepicker({
-		dateFormat: 'yy/mm/dd',
+		dateFormat: 'yy-mm-dd',
 		constrainInput: true,
 		beforeShowDay: disableAllTheseDays
 	});
 	 
 	 jQuery('#checkout').datepicker({
-		dateFormat: 'yy/mm/dd',
+		dateFormat: 'yy-mm-dd',
 		constrainInput: true,
 		beforeShowDay: disableAllTheseDays
 	});
 	
 	// 특정일 선택막기
 	function disableAllTheseDays(date) {
+		
 	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	    for (i = 0; i < disabledDays.length; i++) {
-	        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
-	            return [false];
+	    
+	    for (i = 0; i < enableDays.length; i++) {
+	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enableDays) != -1) {
+	            return [true];
 	        }
 	    }
-	    return [true];
+	    return [false];
 	}
 	 
 	 
@@ -39,13 +43,13 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
  	//var gmap = new GMaps({옵션});
  	var gmap = new GMaps({
          div:"#map"//어디에(출력장소),선택자
-         ,lat:${room.lat}//위도
-         ,lng:${room.lng}//경도                 
+         ,lat:"${room.lat}"	//위도
+         ,lng:"${room.lng}"//경도                 
      });
  	console.log(gmap);
      gmap.addMarker({
-         lat:${room.lat}//위도
-         ,lng:${room.lng}//경도                 
+         lat:"${room.lat}" 	//위도
+         ,lng:"${room.lng}" //경도                 
      });
  });
 </script>
@@ -167,11 +171,11 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
     	<div class="w3-row content_1">
     		<div class="w3-col s12">
     			<span>인원</span>
-    			<input type="number" class="booking-width booking-height inputNum" > 명
+    			<input type="number" class="booking-width booking-height inputNum text-center" > 명
     		</div>
     	</div>
     	<div class="w3-row w3-center">
-    			<input type="button" class="booking-width booking-height w3-red w3-round-large" value="예약 요청">
+    			<input type="button" class="booking-width booking-height w3-red w3-round-large" value="예약 가능 여부 확인">
     	</div>
     	<div class="w3-row booking-comment">
     		100% 환불 가능ㆍ예약 확정 전에는 요금이 청구되지 않습니다.

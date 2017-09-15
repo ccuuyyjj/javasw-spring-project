@@ -48,7 +48,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .border_bottom0 {
     border-bottom:0px;
 }
-
+.text-center{
+	text-align:center;
+}
 .text-right {
 	text-align:right;
 }
