@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
+<script src="${pageContext.request.contextPath}/js/pw_update.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mypage.css"/>
 <div class="w3-main w3-content w3-padding" style="max-width:100%;margin-top:100px">
 	<div class="menu-wrap">
@@ -27,7 +28,7 @@
 			
 			</ul>
 		</div>
-		<form id="rfrm" method="post" action="#">
+		<form id="rfrm" method="post" action="/member/pw_update">
 		  	<div class="w3-col l6 m3 s4 w3-white w3-center subcontent">
 		  		<div class="subtab">
 					비밀번호 변경
@@ -38,7 +39,7 @@
 							<label>이전 비밀번호</label>
 						</div>
 						<div class="w3-col s5 host-row1">	
-					  		<input type="password" name="">
+					  		<input type="password" name="pre_pw">
 				  		</div>
 			  		</div>
 			  		<div class="w3-row">
@@ -67,7 +68,7 @@
 		  
 	  	</form>
 	 </div> 	
-	 	<form id="dfrm" method="post" action="#">
+	 	<form id="dfrm" method="post" action="/member/delete">
 	  		<div class="w3-row host-row1">
 	  			<div class="w3-col s4" >&nbsp;</div>
 			  	<div class="w3-col l6 m3 s4 subcontent">
