@@ -1,54 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
 <script>
-var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
-
  $(document).ready(function(){
 	 
-	 jQuery('#checkin').datepicker({
-		dateFormat: 'yy/mm/dd',
-		constrainInput: true,
-		beforeShowDay: disableAllTheseDays
-	});
-	 
-	 jQuery('#checkout').datepicker({
-		dateFormat: 'yy/mm/dd',
-		constrainInput: true,
-		beforeShowDay: disableAllTheseDays
-	});
-	
-	// 특정일 선택막기
-	function disableAllTheseDays(date) {
-	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	    for (i = 0; i < disabledDays.length; i++) {
-	        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
-	            return [false];
-	        }
-	    }
-	    return [true];
-	}
-	
-	
-	 
-	 
- 	//구글맵 생성
+	//구글맵 생성
  	//var gmap = new GMaps({옵션});
  	var gmap = new GMaps({
          div:"#map"//어디에(출력장소),선택자
-         ,lat:${room.lat}//위도
-         ,lng:${room.lng}//경도                 
+         ,lat:'${room.lat}'	//위도
+         ,lng:'${room.lng}'	//경도                 
      });
  	console.log(gmap);
      gmap.addMarker({
-         lat:${room.lat}//위도
-         ,lng:${room.lng}//경도                 
+         lat:'${room.lat}'		//위도
+         ,lng:'${room.lng}'	//경도                 
      });
+	 
+	 
+	 
+	 var enabledays = new Array();
+	 <c:forEach items="${availList}" var="avail">
+	 enabledays.push( '${avail.getDate()}');
+	 </c:forEach>	 
+	 
+	 
+	 jQuery('#checkin').datepicker({
+		dateFormat: 'yy/mm/dd',
+		constrainInput: false,
+		beforeShowDay: enableAllTheseDays,
+	});
+	
+	 jQuery('#checkout').datepicker({
+		dateFormat: 'yy/mm/dd',
+		constrainInput: false,
+		beforeShowDay: enableAllTheseDays,
+		onSelect: function (dateText, inst) {
+	         checkdate();
+	      }
+	});    		
+	
+	 function checkdate(){
+		 if($("#checkin").val() === ""){
+			 $('#checkin').datepicker('show');
+			 return;
+		 }
+		 
+		var date1 = new Date($("#checkin").val());
+		var date2 = new Date($("#checkout").val());
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		console.log("diffDays:"+diffDays);
+		
+		 
+	 }
+	 
+	// 특정일 선택막기
+	function enableAllTheseDays(date) {
+		var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+	    for (i = 0; i < enabledays.length; i++) {
+	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enabledays) != -1) {
+	            return [true];
+	        }
+	    }
+	    return [false];
+	}
+	
+	function getDate( element ) {
+	  var date;
+	  try {
+	    date = $.datepicker.parseDate( dateFormat, element.value );
+	  } catch( error ) {
+	    date = null;
+	  }
+	
+	  return date;
+	}
+	
+	 
+ 	
      
  });
 </script>
@@ -168,13 +201,28 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
     		</div>
     	</div>
     	<div class="w3-row content_1">
-    		<div class="w3-col s12">
-    			<span>인원</span>
-    			<input type="number" class="booking-width booking-height inputNum" > 명
+    		<div class="w3-col s3">
+    			<label class="booking-menu">인원</label>
+    		</div>
+    		<div class="w3-col s5">
+    			<input type="number" name="qty" value="1" class="area-80 booking-height inputNum text-center" > 
+    			<span>명</span>
     		</div>
     	</div>
+    	<div class="w3-row content_1" id="divOption">
+    		<table>
+    			<tr>
+    				<td></td>
+    				<td>합계</td>
+    			</tr>	
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    		</table>
+    	</div>
     	<div class="w3-row w3-center">
-    			<input type="button" class="booking-width booking-height w3-red w3-round-large" value="예약 요청">
+    			<input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
     	</div>
     	<div class="w3-row booking-comment">
     		100% 환불 가능ㆍ예약 확정 전에는 요금이 청구되지 않습니다.

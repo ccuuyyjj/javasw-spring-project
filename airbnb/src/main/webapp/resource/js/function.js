@@ -4,6 +4,7 @@ function maxLengthCheck(object){
     object.value = object.value.slice(0, object.maxLength);
     }    
 }
+
 $(document).ready(function(){
 	//인원  자릿수 체크
 	$(".inputNum").on("blur ", function(){
