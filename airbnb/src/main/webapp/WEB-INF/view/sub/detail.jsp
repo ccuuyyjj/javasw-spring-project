@@ -33,6 +33,8 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
 	    }
 	    return [true];
 	}
+	
+	
 	 
 	 
  	//구글맵 생성
@@ -47,6 +49,7 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
          lat:${room.lat}//위도
          ,lng:${room.lng}//경도                 
      });
+     
  });
 </script>
 
@@ -178,7 +181,14 @@ var disabledDays = ["2013-7-9","2013-7-24","2013-7-26"];
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
+    		<form action="#" class="WishList">
+    			<input type="hidden" name="status" value="status">
+    			<input type="hidden" name="address" value="address">
+    			<input type="hidden" name="host" value="host">
+    			<input type="hidden" name="checkin" value="checkin">
+    			<input type="hidden" name="checkout" value="checkout">
     			<input type="button" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
+    		</form>
     	</div>
    	</div>
    </div>
