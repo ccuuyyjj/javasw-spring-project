@@ -122,7 +122,7 @@ function check_date(startDate, diff){
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host3_2">	
 		<div class="w3-row host-row">
-			<a href="javascript:history.back();" >뒤로</a>
+			<a href="${pageContext.request.contextPath}/host/become_host3_1"" >뒤로</a>
 			<span class="space">&nbsp;</span>
 			<input type="submit" id="continue" class="w3-btn w3-round-large w3-red w3-right" value="완료">
 		</div>

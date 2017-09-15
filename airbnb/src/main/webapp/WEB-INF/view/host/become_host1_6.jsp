@@ -35,7 +35,15 @@
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_6">
 	<input type="hidden" name="urlNo" value="${urlNo}">
 	<div class="w3-row host-row">
-		<a href="javascript:history.back();" >뒤로</a>
+		<c:choose>
+			<c:when test="${urlNo eq 3}">
+				<a href="${pageContext.request.contextPath}/host/become_host1_3" >뒤로</a>
+			</c:when>
+			<c:otherwise>	
+				<a href="${pageContext.request.contextPath}/host/become_host1_5" >뒤로</a>
+			</c:otherwise>	
+		</c:choose>
+		
 		<span class="space">&nbsp;</span>
 		<input type="submit" class="w3-btn w3-round-large w3-green" value="계속">
 	</div>

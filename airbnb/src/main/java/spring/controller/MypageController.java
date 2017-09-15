@@ -43,16 +43,24 @@ public class MypageController {
 
 		return "mypage/setting";
 	}
-	
-	
+
 	@RequestMapping("/my_reservations")
 	public String my_reservations(Model m) {
 		return "mypage/my_reservations";
 	}
-	
-	
+
 	@RequestMapping("/transaction_history")
 	public String transaction_history(Model m) {
 		return "mypage/transaction_history";
+	}
+
+	@RequestMapping("/trips")
+	public String trips(Model m) {
+		return "mypage/trips";
+	}
+
+	@RequestMapping("/old_trips")
+	public String old_trips(Model m) {
+		return "mypage/old_trips";
 	}
 }

@@ -89,7 +89,7 @@
 												<table class="m_table">
 		                                            <tr>
 		                                              	<td class="m_padding m_area-10">호스트 이름</td>
-		                                                <td class="m_padding m_area-20">${message.name}<br>${message.reg}</td>
+		                                                <td class="m_padding m_area-20">${message.name}<br>${message.date}</td>
 		                                                <td class="m_padding m_area-50"><a href="messageDetail/${message.room_no}">${message.question}</a></td>
 		                                                <td class="m_padding m_area-10">￦${message.price}</td>
 		                                                <td class="m_padding m_area-10">5</td>

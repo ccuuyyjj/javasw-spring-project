@@ -120,6 +120,10 @@ public class Message {
 		return reg;
 	}
 
+	public String getDate() {
+		return reg.substring(0, 16);
+	}
+
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
@@ -127,7 +131,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [no=" + no + ", member_no=" + member_no + ", room_no=" + room_no + ", checkin=" + checkin
-				+ ", checkout=" + checkout + ", quantity=" + quantity + ", question=" + question + ", reg=" + reg + "]";
+				+ ", checkout=" + checkout + ", quantity=" + quantity + ", question=" + question + ", reg=" + reg
+				+ ", name=" + name + ", price=" + price + "]";
 	}
-
 }

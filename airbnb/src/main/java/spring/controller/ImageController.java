@@ -67,11 +67,11 @@ public class ImageController {
 			String saveFolder = mRequest.getServletContext().getRealPath("/file");
 			log.debug("saveFolder = " + saveFolder);
 
+			File target = new File(saveFolder, file.getOriginalFilename());
+			file.transferTo(target);
+
 			// 파일명에 'local:' 구분자를 넣어 기존 url과 차별을 둔다
 			photourl = "local:" + file.getOriginalFilename();
-
-			File target = new File(saveFolder, photourl);
-			file.transferTo(target);
 
 			room.setPhotoUrl(photourl);
 		}

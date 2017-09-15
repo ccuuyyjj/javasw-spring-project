@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="mask"></div>
 <div id="popup_area">
 	<div class="window" style="display:none;" id="login">
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
 			<div class="area-60  layer-center">
-		    <form action="#" method="post">
+		    <form action="${pageContext.request.contextPath}/loginProc" method="post">
 		        <div class="row">
 		            <input type="email" name="email" placeholder="Email" class="w3-input" required>
 		        </div>
@@ -35,51 +35,62 @@
 		            <button class="joinbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">회원가입</button>
 		        </div>
 		    </form>
-		    </div>
+		    </div>	
 	</div>
-	
-	<div class="window" style="display:none;" id="join">
-			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
-			<div class="empty"></div>
-			<div class="area-60  layer-center">
-			
-		    <form id="check" action="${pageContext.request.contextPath}/member/join" method="post">
-		    		<!-- 회원가입 폼 -->
-		        <div class="row">
-		            <input type="email" id="email" name="email" placeholder="Email" class="w3-input default" required>
-		        </div>
-		        <div class="row">
-		           <input type="password" name="pw" placeholder="Password" class="w3-input default" required>
-		        </div>
-		        <div class="row">
-		            <input type="text" name="name" placeholder="이름" class="w3-input default" required>
-		        </div>
-		         <div class="row">
-		            <input type="tel" name="phone" placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"  class="w3-input default" required>
-		        </div>
-		        <br><br>
-		        <div class="row">
-		            <input type="submit" value="회원가입" class="input-btn area-80">
-		        </div>
-		        
-		        <div class="row">
-		        	&nbsp;
-		        </div>
-		        <div class="row">
-		        	<hr>
-		        	<label>계정이 있나요?</label>
-		            <button class="loginbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">로그인</button>
-		        </div>
-		    </form>
-		    </div>
+
+	<div class="window" style="display: none;" id="join">
+		<img src="${pageContext.request.contextPath}/img/ico_close.png"
+			class="close">
+		<div class="empty"></div>
+		<div class="area-60  layer-center">
+
+<!-- 회원가입 폼 -->
+			<form id="a_join"
+				action="${pageContext.request.contextPath}/member/join"
+				method="post">
+				<div>
+					<input type="email" id="a_email" name="email" placeholder="Email"
+						class="w3-input resource" required>
+				</div>
+				<div>
+					<input type="password" name="pw" placeholder="Password"
+						class="w3-input resource" required>
+				</div>
+				<div>
+					<input type="text" name="name" placeholder="이름"
+						class="w3-input resource" required>
+				</div>
+				<div>
+					<input type="tel" name="phone"
+						placeholder="연락처&nbsp&nbsp'&nbsp-&nbsp' &nbsp제외"
+						class="w3-input resource" required>
+				</div>
+				<br>
+				<br>
+				<div>
+					<input type="submit" value="회원가입" class="input-btn area-80">
+				</div>
+
+				<div>&nbsp;</div>
+				<div>
+					<hr>
+					<label>계정이 있나요?</label>
+					<button
+						class="loginbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">로그인</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	<div class="messageWindow" style="display:none;" id="message">
-		<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
+	<div class="messageWindow" style="display: none;" id="message">
+		<img src="${pageContext.request.contextPath}/img/ico_close.png"
+			class="close">
 		<div class="empty"></div>
 		<div class="area-60 layer-center">
-		<div>
+<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="member_no" value="1">
+	        <input type="hidden" name="name" value="${room.name}">
+	        <input type="hidden" name="price" value="${room.price}">
 	        <input type="hidden" name="room_no" value="${room.no}">
             <div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
             <div class="md-container_2">언제 여행하실 계획인가요?</div>
@@ -112,4 +123,4 @@
 	    </div>
 	    </div>
 	</div>
-</div>	
+</div>
