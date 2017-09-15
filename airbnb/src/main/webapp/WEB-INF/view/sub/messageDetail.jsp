@@ -19,7 +19,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script src="js/datepicker.js"></script>
 <script src="js/function.js"></script>
-<script src="js/layer_popup.js"></script>  
+<script src="js/layer_popup.js"></script>
 </head>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <body>
@@ -59,14 +59,23 @@
                 </div>
                 <div class="container_2 area-58">
                     <div class="container_10">
-                        <textarea rows="6" cols="50"></textarea>
-                        <div class="container_3">
-                            <div class="container_4">
-                                <div class="container_5">
-                                    <botton class="m-btn">메세지 보내기</botton>
-                                </div>
-                            </div>
-                        </div>
+                    	<form action="${room_no}" method="post">
+                    		<input type="hidden" name="member_no" value="1">
+                    		<input type="hidden" name='name' value="${name}">
+                            <input type="hidden" name="room_no" value="${room_no}">
+                            <input type="hidden" name="checkin" value="${checkin}">
+                            <input type="hidden" name="checkout" value="${checkout}">
+                            <input type="hidden" name="quantity" value="${quantity}">
+                            <input type="hidden" name="price" value="${price}">
+	                        <textarea rows="6" cols="50" name="question"></textarea>
+	                        <div class="container_3">
+	                            <div class="container_4">
+	                                <div class="container_5">
+	                                	<input type="submit" class="m-btn" value="메세지 보내기">
+	                                </div>
+	                            </div>
+	                        </div>
+                        </form>
                     </div>
                     <div class="container_6"></div>
                     <c:forEach var="message" items="${message}">
@@ -74,7 +83,7 @@
                         <div class="container_7">아이디</div>
                         <div>${message.question}
                         </div>
-                        <div class="container_9">${message.reg}
+                        <div class="container_9">${message.date}
                         </div>
                     </div>
                     </c:forEach>

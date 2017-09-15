@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javassist.runtime.Desc;
@@ -159,7 +160,21 @@ public class SubController {
 		m.addAttribute("checkout", message.get(0).getCheckout());
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
+		m.addAttribute("price", message.get(0).getPrice());
 		
 		return "sub/messageDetail";
+	}
+	
+	@RequestMapping(value="/messageDetail/{room_no}", method=RequestMethod.POST)
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
+		messageDao.insert(message);
+		m.addAttribute("message", message);
+		m.addAttribute("checkin", message.getCheckin());
+		m.addAttribute("checkout", message.getCheckout());
+		m.addAttribute("name", message.getName());
+		m.addAttribute("quantity", message.getQuantity());
+		m.addAttribute("price", message.getPrice());
+		
+		return "redirect:/sub/messageDetail/"+ room_no;
 	}
 }
