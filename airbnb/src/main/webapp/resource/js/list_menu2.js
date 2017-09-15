@@ -3,6 +3,7 @@
  */
 /*메뉴 */
 $(document).ready(function() {
+	
 	/*메뉴 클릭, 이동 시*/
 	$(".b").on("click", function() {
 		$(".b").next().not($(this).next()).hide();

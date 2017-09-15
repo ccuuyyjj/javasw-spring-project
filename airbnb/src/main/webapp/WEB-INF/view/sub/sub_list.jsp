@@ -48,8 +48,8 @@
 		<input type="button" value="가격 범위" class="b">
 		<div class="add_price slider">
 			<form class="slider" action="sub_list" method="post">
-				<!-- <img src="/home.png" width="300" height="150"> --> <br>평균 1박
-				요금은 ₩91,174입니다. <input data-addui='slider' data-min='10000'
+				 <img src="${pageContext.request.contextPath}/img/home.png" width="300" height="150"> 
+				 <br>평균 1박 	요금은 ₩91,174입니다. <input data-addui='slider' data-min='10000'
 					data-formatter='usd' data-fontsize='12' data-step='5'
 					data-range='true' data-timeout='50000' value='${param.price}'
 					data-max='1000000' name='price' class='slider' />
