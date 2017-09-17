@@ -5,6 +5,7 @@
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
 <script src="${pageContext.request.contextPath}/js/wishList.js"></script>
+
 <script>
  $(document).ready(function(){
 	 
@@ -15,8 +16,7 @@
          ,lat:'${room.lat}'	//위도
          ,lng:'${room.lng}'	//경도                 
      });
- 	console.log(gmap);
-     gmap.addMarker({
+ 	 gmap.addMarker({
          lat:'${room.lat}'		//위도
          ,lng:'${room.lng}'	//경도                 
      });
@@ -30,13 +30,18 @@
 	 
 	 jQuery('#checkin').datepicker({
 		dateFormat: 'yy/mm/dd',
+		minDate: 0,
 		constrainInput: false,
 		beforeShowDay: enableAllTheseDays,
+		onSelect: function (dateText, inst) {
+	         checkdate();
+	      }
 	});
 	
 	 jQuery('#checkout').datepicker({
 		dateFormat: 'yy/mm/dd',
 		constrainInput: false,
+		minDate: 0,
 		beforeShowDay: enableAllTheseDays,
 		onSelect: function (dateText, inst) {
 	         checkdate();
@@ -48,13 +53,27 @@
 			 $('#checkin').datepicker('show');
 			 return;
 		 }
+		 if($("#checkout").val() === ""){
+			 $('#checkout').datepicker('show');
+			 return;
+		 }
 		 
 		var date1 = new Date($("#checkin").val());
 		var date2 = new Date($("#checkout").val());
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		diffDays = (diffDays==0)?1:diffDays;
+		var price = "${room.price}";
 		console.log("diffDays:"+diffDays);
+		console.log("price:"+"${room.price}");
 		
+		var total = diffDays * price;
+		var txt = "\\"+numberWithCommas(price) +"×"+diffDays + "박";
+		$("#divOption").show();
+		$(".btnFixed").css("height", "530");
+		$("#atm_content").html(txt);
+		$("#atm").text("\\"+numberWithCommas(total));
+		$("#total").text("\\"+numberWithCommas(total));
 		 
 	 }
 	 
@@ -69,18 +88,7 @@
 	    return [false];
 	}
 	
-	function getDate( element ) {
-	  var date;
-	  try {
-	    date = $.datepicker.parseDate( dateFormat, element.value );
-	  } catch( error ) {
-	    date = null;
-	  }
 	
-	  return date;
-	}
-	
-	 
  	
      
  });
@@ -180,7 +188,7 @@
 	<!-- fixed 예약(S) -->
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
-   		최소 : <span>\</span><span>295,041</span>/박
+   		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
    	<div class="booking-wrap">
     	<div class="w3-row content_1">
@@ -209,15 +217,15 @@
     			<span>명</span>
     		</div>
     	</div>
-    	<div class="w3-row content_1" id="divOption">
+    	<div class="w3-row content_1" id="divOption" style="display:none;">
     		<table>
     			<tr>
-    				<td></td>
-    				<td>합계</td>
+    				<td id="atm_content"></td>
+    				<td id="atm"></td>
     			</tr>	
     			<tr>
-    				<td></td>
-    				<td></td>
+    				<td>합계</td>
+    				<td id="total"></td>
     			</tr>
     		</table>
     	</div>

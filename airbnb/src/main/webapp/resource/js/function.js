@@ -4,7 +4,10 @@ function maxLengthCheck(object){
     object.value = object.value.slice(0, object.maxLength);
     }    
 }
-
+//숫자 3자리 콤마
+function numberWithCommas(x) { 
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+}
 $(document).ready(function(){
 	//인원  자릿수 체크
 	$(".inputNum").on("blur ", function(){
@@ -29,7 +32,7 @@ $(document).ready(function(){
     	  $( '.btnFixed' ).css("top", 600);
       }
     	
-    });
+    });    
     
 	
 });
