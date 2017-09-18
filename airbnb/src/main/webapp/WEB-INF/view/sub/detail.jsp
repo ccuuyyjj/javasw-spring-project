@@ -192,6 +192,7 @@
    	</div>
    	<div class="booking-wrap">
    		<form name="bfrm" method="post" action="${pageContext.request.contextPath}/sub/detail/${room.no}">
+   		<sec:csrfInput/>
    		<input type="hidden" name="totalprice" id="totalprice">
    		<input type="hidden" name="room_no" value="${room.no}">
     	<div class="w3-row content_1">
