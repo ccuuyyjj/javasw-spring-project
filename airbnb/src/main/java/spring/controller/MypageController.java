@@ -2,6 +2,8 @@ package spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
 import spring.model.MemberDao;
@@ -32,8 +35,8 @@ public class MypageController {
 	private RoomDao roomDao;
 
 	@RequestMapping("/rooms")
-	public String rooms(Model m) {
-		List<Room> host_list = roomDao.host_list();
+	public String rooms(Model m, UsernamePasswordAuthenticationToken token) {
+		List<Room> host_list = roomDao.host_list(token.getName());
 		m.addAttribute("host_list", host_list);
 		return "mypage/rooms";
 	}
@@ -81,4 +84,12 @@ public class MypageController {
 	public String old_trips(Model m) {
 		return "mypage/old_trips";
 	}
+	
+	@RequestMapping("/room_del")
+	@ResponseBody
+	public String room_del(HttpServletRequest request) {
+		roomDao.delete(request.getParameter("room_no"));
+		return "result";
+	}
+	
 }
