@@ -60,12 +60,10 @@ public class MemberDao {
 	
 	public Member select(String username){
 		String sql = "select * from member where email = ?";
-		Member member = jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
-		log.debug("no:"+member.getNo());
-		return member;
+		return jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
 	}
-//	public Member select(int no){
-//		String sql = "select * from member where no = ?";
-//		return jdbcTemplate.query(sql, new Object[] {no}, rowMapper).get(0);
-//	}
+	public Member select(int no){
+		String sql = "select * from member where no = ?";
+		return jdbcTemplate.query(sql, new Object[] {no}, rowMapper).get(0);
+	}
 }

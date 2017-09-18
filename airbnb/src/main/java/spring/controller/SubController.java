@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +48,8 @@ public class SubController {
 	private RsvpDao rsvpDao;
 	@Autowired
 	private MemberDao memberDao;
+	
+	Rsvp rsvp;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -136,41 +139,34 @@ public class SubController {
 		return "sub/detail";
 	}
 	
-	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST )
-	public String detail(@PathVariable("id") int id, HttpServletRequest request, UsernamePasswordAuthenticationToken token,  Model m) { 
-		log.debug("name: "+token.getName());
-		log.debug("room_no : ", request.getParameter("room_no"));
-		Member member1 = memberDao.select(token.getName());
-		log.debug("guest_no : ", member1.getNo());
-		log.debug("quantity : ", Integer.parseInt(request.getParameter("qty")));
-		//log.debug("phone : ", member.getPhone());
-		log.debug("startdate : ", request.getParameter("checkin"));
-		log.debug("enddate : ", request.getParameter("checkout"));
-		log.debug("totalprice : ", Integer.parseInt(request.getParameter("totalprice")));
-		log.debug("===================================");
-		Rsvp rsvp = new Rsvp();
-		rsvp.setRoom_no(Integer.parseInt(request.getParameter("room_no")));
-		//rsvp.setGuest_no(member.getNo());
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST)
+	public String detail(@PathVariable("id") int id, HttpServletRequest request, 
+			UsernamePasswordAuthenticationToken token,  Model m) { 
+		log.debug("id: "+id);
+		String email = token.getName();
+		Member member = memberDao.select(email);
+		rsvp = new Rsvp();
+		rsvp.setRoom_no(id);
+		rsvp.setGuest_no(member.getNo());
 		rsvp.setQuantity(Integer.parseInt(request.getParameter("qty")));
 		rsvp.setStartdate(request.getParameter("checkin"));
 		rsvp.setEnddate(request.getParameter("checkout"));
 		rsvp.setTotalprice(Integer.parseInt(request.getParameter("totalprice")));
-		//rsvp.setPhone(member.getPhone());
+		rsvp.setPhone(member.getPhone());
 		rsvp.setProgress(0);
-		log.debug("room_no : ", rsvp.getRoom_no());
-		log.debug("guest_no : ", rsvp.getGuest_no());
-		log.debug("quantity : ", rsvp.getQuantity());
-		log.debug("phone : ", rsvp.getPhone());
-		log.debug("startdate : ", rsvp.getStartdate());
-		log.debug("enddate : ", rsvp.getEnddate());
-		log.debug("totalprice : ", rsvp.getTotalprice());
+		m.addAttribute("rsvp", rsvp);
 		
-		return "redirect:/sub/order";
+		return "redirect:/sub/book";
 	}
 	
-	@RequestMapping("/order")
-	public String order() {
-		return "sub/order";
+	@RequestMapping("/book")
+	public String order(Model m) {
+		log.debug("no:"+rsvp.getRoom_no());
+		Room room = roomDao.select(rsvp.getRoom_no());
+		m.addAttribute("rsvp", rsvp);
+		m.addAttribute("room", room);
+		
+		return "sub/book";
 	}
 	
 

@@ -86,7 +86,6 @@
  <div class="photo">
      <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="100%" height="80%">
  </div>
-       
 <div class="container_1">
 	<div class="container">
 		<div class="menu">
@@ -174,6 +173,8 @@
 			</tr>
 		</table>
 	</div>
+	
+	
 	<!-- fixed 예약(S) -->
 	
 	
@@ -183,9 +184,7 @@
    	</div>
    	<div class="booking-wrap">
    		<form name="bfrm" method="post" action="${pageContext.request.contextPath}/sub/detail/${room.no}">
-   		<sec:csrfInput/>
    		<input type="hidden" name="totalprice" id="totalprice">
-   		<input type="hidden" name="room_no" value="${room.no}">
     	<div class="w3-row content_1">
     		<div class="w3-col s3">
     			<label class="booking-menu">체크인</label>
@@ -240,15 +239,15 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<form action="#" class="WishList">
-	    		<input type="hidden" name="member_no" value="1">
-	    		<input type="hidden" name="status" value="예약전">
-    			<input type="hidden" name="address" value="address">
-    			<input type="hidden" name="hostname" value="host">
-    			<input type="hidden" name="checkin" value="17-09-05">
-    			<input type="hidden" name="checkout" value="17-09-03"	>
-    			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
-    		</form>
+<!--     		<form action="#" class="WishList"> -->
+<!-- 	    		<input type="hidden" name="member_no" value="1"> -->
+<!-- 	    		<input type="hidden" name="status" value="예약전"> -->
+<!--     			<input type="hidden" name="address" value="address"> -->
+<!--     			<input type="hidden" name="hostname" value="host"> -->
+<!--     			<input type="hidden" name="checkin" value="17-09-05"> -->
+<!--     			<input type="hidden" name="checkout" value="17-09-03"	> -->
+<!--     			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기"> -->
+<!--     		</form> -->
     	</div>
    	</div>
    </div>
