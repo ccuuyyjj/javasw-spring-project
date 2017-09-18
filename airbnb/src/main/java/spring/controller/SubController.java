@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.RsvpDao;
 
 @Controller
 @RequestMapping("/sub")
@@ -31,6 +34,8 @@ public class SubController {
 	private MessageDao messageDao;
 	@Autowired
 	private AvailDao availDao;
+	@Autowired
+	private RsvpDao rsvpDao;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -38,7 +43,7 @@ public class SubController {
 			@RequestParam(value = "startDate", required = false) String startDate,
 			@RequestParam(value = "endDate", required = false) String endDate,
 			@RequestParam(value = "amount", required = false) Integer amount,
-			@RequestParam(value = "type", required = false) String[] type,
+			@RequestParam(value = "type", required = false) String types,
 			@RequestParam(value = "price", required = false) int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
@@ -115,6 +120,14 @@ public class SubController {
 		m.addAttribute("availList", availDao.selectAvailable(id));
 		return "sub/detail";
 	}
+	
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST )
+	public String detail(@PathVariable("id") int id, HttpServletRequest request) {
+		
+		
+		return "sub/detail";
+	}
+	
 
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {

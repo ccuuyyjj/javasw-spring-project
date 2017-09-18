@@ -34,9 +34,9 @@
 		constrainInput: false,
 		beforeShowDay: enableAllTheseDays,
 		onSelect: function (dateText, inst) {
-	         checkdate();
-	      }
-	});
+			 checkdate();
+	     }
+	});	
 	
 	 jQuery('#checkout').datepicker({
 		dateFormat: 'yy/mm/dd',
@@ -50,14 +50,14 @@
 	
 	 function checkdate(){
 		 if($("#checkin").val() === ""){
-			 $('#checkin').datepicker('show');
-			 return;
+			jQuery('#checkout').datepicker('show');
+			return;
 		 }
 		 if($("#checkout").val() === ""){
-			 $('#checkout').datepicker('show');
+			 jQuery('#checkin').datepicker('show');
 			 return;
 		 }
-		 
+		
 		var date1 = new Date($("#checkin").val());
 		var date2 = new Date($("#checkout").val());
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -74,7 +74,7 @@
 		$("#atm_content").html(txt);
 		$("#atm").text("\\"+numberWithCommas(total));
 		$("#total").text("\\"+numberWithCommas(total));
-		 
+		$("#totalprice").val(total);	 
 	 }
 	 
 	// 특정일 선택막기
@@ -186,6 +186,8 @@
 		</table>
 	</div>
 	<!-- fixed 예약(S) -->
+	<form method="post" action="${pageContext.request.contextPath}/sub/detail">
+	<input type="hidden" name="totalprice" id="totalprice">
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
    		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
@@ -213,19 +215,19 @@
     			<label class="booking-menu">인원</label>
     		</div>
     		<div class="w3-col s5">
-    			<input type="number" name="qty" value="1" class="area-80 booking-height inputNum text-center" > 
+    			<input type="number" name="qty" id="qty"  value="1" class="area-80 booking-height inputNum text-center" > 
     			<span>명</span>
     		</div>
     	</div>
     	<div class="w3-row content_1" id="divOption" style="display:none;">
-    		<table>
+    		<table class="fixed_table" >
     			<tr>
     				<td id="atm_content"></td>
-    				<td id="atm"></td>
+    				<td id="atm" class="text-right"></td>
     			</tr>	
     			<tr>
-    				<td>합계</td>
-    				<td id="total"></td>
+    				<td class="font-bold">합계</td>
+    				<td id="total" class="text-right font-bold"></td>
     			</tr>
     		</table>
     	</div>
@@ -247,6 +249,7 @@
     	</div>
    	</div>
    </div>
+   </form>
    <!-- fixed 예약(E) -->
 		    
     <!--  후기 -->
