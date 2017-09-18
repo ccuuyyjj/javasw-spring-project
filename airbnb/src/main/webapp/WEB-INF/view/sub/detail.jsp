@@ -78,16 +78,7 @@
 		$("#totalprice").val(total);	 
 	 }
 	 
-	// 특정일 선택막기
-	function enableAllTheseDays(date) {
-		var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	    for (i = 0; i < enabledays.length; i++) {
-	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enabledays) != -1) {
-	            return [true];
-	        }
-	    }
-	    return [false];
-	} 
+	
  });
  
 </script>
