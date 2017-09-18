@@ -5,7 +5,8 @@ $(document).ready(function(){
 	    .datepicker({
 	      defaultDate: "+1w",
 	      changeMonth: true,
-	      numberOfMonths: 2
+	      numberOfMonths: 2,
+	      minDate: 0
 	    })
 	    .on( "change", function() {
 	      to.datepicker( "option", "minDate", getDate( this ) );
@@ -24,7 +25,8 @@ $(document).ready(function(){
 	  to = $( "#endDate" ).datepicker({
 	    defaultDate: "+1w",
 	    changeMonth: true,
-	    numberOfMonths: 2
+	    numberOfMonths: 2,
+	    minDate: 0
 	  })
 	  .on( "change", function() {
 	    from.datepicker( "option", "maxDate", getDate( this ) );  

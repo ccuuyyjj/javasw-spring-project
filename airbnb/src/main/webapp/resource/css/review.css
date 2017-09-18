@@ -1,0 +1,21 @@
+#write {
+	display : none;
+	padding-top: 15px;
+	width: 100%;
+}
+
+#star {
+	margin-left: 15px;
+}
+
+#btn {
+	text-align: right;
+}
+
+#btn button {
+	margin-right: 10px;
+}
+#detail_board{
+	width:100%;
+	resize: none;
+}

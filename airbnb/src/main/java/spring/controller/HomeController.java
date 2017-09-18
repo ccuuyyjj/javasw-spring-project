@@ -13,9 +13,9 @@ public class HomeController {
 	}
 
 	@RequestMapping("/check")
-	void check(@RequestParam(value="email")String email) {
-	//중복 이메일 검사
-		System.out.println("들어왔나?"+email);
+	void check(@RequestParam(value = "email") String email) {
+		// 중복 이메일 검사
+		System.out.println("들어왔나?" + email);
 	}
-	
+
 }

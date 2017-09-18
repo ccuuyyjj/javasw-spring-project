@@ -1,56 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
-<script>
-	var enableDays = new Array(); 
-	<c:forEach items="${availday}" var="avail">
-	enableDays.push("${avail.getDate()}");
-	</c:forEach>
+<script src="${pageContext.request.contextPath}/js/wishList.js"></script>
 
+<script>
  $(document).ready(function(){
 	 
-	 jQuery('#checkin').datepicker({
-		dateFormat: 'yy-mm-dd',
-		constrainInput: true,
-		beforeShowDay: disableAllTheseDays
-	});
+	//구글맵 생성
+ 	//var gmap = new GMaps({옵션});
+ 	var gmap = new GMaps({
+         div:"#map"//어디에(출력장소),선택자
+         ,lat:'${room.lat}'	//위도
+         ,lng:'${room.lng}'	//경도                 
+     });
+ 	 gmap.addMarker({
+         lat:'${room.lat}'		//위도
+         ,lng:'${room.lng}'	//경도                 
+     });
 	 
-	 jQuery('#checkout').datepicker({
-		dateFormat: 'yy-mm-dd',
-		constrainInput: true,
-		beforeShowDay: disableAllTheseDays
+	 
+	 var enabledays = new Array();
+	 <c:forEach items="${availList}" var="avail">
+	 enabledays.push( '${avail.getDate()}');
+	 </c:forEach>	 
+	 
+	 
+	 jQuery('#checkin').datepicker({
+		dateFormat: 'yy/mm/dd',
+		minDate: 0,
+		constrainInput: false,
+		beforeShowDay: enableAllTheseDays,
+		onSelect: function (dateText, inst) {
+	         checkdate();
+	      }
 	});
 	
-	// 특정일 선택막기
-	function disableAllTheseDays(date) {
+	 jQuery('#checkout').datepicker({
+		dateFormat: 'yy/mm/dd',
+		constrainInput: false,
+		minDate: 0,
+		beforeShowDay: enableAllTheseDays,
+		onSelect: function (dateText, inst) {
+	         checkdate();
+	      }
+	});    		
+	
+	 function checkdate(){
+		 if($("#checkin").val() === ""){
+			 $('#checkin').datepicker('show');
+			 return;
+		 }
+		 if($("#checkout").val() === ""){
+			 $('#checkout').datepicker('show');
+			 return;
+		 }
+		 
+		var date1 = new Date($("#checkin").val());
+		var date2 = new Date($("#checkout").val());
+		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		diffDays = (diffDays==0)?1:diffDays;
+		var price = "${room.price}";
+		console.log("diffDays:"+diffDays);
+		console.log("price:"+"${room.price}");
 		
-	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	    
-	    for (i = 0; i < enableDays.length; i++) {
-	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enableDays) != -1) {
+		var total = diffDays * price;
+		var txt = "\\"+numberWithCommas(price) +"×"+diffDays + "박";
+		$("#divOption").show();
+		$(".btnFixed").css("height", "530");
+		$("#atm_content").html(txt);
+		$("#atm").text("\\"+numberWithCommas(total));
+		$("#total").text("\\"+numberWithCommas(total));
+		 
+	 }
+	 
+	// 특정일 선택막기
+	function enableAllTheseDays(date) {
+		var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+	    for (i = 0; i < enabledays.length; i++) {
+	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enabledays) != -1) {
 	            return [true];
 	        }
 	    }
 	    return [false];
 	}
-	 
-	 
- 	//구글맵 생성
- 	//var gmap = new GMaps({옵션});
- 	var gmap = new GMaps({
-         div:"#map"//어디에(출력장소),선택자
-         ,lat:"${room.lat}"	//위도
-         ,lng:"${room.lng}"//경도                 
-     });
- 	console.log(gmap);
-     gmap.addMarker({
-         lat:"${room.lat}" 	//위도
-         ,lng:"${room.lng}" //경도                 
-     });
+	
+	
+ 	
+     
  });
 </script>
 
@@ -148,7 +188,7 @@
 	<!-- fixed 예약(S) -->
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
-   		최소 : <span>\</span><span>295,041</span>/박
+   		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
    	<div class="booking-wrap">
     	<div class="w3-row content_1">
@@ -169,20 +209,41 @@
     		</div>
     	</div>
     	<div class="w3-row content_1">
-    		<div class="w3-col s12">
-    			<span>인원</span>
-    			<input type="number" class="booking-width booking-height inputNum text-center" > 명
+    		<div class="w3-col s3">
+    			<label class="booking-menu">인원</label>
+    		</div>
+    		<div class="w3-col s5">
+    			<input type="number" name="qty" value="1" class="area-80 booking-height inputNum text-center" > 
+    			<span>명</span>
     		</div>
     	</div>
+    	<div class="w3-row content_1" id="divOption" style="display:none;">
+    		<table>
+    			<tr>
+    				<td id="atm_content"></td>
+    				<td id="atm"></td>
+    			</tr>	
+    			<tr>
+    				<td>합계</td>
+    				<td id="total"></td>
+    			</tr>
+    		</table>
+    	</div>
     	<div class="w3-row w3-center">
-    			<input type="button" class="booking-width booking-height w3-red w3-round-large" value="예약 가능 여부 확인">
+    			<input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
     	</div>
     	<div class="w3-row booking-comment">
     		100% 환불 가능ㆍ예약 확정 전에는 요금이 청구되지 않습니다.
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    			<input type="button" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
+    		<form action="mypage/trips" class="WishList">
+    			<input type="hidden" name="address" value="address">
+    			<input type="hidden" name="host" value="host">
+    			<input type="hidden" name="checkin" value="checkin">
+    			<input type="hidden" name="checkout" value="checkout">
+    			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
+    		</form>
     	</div>
    	</div>
    </div>

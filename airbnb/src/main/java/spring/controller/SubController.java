@@ -42,6 +42,7 @@ public class SubController {
 			@RequestParam(value = "price", required = false) int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
+		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
@@ -76,7 +77,7 @@ public class SubController {
 			args_list.add(startDate + "~" + endDate);
 		}
 
-		if (location != null) {
+		if (location != null && !location.isEmpty()) {
 			type_list.add("region");
 			args_list.add(location);
 		}
@@ -86,21 +87,23 @@ public class SubController {
 			args_list.add(amount);
 		}
 
-		if (type != null) {
+		if (types != null && !types.isEmpty()) {
+			String[] type = types.split(",");
 			type_list.add("type");
+			for (String str : type)
+				System.out.println("type = " + str);
 			args_list.add(type);
 		}
 
-		if (price != null) {
+		if (price != null && price.length != 0) {
 			type_list.add("price");
 			args_list.add(price);
 		}
 
-		if (filter != null) {
+		if (filter != null && filter.length != 0) {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
-
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -108,36 +111,33 @@ public class SubController {
 
 	@RequestMapping("/detail/{id}")
 	public String detail(@PathVariable("id") int id, Model m) {
-		
 		m.addAttribute("room", roomDao.select(id));
-		m.addAttribute("availday", availDao.selectAvailable(id));
-		
+		m.addAttribute("availList", availDao.selectAvailable(id));
 		return "sub/detail";
 	}
 
-
-	
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
 		List<Message> message = new ArrayList<>();
-		for(int i=0; i < no.size(); i++) {
+		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select((int) no.get(i));
 			roomList.add(room);
-			System.out.println("room = "+roomList.get(i));
-			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo());
+			System.out.println("room = " + roomList.get(i));
+			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
+					roomList.get(i).getNo());
 			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
 
 				public int compare(Message o1, Message o2) {
-					if(o1.getNo() < o2.getNo()) {
+					if (o1.getNo() < o2.getNo()) {
 						return 1;
-					} else if(o1.getNo() > o2.getNo()) {
+					} else if (o1.getNo() > o2.getNo()) {
 						return -1;
-					}else {
+					} else {
 						return 0;
 					}
 				}
@@ -145,8 +145,8 @@ public class SubController {
 		}
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
-		System.out.println("message = "+ message.get(0).toString());
-		System.out.println("message = "+ message.get(1).toString());
+		System.out.println("message = " + message.get(0).toString());
+		System.out.println("message = " + message.get(1).toString());
 		return "sub/message";
 	}
 

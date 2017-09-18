@@ -156,6 +156,12 @@
 	margin-bottom: 10%;
 }
 
+.row_login {
+	height: 50px;
+	text-align: center;
+	margin-bottom: 2%;
+}
+
 .row a {
 	color: dodgerblue;
 	font-size: 15px;
