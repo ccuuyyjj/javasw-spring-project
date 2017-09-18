@@ -1,6 +1,10 @@
 package spring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
 import spring.model.MemberDao;
+import spring.model.Room;
 
 @Controller
 @RequestMapping("/member")
@@ -19,7 +24,7 @@ public class MemberController {
 
 	@Autowired
 	MemberDao memberDao;
-
+	
 	@RequestMapping("/login")
 	String login() {
 		return "member/login";
@@ -32,7 +37,6 @@ public class MemberController {
 		memberDao.insert(member);
 		return referer;
 	}
-
 	// 중복 이메일 검사
 	@ResponseBody
 	@RequestMapping(value = "/check", method = RequestMethod.POST)

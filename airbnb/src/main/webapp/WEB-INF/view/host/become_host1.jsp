@@ -5,7 +5,7 @@
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
 	<div>
-		<h2>지현님 안녕하세요!<br>회원님의 숙소 등록을 도와드리겠습니다</h2>
+		<h2>${member.name}님 안녕하세요!<br>회원님의 숙소 등록을 도와드리겠습니다</h2>
 	</div>	
 	
 	<div class="host-row1">

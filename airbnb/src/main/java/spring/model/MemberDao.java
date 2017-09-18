@@ -1,7 +1,10 @@
 package spring.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -47,4 +50,14 @@ public class MemberDao {
 		
 		jdbcTemplate.update(sql,new Object[] {email,pw});
 	}
-}
+	
+	private RowMapper<Member> rowMapper = (rs, i) -> {
+		Member member = new Member(rs);	
+		return member;
+	};
+	
+	public Member select(String username){
+		String sql = "select * from member where email = ?";
+		return jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
+	}
+	}

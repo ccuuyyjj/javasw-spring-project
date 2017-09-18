@@ -17,7 +17,7 @@ public class Member {
 		super();
 	}
 
-	Member(ResultSet rs) throws SQLException {
+	public Member(ResultSet rs) throws SQLException {
 		setNo(rs.getInt("no"));
 		setEmail(rs.getString("Email"));
 		setPw(rs.getString("pw"));
