@@ -5,11 +5,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import spring.model.Member;
+import spring.model.MemberDao;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
@@ -21,6 +24,9 @@ public class MypageController {
 
 	@Autowired
 	private MessageDao messageDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 
 	@Autowired
 	private RoomDao roomDao;
@@ -33,7 +39,9 @@ public class MypageController {
 	}
 
 	@RequestMapping("/message")
-	public String message(Model m, int member_no) {
+	public String message(Model m, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", messageDao.getMessage(member_no));
 		return "sub/message";
