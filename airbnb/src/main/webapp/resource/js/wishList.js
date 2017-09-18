@@ -5,9 +5,10 @@
 $(document).ready(function(){
      	$(".WishList").on("submit", function(){
      		event.preventDefault();
+     		
      		console.log("data 정보 = "+$(this).serialize());
      		$.ajax({
-     			url:"../../mypage/trips",
+     			url:"/airbnb/mypage/trips",
      			type:"post",
      			data:$(this).serialize(),
      			success:function(res){

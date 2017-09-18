@@ -1,5 +1,8 @@
 package spring.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.WishList;
+import spring.model.WishListDao;
 
 @Controller
 @RequestMapping("/mypage")
@@ -24,6 +29,9 @@ public class MypageController {
 
 	@Autowired
 	private RoomDao roomDao;
+	
+	@Autowired
+	private WishListDao wishListDao;
 
 	@RequestMapping("/rooms")
 	public String rooms(Model m) {
@@ -55,18 +63,25 @@ public class MypageController {
 		return "mypage/transaction_history";
 	}
 
-	@RequestMapping("/trips")
-	public String trips(Model m) {
+	@RequestMapping(value="/trips")
+	public String trips(Model m) throws ParseException {
+		int member_no = 1;
+		List<WishList> wishList = wishListDao.select(member_no);
+		log.debug("get - wishList = "+wishList);
+		m.addAttribute("WishList", wishList);
+		
+//		Calendar now = Calendar.getInstance();
+//		log.debug("시간 = "+now.getTime());
+//		SimpleDateFormat format = new SimpleDateFormat("yy-mm-dd");
+//		now.setTime(format.parse(wishList.get(0).getCheckin()));
+//		log.debug("시간 = "+now.getTime());
 		return "mypage/trips";
 	}
 	
 	@RequestMapping(value="/trips", method=RequestMethod.POST)
-	public String trips(Model m, String address, String host, String checkin, String checkout) {
-		m.addAttribute("address", address);
-		m.addAttribute("host", host);
-		m.addAttribute("checkin", checkin);
-		m.addAttribute("checkout", checkout);
-		return "mypage/trips";
+	public void trips(Model m, WishList wishList) {
+		wishListDao.insert(wishList);
+		log.debug("post - wishList = "+wishList);
 	}
 
 	@RequestMapping("/old_trips")

@@ -237,11 +237,13 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<form action="mypage/trips" class="WishList">
+    		<form action="#" class="WishList">
+	    		<input type="hidden" name="member_no" value="1">
+	    		<input type="hidden" name="status" value="예약전">
     			<input type="hidden" name="address" value="address">
-    			<input type="hidden" name="host" value="host">
-    			<input type="hidden" name="checkin" value="checkin">
-    			<input type="hidden" name="checkout" value="checkout">
+    			<input type="hidden" name="hostname" value="host">
+    			<input type="hidden" name="checkin" value="17-09-05">
+    			<input type="hidden" name="checkout" value="17-09-03">
     			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
     		</form>
     	</div>
