@@ -19,6 +19,8 @@ import javassist.runtime.Desc;
 import spring.model.AvailDao;
 import spring.model.Message;
 import spring.model.MessageDao;
+import spring.model.Review;
+import spring.model.ReviewDao;
 import spring.model.Room;
 import spring.model.RoomDao;
 
@@ -31,6 +33,8 @@ public class SubController {
 	private MessageDao messageDao;
 	@Autowired
 	private AvailDao availDao;
+	@Autowired
+	private ReviewDao reviewDao;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -104,6 +108,7 @@ public class SubController {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
+		
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -113,6 +118,9 @@ public class SubController {
 	public String detail(@PathVariable("id") int id, Model m) {
 		m.addAttribute("room", roomDao.select(id));
 		m.addAttribute("availList", availDao.selectAvailable(id));
+		m.addAttribute("review",reviewDao.select(id));
+		m.addAttribute("total",reviewDao.count(id));
+		m.addAttribute("avg",reviewDao.avg(id));
 		return "sub/detail";
 	}
 
@@ -182,5 +190,19 @@ public class SubController {
 		m.addAttribute("price", message.getPrice());
 
 		return "redirect:/sub/messageDetail/" + room_no;
+	}
+	
+	
+	
+	//리뷰 작성
+	@RequestMapping(value="/review/{room_no}",method=RequestMethod.POST)
+	public String insert(UsernamePasswordAuthenticationToken token,
+			Model m,Review review) {
+		review.setEmail(token.getName());
+		
+		reviewDao.insert(review);
+		
+		
+		return "redirect:/sub/detail/"+review.getRoom_no();
 	}
 }

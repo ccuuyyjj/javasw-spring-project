@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	$("#show_write").on("click",function(){
 		console.log("하이~~");
-		$("#write").toggle("fast");
+		$("#write").toggle("normal");
 		$("#show_write").css("display","none");
 	});
 	
