@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="mask"></div>
 <div id="popup_area">
-<<<<<<< HEAD
 	<div class="window" style="display:none;" id="login">
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
@@ -37,44 +36,6 @@
 		        </div>
 		    </form>
 		    </div>
-=======
-
-	<div class="window" style="display: none;" id="login">
-		<img src="${pageContext.request.contextPath}/img/ico_close.png"
-			class="close">
-		<div class="empty"></div>
-		<div class="area-60  layer-center">
-			<form id="a_login" action="${pageContext.request.contextPath}/member/login" method="post">
-				<div>
-					<input type="email" name="email" placeholder="Email"
-						class="w3-input resource" required>
-				</div>
-				<div>
-					<input type="password" name="pw" placeholder="Password"
-						class="w3-input resource"  required>
-				</div>
-				<div>
-					<input type="checkbox" id="remember" class="user-check"> <label
-						for="remember"> <span></span> 아이디 기억하기
-					</label>
-				</div>
-				<div>
-					<input type="submit" value="로그인" class="input-btn area-80">
-				</div>
-
-				<div>
-					<hr>
-					<a href="">비밀번호가 생각나지 않으세요?</a>
-				</div>
-				<div>
-					<hr>
-					<label>계정이 없으세요?</label>
-					<button
-						class="joinbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">회원가입</button>
-				</div>
-			</form>
-		</div>
->>>>>>> branch 'master' of https://github.com/ccuuyyjj/javasw-spring-project.git
 	</div>
 
 	<div class="window" style="display: none;" id="join">

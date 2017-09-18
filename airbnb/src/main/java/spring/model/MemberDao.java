@@ -28,8 +28,8 @@ public class MemberDao {
 	
 	//이전 비밀번호  확인
 	public boolean pw_check(String email,String pre_pw) {
-		String sql ="select count(*) from member where email=? and where pw=? ";
-		
+		String sql ="select count(*) from member where email=? and pw=? ";
+
 		// 조회가 있다고 뜬다면 ==0 로 false 가 반환된다
 		return jdbcTemplate.queryForObject(sql,new Object[] {email,pre_pw},Integer.class) ==0; 
 	}
