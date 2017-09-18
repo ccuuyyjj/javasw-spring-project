@@ -1,9 +1,5 @@
 package spring.model;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDao {
-	Logger log = LoggerFactory.getLogger(getClass());
-	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -62,8 +56,10 @@ public class MemberDao {
 	
 	public Member select(String username){
 		String sql = "select * from member where email = ?";
-		Member member = jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
-		log.debug("member:"+member.getNo());
-		return member;
+		return jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
 	}
-}
+	public Member select(int no){
+		String sql = "select * from member where no = ?";
+		return jdbcTemplate.query(sql, new Object[] {no}, rowMapper).get(0);
+	}
+	}
