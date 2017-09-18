@@ -1,16 +1,21 @@
 package spring.settings;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
 public class SecuritySettings extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private BasicDataSource dataSource;
 
@@ -35,6 +40,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 					.and()
 
 				.formLogin()
+					.successHandler(successHandler())
 					.loginProcessingUrl("/loginProc")
 					.usernameParameter("email")
 					.passwordParameter("pw")
@@ -43,4 +49,10 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 				.csrf()
 					.disable();
 	}
+	
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+	    return new CustomLoginSuccessHandler("/defaultUrl");
+	}
+	
 }

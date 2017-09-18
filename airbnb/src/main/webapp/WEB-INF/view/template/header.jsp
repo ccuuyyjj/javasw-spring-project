@@ -42,18 +42,20 @@
 <body>
 
 	<!-- Sidebar (hidden by default) -->
-	<nav
+	<nav 
 		class="w3-display-right w3-sidebar w3-bar-block w3-card-2 w3-top w3-xlarge w3-animate-right"
 		style="display: none; z-index: 2; width: 40%; min-width: 300px"
 		id="mySidebar">
-		<a href="javascript:void(0)" onclick="w3_close()"
-			class="w3-bar-item w3-button">Close Menu</a> <a
-			href="${pageContext.request.contextPath}/host/become_host1"
-			onclick="w3_close()" class="w3-bar-item w3-button">호스팅하기</a> <a
-			href="javaScript:void(0);" onclick="w3_close()"
-			class="joinbtn w3-bar-item w3-button">회원가입</a> <a
-			href="javaScript:void(0);" onclick="w3_close()"
-			class="loginbtn w3-bar-item w3-button">로그인</a>
+		<a href="host/become_host1" class="w3-bar-item w3-button">호스팅하기</a>
+		<a href="mypage/rooms" class="w3-bar-item w3-button">마이페이지</a>
+		<sec:authorize access="!isAuthenticated()">
+			<a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
+			<a href="javaScript:void(0);"
+				class="loginbtn w3-bar-item w3-button">로그인</a>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<a href="${pageContext.request.contextPath}/member/logout" class="w3-bar-item w3-button">로그아웃</a>
+		</sec:authorize>
 	</nav>
 
 	<%@ include file="/WEB-INF/view/popup/layerpop.jsp"%>
@@ -118,8 +120,7 @@
 					href="${pageContext.request.contextPath}/mypage/rooms"
 					class="w3-bar-item w3-button">마이페이지</a>
 				<sec:authorize access="isAuthenticated()">
-					<a href="javaScript:void(0);"
-						class="loginbtn w3-bar-item w3-button">로그아웃</a>
+					<a href="${pageContext.request.contextPath}/member/logout" class="w3-bar-item w3-button">로그아웃</a>
 				</sec:authorize>
 				<sec:authorize access="!isAuthenticated()">
 					<a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
