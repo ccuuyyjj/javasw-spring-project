@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.MessageDao;
 import spring.model.Room;
@@ -56,6 +57,15 @@ public class MypageController {
 
 	@RequestMapping("/trips")
 	public String trips(Model m) {
+		return "mypage/trips";
+	}
+	
+	@RequestMapping(value="/trips", method=RequestMethod.POST)
+	public String trips(Model m, String address, String host, String checkin, String checkout) {
+		m.addAttribute("address", address);
+		m.addAttribute("host", host);
+		m.addAttribute("checkin", checkin);
+		m.addAttribute("checkout", checkout);
 		return "mypage/trips";
 	}
 

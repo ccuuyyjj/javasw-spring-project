@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javassist.runtime.Desc;
+import spring.model.AvailDao;
 import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
@@ -28,6 +29,8 @@ public class SubController {
 	private RoomDao roomDao;
 	@Autowired
 	private MessageDao messageDao;
+	@Autowired
+	private AvailDao availDao;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -109,6 +112,7 @@ public class SubController {
 	@RequestMapping("/detail/{id}")
 	public String detail(@PathVariable("id") int id, Model m) {
 		m.addAttribute("room", roomDao.select(id));
+		m.addAttribute("availList", availDao.selectAvailable(id));
 		return "sub/detail";
 	}
 

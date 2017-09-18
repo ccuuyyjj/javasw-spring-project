@@ -36,6 +36,7 @@
 		        </div>
 		    </form>
 		    </div>
+		    </div>	
 	</div>
 
 	<div class="window" style="display: none;" id="join">

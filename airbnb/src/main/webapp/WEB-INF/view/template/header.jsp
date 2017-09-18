@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <title>airbnb</title>
@@ -97,10 +97,10 @@
 
 						<div class="w3-col s4 w3-left" style="border: 0px;">
 							<div class="w3-col s8 w3-left flex">
-								<span class="currency">인원</span> <input id="personInput"
-									name="amount" type="number" max="9999" maxlength="4"
-									oninput="maxLengthCheck(this)" value="${param.amount}" /> <span
-									class="currency1">명</span>
+								<span class="currency">인원</span> 
+								<input id="personInput"	name="amount" type="number" max="9999" maxlength="4"
+									oninput="maxLengthCheck(this)" value="${param.amount}"  value="1" /> 
+								<span class="currency1">명</span>
 							</div>
 							<div class="w3-col s4 w3-center" style="padding-top: 3px;">
 								<button class="w3-button w3-red w3-tiny">검색</button>

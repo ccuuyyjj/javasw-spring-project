@@ -4,6 +4,10 @@ function maxLengthCheck(object){
     object.value = object.value.slice(0, object.maxLength);
     }    
 }
+//숫자 3자리 콤마
+function numberWithCommas(x) { 
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
+}
 $(document).ready(function(){
 	//인원  자릿수 체크
 	$(".inputNum").on("blur ", function(){
@@ -16,8 +20,6 @@ $(document).ready(function(){
 	//상세페이지 메뉴 상단 고정
     var jbOffset = $( '.w3-top' ).offset();
     $( window ).scroll( function() {
-    	console.log("doc="+$( document ).scrollTop())
-    	console.log("top="+jbOffset.top)
     	$( '.btnFixed' ).fadeIn();
     	if($( document ).scrollTop()==0 &&  jbOffset.top==0){
        	  	//$( '.btnFixed' ).css("top", 600);
@@ -30,7 +32,7 @@ $(document).ready(function(){
     	  $( '.btnFixed' ).css("top", 600);
       }
     	
-    });
+    });    
     
 	
 });
