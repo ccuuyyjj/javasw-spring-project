@@ -249,3 +249,14 @@ td, tr {
 .empty {
 	height: 30px;
 }
+
+.fixed_table{
+	border-bottom:1px solid #ccc;
+	border-collapse:collapse;
+	margin:10px;
+}
+.fixed_table td{
+	border-bottom:1px solid #ccc;
+	padding:5px;
+	width:30%;
+}

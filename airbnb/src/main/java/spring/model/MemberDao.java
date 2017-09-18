@@ -1,11 +1,16 @@
 package spring.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDao {
+	Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -28,8 +33,8 @@ public class MemberDao {
 	
 	//이전 비밀번호  확인
 	public boolean pw_check(String email,String pre_pw) {
-		String sql ="select count(*) from member where email=? and where pw=? ";
-		
+		String sql ="select count(*) from member where email=? and pw=? ";
+
 		// 조회가 있다고 뜬다면 ==0 로 false 가 반환된다
 		return jdbcTemplate.queryForObject(sql,new Object[] {email,pre_pw},Integer.class) ==0; 
 	}
@@ -47,4 +52,20 @@ public class MemberDao {
 		
 		jdbcTemplate.update(sql,new Object[] {email,pw});
 	}
+	
+	private RowMapper<Member> rowMapper = (rs, i) -> {
+		Member member = new Member(rs);	
+		return member;
+	};
+	
+	public Member select(String username){
+		String sql = "select * from member where email = ?";
+		Member member = jdbcTemplate.query(sql, new Object[] {username}, rowMapper).get(0);
+		log.debug("no:"+member.getNo());
+		return member;
+	}
+//	public Member select(int no){
+//		String sql = "select * from member where no = ?";
+//		return jdbcTemplate.query(sql, new Object[] {no}, rowMapper).get(0);
+//	}
 }

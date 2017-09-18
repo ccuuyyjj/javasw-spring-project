@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	
-	console.log("하이");
 	$("#show_write").on("click",function(){
 		console.log("하이~~");
 		$("#write").toggle("normal");
@@ -8,7 +7,7 @@ $(document).ready(function() {
 	});
 	
 	$("#cancel_write").on("click",function(){
-		$("#write").css("display","block");
+		$("#write").toggle("fast");
 		$("#show_write").css("display","block");
 	});
 });

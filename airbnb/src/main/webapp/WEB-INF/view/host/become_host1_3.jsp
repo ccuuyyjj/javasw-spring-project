@@ -26,6 +26,8 @@
 		       position: results[0].geometry.location
 		    });
 		 } else {
+			 document.getElementById('lat').value = 0; 
+	         document.getElementById('lng').value = 0;
 			 $("#msg").text("지도를 찾을 수 없습니다.");
 			 $("#map").html('<img src="http://placehold.it/600x400" width="600" height="400">');
 		 }

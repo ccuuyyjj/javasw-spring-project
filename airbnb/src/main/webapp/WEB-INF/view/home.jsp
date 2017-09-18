@@ -120,7 +120,7 @@
 						<p>
 							<label>&nbsp;</label>
 						</p>
-						─
+
 					</div>
 					<div class="w3-col s4 w3-left">
 						<p>

@@ -6,6 +6,7 @@
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
 <script src="${pageContext.request.contextPath}/js/wishList.js"></script>
 
+
 <script>
  $(document).ready(function(){
 	 
@@ -34,9 +35,9 @@
 		constrainInput: false,
 		beforeShowDay: enableAllTheseDays,
 		onSelect: function (dateText, inst) {
-	         checkdate();
-	      }
-	});
+			 checkdate();
+	     }
+	});	
 	
 	 jQuery('#checkout').datepicker({
 		dateFormat: 'yy/mm/dd',
@@ -50,14 +51,14 @@
 	
 	 function checkdate(){
 		 if($("#checkin").val() === ""){
-			 $('#checkin').datepicker('show');
-			 return;
+			jQuery('#checkout').datepicker('show');
+			return;
 		 }
 		 if($("#checkout").val() === ""){
-			 $('#checkout').datepicker('show');
+			 jQuery('#checkin').datepicker('show');
 			 return;
 		 }
-		 
+		
 		var date1 = new Date($("#checkin").val());
 		var date2 = new Date($("#checkout").val());
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -70,11 +71,11 @@
 		var total = diffDays * price;
 		var txt = "\\"+numberWithCommas(price) +"×"+diffDays + "박";
 		$("#divOption").show();
-		$(".btnFixed").css("height", "530");
+		$(".btnFixed").css("height", "550");
 		$("#atm_content").html(txt);
 		$("#atm").text("\\"+numberWithCommas(total));
 		$("#total").text("\\"+numberWithCommas(total));
-		 
+		$("#totalprice").val(total);	 
 	 }
 	 
 	// 특정일 선택막기
@@ -86,12 +87,9 @@
 	        }
 	    }
 	    return [false];
-	}
-	
-	
- 	
-     
+	} 
  });
+ 
 </script>
 
  <div class="photo">
@@ -186,17 +184,23 @@
 		</table>
 	</div>
 	<!-- fixed 예약(S) -->
+	
+	
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
    		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
    	<div class="booking-wrap">
+   		<form name="bfrm" method="post" action="${pageContext.request.contextPath}/sub/detail/${room.no}">
+   		<sec:csrfInput/>
+   		<input type="hidden" name="totalprice" id="totalprice">
+   		<input type="hidden" name="room_no" value="${room.no}">
     	<div class="w3-row content_1">
     		<div class="w3-col s3">
     			<label class="booking-menu">체크인</label>
     		</div>
     		<div class="w3-col s4">
-    			<input type="text" id="checkin" name="checkin" placeholder="년/월/일" class="booking-height">
+    			<input type="text" id="checkin" name="checkin" required placeholder="년/월/일" class="booking-height">
     		</div>
     		
     	</div>		
@@ -205,7 +209,7 @@
     			<label class="booking-menu">체크아웃</label>
     		</div>
     		<div class="w3-col s4">
-    			<input type="text" id="checkout" name="checkout" placeholder="년/월/일" class="booking-height">
+    			<input type="text" id="checkout" name="checkout" required placeholder="년/월/일" class="booking-height">
     		</div>
     	</div>
     	<div class="w3-row content_1">
@@ -213,25 +217,31 @@
     			<label class="booking-menu">인원</label>
     		</div>
     		<div class="w3-col s5">
-    			<input type="number" name="qty" value="1" class="area-80 booking-height inputNum text-center" > 
+    			<input type="number" name="qty" id="qty"  value="1" class="area-80 booking-height inputNum text-center" > 
     			<span>명</span>
     		</div>
     	</div>
     	<div class="w3-row content_1" id="divOption" style="display:none;">
-    		<table>
+    		<table class="fixed_table" >
     			<tr>
     				<td id="atm_content"></td>
-    				<td id="atm"></td>
+    				<td id="atm" class="text-right"></td>
     			</tr>	
     			<tr>
-    				<td>합계</td>
-    				<td id="total"></td>
+    				<td class="font-bold">합계</td>
+    				<td id="total" class="text-right font-bold"></td>
     			</tr>
     		</table>
     	</div>
     	<div class="w3-row w3-center">
-    			<input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
+    			<sec:authorize access="!isAuthenticated()">
+    				<a class="loginbtn"><input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인"></a>
+    			</sec:authorize>
+    			<sec:authorize access="isAuthenticated()">
+    				<input type="submit" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
+    			</sec:authorize>	
     	</div>
+    	</form>
     	<div class="w3-row booking-comment">
     		100% 환불 가능ㆍ예약 확정 전에는 요금이 청구되지 않습니다.
     	</div>
@@ -249,6 +259,8 @@
     	</div>
    	</div>
    </div>
+   
+  
    <!-- fixed 예약(E) -->
 		    
     <!--  후기 -->

@@ -80,6 +80,10 @@
 .subcontent{
 	border:1px solid #edefed;
 }
+.list-layout li{
+	border-bottom:1px solid #edefed;
+	padding:10px;
+}
 .image-wrap{
 	height:195px;
 }
@@ -113,4 +117,11 @@
 .history_table th, .history_table td{
     padding:10px;
     width:20%;
+}
+.hostclose{
+	margin-left:300px;
+	cursor:pointer;
+}
+.delcontent{
+	height:195px;
 }

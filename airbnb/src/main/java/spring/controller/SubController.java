@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -15,38 +19,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javassist.runtime.Desc;
 import spring.model.AvailDao;
+import spring.model.Member;
+import spring.model.MemberDao;
 import spring.model.Message;
 import spring.model.MessageDao;
+import spring.model.Review;
+import spring.model.ReviewDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.Rsvp;
+import spring.model.RsvpDao;
 
 @Controller
 @RequestMapping("/sub")
 public class SubController {
+	Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private RoomDao roomDao;
 	@Autowired
 	private MessageDao messageDao;
 	@Autowired
 	private AvailDao availDao;
+	@Autowired
+	private ReviewDao reviewDao;
+	private RsvpDao rsvpDao;
+	@Autowired
+	private MemberDao memberDao;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "location", required = false, defaultValue = "") String location,
-			@RequestParam(value = "startDate", required = false, defaultValue = "") String startDate,
-			@RequestParam(value = "endDate", required = false, defaultValue = "") String endDate,
-			@RequestParam(value = "amount", required = false, defaultValue = "0") Integer amount,
-			@RequestParam(value = "type", required = false, defaultValue = "") String types,
-			@RequestParam(value = "price", required = false, defaultValue = "0,1000000") int[] price,
+			@RequestParam(value = "location", required = false) String location,
+			@RequestParam(value = "startDate", required = false) String startDate,
+			@RequestParam(value = "endDate", required = false) String endDate,
+			@RequestParam(value = "amount", required = false) Integer amount,
+			@RequestParam(value = "type", required = false) String types,
+			@RequestParam(value = "price", required = false) int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
 		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
-		List<String> type_list = new ArrayList<>();
+		List<String> type_list = new ArrayList<String>();
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
@@ -104,6 +120,7 @@ public class SubController {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
+		
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -113,8 +130,49 @@ public class SubController {
 	public String detail(@PathVariable("id") int id, Model m) {
 		m.addAttribute("room", roomDao.select(id));
 		m.addAttribute("availList", availDao.selectAvailable(id));
+		m.addAttribute("review",reviewDao.select(id));
+		m.addAttribute("total",reviewDao.count(id));
+		m.addAttribute("avg",reviewDao.avg(id));
 		return "sub/detail";
 	}
+	
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST )
+	public String detail(@PathVariable("id") int id, HttpServletRequest request, UsernamePasswordAuthenticationToken token,  Model m) { 
+		log.debug("name: "+token.getName());
+		log.debug("room_no : ", request.getParameter("room_no"));
+		Member member1 = memberDao.select(token.getName());
+		log.debug("guest_no : ", member1.getNo());
+		log.debug("quantity : ", Integer.parseInt(request.getParameter("qty")));
+		//log.debug("phone : ", member.getPhone());
+		log.debug("startdate : ", request.getParameter("checkin"));
+		log.debug("enddate : ", request.getParameter("checkout"));
+		log.debug("totalprice : ", Integer.parseInt(request.getParameter("totalprice")));
+		log.debug("===================================");
+		Rsvp rsvp = new Rsvp();
+		rsvp.setRoom_no(Integer.parseInt(request.getParameter("room_no")));
+		//rsvp.setGuest_no(member.getNo());
+		rsvp.setQuantity(Integer.parseInt(request.getParameter("qty")));
+		rsvp.setStartdate(request.getParameter("checkin"));
+		rsvp.setEnddate(request.getParameter("checkout"));
+		rsvp.setTotalprice(Integer.parseInt(request.getParameter("totalprice")));
+		//rsvp.setPhone(member.getPhone());
+		rsvp.setProgress(0);
+		log.debug("room_no : ", rsvp.getRoom_no());
+		log.debug("guest_no : ", rsvp.getGuest_no());
+		log.debug("quantity : ", rsvp.getQuantity());
+		log.debug("phone : ", rsvp.getPhone());
+		log.debug("startdate : ", rsvp.getStartdate());
+		log.debug("enddate : ", rsvp.getEnddate());
+		log.debug("totalprice : ", rsvp.getTotalprice());
+		
+		return "redirect:/sub/order";
+	}
+	
+	@RequestMapping("/order")
+	public String order() {
+		return "sub/order";
+	}
+	
 
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
@@ -156,7 +214,7 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-
+	
 	@RequestMapping("/messageDetail/{room_no}")
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
 		int member_no = 1;
@@ -167,11 +225,11 @@ public class SubController {
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
 		m.addAttribute("price", message.get(0).getPrice());
-
+		
 		return "sub/messageDetail";
 	}
-
-	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
+	
+	@RequestMapping(value="/messageDetail/{room_no}", method=RequestMethod.POST)
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
 		messageDao.insert(message);
 		m.addAttribute("message", message);
@@ -180,7 +238,21 @@ public class SubController {
 		m.addAttribute("name", message.getName());
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
-
-		return "redirect:/sub/messageDetail/" + room_no;
+		
+		return "redirect:/sub/messageDetail/"+ room_no;
+	}
+	
+	
+	
+	//리뷰 작성
+	@RequestMapping(value="/review/{room_no}",method=RequestMethod.POST)
+	public String insert(UsernamePasswordAuthenticationToken token,
+			Model m,Review review) {
+		review.setEmail(token.getName());
+		
+		reviewDao.insert(review);
+		
+		
+		return "redirect:/sub/detail/"+review.getRoom_no();
 	}
 }

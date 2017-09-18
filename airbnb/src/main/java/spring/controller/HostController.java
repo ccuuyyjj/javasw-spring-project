@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Avail;
 import spring.model.AvailDao;
+import spring.model.Member;
+import spring.model.MemberDao;
 import spring.model.Room;
 import spring.model.RoomDao;
 
@@ -35,22 +38,30 @@ public class HostController {
 
 	@Autowired
 	RoomDao roomDao;
-
 	@Autowired
 	AvailDao availDao;
-
 	@Autowired
 	HttpSession session;
-
+	@Autowired
+	MemberDao memberDao;
+	
 	@RequestMapping("become_host1")
-	public String become_host1() {
-		log.debug("room_no=" + session.getAttribute("room_no"));
+	public String become_host1(UsernamePasswordAuthenticationToken token, Model m) {
+		
+		Member member = memberDao.select(token.getName());
+		log.debug("getName=" + member.getName());
+		m.addAttribute("member", member);
+		
+		session.setAttribute("room", new Room());
+		Room room = (Room) session.getAttribute("room");
+		room.setOwner_id(member.getEmail());
+		
 		return "host/become_host1";
 	}
 
 	@RequestMapping(value = "become_host1", method = RequestMethod.POST)
 	public String become_host1(HttpServletRequest request) {
-		session.setAttribute("room", new Room());
+		
 
 		String house_type = request.getParameter("house_type");
 		String room_type = request.getParameter("room_type");

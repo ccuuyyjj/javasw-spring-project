@@ -6,30 +6,31 @@
 	<div class="window" style="display:none;" id="login">
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
+			<div class="empty"></div>
 			<div class="area-60  layer-center">
 		    <form action="${pageContext.request.contextPath}/loginProc" method="post">
-		        <div class="row">
+		        <div>
 		            <input type="email" name="email" placeholder="Email" class="w3-input" required>
 		        </div>
-		        <div class="row">
+		        <div>
 		           <input type="password" name="pw" placeholder="Password" class="w3-input" required>
 		        </div>
-		        <div class="row">
+		        <div class="remember">
 		            <input type="checkbox" id="remember" class="user-check">
 		            <label for="remember">
 		                <span></span>
 		                아이디 기억하기
 		            </label>
 		        </div>
-		        <div class="row">
+		        <div>
 		            <input type="submit" value="로그인" class="input-btn area-80">
 		        </div>
 		        
-		        <div class="row">
+		        <div>
 		        	<hr>
 		        	<a href="">비밀번호가 생각나지 않으세요?</a>
 		        </div>
-		        <div class="row">
+		        <div>
 		        	<hr>
 		        	<label>계정이 없으세요?</label>
 		            <button class="joinbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">회원가입</button>
@@ -39,15 +40,11 @@
 	</div>
 
 	<div class="window" style="display: none;" id="join">
-		<img src="${pageContext.request.contextPath}/img/ico_close.png"
-			class="close">
+		<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 		<div class="empty"></div>
 		<div class="area-60  layer-center">
-
-<!-- 회원가입 폼 -->
-			<form id="a_join"
-				action="${pageContext.request.contextPath}/member/join"
-				method="post">
+			<!-- 회원가입 폼 -->
+			<form id="a_join" action="${pageContext.request.contextPath}/member/join" method="post">
 				<div>
 					<input type="email" id="a_email" name="email" placeholder="Email"
 						class="w3-input resource" required>
@@ -81,12 +78,13 @@
 			</form>
 		</div>
 	</div>
+	
 	<div class="messageWindow" style="display: none;" id="message">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png"
 			class="close">
 		<div class="empty"></div>
 		<div class="area-60 layer-center">
-<div>
+		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="member_no" value="1">
 	        <input type="hidden" name="name" value="${room.name}">

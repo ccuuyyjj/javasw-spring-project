@@ -28,7 +28,7 @@
 			
 			</ul>
 		</div>
-		<form id="rfrm" method="post" action="/member/pw_update">
+		<form id="rfrm" method="post" action="/airbnb/member/pw_update">
 		  	<div class="w3-col l6 m3 s4 w3-white w3-center subcontent">
 		  		<div class="subtab">
 					비밀번호 변경
@@ -68,7 +68,8 @@
 		  
 	  	</form>
 	 </div> 	
-	 	<form id="dfrm" method="post" action="/member/delete">
+	 	<form id="dfrm" method="post" action="/airbnb/member/delete">
+	 	<div class="w3-row">
 	  		<div class="w3-row host-row1">
 	  			<div class="w3-col s4" >&nbsp;</div>
 			  	<div class="w3-col l6 m3 s4 subcontent">
@@ -77,7 +78,8 @@
 					</div>
 					<div class="pw-wrap">
 			  			<div class="pw-btn w3-left">
-							<input type="submit" class="w3-btn w3-round w3-red" value="계정 해지하기">
+							비밀번호 <input type="password" name="pw"required style="margin-left: 5px">
+							<input type="submit" class="w3-btn w3-round w3-red" value="계정 해지하기"  style="text-align: right;">
 						</div>
 					</div>
 			  	</div>
