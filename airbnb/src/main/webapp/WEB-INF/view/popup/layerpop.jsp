@@ -35,6 +35,7 @@
 		            <button class="joinbtn w3-button w3-white w3-border w3-border-blue w3-round-large w3-right">회원가입</button>
 		        </div>
 		    </form>
+		    </div>
 		    </div>	
 	</div>
 

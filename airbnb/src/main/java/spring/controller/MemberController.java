@@ -48,29 +48,45 @@ public class MemberController {
 				@RequestParam(value="pw") String pw,
 				@RequestParam(value="pw_confirm") String pw_confirm) {
 		String email = token.getName();
-		System.out.println(email);
+		
+		System.out.println();
+		System.out.println("email "+email);
+		
+		String a ="a";
+		String b ="a";
+		
+		System.out.println(a==b);
+		
 		
 		//이전 비밀번호 확인
 		boolean result = memberDao.pw_check(email, pre_pw);
 		if(result) {
-			return "setting?result=pre_pw";
+			System.out.println("여기");
+			return "redirect:../mypage/setting?result=pre_pw";
 		}
 		
+		System.out.println("pw = "+ pw+"pw_confirm ="+pw_confirm);
+		System.out.println(" == 사용"+pw == pw_confirm);
+		System.out.println("equals 사용"+pw.equals(pw_confirm));
+		
 		//새 비밀번호 와 확인이 틀리면
-		if(pw != pw_confirm)
-			return "setting?result=wrong";
+		if(!pw.equals(pw_confirm)) {
+			return "redirect:../mypage/setting?result=wrong";
+		}
 		
 		
 		memberDao.pwchange(pw,email);
-		return "setting?result=success";
+		return "redirect:../mypage/setting?result=success";
 	}
 	
 	//계정 삭제
 	@RequestMapping("/delete")
-	String delete() {
-		String email ="1";
-		String  pw="2";
-		memberDao.delete(email, pw);
+	String delete(UsernamePasswordAuthenticationToken token,@RequestParam(value="pw")String pw) {
+		String email = token.getName();
+		
+		
+		
+		//memberDao.delete(email, pw);
 		return "home";
 		
 	}
