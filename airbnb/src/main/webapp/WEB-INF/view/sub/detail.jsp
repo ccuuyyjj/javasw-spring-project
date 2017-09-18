@@ -71,7 +71,7 @@
 		var total = diffDays * price;
 		var txt = "\\"+numberWithCommas(price) +"×"+diffDays + "박";
 		$("#divOption").show();
-		$(".btnFixed").css("height", "530");
+		$(".btnFixed").css("height", "550");
 		$("#atm_content").html(txt);
 		$("#atm").text("\\"+numberWithCommas(total));
 		$("#total").text("\\"+numberWithCommas(total));
@@ -185,13 +185,15 @@
 	</div>
 	<!-- fixed 예약(S) -->
 	
-	<input type="hidden" name="totalprice" id="totalprice">
+	
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
    		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
    	<div class="booking-wrap">
-   		<form method="post" action="${pageContext.request.contextPath}/sub/detail">
+   		<form name="bfrm" method="post" action="${pageContext.request.contextPath}/sub/detail/${room.no}">
+   		<input type="hidden" name="totalprice" id="totalprice">
+   		<input type="hidden" name="room_no" value="${room.no}">
     	<div class="w3-row content_1">
     		<div class="w3-col s3">
     			<label class="booking-menu">체크인</label>
@@ -235,7 +237,7 @@
     				<a class="loginbtn"><input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인"></a>
     			</sec:authorize>
     			<sec:authorize access="isAuthenticated()">
-    				<input type="submit" onclick="JavaScript:booking_reg();" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
+    				<input type="submit" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
     			</sec:authorize>	
     	</div>
     	</form>
@@ -244,7 +246,7 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<form action="mypage/trips" class="WishList">
+    		<form name="wfrm" action="mypage/trips" class="WishList">
     			<input type="hidden" name="address" value="address">
     			<input type="hidden" name="host" value="host">
     			<input type="hidden" name="checkin" value="checkin">

@@ -18,6 +18,8 @@ public class Rsvp {
 	private String reg;
 	private int progress;
 	
+	public Rsvp() {}
+	
 	public Rsvp(ResultSet rs) throws SQLException{
 		setNo(rs.getInt("no"));
 		setRoom_no(rs.getInt("room_no"));

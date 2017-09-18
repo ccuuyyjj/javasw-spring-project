@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -17,17 +19,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javassist.runtime.Desc;
 import spring.model.AvailDao;
+import spring.model.Member;
+import spring.model.MemberDao;
 import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.Rsvp;
 import spring.model.RsvpDao;
 
 @Controller
 @RequestMapping("/sub")
 public class SubController {
+	Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private RoomDao roomDao;
 	@Autowired
@@ -36,6 +42,8 @@ public class SubController {
 	private AvailDao availDao;
 	@Autowired
 	private RsvpDao rsvpDao;
+	@Autowired
+	private MemberDao memberDao;
 
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -122,10 +130,40 @@ public class SubController {
 	}
 	
 	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST )
-	public String detail(@PathVariable("id") int id, HttpServletRequest request) {
+	public String detail(@PathVariable("id") int id, HttpServletRequest request, UsernamePasswordAuthenticationToken token,  Model m) { 
+		log.debug("name: "+token.getName());
+		log.debug("room_no : ", request.getParameter("room_no"));
+		Member member1 = memberDao.select(token.getName());
+		log.debug("guest_no : ", member1.getNo());
+		log.debug("quantity : ", Integer.parseInt(request.getParameter("qty")));
+		//log.debug("phone : ", member.getPhone());
+		log.debug("startdate : ", request.getParameter("checkin"));
+		log.debug("enddate : ", request.getParameter("checkout"));
+		log.debug("totalprice : ", Integer.parseInt(request.getParameter("totalprice")));
+		log.debug("===================================");
+		Rsvp rsvp = new Rsvp();
+		rsvp.setRoom_no(Integer.parseInt(request.getParameter("room_no")));
+		//rsvp.setGuest_no(member.getNo());
+		rsvp.setQuantity(Integer.parseInt(request.getParameter("qty")));
+		rsvp.setStartdate(request.getParameter("checkin"));
+		rsvp.setEnddate(request.getParameter("checkout"));
+		rsvp.setTotalprice(Integer.parseInt(request.getParameter("totalprice")));
+		//rsvp.setPhone(member.getPhone());
+		rsvp.setProgress(0);
+		log.debug("room_no : ", rsvp.getRoom_no());
+		log.debug("guest_no : ", rsvp.getGuest_no());
+		log.debug("quantity : ", rsvp.getQuantity());
+		log.debug("phone : ", rsvp.getPhone());
+		log.debug("startdate : ", rsvp.getStartdate());
+		log.debug("enddate : ", rsvp.getEnddate());
+		log.debug("totalprice : ", rsvp.getTotalprice());
 		
-		
-		return "sub/detail";
+		return "redirect:/sub/order";
+	}
+	
+	@RequestMapping("/order")
+	public String order() {
+		return "sub/order";
 	}
 	
 
