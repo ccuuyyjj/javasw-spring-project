@@ -1,0 +1,164 @@
+@charset "UTF-8";
+			div {
+                display: block;
+            }
+	            .wl-container{
+	                width: 60%;
+	                margin-left: 20%;
+	                margin-right: 20%;
+	                margin-top: 10%;
+	                position: relative !important;
+	                padding-left: 80px !important;
+	                padding-right: 80px !important;
+	                vertical-align: middle;
+	            }
+            .wl-container_1{
+                display: inline-block;
+                flex-grow: 1 !important;
+                font-weight: 700 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                margin: 0px !important;
+                word-wrap: break-word !important;
+                font-size: 25px !important;
+                line-height: 44px !important;
+                letter-spacing: -0.6px !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+            }
+            .wl-container_2{
+                display: inline-block;
+            }
+            .wl-btn{
+                cursor: pointer !important;
+                transition: background 0.3s, border-color 0.3s !important;
+                position: relative !important;
+                display: inline-block !important;
+                text-align: center !important;
+                text-decoration: none !important;
+                border: 2px solid transparent !important;
+                border-radius: 4px !important;
+                width: auto !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                font-size: 19px !important;
+                line-height: 22px !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+                color: #484848 !important;
+                font-weight: 700 !important;
+                padding-right: 20px !important;
+                padding-left: 20px !important;
+                min-width: 77.66563145999496px !important;
+                background: transparent !important;
+                border-color: #008489 !important;
+            }
+            .wl-span{
+                transition: color 0.3s !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                font-size: 15px !important;
+                line-height: 22px !important;
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                color: #008489 !important;
+            }
+            .wl-container_3{
+                padding-top: 32px !important;
+                text-align: justify !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+            .wl-container_4{
+                display: inline-block;
+                flex-grow: 1 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                margin: 0px !important;
+                word-wrap: break-word !important;
+                font-size: 15px !important;
+                line-height: 44px !important;
+                letter-spacing: -0.6px !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+            }
+            .wl-page {
+                display: flex; 
+                flex-direction: row; 
+                flex-wrap: wrap;
+                justify-content: Flex-start;
+                align-content: stretch;
+                width: 100%;
+            }
+            .wl-page_list {
+                width: 30%;
+                height: 20%;
+                margin-bottom: 2%;
+                margin-right: 2%;
+            }
+            .wl-page_list img {
+                width: 100%;
+                height: 100%;
+            }
+            @media screen and (max-width:740px) { 
+                .wl-page {
+                    flex-direction: column;
+                    width: 100%;
+                    margin-bottom: 2%;
+                }
+                .wl-page_list {
+                    width: 95%;
+                    margin-bottom: 2%;
+                }
+            }
+
+            @media screen and (min-width:740px) { 
+                .wl-page {
+                    flex-direction: row;
+                }
+                .wl-page_list {
+                    width: 45%;
+                    margin-bottom: 2%;
+                }
+            }
+
+            @media screen and (min-width:1100px) { 
+                .wl-page {
+                    flex-direction: row;
+                }
+                .wl-page_list {
+                    width: 30%;
+                    margin-bottom: 2%;
+                }
+            }
+            
+            
+            .w{
+                position: absolute;
+                z-index: 0;
+            }
+            .d{
+                width: 33%;
+                height: 30%;
+                background-image: url(https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large);
+            }
+            .wl{
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                font-size: 19px !important;
+                line-height: 24px !important;
+                padding-top: 0px !important;
+                padding-bottom: 2px !important;
+                color: #ffffff !important;
+                font-weight: 700 !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+            .wl2{
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                font-size: 15px !important;
+                line-height: 18px !important;
+                letter-spacing: 0.2px !important;
+                padding-top: 0px !important;
+                padding-bottom: 14px !important;
+                color: #ffffff !important;
+                font-weight: 700 !important;
+                padding-left: 16px !important;
+            }

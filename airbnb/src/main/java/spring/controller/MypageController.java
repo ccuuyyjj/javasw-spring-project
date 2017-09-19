@@ -93,16 +93,16 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/wishlist")
-	public String wishlist(Model m, WishList wishList) {
-		wishListDao.insert(wishList);
+	public String wishlist(Model m/*, WishList wishList*/) {
+		//wishListDao.insert(wishList);
 		return "mypage/wishlist";
 	}
 	
-	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
-	public String wishlist(Model m) {
-		int member_no=1;
-		List<WishList> wishList = wishListDao.select(member_no);
-		m.addAttribute("wishList", wishList);
-		return "mypage/wishlist";
-	}
+//	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
+//	public String wishlist(Model m) {
+//		int member_no=1;
+//		List<WishList> wishList = wishListDao.select(member_no);
+//		m.addAttribute("wishList", wishList);
+//		return "mypage/wishlist";
+//	}
 }
