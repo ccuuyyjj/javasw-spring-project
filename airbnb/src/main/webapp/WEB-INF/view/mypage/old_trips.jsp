@@ -41,14 +41,10 @@
 			  				<th>날짜</th>
 			  				<th>옵션</th>
 			  			</thead>
-			  			<tbody>
-			  				<td>1</td>
-			  				<td>2</td>
-			  				<td>3</td>
-			  				<td>4</td>
-			  				<td>5</td>
-<!-- 			  				<td colspan="5" align="center"><b>거래 없음</b></td> -->
-			  			</tbody>
+					  	<tbody>
+					  		<td colspan="5" align="center"><b>거래 없음</b></td>
+					  	</tbody>
+			  		</table>
 			  		</table>
 			  	</div>	
 			</div>

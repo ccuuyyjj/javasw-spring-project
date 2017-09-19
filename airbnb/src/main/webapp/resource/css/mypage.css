@@ -3,7 +3,7 @@
     font-size:16px;
     color:white;
 }
-/* 메인 메뉴 스타일 */
+/* 硫붿씤 硫붾돱 �뒪���씪 */
 .menu-wrap{
     background-color: #08298A;
 }
@@ -80,6 +80,10 @@
 .subcontent{
 	border:1px solid #edefed;
 }
+.list-layout li{
+	border-bottom:1px solid #edefed;
+	padding:10px;
+}
 .image-wrap{
 	height:195px;
 }
@@ -113,4 +117,11 @@
 .history_table th, .history_table td{
     padding:10px;
     width:20%;
+}
+.hostclose{
+	margin-left:300px;
+	cursor:pointer;
+}
+.delcontent{
+	height:195px;
 }

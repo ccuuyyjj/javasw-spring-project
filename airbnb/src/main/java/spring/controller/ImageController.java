@@ -67,7 +67,11 @@ public class ImageController {
 			String saveFolder = mRequest.getServletContext().getRealPath("/file");
 			log.debug("saveFolder = " + saveFolder);
 
-			File target = new File(saveFolder, file.getOriginalFilename());
+			long time = System.currentTimeMillis();
+
+			String filename = file.getOriginalFilename() + time;
+
+			File target = new File(saveFolder, filename);
 			file.transferTo(target);
 
 			// 파일명에 'local:' 구분자를 넣어 기존 url과 차별을 둔다

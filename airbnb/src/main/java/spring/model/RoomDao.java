@@ -211,12 +211,9 @@ public class RoomDao {
 	}
 
 	// 마이페이지 숙소 목록 리스트
-	public List<Room> host_list() {
-		// String sql = "select * from room where progress < 4 and owner_id = ? order by
-		// no desc ";
-		String sql = "select * from room where progress < 4 order by no desc ";
-		// String sql = "select * from room order by no";
-		return jdbcTemplate.query(sql, rowMapper);
+	public List<Room> host_list(String id) {
+		String sql = "select * from room where progress < 4 and owner_id = ? order by no desc ";
+		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 	}
 
 	public boolean update(Room room) {
@@ -231,6 +228,11 @@ public class RoomDao {
 
 		return jdbcTemplate.update(sql, args) > 0;
 
+	}
+
+	public boolean delete(String room_no) {
+		String sql = "delete room where no = ?";
+		return jdbcTemplate.update(sql, new Object[] { room_no }) > 0;
 	}
 
 }

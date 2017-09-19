@@ -44,24 +44,23 @@ public class HostController {
 	HttpSession session;
 	@Autowired
 	MemberDao memberDao;
-	
+
 	@RequestMapping("become_host1")
 	public String become_host1(UsernamePasswordAuthenticationToken token, Model m) {
-		
+
 		Member member = memberDao.select(token.getName());
 		log.debug("getName=" + member.getName());
 		m.addAttribute("member", member);
-		
+
 		session.setAttribute("room", new Room());
 		Room room = (Room) session.getAttribute("room");
 		room.setOwner_id(member.getEmail());
-		
+
 		return "host/become_host1";
 	}
 
 	@RequestMapping(value = "become_host1", method = RequestMethod.POST)
 	public String become_host1(HttpServletRequest request) {
-		
 
 		String house_type = request.getParameter("house_type");
 		String room_type = request.getParameter("room_type");
@@ -167,7 +166,7 @@ public class HostController {
 		String[] option = request.getParameterValues("options");
 		if (option != null) {
 			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "l";
+				options += option[i] + "|";
 			}
 			log.debug("options =>" + options);
 			room.setOptions(options);
@@ -204,7 +203,7 @@ public class HostController {
 		String[] option = request.getParameterValues("options");
 		if (option != null) {
 			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "l";
+				options += option[i] + "|";
 			}
 			log.debug("options =>" + options);
 		}

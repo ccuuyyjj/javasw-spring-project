@@ -167,16 +167,11 @@ td, tr {
 }
 
 .btnFixed {
-	/*position: fixed;
-    width: 270px;
-    height: 420px;
-    margin-top: 490px;
-    border:1px solid #ccc;*/
 	display: none;
 	position: fixed;
 	border: 1px solid #ccc;
 	width: 300px;
-	min-height: 450px;
+	height: 450px;
 	right: 70px;
 	z-index: 1000;
 	bottom: 228px;
@@ -260,3 +255,9 @@ td, tr {
 	padding:5px;
 	width:30%;
 }
+.book-table td{
+	border-bottom:1px solid #ccc;
+	padding:5px;
+	width:30%;
+}
+

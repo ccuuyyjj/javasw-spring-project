@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <div class="center">
-	<div class="area-40 middle">
+	<div class="area-30 middle">
 		<form action="${pageContext.request.contextPath}/loginProc"
 			method="post">
 			<sec:csrfInput/>
@@ -20,7 +20,7 @@
 				</label>
 			</div>
 			<div class="row_login">
-				<input type="submit" value="로그인" class="input-btn area-80">
+				<input type="submit" value="로그인" class="input-btn area-60">
 			</div>
 	
 			<div class="row_login">
@@ -35,5 +35,7 @@
 			</div>
 		</form>
 	</div>
+	<div class="empty"></div>
+	<div class="empty"></div>
 </div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

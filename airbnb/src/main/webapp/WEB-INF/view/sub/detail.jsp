@@ -71,31 +71,21 @@
 		var total = diffDays * price;
 		var txt = "\\"+numberWithCommas(price) +"×"+diffDays + "박";
 		$("#divOption").show();
-		$(".btnFixed").css("height", "530");
+		$(".btnFixed").css("height", "550");
 		$("#atm_content").html(txt);
 		$("#atm").text("\\"+numberWithCommas(total));
 		$("#total").text("\\"+numberWithCommas(total));
 		$("#totalprice").val(total);	 
 	 }
 	 
-	// 특정일 선택막기
-	function enableAllTheseDays(date) {
-		var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
-	    for (i = 0; i < enabledays.length; i++) {
-	        if($.inArray(y + '-' +("00" + (m + 1)).slice(-2) + '-' + d,enabledays) != -1) {
-	            return [true];
-	        }
-	    }
-	    return [false];
-	} 
+	
  });
  
 </script>
 
  <div class="photo">
-     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="100%" height="80%">
+     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100%" height="80%">
  </div>
-       
 <div class="container_1">
 	<div class="container">
 		<div class="menu">
@@ -129,6 +119,7 @@
 		<br><br><br>
 	</div>
 	<div class="container_3">
+		<h1>${room.parsedOptions}</h1>
 		<table class="reviewTable">
 			<tr>
 				<td class="content_2">시설</td>
@@ -183,15 +174,18 @@
 			</tr>
 		</table>
 	</div>
+	
+	
 	<!-- fixed 예약(S) -->
 	
-	<input type="hidden" name="totalprice" id="totalprice">
+	
 	<div class="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
    		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
    	<div class="booking-wrap">
-   		<form method="post" action="${pageContext.request.contextPath}/sub/detail">
+   		<form name="bfrm" method="post" action="${pageContext.request.contextPath}/sub/detail/${room.no}">
+   		<input type="hidden" name="totalprice" id="totalprice">
     	<div class="w3-row content_1">
     		<div class="w3-col s3">
     			<label class="booking-menu">체크인</label>
@@ -232,10 +226,12 @@
     	</div>
     	<div class="w3-row w3-center">
     			<sec:authorize access="!isAuthenticated()">
-    				<a class="loginbtn"><input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인"></a>
+    				<a href="${pageContext.request.contextPath}/member/login">
+    					<input type="button" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
+    				</a>
     			</sec:authorize>
     			<sec:authorize access="isAuthenticated()">
-    				<input type="submit" onclick="JavaScript:booking_reg();" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
+    				<input type="submit" class="booking-width booking-height  w3-red w3-round-large" value="예약 가능 여부 확인">
     			</sec:authorize>	
     	</div>
     	</form>
@@ -244,11 +240,13 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<form action="mypage/trips" class="WishList">
+    		<form action="#" class="WishList">
+	    		<input type="hidden" name="member_no" value="1">
+	    		<input type="hidden" name="status" value="예약전">
     			<input type="hidden" name="address" value="address">
-    			<input type="hidden" name="host" value="host">
-    			<input type="hidden" name="checkin" value="checkin">
-    			<input type="hidden" name="checkout" value="checkout">
+    			<input type="hidden" name="hostname" value="host">
+    			<input type="hidden" name="checkin" value="17/10/05">
+    			<input type="hidden" name="checkout" value="17/10/08">
     			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
     		</form>
     	</div>
@@ -273,9 +271,14 @@
     <div class="host_2">
         <div>어쩌구저쩌꾸 We are creative types who left Los Angeles in 2010 seeking a richer, more serene lifestyle inside nature. Stephanie is an architect, Jay is founder/editor of Arthur Magazine. We live in Joshua Tree full-time and rent out our three restored homestead cabins (with a fourth on the way). We're active in the local community and we also maintain ties to friends and colleagues in LA and beyond. We're excited to meet you and we offer you a warm welcome. 어쩌구저쩌구</div>
     </div>
-    <button class="messagebtn host_3">
-    	<div>호스트에게 연락하기</div>
-    </button>
+    
+    <sec:authorize access="!isAuthenticated()">
+		<a href="${pageContext.request.contextPath}/member/login"><button class="host_3"><div>호스트에게 연락하기</div></button></a>
+	</sec:authorize>
+	<sec:authorize access="isAuthenticated()">
+		<button class="messagebtn host_3"><div>호스트에게 연락하기</div></button>	
+	</sec:authorize>
+    	
     <div>
 		<div>지역정보</div>
       	<div id="map">지도 공간</div>
