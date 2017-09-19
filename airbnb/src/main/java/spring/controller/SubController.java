@@ -180,12 +180,11 @@ public class SubController {
 
 		m.addAttribute("room", roomDao.select(id));
 		m.addAttribute("availList", availDao.selectAvailable(id));
+		System.out.println(pagePosts+"게시물 수");
 		m.addAttribute("review",reviewDao.select(page,pagePosts,id));
 		m.addAttribute("total",reviewDao.count(id));
 		m.addAttribute("avg",reviewDao.avg(id));
-		m.addAttribute("review", reviewDao.select(id));
-		m.addAttribute("total", reviewDao.count(id));
-		m.addAttribute("avg", reviewDao.avg(id));
+
 		return "sub/detail";
 	}
 

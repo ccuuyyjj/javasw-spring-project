@@ -80,7 +80,6 @@
                 </div>
               </form>
 			<br>
-	    <div class="pageNo">
 <div class="row" style="text-align: left;">
 	<!-- 번호 출력 -->
 
@@ -108,8 +107,7 @@
 		<a
 			href="${pageContext.request.contextPath }/sub/detail/${room.no}?page=${totalPage}">${totalPage}</a>
 	</c:if>
-</div>
 		<button id="show_write"  style="float: right">후기 쓰기</button>
-	 </div>   
+</div>
 	 </div>
 </div>    
