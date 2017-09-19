@@ -18,11 +18,11 @@ public class WishList {
 	
 	private int no;
 	private int member_no;
-	private String status;
 	private String address;
 	private String hostname;
 	private String checkin;
 	private String checkout;
+	private String status;
 	
 	public WishList(HttpServletRequest request) {
 		setMember_no(Integer.parseInt(request.getParameter("member_no")));
@@ -98,10 +98,10 @@ public class WishList {
 		log.debug("현재시간 년월일 = " + todate);
 		        
 		Date todate_date =  formatter.parse(todate);
-		Date test_date =  formatter.parse(getCheckin());
+		Date trip_date =  formatter.parse(getCheckin());
 		        
-		log.debug(todate_date + "====== " + test_date);
-		long diff = todate_date.getTime() - test_date.getTime();
+		log.debug(todate_date + "====== " + trip_date);
+		long diff = todate_date.getTime() - trip_date.getTime();
 		
 		// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
 		long diffDays = diff / (24 * 60 * 60 * 1000);
