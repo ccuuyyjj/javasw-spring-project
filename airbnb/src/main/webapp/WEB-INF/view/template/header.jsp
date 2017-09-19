@@ -74,8 +74,8 @@
 				<form id="mainSearchForm" method="post"
 					action="${pageContext.request.contextPath}/sub/sub_list">
 					<sec:csrfInput />
-					<input type="hidden" id="from"> <input type="hidden"
-						id="to">
+					<input type="hidden" id="from"> 
+					<input type="hidden" id="to">
 					<div class="w3-rest w3-border">
 						<div class="w3-col s4 w3-left">
 							<input class="w3-input border_bottom0 " type="text"

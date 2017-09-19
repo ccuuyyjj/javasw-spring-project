@@ -45,6 +45,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     background-color:red !important; 
 }
 
+.p-top-20{ padding-top:20px; }
+
 .border_bottom0 {
     border-bottom:0px;
 }

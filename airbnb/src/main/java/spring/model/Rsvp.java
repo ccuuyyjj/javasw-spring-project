@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Rsvp {
 	private int no;
 	private int room_no;
-	private int guest_no;
+	private String guest_id;
 	private int quantity;
 	private String phone;
 	private String startdate;
@@ -23,7 +23,7 @@ public class Rsvp {
 	public Rsvp(ResultSet rs) throws SQLException{
 		setNo(rs.getInt("no"));
 		setRoom_no(rs.getInt("room_no"));
-		setGuest_no(rs.getInt("guest_no"));
+		setGuest_id(rs.getString("guest_id"));
 		setQuantity(rs.getInt("quantity"));
 		setPhone(rs.getString("phone"));
 		setStartdate(rs.getString("startdate"));
@@ -37,7 +37,7 @@ public class Rsvp {
 	public Rsvp(HttpServletRequest request) {
 		setNo(Integer.parseInt(request.getParameter("no")));
 		setRoom_no(Integer.parseInt(request.getParameter("room+no")));
-		setGuest_no(Integer.parseInt(request.getParameter("guest_no")));
+		setGuest_id(request.getParameter("guest_id"));
 		setQuantity(Integer.parseInt(request.getParameter("quantity")));
 		setPhone(request.getParameter("phone"));
 		setStartdate(request.getParameter("startdate"));
@@ -66,11 +66,11 @@ public class Rsvp {
 	public void setRoom_no(int room_no) {
 		this.room_no = room_no;
 	}
-	public int getGuest_no() {
-		return guest_no;
+	public String getGuest_id() {
+		return guest_id;
 	}
-	public void setGuest_no(int guest_no) {
-		this.guest_no = guest_no;
+	public void setGuest_id(String guest_id) {
+		this.guest_id = guest_id;
 	}
 	public int getQuantity() {
 		return quantity;
