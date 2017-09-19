@@ -84,7 +84,7 @@
 </script>
 
  <div class="photo">
-     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="100%" height="80%">
+     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100%" height="80%">
  </div>
 <div class="container_1">
 	<div class="container">
