@@ -1,8 +1,6 @@
 package spring.settings;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 @Configuration
 public class SecuritySettings extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private BasicDataSource dataSource;
 
@@ -28,31 +26,22 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.antMatchers("/host/**", "/mypage/**", "/sub/message/**")
-					.authenticated()
+		http.authorizeRequests().antMatchers("/host/**", "/mypage/**", "/sub/message/**").authenticated()
 				// .antMatchers("/권한설정 필요한 URL**")
 				// .authenticated() //모든 인증된 사용자
 				// .hasRole("권한명") // 사용자 보유 권한
-				.anyRequest()
-					.permitAll()
-					.and()
+				.anyRequest().permitAll().and()
 
-				.formLogin()
-					.successHandler(successHandler())
-					.loginProcessingUrl("/loginProc")
-					.usernameParameter("email")
-					.passwordParameter("pw")
-					.loginPage("/member/login").and()
+				.formLogin().successHandler(successHandler()).loginProcessingUrl("/loginProc")
+				.usernameParameter("email").passwordParameter("pw").loginPage("/member/login").and()
 
-				.csrf()
-					.disable();
+				.csrf().disable();
 	}
-	
+
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
-	    return new CustomLoginSuccessHandler("/defaultUrl");
+
+	    return new CustomLoginSuccessHandler("/");
 	}
-	
+
 }

@@ -80,14 +80,34 @@
                 </div>
               </form>
 			<br>
-	    <div class="pageNo">
-	        <div class="page-unit"><a href="#">1</a></div>
-	        <div class="page-unit"><a href="#">2</a></div>
-	        <div class="page-unit"><a href="#">3</a></div>
-	        <div class="page-unit"><a href="#">4</a></div>
-	        <div class="page-unit"><a href="#">5</a></div>
-	        <div class="page-unit"><a href="#">▶</a></div>
-	    </div>
+<div class="row" style="text-align: left;">
+	<!-- 번호 출력 -->
+
+	<!-- 처음  페이지 -->
+	<c:if test="${page >= 4 }">
+		<a href="${pageContext.request.contextPath }/sub/detail/${room.no}?page=${1}">${1}</a>
+		<span> &nbsp &nbsp··· &nbsp</span>
+	</c:if>
+
+	<c:forEach var="i" begin="${start }" end="${end }" step="1">
+		<c:choose>
+			<c:when test="${i == page}">
+				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}?page=${i}"
+					class="this">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}?page=${i}">${i}</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+
+	<!-- 끝 페이지 -->
+	<c:if test="${page < totalPage - 1 && end < totalPage}">
+		<span>&nbsp&nbsp···&nbsp </span>
+		<a
+			href="${pageContext.request.contextPath }/sub/detail/${room.no}?page=${totalPage}">${totalPage}</a>
+	</c:if>
 		<button id="show_write"  style="float: right">후기 쓰기</button>
-	 </div>   
+</div>
+	 </div>
 </div>    

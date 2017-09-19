@@ -102,10 +102,6 @@ td, tr {
 	padding-top: 1em;
 }
 
-.detailContainer {
-	padding-top: 50px;
-}
-
 .detailReview {
 	padding-top: 1em;
 	padding-bottom: 1em;
@@ -255,3 +251,12 @@ td, tr {
 	padding:5px;
 	width:30%;
 }
+.book-table td{
+	padding:5px;
+	width:30%;
+	height:40px;
+}
+.book-table  tr:nth-child(even){
+    background-color: #ccc;
+}
+

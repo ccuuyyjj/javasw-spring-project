@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.AvailDao;
+import spring.model.Cart;
+import spring.model.CartDao;
 import spring.model.Member;
 import spring.model.MemberDao;
 import spring.model.Message;
@@ -30,14 +32,13 @@ import spring.model.Review;
 import spring.model.ReviewDao;
 import spring.model.Room;
 import spring.model.RoomDao;
-import spring.model.Rsvp;
 import spring.model.RsvpDao;
 
 @Controller
 @RequestMapping("/sub")
 public class SubController {
 	Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private RoomDao roomDao;
 	@Autowired
@@ -50,8 +51,10 @@ public class SubController {
 	private RsvpDao rsvpDao;
 	@Autowired
 	private MemberDao memberDao;
-	
-	//목록
+	@Autowired
+	private CartDao cartDao;
+
+	// 목록
 	@RequestMapping("/sub_list")
 	public String sub(Model m, @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "location", required = false) String location,
@@ -62,7 +65,7 @@ public class SubController {
 			@RequestParam(value = "price", required = false) int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
-		System.out.println("sub");
+//		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
@@ -70,23 +73,31 @@ public class SubController {
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
-		int pagePosts = 21; // 현재 페이지 출력될 게시물 수
+		int pagePosts = 21; // 현재 페이지 출력될 게시물 수  
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
 		int countPage = 3; // 화면에 출력될 페이지 수
 		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
-		int end = start + countPage - 1; // 현재페이지에서 끝 페이지
-
+		int end = start + countPage - 1; // 현재페이지에서 끝 페이지 
 		// start , end 재설정 ( 이전, 다음 페이지 )
-		if (start > countPage && page != end)
+		if (start > countPage && page!=end) {
 			start -= 1; // 이전페이지 (현재 페이지가 4일때 start는 3)
-		if (page <= end)
+		}
+		if (page <= end ) {
 			end = start + countPage; // 다음페이지
-
+		}
+		
 		// end 가 총페이지를 넘는 걸 방지
 		if (end > totalPage) {
 			end = totalPage;
-			start -= 2;
+			if(totalPage>4) { //총 페이지 수가 4미만 일때 오류 or 페이징 숫자와 시작페이지가 같이 나옴 
+				if(totalPage-start==2) {
+					start-=1;			
+				}else{
+					start -= 2;		
+				}
+			}
 		}
+		
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
@@ -124,76 +135,130 @@ public class SubController {
 			type_list.add("filter");
 			args_list.add(filter);
 		}
-		
+
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 		m.addAttribute("list", list);
 		return "sub/sub_list";
 	}
-	
-	//상세페이지
+
+	// 상세페이지
 	@RequestMapping("/detail/{id}")
-	public String detail(@PathVariable("id") int id, Model m) {
+	public String detail(@PathVariable("id") int id, Model m,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		// 페이징 네비게이터
+		int totalPost = reviewDao.count(id); // 게시물 수
+		int pagePosts = 5; // 현재 페이지 출력될 게시물 수  
+		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
+		int countPage = 3; // 화면에 출력될 페이지 수
+		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
+		int end = start + countPage - 1; // 현재페이지에서 끝 페이지 
+		// start , end 재설정 ( 이전, 다음 페이지 )
+		if (start > countPage && page!=end) {
+			start -= 1; // 이전페이지 (현재 페이지가 4일때 start는 3)
+		}
+		if (page <= end ) {
+			end = start + countPage; // 다음페이지
+		}
+		
+		// end 가 총페이지를 넘는 걸 방지
+		if (end > totalPage) {
+			end = totalPage;
+			if(totalPage>4) { //총 페이지 수가 4미만 일때 오류 or 페이징 숫자와 시작페이지가 같이 나옴 
+				if(totalPage-start==2) {
+					start-=1;			
+				}else{
+					start -= 2;		
+				}
+			}
+		}
+		
+		
+		m.addAttribute("start", start);
+		m.addAttribute("end", end);
+		m.addAttribute("page", page);
+		m.addAttribute("totalPage", totalPage);
+
 		m.addAttribute("room", roomDao.select(id));
 		m.addAttribute("availList", availDao.selectAvailable(id));
-		m.addAttribute("review",reviewDao.select(id));
+		System.out.println(pagePosts+"게시물 수");
+		m.addAttribute("review",reviewDao.select(page,pagePosts,id));
 		m.addAttribute("total",reviewDao.count(id));
 		m.addAttribute("avg",reviewDao.avg(id));
+
 		return "sub/detail";
 	}
-	
-	//예약 가능 요청
-	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST)
-	public String detail(@PathVariable("id") int id, HttpServletRequest request, 
-			UsernamePasswordAuthenticationToken token,  Model m) { 
-		log.debug("id: "+id);
+
+	// 예약 가능 요청
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.POST)
+	public String detail(@PathVariable("id") int id, HttpServletRequest request,
+			UsernamePasswordAuthenticationToken token, Model m) {
+		log.debug("id: " + id);
 		String email = token.getName();
 		Member member = memberDao.select(email);
-		Rsvp rsvp = new Rsvp();
-		rsvp.setRoom_no(id);
-		rsvp.setGuest_id(email);
-		rsvp.setQuantity(Integer.parseInt(request.getParameter("qty")));
-		rsvp.setStartdate(request.getParameter("checkin"));
-		rsvp.setEnddate(request.getParameter("checkout"));
-		rsvp.setTotalprice(Integer.parseInt(request.getParameter("totalprice")));
-		rsvp.setPhone(member.getPhone());
-		rsvp.setProgress(0);
-		m.addAttribute("rsvp", rsvp);
+		Cart cart = new Cart();
+		cart.setRoom_no(id);
+		cart.setGuest_id(email);
+		cart.setQuantity(Integer.parseInt(request.getParameter("qty")));
+		cart.setStartdate(request.getParameter("checkin"));
+		cart.setEnddate(request.getParameter("checkout"));
+
+		cartDao.insert(cart);
+
 		
-		return "redirect:/sub/book";
+		return "redirect:/sub/book/{id}";
 	}
-	
-	//두 날짜의 차이
-	private static long diffOfDate(String begin, String end) throws Exception
-	{
+
+	// 두 날짜의 차이
+	private static long diffOfDate(String begin, String end) throws Exception {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
- 
+
 		Date beginDate = formatter.parse(begin);
 		Date endDate = formatter.parse(end);
- 
+
 		long diff = endDate.getTime() - beginDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
- 
+
+		if(diffDays == 0) diffDays = 1;
+
+
+
 		return diffDays;
 	}
+
 	
 	//예약 요청 확인
-	@RequestMapping("/book")
-	public String order(Model m, UsernamePasswordAuthenticationToken token) {
-		Rsvp rsvp = rsvpDao.select(token.getName());
-		Room room = roomDao.select(rsvp.getRoom_no());
+	@RequestMapping("/book/{room_no}")
+	public String book(@PathVariable("room_no") int room_no, Model m, UsernamePasswordAuthenticationToken token) {
+		log.debug("getName=>"+token.getName());
+		log.debug("room_no=>"+room_no);
+		Cart cart = cartDao.select(token.getName(), room_no);
+		log.debug("no ="+cart.getRoom_no());
+		Room room = roomDao.select(room_no);	
+
 		try {
-			long diff = diffOfDate(rsvp.getStartdate(), rsvp.getEnddate());
-			log.debug("diff:"+diff);
+			long diff = diffOfDate(cart.getStartdate(), cart.getEnddate());
+
+			int totalprice = (int)diff * room.getPrice();
+			log.debug("totalprice="+totalprice);
+
+			log.debug("diff:" + diff);
+
 			m.addAttribute("diffday", diff);
-		} catch(Exception e) {e.printStackTrace();}
-		
-		m.addAttribute("rsvp", rsvp);
+
+			m.addAttribute("total_price", totalprice);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+		m.addAttribute("cart", cart);
 		m.addAttribute("room", room);
-		
+
+		m.addAttribute("room_price", room.getPrice());
 		return "sub/book";
 	}
-	
-	//이하 메시지 관련
+
+	// 이하 메시지 관련
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		int member_no = 1;
@@ -234,7 +299,7 @@ public class SubController {
 		messageDao.insert(message);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/messageDetail/{room_no}")
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
 		int member_no = 1;
@@ -245,11 +310,11 @@ public class SubController {
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
 		m.addAttribute("price", message.get(0).getPrice());
-		
+
 		return "sub/messageDetail";
 	}
-	
-	@RequestMapping(value="/messageDetail/{room_no}", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
 		messageDao.insert(message);
 		m.addAttribute("message", message);
@@ -258,21 +323,19 @@ public class SubController {
 		m.addAttribute("name", message.getName());
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
-		
-		return "redirect:/sub/messageDetail/"+ room_no;
+
+		return "redirect:/sub/messageDetail/" + room_no;
 	}
 	
 	
 	
-	//리뷰 작성
-	@RequestMapping(value="/review/{room_no}",method=RequestMethod.POST)
-	public String insert(UsernamePasswordAuthenticationToken token,
-			Model m,Review review) {
+
+	// 리뷰 작성
+	@RequestMapping(value = "/review/{room_no}", method = RequestMethod.POST)
+	public String insert(UsernamePasswordAuthenticationToken token, Model m, Review review) {
 		review.setEmail(token.getName());
-		
+
 		reviewDao.insert(review);
-		
-		
 		return "redirect:/sub/detail/"+review.getRoom_no();
 	}
 }

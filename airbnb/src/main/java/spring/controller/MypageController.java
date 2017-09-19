@@ -1,8 +1,5 @@
 package spring.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,13 +29,13 @@ public class MypageController {
 
 	@Autowired
 	private MessageDao messageDao;
-	
+
 	@Autowired
 	private MemberDao memberDao;
 
 	@Autowired
 	private RoomDao roomDao;
-	
+
 	@Autowired
 	private WishListDao wishListDao;
 
@@ -75,23 +71,23 @@ public class MypageController {
 		return "mypage/transaction_history";
 	}
 
-	@RequestMapping(value="/trips")
+	@RequestMapping(value = "/trips")
 	public String trips(Model m) {
 		return "mypage/trips";
 	}
-	
+
 	@RequestMapping("/old_trips")
 	public String old_trips(Model m) {
 		return "mypage/old_trips";
 	}
-	
+
 	@RequestMapping("/room_del")
 	@ResponseBody
 	public String room_del(HttpServletRequest request) {
 		roomDao.delete(request.getParameter("room_no"));
 		return "result";
 	}
-	
+
 	@RequestMapping("/wishlist")
 	public String wishlist(Model m/*, WishList wishList*/) {
 		//wishListDao.insert(wishList);
