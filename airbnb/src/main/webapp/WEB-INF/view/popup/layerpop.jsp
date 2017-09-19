@@ -21,7 +21,7 @@
 		                아이디 기억하기
 		            </label>
 		        </div>
-		        <div>
+		        <div class="w3-center">
 		            <input type="submit" value="로그인" class="input-btn area-80">
 		        </div>
 		        

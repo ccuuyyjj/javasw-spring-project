@@ -43,7 +43,7 @@
 			<table class="book-table area-80 b-border" align="center">
 			<tbody>
 				<tr>
-					<td>${room.region} ${diffday}박</td>
+					<td>${room.region} ${cart.diffdays}박</td>
 					<td rowspan="2" class="b-border">
 						<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100" height="80">
 					</td>
@@ -58,7 +58,7 @@
 					<td colspan="2" class="b-border">${cart.getSdate()} -> ${cart.getEdate()}</td>
 				</tr>
 				<tr>
-					<td class="b-border">\ <fmt:formatNumber value="${room.price}" pattern="#,###" /> x ${diffday}박</td>
+					<td class="b-border">\ <fmt:formatNumber value="${room.price}" pattern="#,###" /> x ${cart.diffdays}박</td>
 					<td class="b-border">\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></td>
 				</tr>
 				<tr>
@@ -70,9 +70,12 @@
 		</div>
 		<div class="empty"></div>
 		<div class="empty"></div>
+		<form method="post" action="${pageContext.request.contextPath}/sub/book">
+		<input type="hidden" name="c_no" value="${cart.no}">
 		<div>
-			<button id="continue" class="w3-btn w3-round-large w3-green" >계속</button>
+			<input type="submit" id="continue" value="계속" class="w3-btn w3-round-large w3-green" >
 		</div>
+		</form>
 	</div>
 </body>
 </html>

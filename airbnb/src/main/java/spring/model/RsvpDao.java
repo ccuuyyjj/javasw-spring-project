@@ -15,9 +15,13 @@ public class RsvpDao {
 	};
 
 	public void insert(Rsvp rsvp) {
-		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, ?,   ?, ?, ?, ?, sysdate,   ?)";
-		Object[] args = new Object[] { rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), rsvp.getStartdate(),
-				rsvp.getEnddate(), rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id() };
+		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, "
+				+ "to_date(?, 'mm/dd/yyyy'), to_date(?, 'mm/dd/yyyy'), "
+				+ "?, ?, ?, sysdate,   ?, ?)";
+		Object[] args = new Object[] { 
+				rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), 
+				rsvp.getStartdate(), rsvp.getEnddate(), 
+				rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id(), rsvp.getR_id() };
 
 		jdbcTemplate.update(sql, args);
 	}

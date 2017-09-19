@@ -17,6 +17,7 @@ public class Rsvp {
 	private String etc;
 	private String reg;
 	private int progress;
+	private String r_id;
 
 	public Rsvp() {
 	}
@@ -33,6 +34,7 @@ public class Rsvp {
 		setEtc(rs.getString("etc"));
 		setReg(rs.getString("reg"));
 		setProgress(rs.getInt("progress"));
+		setR_id(rs.getString("r_id"));
 	}
 
 	public Rsvp(HttpServletRequest request) {
@@ -45,6 +47,15 @@ public class Rsvp {
 		setEnddate(request.getParameter("totalprice"));
 		setEtc(request.getParameter("etc"));
 		setReg(request.getParameter("reg"));
+		setR_id(request.getParameter("r_id"));
+	}
+	
+	public String getR_id() {
+		return r_id;
+	}
+
+	public void setR_id(String r_id) {
+		this.r_id = r_id;
 	}
 
 	public int getProgress() {

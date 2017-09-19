@@ -11,10 +11,11 @@ public class Cart {
 	private int no;
 	private int room_no;
 	private String guest_id;
-	private int quantity;
+	private int diffdays;
 	private String startdate;
 	private String enddate;
 	private String reg;
+	private int quantity;
 
 	public Cart() {
 	}
@@ -23,10 +24,19 @@ public class Cart {
 		setNo(rs.getInt("no"));
 		setRoom_no(rs.getInt("room_no"));
 		setGuest_id(rs.getString("guest_id"));
-		setQuantity(rs.getInt("quantity"));
+		setDiffdays(rs.getInt("diffdays"));
 		setStartdate(rs.getString("startdate"));
 		setEnddate(rs.getString("enddate"));
 		setReg(rs.getString("reg"));
+		setQuantity(rs.getInt("quantity"));
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public int getNo() {
@@ -53,12 +63,12 @@ public class Cart {
 		this.guest_id = guest_id;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int getDiffdays() {
+		return diffdays;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setDiffdays(int diffdays) {
+		this.diffdays = diffdays;
 	}
 
 	public String getStartdate() {
