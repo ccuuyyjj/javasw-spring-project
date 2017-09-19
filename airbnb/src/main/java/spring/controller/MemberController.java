@@ -36,7 +36,6 @@ public class MemberController {
 	
 	@RequestMapping("/login")
 	String login(@RequestHeader("referer") String referer, HttpServletRequest request) {
-		log.debug("referer:"+referer);
 		request.getSession().setAttribute("prevPage", referer);
 		return "member/login";
 	}
