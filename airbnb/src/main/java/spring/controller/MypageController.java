@@ -75,28 +75,25 @@ public class MypageController {
 	}
 
 	@RequestMapping(value="/trips")
-	public String trips(Model m) throws ParseException {
+	public String trips(Model m) {
 		int member_no = 1;
 		List<WishList> wishList = wishListDao.select(member_no);
-		log.debug("get - wishList = "+wishList);
 		m.addAttribute("WishList", wishList);
 		
-//		Calendar now = Calendar.getInstance();
-//		log.debug("시간 = "+now.getTime());
-//		SimpleDateFormat format = new SimpleDateFormat("yy-mm-dd");
-//		now.setTime(format.parse(wishList.get(0).getCheckin()));
-//		log.debug("시간 = "+now.getTime());
 		return "mypage/trips";
 	}
 	
 	@RequestMapping(value="/trips", method=RequestMethod.POST)
 	public void trips(Model m, WishList wishList) {
 		wishListDao.insert(wishList);
-		log.debug("post - wishList = "+wishList);
 	}
 
 	@RequestMapping("/old_trips")
 	public String old_trips(Model m) {
+		int member_no = 1;
+		List<WishList> wishList = wishListDao.select(member_no);
+		m.addAttribute("WishList", wishList);
+		
 		return "mypage/old_trips";
 	}
 	
