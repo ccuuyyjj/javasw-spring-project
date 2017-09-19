@@ -52,7 +52,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
-	    return new CustomLoginSuccessHandler("/defaultUrl");
+	    return new CustomLoginSuccessHandler("/");
 	}
 	
 }

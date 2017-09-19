@@ -14,13 +14,13 @@ public class Cart {
 	
 	public Cart() {}
 	public Cart(ResultSet rs) throws SQLException {
-		rs.getInt("no");
-		rs.getInt("room_no");
-		rs.getString("guest_id");
-		rs.getInt("quantity");
-		rs.getString("startdate");
-		rs.getString("enddate");
-		rs.getString("reg");
+		setNo(rs.getInt("no"));
+		setRoom_no(rs.getInt("room_no"));
+		setGuest_id(rs.getString("guest_id"));
+		setQuantity(rs.getInt("quantity"));
+		setStartdate(rs.getString("startdate"));
+		setEnddate(rs.getString("enddate"));
+		setReg(rs.getString("reg"));
 	}
 	
 	public int getNo() {

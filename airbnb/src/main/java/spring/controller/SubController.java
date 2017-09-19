@@ -162,7 +162,7 @@ public class SubController {
 		
 		cartDao.insert(cart);
 		
-		return "redirect:/sub/book";
+		return "redirect:/sub/book/{id}";
 	}
 	
 	//두 날짜의 차이
@@ -175,23 +175,29 @@ public class SubController {
  
 		long diff = endDate.getTime() - beginDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
- 
+		if(diffDays == 0) diffDays = 1;
 		return diffDays;
 	}
 	
 	//예약 요청 확인
-	@RequestMapping("/book")
-	public String book(Model m, UsernamePasswordAuthenticationToken token) {
-		Cart cart = cartDao.select(token.getName());
-		Room room = roomDao.select(cart.getRoom_no());
+	@RequestMapping("/book/{room_no}")
+	public String book(@PathVariable("room_no") int room_no, Model m, UsernamePasswordAuthenticationToken token) {
+		log.debug("getName=>"+token.getName());
+		log.debug("room_no=>"+room_no);
+		Cart cart = cartDao.select(token.getName(), room_no);
+		log.debug("no ="+cart.getRoom_no());
+		Room room = roomDao.select(room_no);
 		try {
 			long diff = diffOfDate(cart.getStartdate(), cart.getEnddate());
-			log.debug("diff:"+diff);
+			int totalprice = (int)diff * room.getPrice();
+			log.debug("totalprice="+totalprice);
 			m.addAttribute("diffday", diff);
+			m.addAttribute("total_price", totalprice);
 		} catch(Exception e) {e.printStackTrace();}
 		
 		m.addAttribute("cart", cart);
 		m.addAttribute("room", room);
+		m.addAttribute("room_price", room.getPrice());
 		
 		return "sub/book";
 	}

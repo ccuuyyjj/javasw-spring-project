@@ -256,8 +256,11 @@ td, tr {
 	width:30%;
 }
 .book-table td{
-	border-bottom:1px solid #ccc;
 	padding:5px;
 	width:30%;
+	height:40px;
+}
+.book-table  tr:nth-child(even){
+    background-color: #ccc;
 }
 

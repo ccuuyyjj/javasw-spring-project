@@ -36,31 +36,34 @@
 	
 	<div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 		<div>
-			<table class="book-table">
+			<table class="book-table area-60">
 			<tbody>
 				<tr>
-					<td>${cart.region} ${diffday}박</td>
-					<td>
+					<td>${room.region} ${diffday}박</td>
+					<td rowspan="2">
 						<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100" height="80">
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">${room.type} <span aria-hidden="true"> · </span> 침대 ${room.beds}개</td>
+					<td>${room.type} <span aria-hidden="true"> · </span> 침대 ${room.beds}개</td>
 				</tr>
 				<tr>
 					<td>인원 ${cart.quantity}명</td>
-					<td>${cart.startdate} -> ${cart.enddate }</td>
+					<td>${cart.startdate} -> ${cart.enddate}</td>
 				</tr>
 				<tr>
 					<td>\${room.price} x ${diffday}박</td>
-					<td>\${cart.totalprice}</td>
+					<td>\${total_price}</td>
 				</tr>
 				<tr>
 					<td>총합계</td>
-					<td>\${cart.totalprice}</td>
+					<td>\${total_price}</td>
 				</tr>
 			</tbody>
 			</table>
+		</div>
+		<div>
+			<button id="continue" class="w3-btn w3-round-large w3-green" >계속</button>
 		</div>
 	</div>
 </body>
