@@ -22,7 +22,7 @@
 <script src="js/layer_popup.js"></script>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 </head>
-<div class="wl-container area-60">
+<div class="wl-container area-70">
                 <div class="wl-container_3">
                     <div class="wl-container_1 area-70">위시리스트
                     </div>
@@ -41,23 +41,38 @@
                 </div>
                 <div class="wl-page">
                     <div class="wl-page_list">
-                        <a href="#"><img
-                            src="${pageContext.request.contextPath}/img/photo.jpg"> <br>
-                        </a>
-                    </div>
-                    <div class="wl-page_list">
-                        <a href="#"><img
-                            src="${pageContext.request.contextPath}/img/photo.jpg"> <br>
-                        </a>
-                    </div>
-                    <div class="wl-page_list">
-                        <a href="#"><img
-                            src="${pageContext.request.contextPath}/img/photo.jpg"> <br>
-                        </a>
-                    </div>
-                    <div class="page_list">
                         <a href="#">
-                            <div class="d W">
+                            <div class="d">
+                                <div class="w">
+                                    <div class="wl">관심</div>
+                                    <div class="wl2">숙소2개</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="wl-page_list">
+                        <a href="#">
+                            <div class="d">
+                                <div class="w">
+                                    <div class="wl">관심</div>
+                                    <div class="wl2">숙소2개</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="wl-page_list">
+                        <a href="#">
+                            <div class="d">
+                                <div class="w">
+                                    <div class="wl">관심</div>
+                                    <div class="wl2">숙소2개</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="wl-page_list">
+                        <a href="#">
+                            <div class="d">
                                 <div class="w">
                                     <div class="wl">관심</div>
                                     <div class="wl2">숙소2개</div>
@@ -66,5 +81,5 @@
                         </a>
                     </div>
 	           </div>
-            </div>
+			</div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

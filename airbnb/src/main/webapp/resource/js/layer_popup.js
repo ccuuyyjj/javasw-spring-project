@@ -18,7 +18,8 @@ function wrapWindowByMask(){
  
     // css 스타일을 변경합니다.
     $('.window').css({'left':left,'top':top, 'position':'absolute'});
-    $('.messageWindow').css({'left':mLeft,'top':top, 'position':'absolute'});
+    $('.messageWindow').css({'left':mLeft,'top':top-200, 'position':'absolute'});
+    $('.wishListWindow').css({'left':mLeft,'top':top-200, 'position':'absolute'});
  
     // 레이어 팝업을 띄웁니다.
     //$('.window').show();
@@ -48,6 +49,12 @@ $(document).ready(function(){
             e.preventDefault();
             wrapWindowByMask();
 	});
+	$('.wl-btn').click(function(e){
+		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
+			$("#wishList").show();
+            e.preventDefault();
+            wrapWindowByMask();
+	});
  
     // 닫기(close)를 눌렀을 때 작동합니다.
 	$('.window .close').click(function (e) {
@@ -57,6 +64,10 @@ $(document).ready(function(){
 	$('.messageWindow .close').click(function (e) {
 		e.preventDefault();
 		$('.mask, .messageWindow').hide();
+	});
+	$('.wishListWindow .close').click(function (e) {
+		e.preventDefault();
+		$('.mask, .wishListWindow').hide();
 	});
  
 	// 뒤 검은 마스크를 클릭시에도 모두 제거하도록 처리합니다.

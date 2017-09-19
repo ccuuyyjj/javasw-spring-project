@@ -21,6 +21,15 @@
     height: 700px;
     z-index:99999;
 }
+
+#popup_area .wishListWindow {
+    width:550px;
+    display: none;
+    background-color: #ffffff;
+    height: 600px;
+    z-index:99999;
+}
+
 #popup_area .close{
 	cursor:pointer;
 	width: 18px;

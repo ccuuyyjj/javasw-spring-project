@@ -2,16 +2,15 @@
 			div {
                 display: block;
             }
-	            .wl-container{
-	                width: 60%;
-	                margin-left: 20%;
-	                margin-right: 20%;
-	                margin-top: 10%;
-	                position: relative !important;
-	                padding-left: 80px !important;
-	                padding-right: 80px !important;
-	                vertical-align: middle;
-	            }
+            .wl-container{
+                margin-left: 15%;
+                margin-right: 15%;
+                margin-top: 10%;
+                position: relative !important;
+                padding-left: 80px !important;
+                padding-right: 80px !important;
+                vertical-align: middle;
+	        }
             .wl-container_1{
                 display: inline-block;
                 flex-grow: 1 !important;
@@ -20,7 +19,7 @@
                 font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
                 margin: 0px !important;
                 word-wrap: break-word !important;
-                font-size: 25px !important;
+                font-size: 36px !important;
                 line-height: 44px !important;
                 letter-spacing: -0.6px !important;
                 padding-top: 6px !important;
@@ -42,12 +41,12 @@
                 font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
                 font-size: 19px !important;
                 line-height: 22px !important;
-                padding-top: 6px !important;
-                padding-bottom: 6px !important;
+                padding-top: 12px !important;
+                padding-bottom: 12px !important;
                 color: #484848 !important;
                 font-weight: 700 !important;
-                padding-right: 20px !important;
-                padding-left: 20px !important;
+                padding-right: 12px !important;
+                padding-left: 12px !important;
                 min-width: 77.66563145999496px !important;
                 background: transparent !important;
                 border-color: #008489 !important;
@@ -55,7 +54,7 @@
             .wl-span{
                 transition: color 0.3s !important;
                 font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
-                font-size: 15px !important;
+                font-size: 19px !important;
                 line-height: 22px !important;
                 padding-top: 0px !important;
                 padding-bottom: 0px !important;
@@ -81,33 +80,18 @@
                 padding-bottom: 6px !important;
             }
             .wl-page {
-                display: flex; 
+                display: flex;
                 flex-direction: row; 
                 flex-wrap: wrap;
                 justify-content: Flex-start;
                 align-content: stretch;
                 width: 100%;
+                position: relative;
             }
             .wl-page_list {
-                width: 30%;
-                height: 20%;
+                width: 100%;
                 margin-bottom: 2%;
                 margin-right: 2%;
-            }
-            .wl-page_list img {
-                width: 100%;
-                height: 100%;
-            }
-            @media screen and (max-width:740px) { 
-                .wl-page {
-                    flex-direction: column;
-                    width: 100%;
-                    margin-bottom: 2%;
-                }
-                .wl-page_list {
-                    width: 95%;
-                    margin-bottom: 2%;
-                }
             }
 
             @media screen and (min-width:740px) { 
@@ -116,7 +100,36 @@
                 }
                 .wl-page_list {
                     width: 45%;
+                    margin-bottom: 7%;
+                }
+                .d{
+                width: 45%;
+                margin-bottom: 2%;
+                margin-right: 2%;
+                }
+                .w{
+                width: 45%;
+                }
+            }
+            
+            @media screen and (max-width:740px) { 
+                .wl-page {
+                    flex-direction: row;
+                    width: 100%;
+                    height: 200%;
                     margin-bottom: 2%;
+                }
+                .wl-page_list {
+                    width: 90%;
+                    margin-bottom: 2%;
+                }
+                .d{
+                width: 90%;
+                margin-bottom: 2%;
+                margin-right: 2%;
+                }
+                .w{
+                width: 90%;
                 }
             }
 
@@ -126,19 +139,35 @@
                 }
                 .wl-page_list {
                     width: 30%;
-                    margin-bottom: 2%;
+                    margin-bottom: 5%;
+                }
+                .d{
+                width: 30%;
+                margin-bottom: 2%;
+                }
+                .w{
+                width: 30%;
                 }
             }
             
             
             .w{
-                position: absolute;
                 z-index: 0;
+                position: relative !important;
+                bottom: 0px !important;
+                background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.2) 100%) !important;
+                text-shadow: 0 2px 1em #000000 !important;
+                padding-top: 49% !important;
+                width: 100%;
             }
             .d{
-                width: 33%;
-                height: 30%;
+                width: 100%;
+                margin-bottom: 2%;
+                margin-right: 2%;
                 background-image: url(https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large);
+                background-position: center center !important;
+                background-repeat: no-repeat !important;
+                background-size: cover !important;
             }
             .wl{
                 font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
@@ -161,4 +190,7 @@
                 color: #ffffff !important;
                 font-weight: 700 !important;
                 padding-left: 16px !important;
+            }
+            a{
+                text-decoration: none;
             }

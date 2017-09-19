@@ -120,6 +120,49 @@
 	    </div>
 	    </div>
 	</div>
+	
+	<div class="wishListWindow" style="display: none;" id="wishList">
+		<img src="${pageContext.request.contextPath}/img/ico_close.png"
+			class="close">
+		<div class="empty"></div>
+		<div class="area-60 layer-center">
+		<div>
+	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post">
+	        <input type="hidden" name="member_no" value="1">
+	        <input type="hidden" name="name" value="${room.name}">
+	        <input type="hidden" name="price" value="${room.price}">
+	        <input type="hidden" name="room_no" value="${room.no}">
+            <div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
+            <div class="md-container_2">언제 여행하실 계획인가요?</div>
+	        <div class="md-row md-container md-checkin">
+                <div class="area-45 md-checkin">
+                    <span>체크인</span>
+                </div>
+                <div class="area-45 md-checkout">
+                    <span>체크아웃</span>
+                </div>
+                <div class="area-45 md-checkin">
+                    <input type=text name="checkin" id="checkIn" placeholder="체크인">
+                </div>
+                <div class="area-45 md-checkout">
+                    <input type="text" name="checkout" id="checkOut" placeholder="체크아웃">
+                </div>
+	        </div>
+            <div class="md-container_2">인원</div>
+	        <div class="md-row md-container_3">
+                <input class="area-90" type="number"  name="quantity" max="9999" maxlength="4"/><span>명</span>
+	        </div>
+            <div class="md-container_2">호스트에게 메세지 보내기</div>
+	        <div class="md-row md-container_3">
+                <textarea name="question" rows="5" cols="50" placeholder="메세지 쓰기..."></textarea>
+	        </div>
+	        <div class="md-row">
+	            <input class="area-100 md-btn" type="submit" value="메세지 보내기">
+	        </div>
+	    </form>
+	    </div>
+	    </div>
+	</div>
 </div>
 <script>
 var enabledays = new Array();
