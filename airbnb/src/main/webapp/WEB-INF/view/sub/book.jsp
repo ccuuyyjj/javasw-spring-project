@@ -34,34 +34,42 @@
 		</div>
 	</div>    
 	
-	<div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
-		<div>
-			<table class="book-table area-60">
+	<div class="w3-main w3-content w3-padding w3-center" style="max-width:800px;margin-top:100px">
+		<div class="w3-center">
+			<h1>예약 확인</h1>
+		</div>
+		<div class="empty"></div>
+		<div class="w3-center">
+			<table class="book-table area-80 b-border" align="center">
 			<tbody>
 				<tr>
 					<td>${room.region} ${diffday}박</td>
-					<td rowspan="2">
+					<td rowspan="2" class="b-border">
 						<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100" height="80">
 					</td>
 				</tr>
 				<tr>
-					<td>${room.type} <span aria-hidden="true"> · </span> 침대 ${room.beds}개</td>
+					<td class="b-border">${room.type} <span aria-hidden="true"> · </span> 침대 ${room.beds}개</td>
 				</tr>
 				<tr>
-					<td>인원 ${cart.quantity}명</td>
-					<td>${cart.startdate} -> ${cart.enddate}</td>
+					<td colspan="2">인원 ${cart.quantity}명</td>
+				</tr>
+				<tr>	
+					<td colspan="2" class="b-border">${cart.getSdate()} -> ${cart.getEdate()}</td>
 				</tr>
 				<tr>
-					<td>\${room.price} x ${diffday}박</td>
-					<td>\${total_price}</td>
+					<td class="b-border">\ <fmt:formatNumber value="${room.price}" pattern="#,###" /> x ${diffday}박</td>
+					<td class="b-border">\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></td>
 				</tr>
 				<tr>
 					<td>총합계</td>
-					<td>\${total_price}</td>
+					<td>\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></td>
 				</tr>
 			</tbody>
 			</table>
 		</div>
+		<div class="empty"></div>
+		<div class="empty"></div>
 		<div>
 			<button id="continue" class="w3-btn w3-round-large w3-green" >계속</button>
 		</div>

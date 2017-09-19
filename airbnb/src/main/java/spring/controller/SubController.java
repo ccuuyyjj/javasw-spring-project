@@ -211,24 +211,19 @@ public class SubController {
 	// 두 날짜의 차이
 	private static long diffOfDate(String begin, String end) throws Exception {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-
 		Date beginDate = formatter.parse(begin);
 		Date endDate = formatter.parse(end);
-
 		long diff = endDate.getTime() - beginDate.getTime();
 		long diffDays = diff / (24 * 60 * 60 * 1000);
-
 		if(diffDays == 0) diffDays = 1;
-
-
-
 		return diffDays;
 	}
 
 	
 	//예약 요청 확인
 	@RequestMapping("/book/{room_no}")
-	public String book(@PathVariable("room_no") int room_no, Model m, UsernamePasswordAuthenticationToken token) {
+	public String book(@PathVariable("room_no") int room_no, Model m, 
+			UsernamePasswordAuthenticationToken token) {
 		log.debug("getName=>"+token.getName());
 		log.debug("room_no=>"+room_no);
 		Cart cart = cartDao.select(token.getName(), room_no);

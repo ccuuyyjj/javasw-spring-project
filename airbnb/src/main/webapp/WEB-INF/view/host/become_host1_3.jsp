@@ -3,10 +3,12 @@
     
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css"/>   
-<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script> 
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>  -->
+<script async defer src="https://maps.googleapis.com/maps/api/js"></script>
 <script>
-     
- function initMap(){
+  
+  $(document).ready(function(){
+ //function initMap(){
 	 var geocoder = new google.maps.Geocoder();
 	 var address = "${address}";
 	 geocoder.geocode({'address': address}, function(results, status) {
@@ -32,7 +34,8 @@
 			 $("#map").html('<img src="http://placehold.it/600x400" width="600" height="400">');
 		 }
 	 });
- }
+ //}
+  });
     	 
      
  </script>   
@@ -50,8 +53,8 @@
 	</div>
 	<div class="empty"></div>
 	<form method="post" id="hfrm" action = "${pageContext.request.contextPath}/host/become_host1_3">
-		<input type="hidden" id="lat" name="lat">
-		<input type="hidden" id="lng" name="lng">
+		<input type="hidden" id="lat" name="lat" value="0">
+		<input type="hidden" id="lng" name="lng" value="0">
 		<input type="hidden" id="mode" name="mode" >
 		<div class="w3-row host-row">
 			<a href="${pageContext.request.contextPath}/host/become_host1_2" >뒤로</a>
