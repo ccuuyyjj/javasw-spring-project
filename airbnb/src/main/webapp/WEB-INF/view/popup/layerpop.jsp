@@ -6,7 +6,6 @@
 	<div class="window" style="display:none;" id="login">
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
-			<div class="empty"></div>
 			<div class="area-60  layer-center">
 		    <form action="${pageContext.request.contextPath}/loginProc" method="post">
 		        <div>
