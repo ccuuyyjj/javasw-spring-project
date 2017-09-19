@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
 	
 	$("#show_write").on("click",function(){
@@ -10,8 +12,15 @@ $(document).ready(function() {
 		$("#show_write").css("display","block");
 	});
 	
-	//페이지 이동시 스크롤바 고정
-		var scroll =$(".reviews").offset().top-150;
+	
+	//리뷰 페이지 이동시 스크롤 이동
+	$.urlParam = function(name){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		return results[1] || 0;
+	}
+	
+	if($.urlParam("page")!=null){
+		var scroll =$(".reviews").offset().top-120;
 		$("body").animate({	scrollTop:scroll},500);
-		//500은 이동 시간
+	}
 });
