@@ -20,19 +20,25 @@ public class CartDao {
 		Cart cart = new Cart(rs);
 		return cart;
 	};
-	
+
 	public void insert(Cart cart) {
 		String sql = "insert into cart values(cart_seq.nextval, ? ,?, ?, ?, ?, sysdate)";
-		Object[] args = new Object[] { 
-							cart.getRoom_no(), cart.getQuantity(), cart.getStartdate(), 
-							cart.getEnddate(), cart.getGuest_id() };
+		Object[] args = new Object[] { cart.getRoom_no(), cart.getQuantity(), cart.getStartdate(), cart.getEnddate(),
+				cart.getGuest_id() };
 
 		jdbcTemplate.update(sql, args);
 	}
+
 	
 	public Cart select(String id, int room_no) {
 		String sql = "select * from cart where guest_id = ? and room_no = ? order by no desc";
 		Object[] args = new Object[] {id, room_no};
 		return jdbcTemplate.query(sql, args, rowMapper).get(0);
+	}
+
+	public Cart select(String id) {
+		String sql = "select * from cart where guest_id = ? ";
+		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper).get(0);
+
 	}
 }
