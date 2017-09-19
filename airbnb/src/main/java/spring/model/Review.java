@@ -73,6 +73,12 @@ public class Review {
 		this.reg = reg;
 	}
 
+	@Override
+	public String toString() {
+		return "Review [no=" + no + ", email=" + email + ", detail=" + detail + ", rating=" + rating + ", room_no="
+				+ room_no + ", reg=" + reg + "]";
+	}
+
 	
 	
 	

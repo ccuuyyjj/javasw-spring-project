@@ -49,7 +49,7 @@ public class SubController {
 			@RequestParam(value = "price", required = false) int[] price,
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
-		System.out.println("sub");
+//		System.out.println("sub");
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
@@ -57,23 +57,31 @@ public class SubController {
 		List<Object> args_list = new ArrayList<>();
 		// 페이징 네비게이터
 		int totalPost = roomDao.count(); // 게시물 수
-		int pagePosts = 21; // 현재 페이지 출력될 게시물 수
+		int pagePosts = 21; // 현재 페이지 출력될 게시물 수  
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
 		int countPage = 3; // 화면에 출력될 페이지 수
 		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
-		int end = start + countPage - 1; // 현재페이지에서 끝 페이지
-
+		int end = start + countPage - 1; // 현재페이지에서 끝 페이지 
 		// start , end 재설정 ( 이전, 다음 페이지 )
-		if (start > countPage && page != end)
+		if (start > countPage && page!=end) {
 			start -= 1; // 이전페이지 (현재 페이지가 4일때 start는 3)
-		if (page <= end)
+		}
+		if (page <= end ) {
 			end = start + countPage; // 다음페이지
-
+		}
+		
 		// end 가 총페이지를 넘는 걸 방지
 		if (end > totalPage) {
 			end = totalPage;
-			start -= 2;
+			if(totalPage>4) { //총 페이지 수가 4미만 일때 오류 or 페이징 숫자와 시작페이지가 같이 나옴 
+				if(totalPage-start==2) {
+					start-=1;			
+				}else{
+					start -= 2;		
+				}
+			}
 		}
+		
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
@@ -118,22 +126,48 @@ public class SubController {
 	}
 
 	@RequestMapping("/detail/{id}")
-	public String detail(@PathVariable("id") int id, Model m) {
+	public String detail(@PathVariable("id") int id, Model m,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+		// 페이징 네비게이터
+		int totalPost = reviewDao.count(id); // 게시물 수
+		int pagePosts = 5; // 현재 페이지 출력될 게시물 수  
+		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
+		int countPage = 3; // 화면에 출력될 페이지 수
+		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
+		int end = start + countPage - 1; // 현재페이지에서 끝 페이지 
+		// start , end 재설정 ( 이전, 다음 페이지 )
+		if (start > countPage && page!=end) {
+			start -= 1; // 이전페이지 (현재 페이지가 4일때 start는 3)
+		}
+		if (page <= end ) {
+			end = start + countPage; // 다음페이지
+		}
+		
+		// end 가 총페이지를 넘는 걸 방지
+		if (end > totalPage) {
+			end = totalPage;
+			if(totalPage>4) { //총 페이지 수가 4미만 일때 오류 or 페이징 숫자와 시작페이지가 같이 나옴 
+				if(totalPage-start==2) {
+					start-=1;			
+				}else{
+					start -= 2;		
+				}
+			}
+		}
+		
+		
+		m.addAttribute("start", start);
+		m.addAttribute("end", end);
+		m.addAttribute("page", page);
+		m.addAttribute("totalPage", totalPage);
+
 		m.addAttribute("room", roomDao.select(id));
 		m.addAttribute("availList", availDao.selectAvailable(id));
-		m.addAttribute("review",reviewDao.select(id));
+		m.addAttribute("review",reviewDao.select(page,pagePosts,id));
 		m.addAttribute("total",reviewDao.count(id));
 		m.addAttribute("avg",reviewDao.avg(id));
 		return "sub/detail";
 	}
-	
-	@RequestMapping(value="/detail/{id}", method=RequestMethod.POST )
-	public String detail(@PathVariable("id") int id, HttpServletRequest request) {
-		
-		
-		return "sub/detail";
-	}
-	
 
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
@@ -209,11 +243,11 @@ public class SubController {
 	@RequestMapping(value="/review/{room_no}",method=RequestMethod.POST)
 	public String insert(UsernamePasswordAuthenticationToken token,
 			Model m,Review review) {
+		System.out.println(token.getName());
+		
 		review.setEmail(token.getName());
 		
 		reviewDao.insert(review);
-		
-		
 		return "redirect:/sub/detail/"+review.getRoom_no();
 	}
 }
