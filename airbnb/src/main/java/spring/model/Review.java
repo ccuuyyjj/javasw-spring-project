@@ -11,7 +11,7 @@ public class Review {
 	private String rating;
 	private String room_no;
 	private String reg;
-	
+
 	public Review(ResultSet rs) throws SQLException {
 		setNo(rs.getInt("no"));
 		setEmail(rs.getString("email"));
@@ -20,7 +20,7 @@ public class Review {
 		setRoom_no(rs.getString("Room_no"));
 		setReg(rs.getString("reg"));
 	}
-	
+
 	public Review() {
 		super();
 	}
@@ -73,8 +73,4 @@ public class Review {
 		this.reg = reg;
 	}
 
-	
-	
-	
-	
 }

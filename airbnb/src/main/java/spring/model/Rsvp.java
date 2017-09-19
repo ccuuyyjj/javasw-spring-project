@@ -17,10 +17,11 @@ public class Rsvp {
 	private String etc;
 	private String reg;
 	private int progress;
-	
-	public Rsvp() {}
-	
-	public Rsvp(ResultSet rs) throws SQLException{
+
+	public Rsvp() {
+	}
+
+	public Rsvp(ResultSet rs) throws SQLException {
 		setNo(rs.getInt("no"));
 		setRoom_no(rs.getInt("room_no"));
 		setGuest_id(rs.getString("guest_id"));
@@ -33,7 +34,7 @@ public class Rsvp {
 		setReg(rs.getString("reg"));
 		setProgress(rs.getInt("progress"));
 	}
-	
+
 	public Rsvp(HttpServletRequest request) {
 		setNo(Integer.parseInt(request.getParameter("no")));
 		setRoom_no(Integer.parseInt(request.getParameter("room+no")));
@@ -45,7 +46,7 @@ public class Rsvp {
 		setEtc(request.getParameter("etc"));
 		setReg(request.getParameter("reg"));
 	}
-	
+
 	public int getProgress() {
 		return progress;
 	}
@@ -57,60 +58,79 @@ public class Rsvp {
 	public int getNo() {
 		return no;
 	}
+
 	public void setNo(int no) {
 		this.no = no;
 	}
+
 	public int getRoom_no() {
 		return room_no;
 	}
+
 	public void setRoom_no(int room_no) {
 		this.room_no = room_no;
 	}
+
 	public String getGuest_id() {
 		return guest_id;
 	}
+
 	public void setGuest_id(String guest_id) {
 		this.guest_id = guest_id;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getStartdate() {
 		return startdate;
 	}
+
 	public void setStartdate(String startdate) {
 		this.startdate = startdate;
 	}
+
 	public String getEnddate() {
 		return enddate;
 	}
+
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
+
 	public int getTotalprice() {
 		return totalprice;
 	}
+
 	public void setTotalprice(int totalprice) {
 		this.totalprice = totalprice;
 	}
+
 	public String getEtc() {
 		return etc;
 	}
+
 	public void setEtc(String etc) {
 		this.etc = etc;
 	}
+
 	public String getReg() {
 		return reg;
 	}
+
 	public void setReg(String reg) {
 		this.reg = reg;
 	}

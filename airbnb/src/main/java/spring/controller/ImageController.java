@@ -66,10 +66,10 @@ public class ImageController {
 
 			String saveFolder = mRequest.getServletContext().getRealPath("/file");
 			log.debug("saveFolder = " + saveFolder);
-			
-			long time = System.currentTimeMillis(); 
 
-			String filename  = file.getOriginalFilename()+time;
+			long time = System.currentTimeMillis();
+
+			String filename = file.getOriginalFilename() + time;
 
 			File target = new File(saveFolder, filename);
 			file.transferTo(target);

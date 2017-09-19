@@ -13,19 +13,18 @@ public class RsvpDao {
 	private RowMapper<Rsvp> rowMapper = (rs, index) -> {
 		return new Rsvp(rs);
 	};
+
 	public void insert(Rsvp rsvp) {
 		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, ?,   ?, ?, ?, ?, sysdate,   ?)";
-		Object[] args = new Object[] { 
-							rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), rsvp.getStartdate(), 
-							rsvp.getEnddate(), rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), 
-							rsvp.getGuest_id() };
+		Object[] args = new Object[] { rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), rsvp.getStartdate(),
+				rsvp.getEnddate(), rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id() };
 
 		jdbcTemplate.update(sql, args);
 	}
-	
+
 	public Rsvp select(String id) {
 		String sql = "select * from reservation where guest_id = ? ";
-		return jdbcTemplate.query(sql, new Object[] {id}, rowMapper).get(0) ;
+		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper).get(0);
 	}
-	
+
 }
