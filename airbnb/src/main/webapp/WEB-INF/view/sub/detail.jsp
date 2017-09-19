@@ -119,6 +119,7 @@
 		<br><br><br>
 	</div>
 	<div class="container_3">
+		<h1>${room.parsedOptions}</h1>
 		<table class="reviewTable">
 			<tr>
 				<td class="content_2">시설</td>

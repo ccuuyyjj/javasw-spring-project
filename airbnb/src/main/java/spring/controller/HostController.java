@@ -167,7 +167,7 @@ public class HostController {
 		String[] option = request.getParameterValues("options");
 		if (option != null) {
 			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "l";
+				options += option[i] + "|";
 			}
 			log.debug("options =>" + options);
 			room.setOptions(options);
@@ -204,7 +204,7 @@ public class HostController {
 		String[] option = request.getParameterValues("options");
 		if (option != null) {
 			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "l";
+				options += option[i] + "|";
 			}
 			log.debug("options =>" + options);
 		}
