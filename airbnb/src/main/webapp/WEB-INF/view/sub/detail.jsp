@@ -84,7 +84,7 @@
 </script>
 
  <div class="photo">
-     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" width="100%" height="80%">
+     <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100%" height="80%">
  </div>
 <div class="container_1">
 	<div class="container">
@@ -245,8 +245,8 @@
 	    		<input type="hidden" name="status" value="예약전">
     			<input type="hidden" name="address" value="address">
     			<input type="hidden" name="hostname" value="host">
-    			<input type="hidden" name="checkin" value="17-09-05">
-    			<input type="hidden" name="checkout" value="17-09-03"	>
+    			<input type="hidden" name="checkin" value="17/10/05">
+    			<input type="hidden" name="checkout" value="17/10/08">
     			<input type="submit" class="booking-width booking-height w3-white w3-round-large" value="위시리스트에 담기">
     		</form>
     	</div>

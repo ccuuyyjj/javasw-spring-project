@@ -255,3 +255,9 @@ td, tr {
 	padding:5px;
 	width:30%;
 }
+.book-table td{
+	border-bottom:1px solid #ccc;
+	padding:5px;
+	width:30%;
+}
+

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.AvailDao;
+import spring.model.Cart;
+import spring.model.CartDao;
 import spring.model.Member;
 import spring.model.MemberDao;
 import spring.model.Message;
@@ -50,6 +52,9 @@ public class SubController {
 	private RsvpDao rsvpDao;
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private CartDao cartDao;
+	
 	
 	//목록
 	@RequestMapping("/sub_list")
@@ -148,16 +153,14 @@ public class SubController {
 		log.debug("id: "+id);
 		String email = token.getName();
 		Member member = memberDao.select(email);
-		Rsvp rsvp = new Rsvp();
-		rsvp.setRoom_no(id);
-		rsvp.setGuest_id(email);
-		rsvp.setQuantity(Integer.parseInt(request.getParameter("qty")));
-		rsvp.setStartdate(request.getParameter("checkin"));
-		rsvp.setEnddate(request.getParameter("checkout"));
-		rsvp.setTotalprice(Integer.parseInt(request.getParameter("totalprice")));
-		rsvp.setPhone(member.getPhone());
-		rsvp.setProgress(0);
-		m.addAttribute("rsvp", rsvp);
+		Cart cart = new Cart();
+		cart.setRoom_no(id);
+		cart.setGuest_id(email);
+		cart.setQuantity(Integer.parseInt(request.getParameter("qty")));
+		cart.setStartdate(request.getParameter("checkin"));
+		cart.setEnddate(request.getParameter("checkout"));
+		
+		cartDao.insert(cart);
 		
 		return "redirect:/sub/book";
 	}
@@ -178,16 +181,16 @@ public class SubController {
 	
 	//예약 요청 확인
 	@RequestMapping("/book")
-	public String order(Model m, UsernamePasswordAuthenticationToken token) {
-		Rsvp rsvp = rsvpDao.select(token.getName());
-		Room room = roomDao.select(rsvp.getRoom_no());
+	public String book(Model m, UsernamePasswordAuthenticationToken token) {
+		Cart cart = cartDao.select(token.getName());
+		Room room = roomDao.select(cart.getRoom_no());
 		try {
-			long diff = diffOfDate(rsvp.getStartdate(), rsvp.getEnddate());
+			long diff = diffOfDate(cart.getStartdate(), cart.getEnddate());
 			log.debug("diff:"+diff);
 			m.addAttribute("diffday", diff);
 		} catch(Exception e) {e.printStackTrace();}
 		
-		m.addAttribute("rsvp", rsvp);
+		m.addAttribute("cart", cart);
 		m.addAttribute("room", room);
 		
 		return "sub/book";

@@ -29,23 +29,38 @@
 				</a>
 			</div>
 			<div class="w3-col s4 w3-left p-top-20">
-				1. 확인    >    2. 결제
+				<b>1. 확인</b>    >    2. 결제
 			</div>
 		</div>
 	</div>    
 	
 	<div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
-		
 		<div>
-			${rsvp.region} ${diffday}박 <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}"" width="100" height="80">이미지
-			집 전체 <span aria-hidden="true"> · </span> 침대 3개
-			<hr>
-			인원 1명
-			2017년 10월 6일 -> 2017년 10월 7일
-			<hr>
-			₩325234 x 1박		₩325234
-			총합계 (KRW)			₩409677
-			
+			<table class="book-table">
+			<tbody>
+				<tr>
+					<td>${cart.region} ${diffday}박</td>
+					<td>
+						<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100" height="80">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">${room.type} <span aria-hidden="true"> · </span> 침대 ${room.beds}개</td>
+				</tr>
+				<tr>
+					<td>인원 ${cart.quantity}명</td>
+					<td>${cart.startdate} -> ${cart.enddate }</td>
+				</tr>
+				<tr>
+					<td>\${room.price} x ${diffday}박</td>
+					<td>\${cart.totalprice}</td>
+				</tr>
+				<tr>
+					<td>총합계</td>
+					<td>\${cart.totalprice}</td>
+				</tr>
+			</tbody>
+			</table>
 		</div>
 	</div>
 </body>
