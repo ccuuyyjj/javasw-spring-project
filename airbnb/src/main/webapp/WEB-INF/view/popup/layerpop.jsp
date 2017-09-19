@@ -6,7 +6,6 @@
 	<div class="window" style="display:none;" id="login">
 			<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 			<div class="empty"></div>
-			<div class="empty"></div>
 			<div class="area-60  layer-center">
 		    <form action="${pageContext.request.contextPath}/loginProc" method="post">
 		        <div>
@@ -100,10 +99,10 @@
                     <span>체크아웃</span>
                 </div>
                 <div class="area-45 md-checkin">
-                    <input type="date" name="checkin" placeholder="체크인">
+                    <input type=text name="checkin" id="checkIn" placeholder="체크인">
                 </div>
                 <div class="area-45 md-checkout">
-                    <input type="date" name="checkout" placeholder="체크아웃">
+                    <input type="text" name="checkout" id="checkOut" placeholder="체크아웃">
                 </div>
 	        </div>
             <div class="md-container_2">인원</div>
@@ -122,3 +121,22 @@
 	    </div>
 	</div>
 </div>
+<script>
+var enabledays = new Array();
+<c:forEach items="${availList}" var="avail">
+enabledays.push( '${avail.getDate()}');
+</c:forEach>	 
+jQuery('#checkIn').datepicker({
+	dateFormat: 'yy/mm/dd',
+	minDate: 0,
+	constrainInput: false,
+	beforeShowDay: enableAllTheseDays
+});	
+
+ jQuery('#checkOut').datepicker({
+	dateFormat: 'yy/mm/dd',
+	constrainInput: false,
+	minDate: 0,
+	beforeShowDay: enableAllTheseDays
+});  
+</script>
