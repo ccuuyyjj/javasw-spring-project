@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,6 +34,7 @@ import spring.model.Review;
 import spring.model.ReviewDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.Rsvp;
 import spring.model.RsvpDao;
 
 @Controller
@@ -198,9 +201,10 @@ public class SubController {
 		Cart cart = new Cart();
 		cart.setRoom_no(id);
 		cart.setGuest_id(email);
-		cart.setQuantity(Integer.parseInt(request.getParameter("qty")));
+		cart.setDiffdays(Integer.parseInt(request.getParameter("diffdays")));
 		cart.setStartdate(request.getParameter("checkin"));
 		cart.setEnddate(request.getParameter("checkout"));
+		cart.setQuantity(Integer.parseInt(request.getParameter("qty")));
 
 		cartDao.insert(cart);
 
@@ -208,56 +212,65 @@ public class SubController {
 		return "redirect:/sub/book/{id}";
 	}
 
-	// 두 날짜의 차이
-	private static long diffOfDate(String begin, String end) throws Exception {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-
-		Date beginDate = formatter.parse(begin);
-		Date endDate = formatter.parse(end);
-
-		long diff = endDate.getTime() - beginDate.getTime();
-		long diffDays = diff / (24 * 60 * 60 * 1000);
-
-		if(diffDays == 0) diffDays = 1;
-
-
-
-		return diffDays;
-	}
-
-	
 	//예약 요청 확인
 	@RequestMapping("/book/{room_no}")
-	public String book(@PathVariable("room_no") int room_no, Model m, UsernamePasswordAuthenticationToken token) {
-		log.debug("getName=>"+token.getName());
-		log.debug("room_no=>"+room_no);
+	public String book(@PathVariable("room_no") int room_no, Model m, 
+			UsernamePasswordAuthenticationToken token) {
+		
 		Cart cart = cartDao.select(token.getName(), room_no);
-		log.debug("no ="+cart.getRoom_no());
 		Room room = roomDao.select(room_no);	
-
-		try {
-			long diff = diffOfDate(cart.getStartdate(), cart.getEnddate());
-
-			int totalprice = (int)diff * room.getPrice();
-			log.debug("totalprice="+totalprice);
-
-			log.debug("diff:" + diff);
-
-			m.addAttribute("diffday", diff);
-
-			m.addAttribute("total_price", totalprice);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
+		int totalprice = cart.getDiffdays() * room.getPrice();
+		
+		m.addAttribute("total_price", totalprice);
 		m.addAttribute("cart", cart);
 		m.addAttribute("room", room);
-
 		m.addAttribute("room_price", room.getPrice());
 		return "sub/book";
 	}
 
+	//예약 저장
+	@RequestMapping(value="/book", method=RequestMethod.POST)
+	public String book(@RequestParam (value="c_no", required=true, defaultValue="-1") int c_no,  
+			UsernamePasswordAuthenticationToken token, Model m) {
+		int totalprice = 0;
+		
+		Member member = memberDao.select(token.getName());
+		Cart cart = cartDao.select(c_no);
+		Room room = roomDao.select(cart.getRoom_no());	
+		
+		totalprice = cart.getDiffdays() * room.getPrice();
+		
+		//예약번호 생성 : 시간+랜덤숫자3자리
+		long time = System.currentTimeMillis();
+		Format format = new SimpleDateFormat("yMMdhhmmss");
+		String strTime = format.format(time);
+		Random random = new Random();
+		int rnd = random.nextInt(1000) + 100;
+		if (rnd > 1000) rnd -= 100;
+		String r_id = strTime+rnd;
+		
+		Rsvp rsvp = new Rsvp();
+		rsvp.setRoom_no(cart.getRoom_no());
+		rsvp.setGuest_id(cart.getGuest_id());
+		rsvp.setQuantity(cart.getQuantity());
+		rsvp.setPhone(member.getPhone());
+		rsvp.setStartdate(cart.getStartdate());
+		rsvp.setEnddate(cart.getEnddate());
+		rsvp.setTotalprice(totalprice);
+		rsvp.setProgress(0); //0:예약요청,  1:예약확인, 2:예약승낙, 9:예약거부
+		rsvp.setR_id(r_id);
+		
+		rsvpDao.insert(rsvp);
+		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
+		//throw new Exception();
+		return "redirect:/sub/book_end";
+	}
+	
+	//예약 확인 요청 끝
+	public String book_end() {
+		return "sun/book_end";
+	}
+	
 	// 이하 메시지 관련
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {

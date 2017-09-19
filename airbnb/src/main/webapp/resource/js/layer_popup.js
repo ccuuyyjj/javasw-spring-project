@@ -14,7 +14,7 @@ function wrapWindowByMask(){
     var left = ( $(window).scrollLeft() + ( $(window).width() - $('.window').width()) / 2 );
     var mLeft = ( $(window).scrollLeft() + ( $(window).width() - $('.messageWindow').width()) / 2 );
     //var top = ( $(window).scrollTop() + ( $(window).height() - $('.window').height()) / 2 );
-    var top  = ( $(window).scrollTop() + $('.window').outerHeight()/2); 
+    var top  = ( $(window).scrollTop() + $('.window').outerHeight()/2)-150; 
  
     // css 스타일을 변경합니다.
     $('.window').css({'left':left,'top':top, 'position':'absolute'});
