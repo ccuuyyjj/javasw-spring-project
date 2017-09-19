@@ -1,21 +1,16 @@
 package spring.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
 import spring.model.MemberDao;
-import spring.model.Room;
 
 @Controller
 @RequestMapping("/member")
@@ -35,7 +29,12 @@ public class MemberController {
 	MemberDao memberDao;
 	
 	@RequestMapping("/login")
-	String login(@RequestHeader("referer") String referer, HttpServletRequest request) {
+
+	String login(UsernamePasswordAuthenticationToken token, @RequestHeader(required=false, value="referer", defaultValue="/") String referer, HttpServletRequest request) throws Exception {
+		if(token != null)
+			throw new Exception("이미 로그인된 상태입니다.");
+		log.debug("referer:"+referer);
+
 		request.getSession().setAttribute("prevPage", referer);
 		return "member/login";
 	}
@@ -43,8 +42,11 @@ public class MemberController {
 	// 회원가입
 	@ResponseBody
 	@RequestMapping("/join")
-	String join(Member member, @RequestHeader("referer") String referer) {
-		memberDao.insert(member);
+	String join(UsernamePasswordAuthenticationToken token, Member member, @RequestHeader(required=false, value="referer", defaultValue="/") String referer) throws Exception {
+		if(token != null)
+			throw new Exception("이미 로그인된 상태입니다.");
+		if(member != null)
+			memberDao.insert(member);
 		return referer;
 	}
 	// 중복 이메일 검사

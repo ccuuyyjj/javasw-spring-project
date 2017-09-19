@@ -38,17 +38,23 @@
 			  				<th>상태</th>
 			  				<th>숙소/위치</th>
 			  				<th>호스트</th>
-			  				<th>날짜</th>
+			  				<th>체크인</th>
+			  				<th>체크아웃</th>
 			  				<th>옵션</th>
 			  			</thead>
-			  			<tbody>
-			  				<td>1</td>
-			  				<td>2</td>
-			  				<td>3</td>
-			  				<td>4</td>
-			  				<td>5</td>
-<!-- 			  				<td colspan="5" align="center"><b>거래 없음</b></td> -->
-			  			</tbody>
+			  			<c:forEach var="WishList" items="${WishList}">
+			  				<c:if test="${WishList.timeCheck == false}">
+					  			<tbody>
+					  				<td>${WishList.status}</td>
+					  				<td>${WishList.address}</td>
+					  				<td>${WishList.hostname}</td>
+					  				<td>${WishList.checkin}</td>
+					  				<td>${WishList.checkout}</td>
+					  				<td>5</td>
+		<!-- 			  				<td colspan="5" align="center"><b>거래 없음</b></td> -->
+					  			</tbody>
+				  			</c:if>
+			  			</c:forEach>
 			  		</table>
 			  	</div>	
 			</div>
