@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,24 +77,11 @@ public class MypageController {
 
 	@RequestMapping(value="/trips")
 	public String trips(Model m) {
-		int member_no = 1;
-		List<WishList> wishList = wishListDao.select(member_no);
-		m.addAttribute("WishList", wishList);
-		
 		return "mypage/trips";
 	}
 	
-	@RequestMapping(value="/trips", method=RequestMethod.POST)
-	public void trips(Model m, WishList wishList) {
-		wishListDao.insert(wishList);
-	}
-
 	@RequestMapping("/old_trips")
 	public String old_trips(Model m) {
-		int member_no = 1;
-		List<WishList> wishList = wishListDao.select(member_no);
-		m.addAttribute("WishList", wishList);
-		
 		return "mypage/old_trips";
 	}
 	
@@ -104,4 +92,17 @@ public class MypageController {
 		return "result";
 	}
 	
+	@RequestMapping("/wishlist")
+	public String wishlist(Model m, WishList wishList) {
+		wishListDao.insert(wishList);
+		return "mypage/wishlist";
+	}
+	
+	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
+	public String wishlist(Model m) {
+		int member_no=1;
+		List<WishList> wishList = wishListDao.select(member_no);
+		m.addAttribute("wishList", wishList);
+		return "mypage/wishlist";
+	}
 }

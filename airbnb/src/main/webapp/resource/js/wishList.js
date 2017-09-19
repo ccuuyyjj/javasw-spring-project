@@ -8,7 +8,7 @@ $(document).ready(function(){
      		
      		console.log("data 정보 = "+$(this).serialize());
      		$.ajax({
-     			url:"/airbnb/mypage/trips",
+     			url:"/airbnb/mypage/wishlist",
      			type:"post",
      			data:$(this).serialize(),
      			success:function(res){
