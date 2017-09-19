@@ -50,8 +50,8 @@
 		<a href="mypage/rooms" class="w3-bar-item w3-button">마이페이지</a>
 		<sec:authorize access="!isAuthenticated()">
 			<a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
-			<a href="javaScript:void(0);"
-				class="loginbtn w3-bar-item w3-button">로그인</a>
+			<a href="${pageContext.request.contextPath}/member/login"
+				class="w3-bar-item w3-button">로그인</a>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<a href="${pageContext.request.contextPath}/member/logout" class="w3-bar-item w3-button">로그아웃</a>
@@ -124,8 +124,8 @@
 				</sec:authorize>
 				<sec:authorize access="!isAuthenticated()">
 					<a href="javaScript:void(0);" class="joinbtn w3-bar-item w3-button">회원가입</a>
-					<a href="javaScript:void(0);"
-						class="loginbtn w3-bar-item w3-button">로그인</a>
+					<a href="${pageContext.request.contextPath}/member/login"
+						class="w3-bar-item w3-button">로그인</a>
 				</sec:authorize>
 			</div>
 			<a href="javascript:void(0)"
