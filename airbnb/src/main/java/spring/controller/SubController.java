@@ -259,6 +259,9 @@ public class SubController {
 		rsvp.setTotalprice(totalprice);
 		rsvp.setProgress(0); //0:예약요청,  1:예약확인, 2:예약승낙, 9:예약거부
 		rsvp.setR_id(r_id);
+		rsvp.setAddress(room.getAddress());
+		rsvp.setOwner_id(room.getOwner_id());
+		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
 		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.

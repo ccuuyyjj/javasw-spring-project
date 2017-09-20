@@ -29,7 +29,7 @@
 				</a>
 			</div>
 			<div class="w3-col s4 w3-left p-top-20">
-				<b>1. 확인</b>    >    2. 결제
+				<b>1. 확인</b>
 			</div>
 		</div>
 	</div>    
@@ -62,8 +62,8 @@
 					<td class="b-border">\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></td>
 				</tr>
 				<tr>
-					<td>총합계</td>
-					<td>\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></td>
+					<td><b>총합계</b></td>
+					<td><b>\ <fmt:formatNumber value="${total_price}" pattern="#,###" /></b></td>
 				</tr>
 			</tbody>
 			</table>

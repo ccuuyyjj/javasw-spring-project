@@ -23,22 +23,28 @@ public class RsvpDao {
 	public void insert(Rsvp rsvp) {
 		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, "
 				+ "to_date(?, 'YYYY-MM-DD HH24:MI:SS'), to_date(?, 'YYYY-MM-DD HH24:MI:SS'), "
-				+ "?, ?, sysdate,  ?, ?, ?)";
+				+ "?, ?, sysdate,?, ?,     ?, ?, ?, ?)";
 		Object[] args = new Object[] { 
 				rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), 
 				rsvp.getStartdate(), rsvp.getEnddate(),  
-				rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id(), rsvp.getR_id() };
+				rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id(), 
+				rsvp.getR_id(), rsvp.getAddress(), rsvp.getOwner_id(), rsvp.getGuest_name() };
 
 		jdbcTemplate.update(sql, args);
 	}
 
-	public Rsvp select(String id) {
-		String sql = "select * from reservation where guest_id = ? ";
-		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper).get(0);
+	public Rsvp select_no(int no) {
+		String sql = "select * from reservation where no = ? ";
+		return jdbcTemplate.query(sql, new Object[] { no }, rowMapper).get(0);
 	}
 	
 	public List<Rsvp> select(int room_no) {
 		String sql = "select * from reservation where room_no = ? ";
 		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
+	}
+	
+	public boolean status_update(int no, int progress) {
+		String sql = "update reservation set progress = ? where no = ?";
+		return jdbcTemplate.update(sql, new Object[] { no, progress }) > 0;
 	}
 }
