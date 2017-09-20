@@ -1,5 +1,7 @@
 package spring.model;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,8 @@ public class RsvpDao {
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper).get(0);
 	}
 	
-	public Rsvp select(int room_no) {
+	public List<Rsvp> select(int room_no) {
 		String sql = "select * from reservation where room_no = ? ";
-		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper).get(0);
+		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
 	}
 }

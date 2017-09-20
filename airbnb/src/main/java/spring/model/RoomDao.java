@@ -217,7 +217,7 @@ public class RoomDao {
 	}
 	
 	//마이페이지 숙소목록 - 예약관리 리스트
-	public List<Room> host_list_complite(){
+	public List<Room> host_list_complete(){
 		//String sql = "select * from room where progress = 4 and owner_id = ? order by no desc";
 		//return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 		String sql = "select * from room where progress = 4 and no=7 order by no desc";
