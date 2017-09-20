@@ -42,3 +42,112 @@
                 min-width: 77.66563145999496px !important;
                 background: #008489 !important;
             }
+            
+            
+            .wfont{
+                font-weight: 700 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                word-wrap: break-word !important;
+                font-size: 24px !important;
+                line-height: 36px !important;
+                letter-spacing: -0.6px !important;
+            }
+            .w-row{
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .wbtn{
+                user-select: auto !important;
+                background: transparent !important;
+                border: 0px !important;
+                cursor: pointer !important;
+                margin: 0px !important;
+                padding: 0px !important;
+                text-align: left !important;
+                color: #008489 !important;
+                font-size: 14px;
+                font: inherit !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                text-decoration: none !important;
+                -webkit-appearance: none !important;
+            }
+            .wfont_2{
+                font-weight: 300 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                word-wrap: break-word !important;
+                font-size: 11px !important;
+            }
+            .wfont_3{
+            	font-weight: normal !important;
+			    color: #484848 !important;
+			    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+			    word-wrap: break-word !important;
+			    font-size: 16px !important;
+			    line-height: 24px !important;
+            }
+            .w-add{
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border-top: 1px solid #DBDBDB !important;
+                align-items: justify;
+            }
+            .w-check{
+                float: right;
+                display: inline-block !important;
+                vertical-align: middle !important;
+            }
+            .w-lb{
+                width: 100%;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .wl-img{
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                background-image: url(https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-position: center;
+            }
+            .wl-box{
+                display: inline-block;
+                padding-right: 16px !important;
+                vertical-align: top !important;
+                width: 120px !important;
+                height: 80px !important;
+            }
+            .wl-box_1{
+                display: inline-block;
+                vertical-align: top !important;
+                width: 71% !important;
+            }
+            .wbtn2{
+                width: 100% !important;
+                background: transparent !important;
+                border: 0px !important;
+                bottom: 0px !important;
+                cursor: pointer !important;
+                text-align: left !important;
+                display: inline-block;
+            }
+            .wl-box_2{
+                display: inline-block;
+                vertical-align: top !important;
+                width: 80% !important;
+                margin-top: 6px;
+            }
+            .wl-box_3{
+                padding: 12px 5px !important;
+                position: absolute !important;
+                width: 100% !important;
+                background: transparent !important;
+                border: 0px !important;
+                bottom: 0px !important;
+                box-shadow: 0 -8px 20px -6px rgba(0,0,0,0.2) !important;
+                right: 0px !important;
+                left: 0px !important;
+                overflow-y: hidden !important;
+            }
