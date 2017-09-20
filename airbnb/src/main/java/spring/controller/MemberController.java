@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -97,9 +98,11 @@ public class MemberController {
 
 	// 계정 삭제
 	@RequestMapping("/delete")
-	String delete(UsernamePasswordAuthenticationToken token, @RequestParam(value = "pw") String pw) {
-		String email = token.getName();
-
+	String delete(UsernamePasswordAuthenticationToken token, @RequestParam(required = false, value = "pw") String pw) {
+		if(token != null) {
+			String email = token.getName();
+			log.debug(((User)token.getPrincipal()).toString());
+		}
 		// memberDao.delete(email, pw);
 		return "home";
 

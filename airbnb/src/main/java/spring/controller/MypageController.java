@@ -38,14 +38,24 @@ public class MypageController {
 
 	@Autowired
 	private WishListDao wishListDao;
-
+	
+	//숙소 목록
 	@RequestMapping("/rooms")
 	public String rooms(Model m, UsernamePasswordAuthenticationToken token) {
 		List<Room> host_list = roomDao.host_list(token.getName());
 		m.addAttribute("host_list", host_list);
 		return "mypage/rooms";
 	}
-
+	//숙소 목록 - 예약관리
+	@RequestMapping("/my_reservations")
+	public String my_reservations(Model m) {
+		List<Room> host_list = roomDao.host_list_complite();
+		m.addAttribute("host_list", host_list);
+		
+		
+		return "mypage/my_reservations";
+	}
+	
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
@@ -59,11 +69,6 @@ public class MypageController {
 	public String setting(Model m) {
 
 		return "mypage/setting";
-	}
-
-	@RequestMapping("/my_reservations")
-	public String my_reservations(Model m) {
-		return "mypage/my_reservations";
 	}
 
 	@RequestMapping("/transaction_history")

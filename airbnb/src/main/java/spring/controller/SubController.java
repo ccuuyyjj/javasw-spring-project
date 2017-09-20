@@ -254,8 +254,8 @@ public class SubController {
 		rsvp.setGuest_id(cart.getGuest_id());
 		rsvp.setQuantity(cart.getQuantity());
 		rsvp.setPhone(member.getPhone());
-		rsvp.setStartdate(cart.getStartdate());
-		rsvp.setEnddate(cart.getEnddate());
+		rsvp.setStartdate(cart.getStartdate().substring(0, 10));
+		rsvp.setEnddate(cart.getEnddate().substring(0, 10));
 		rsvp.setTotalprice(totalprice);
 		rsvp.setProgress(0); //0:예약요청,  1:예약확인, 2:예약승낙, 9:예약거부
 		rsvp.setR_id(r_id);
@@ -267,8 +267,9 @@ public class SubController {
 	}
 	
 	//예약 확인 요청 끝
+	@RequestMapping("/book_end")
 	public String book_end() {
-		return "sun/book_end";
+		return "sub/book_end";
 	}
 	
 	// 이하 메시지 관련
