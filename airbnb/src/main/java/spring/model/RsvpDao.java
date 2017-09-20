@@ -34,5 +34,9 @@ public class RsvpDao {
 		String sql = "select * from reservation where guest_id = ? ";
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper).get(0);
 	}
-
+	
+	public Rsvp select(int room_no) {
+		String sql = "select * from reservation where room_no = ? ";
+		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper).get(0);
+	}
 }
