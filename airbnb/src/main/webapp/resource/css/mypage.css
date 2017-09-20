@@ -3,7 +3,6 @@
     font-size:16px;
     color:white;
 }
-/* 硫붿씤 硫붾돱 �뒪���씪 */
 .menu-wrap{
     background-color: #08298A;
 }
@@ -121,7 +120,15 @@
 .hostclose{
 	margin-left:300px;
 	cursor:pointer;
+	width:10px;
 }
 .delcontent{
 	height:195px;
+}
+tr.border-bottom td, th{
+	border-bottom:1px solid #edefed;
+	padding:10px;
+}
+.comple-table{
+	padding:10px;
 }

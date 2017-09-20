@@ -33,7 +33,7 @@ public class RoomDao {
 		}
 		return room;
 	};
-
+	//호스트 등록
 	public int insert(Room room) {
 		int no = jdbcTemplate.queryForObject("select room_seq.nextval from dual", Integer.class);
 
@@ -215,9 +215,17 @@ public class RoomDao {
 		String sql = "select * from room where progress < 4 and owner_id = ? order by no desc ";
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 	}
-
+	
+	//마이페이지 숙소목록 - 예약관리 리스트
+	public List<Room> host_list_complite(){
+		//String sql = "select * from room where progress = 4 and owner_id = ? order by no desc";
+		//return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
+		String sql = "select * from room where progress = 4 and no=7 order by no desc";
+		return jdbcTemplate.query(sql, rowMapper);
+	}
+	
+	//호스트 수정
 	public boolean update(Room room) {
-
 		String sql = "update room  set name=?, type=?, photourl=?, region=?, lat=?, "
 				+ "lng=?, address=?, capacity=?, beds=?, bedrooms=?, "
 				+ "shared=?, bed_type=?, etc=?, reg=sysdate, progress=?, options=? " + "where no = ?";
@@ -229,7 +237,7 @@ public class RoomDao {
 		return jdbcTemplate.update(sql, args) > 0;
 
 	}
-
+	//호스트 삭제
 	public boolean delete(String room_no) {
 		String sql = "delete room where no = ?";
 		return jdbcTemplate.update(sql, new Object[] { room_no }) > 0;
