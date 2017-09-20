@@ -51,6 +51,8 @@ public class MypageController {
 	public String my_reservations(Model m) {
 		List<Room> host_list = roomDao.host_list_complite();
 		m.addAttribute("host_list", host_list);
+		
+		
 		return "mypage/my_reservations";
 	}
 	

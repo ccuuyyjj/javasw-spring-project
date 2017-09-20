@@ -59,7 +59,7 @@ function del_reg(pNo){
 			</ul>
 		</div>
 		
-	  	<div class="w3-col l7 m3 s6 w3-white w3-center subcontent">
+	  	<div class="w3-col l8 m3 s6 w3-white w3-center subcontent">
 	  		<div class="subtab">
 				예약현황
 			</div>
@@ -86,14 +86,15 @@ function del_reg(pNo){
 							</div>
 						</div>
 						<!-- 예약이 있을 경우  -->
+<%-- 						<c:if test="${comp_list}"></c:if> --%>
 						<div>
 							<table class="area-100 comple-table" align="center" >
 								<tbody>
 									<tr class="border-bottom">
 										<th>상태</th>
 										<th>게스트id</th>
-										<th>게스트이름<th>
-										<th>연락처<th>
+										<th>게스트이름</th>
+										<th>연락처</th>
 										<th>날짜</th>
 										<th>인원</th>
 										<th>옵션</th>
@@ -103,8 +104,8 @@ function del_reg(pNo){
 										<td>testid</td>
 										<td>게스트사용자명</td>
 										<td>0123544122558844411</td>
-										<td>2017년 9월 30일 ~ 2017년 10월 07일</td>
-										<td>3명</td>
+										<td>2017.09. 30 ~ 2017.10.07</td>
+										<td>3</td>
 										<td>
 											<select>
 												<option value="">- 선택 -</option>
