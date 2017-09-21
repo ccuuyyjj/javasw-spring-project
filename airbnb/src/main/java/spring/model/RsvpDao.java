@@ -36,8 +36,20 @@ public class RsvpDao {
 		return jdbcTemplate.query(sql, new Object[] { no }, rowMapper).get(0);
 	}
 	
+	// 예정된 여행 목록 추출 예약 날짜가 오늘 기준으로 이상 인것만
+		public List<Rsvp> select(String id) {
+			id = "aaa@a";
+
+			String sql = "select * from reservation where guest_id=? " + "and progress = 2 "
+					+ "and startdate >= (select sysdate from dual) order by reg desc";
+
+			return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
+		}
+	
+	
 	public List<Rsvp> select(int room_no) {
 		String sql = "select * from reservation where room_no = ? ";
+
 		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
 	}
 	

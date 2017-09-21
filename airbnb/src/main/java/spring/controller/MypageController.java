@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -70,7 +71,6 @@ public class MypageController {
 		List<Room> host_list = roomDao.host_list_complete();
 		//Map<Room, List<Rsvp>> map = new HashMap<>();
 		Map<Integer, List<Rsvp>> map = new HashMap<>();
-		
 		for(Room room : host_list) {
 			List<Rsvp> list = rsvpDao.select(room.getNo());
 			map.put(room.getNo(), list);
@@ -145,13 +145,27 @@ public class MypageController {
 	
 	//여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
-	public String trips(Model m) {
+	public String trips(Model m,UsernamePasswordAuthenticationToken token) {
+		String id = token.getName();
+		
+		List<Rsvp> rsvp = rsvpDao.select(id);
+		List<Room> room = new ArrayList<>();
+		
+		for(Rsvp list:rsvp) {
+			room.add(roomDao.select(list.getRoom_no()));
+		}
+		
+		m.addAttribute("rsvp",rsvp);
+		m.addAttribute("roomList",room);
 		return "mypage/trips";
 	}
 	
 	//여행목록 - 지나간 여행
 	@RequestMapping("/old_trips")
-	public String old_trips(Model m) {
+	public String old_trips(Model m,UsernamePasswordAuthenticationToken token) {
+
+		
+		
 		return "mypage/old_trips";
 	}
 	
