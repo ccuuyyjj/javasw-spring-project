@@ -126,38 +126,59 @@
 		<div class="empty"></div>
 		<div class="area-80 layer-center">
 		<div>
-	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post">
+	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post" id="wishform">
+	    	<input type="hidden" name="room_no" value="${id}">
 			<div class="w-row wfont">위시리스트에 담기</div>
 	            <div class="w-row" id="addwl">
 	                <button class="wbtn">새로운 위시리스트 만들기</button>
 	            </div>
 		        <div class="w-add wfont_2">
 		           <div class="wlwl">
-		               <label class="w-lb" for="w-check">
-						관심 위시리스트 제목
-		                   <input class="w-check" type="checkbox" id="w-check">
+		               <label class="w-lb" for="w-check">관심 위시리스트 제목<input class="w-check" type="checkbox" id="w-check">
 		               </label>
 		           </div>
 		      	</div>
-	            <div class="w-add wfont_2">
-	                	관심 위시리스트 제목2
-	            </div>
-	            <div class="w-add wfont_2">
-	                	관심 위시리스트 제목3
-	            </div>
+		      	<input type="submit" value="등록" class="insert">
 		</form>
-		<div>
+		<div style="margin-top: 70px">
 	        <div class="wl-box_3">
 	            <button class="wbtn2">
 	            <div class="wl-box">
-	                <div class="wl-img">
+	                <div class="wl-img" style="background-image: url('${pageContext.request.contextPath}/viewPhoto/${room.no}')">
 	                </div>
 	            </div>
 	            <div class="wl-box_1">
-	                <div class="wl-box_2 wfont_3">Romantic front lake Como attic </div>
-	                <div class="wl-box_2 wfont_2">메나지오, 롬바르디, 이탈리아</div>
+	                <div class="wl-box_2 wfont_3">${room.name}</div>
+	                <div class="wl-box_2 wfont_2">${room.region}</div>
 	                <div class="wl-box_2 wfont_2" style="margin-bottom: 0px">
-	                    <spna>★</spna><spna>★</spna><spna>후기 ???개</spna>
+	                <c:choose>
+	                    <c:when test="${avg==1 }">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    	</c:when>
+				    	<c:when test="${avg==2 }">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    	</c:when>
+				    	<c:when test="${avg==3 }">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    	</c:when>
+				    	<c:when test="${avg==4 }">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		</c:when>
+				    	<c:when test="${avg==5 }">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
+			    		</c:when>
+			    	</c:choose>
+	                    <spna>후기 ${total}개</spna>
 	                </div>
 	            </div>
 	            </button>

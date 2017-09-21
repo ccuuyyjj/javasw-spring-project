@@ -36,50 +36,22 @@
                     <div class="wl-container_4 area-70">내 위시리스트
                     </div>
                     <div class="wl-container_2">
-                         <span>2개의 리스트</span>
+                         <span>${count}개의 리스트</span>
                     </div>
                 </div>
-                <div class="wl-page">
-                    <div class="wl-page_list">
-                        <a href="#">
-                            <div class="d">
-                                <div class="w">
-                                    <div class="wl">관심</div>
-                                    <div class="wl2">숙소2개</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="wl-page_list">
-                        <a href="#">
-                            <div class="d">
-                                <div class="w">
-                                    <div class="wl">관심</div>
-                                    <div class="wl2">숙소2개</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="wl-page_list">
-                        <a href="#">
-                            <div class="d">
-                                <div class="w">
-                                    <div class="wl">관심</div>
-                                    <div class="wl2">숙소2개</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="wl-page_list">
-                        <a href="#">
-                            <div class="d">
-                                <div class="w">
-                                    <div class="wl">관심</div>
-                                    <div class="wl2">숙소2개</div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-	           </div>
+	                <div class="wl-page">
+	                <c:forEach var="wishlist" items="${title}" varStatus="status">
+	                    <div class="wl-page_list">
+	                        <a href="#">
+	                            <div class="d" style="background-image: url('https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large')">
+	                                <div class="w">
+	                                    <div class="wl">${wishlist.title}</div>
+	                                    <div class="wl2">${roomcount[status.index]}개</div>
+	                                </div>
+	                            </div>
+	                        </a>
+	                    </div>
+			    	</c:forEach>
+		           </div>
 			</div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

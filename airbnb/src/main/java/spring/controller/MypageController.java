@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
@@ -149,17 +151,27 @@ public class MypageController {
 		return "mypage/old_trips";
 	}
 	
-	@RequestMapping("/wishlist")
-	public String wishlist(Model m/*, WishList wishList*/) {
-		//wishListDao.insert(wishList);
-		return "mypage/wishlist";
+	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
+	public void wishlist(Model m, WishList wishList, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		wishListDao.insert(wishList, member_no);
 	}
 	
-//	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
-//	public String wishlist(Model m) {
-//		int member_no=1;
-//		List<WishList> wishList = wishListDao.select(member_no);
-//		m.addAttribute("wishList", wishList);
-//		return "mypage/wishlist";
-//	}
+	@RequestMapping("/wishlist")
+	public String wishlist(Model m, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		List<WishList> title = wishListDao.titleSelect(member_no);
+		int count = wishListDao.count(member_no);
+		List<Integer> roomcount = new ArrayList<>();
+		for(int i=0; i < count; i++) {
+			count = wishListDao.count(member_no, title.get(i).getTitle());
+			roomcount.add(count);
+		}
+		m.addAttribute("title", title);
+		m.addAttribute("count", count);
+		m.addAttribute("roomcount", roomcount);
+		return "mypage/wishlist";
+	}
 }
