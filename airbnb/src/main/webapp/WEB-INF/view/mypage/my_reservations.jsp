@@ -41,6 +41,9 @@ function chgstatus(pNo, pVal){
 		   DateType: "html",
 		   cache: false,
 		   success: function(msg){
+			   if(msg == "OK"){
+				   window.location.reload();
+			   }
 		   },
 		  error:function(a, b, c){
 				console.log(a, b, c);
@@ -76,7 +79,7 @@ function chgstatus(pNo, pVal){
 			</ul>
 		</div>
 		
-	  	<div class="w3-col l6 m3 s6 w3-white w3-center subcontent">
+	  	<div class="w3-col l7 m3 s6 w3-white w3-center subcontent">
 	  		<div class="subtab">
 				예약현황
 			</div>
@@ -102,8 +105,8 @@ function chgstatus(pNo, pVal){
 								최종 업데이트 : ${room.getDate()} 
 							</div>
 						</div>
-						<!-- 예약이 있을 경우  -->
 						
+						<!-- 예약이 있을 경우  -->
 						<div>
 							<table class="area-100 comple-table" align="center" >
 								<tbody>
@@ -122,10 +125,10 @@ function chgstatus(pNo, pVal){
 											<tr class="border-bottom">
 												<td>
 													<c:choose>
-														<c:when test="${rsvp.progress eq 0}">예약요청</c:when>
-														<c:when test="${rsvp.progress eq 1}">예약확인</c:when>
-														<c:when test="${rsvp.progress eq 2}">예약승낙</c:when>
-														<c:when test="${rsvp.progress eq 9}">예약거부</c:when>
+														<c:when test="${rsvp.progress eq 0}"><span class="font-orange"><b>예약요청</b></span></c:when>
+														<c:when test="${rsvp.progress eq 1}"><span class="font-blue"><b>예약확인</b></span></c:when>
+														<c:when test="${rsvp.progress eq 2}"><span class="font-green"><b>예약승낙</b></span></c:when>
+														<c:when test="${rsvp.progress eq 9}"><span class="font-red"><b>예약거절</b></span></c:when>
 													</c:choose>
 												</td>
 												<td>${rsvp.guest_id}</td>
@@ -134,11 +137,19 @@ function chgstatus(pNo, pVal){
 												<td>${rsvp.getSdate()} ~ ${rsvp.getEdate()}</td>
 												<td>${rsvp.quantity}명</td>
 												<td>
-													<select class="host-select" onchange="JavaScript:chgstatus(${rsvp.no}, this.options[this.selectedIndex].value)">
+													<select class="host-select"
+														 onchange="JavaScript:chgstatus(${rsvp.no}, this.options[this.selectedIndex].value)"
+														 <c:if test="${rsvp.progress eq 2}">disabled</c:if>>
 														<option value="">- 선택 -</option>
-														<option value="1">예약확인</option>
-														<option value="2">예약승낙</option>
-														<option value="9">예약거절</option>
+														<c:if test="${rsvp.progress eq 0}">
+															<option value="1">예약확인</option>
+															<option value="2">예약승낙</option>
+															<option value="9">예약거절</option>
+														</c:if>
+														<c:if test="${rsvp.progress eq 1}">
+															<option value="2">예약승낙</option>
+															<option value="9">예약거절</option>
+														</c:if>
 													</select>
 												</td>
 											</tr>
@@ -163,5 +174,6 @@ function chgstatus(pNo, pVal){
 			</form>
 	  	</div>
 	</div>
+	<div class="empty"></div>
 </div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

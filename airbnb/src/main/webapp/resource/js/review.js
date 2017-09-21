@@ -14,13 +14,13 @@ $(document).ready(function() {
 	
 	
 	//리뷰 페이지 이동시 스크롤 이동
-	$.urlParam = function(name){
-		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		return results[1] || 0;
-	}
-	
-	if($.urlParam("page")!=null){
-		var scroll =$(".reviews").offset().top-120;
-		$("body").animate({	scrollTop:scroll},500);
-	}
+//	$.urlParam = function(name){
+//		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+//		return results[1] || 0;
+//	}
+//	
+//	if($.urlParam("page")!=null){
+//		var scroll =$(".reviews").offset().top-120;
+//		$("body").animate({	scrollTop:scroll},500);
+//	}
 });

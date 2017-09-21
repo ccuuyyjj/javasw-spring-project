@@ -108,11 +108,9 @@ function del_reg(pNo){
 				</c:forEach>
 			</ul>
 			</form>
-			
-	  	</div>
-	  
-	  	
+	  	</div>	
 	</div>
+	<div class="empty"></div>
 </div>
 
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

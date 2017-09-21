@@ -79,13 +79,16 @@ public class MypageController {
 		m.addAttribute("map", map);
 		return "mypage/my_reservations";
 	}
-	//예약관리 - 예약 상태값 변경
 	
+	//예약관리 - 예약 상태값 변경
+	@RequestMapping("/rsvp_cng")
+	@ResponseBody
 	public String rsvp_cng(HttpServletRequest request) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		int progress = Integer.parseInt(request.getParameter("step"));
 		
 		boolean result = rsvpDao.status_update(no, progress);
+		log.debug("result:"+result);
 		if(result) {
 			//상태값이 변경될때 게스트에게 메시지로 알려준다.
 			String msg = "회원님이 예약 요청하신 건이 [예약";
@@ -94,7 +97,7 @@ public class MypageController {
 				case 2: msg += "승낙]"; break;
 				case 3: msg += "거절]"; break;
 			}
-			msg += "되었습니다";
+			msg += " 되었습니다";
 			
 			Rsvp rsvp = rsvpDao.select_no(no);
 			Member member = memberDao.select(rsvp.getGuest_id());
@@ -103,16 +106,19 @@ public class MypageController {
 			Message message = new Message();
 			message.setMember_no(member.getNo()); 
 			message.setRoom_no(rsvp.getRoom_no()); 
-			message.setCheckin(rsvp.getStartdate());
-			message.setCheckout(rsvp.getEnddate()); 
+			message.setCheckin(rsvp.getStartdate().substring(0, 10).replace("-", "/"));
+			message.setCheckout(rsvp.getEnddate().substring(0, 10).replace("-", "/")); 
 			message.setQuantity(rsvp.getQuantity()); 
 			message.setQuestion(msg); 
 			message.setName(room.getName());
 			message.setPrice(room.getPrice());
 			
 			messageDao.insert(message, member.getNo());
+			return "OK";
+		} 
+		else {
+			return "Fail";
 		}
-		return "메세지 전송 완료";
 	}
 	
 	@RequestMapping("/message")
