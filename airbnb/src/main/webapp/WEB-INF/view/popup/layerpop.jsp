@@ -85,7 +85,6 @@
 		<div class="area-60 layer-center">
 		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
-	        <input type="hidden" name="member_no" value="1">
 	        <input type="hidden" name="name" value="${room.name}">
 	        <input type="hidden" name="price" value="${room.price}">
 	        <input type="hidden" name="room_no" value="${room.no}">
@@ -125,43 +124,47 @@
 		<img src="${pageContext.request.contextPath}/img/ico_close.png"
 			class="close">
 		<div class="empty"></div>
-		<div class="area-60 layer-center">
+		<div class="area-80 layer-center">
 		<div>
 	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post">
-	        <input type="hidden" name="member_no" value="1">
-	        <input type="hidden" name="name" value="${room.name}">
-	        <input type="hidden" name="price" value="${room.price}">
-	        <input type="hidden" name="room_no" value="${room.no}">
-            <div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
-            <div class="md-container_2">언제 여행하실 계획인가요?</div>
-	        <div class="md-row md-container md-checkin">
-                <div class="area-45 md-checkin">
-                    <span>체크인</span>
-                </div>
-                <div class="area-45 md-checkout">
-                    <span>체크아웃</span>
-                </div>
-                <div class="area-45 md-checkin">
-                    <input type=text name="checkin" id="checkIn" placeholder="체크인">
-                </div>
-                <div class="area-45 md-checkout">
-                    <input type="text" name="checkout" id="checkOut" placeholder="체크아웃">
-                </div>
+			<div class="w-row wfont">위시리스트에 담기</div>
+	            <div class="w-row" id="addwl">
+	                <button class="wbtn">새로운 위시리스트 만들기</button>
+	            </div>
+		        <div class="w-add wfont_2">
+		           <div class="wlwl">
+		               <label class="w-lb" for="w-check">
+						관심 위시리스트 제목
+		                   <input class="w-check" type="checkbox" id="w-check">
+		               </label>
+		           </div>
+		      	</div>
+	            <div class="w-add wfont_2">
+	                	관심 위시리스트 제목2
+	            </div>
+	            <div class="w-add wfont_2">
+	                	관심 위시리스트 제목3
+	            </div>
+		</form>
+		<div>
+	        <div class="wl-box_3">
+	            <button class="wbtn2">
+	            <div class="wl-box">
+	                <div class="wl-img">
+	                </div>
+	            </div>
+	            <div class="wl-box_1">
+	                <div class="wl-box_2 wfont_3">Romantic front lake Como attic </div>
+	                <div class="wl-box_2 wfont_2">메나지오, 롬바르디, 이탈리아</div>
+	                <div class="wl-box_2 wfont_2" style="margin-bottom: 0px">
+	                    <spna>★</spna><spna>★</spna><spna>후기 ???개</spna>
+	                </div>
+	            </div>
+	            </button>
 	        </div>
-            <div class="md-container_2">인원</div>
-	        <div class="md-row md-container_3">
-                <input class="area-90" type="number"  name="quantity" max="9999" maxlength="4"/><span>명</span>
 	        </div>
-            <div class="md-container_2">호스트에게 메세지 보내기</div>
-	        <div class="md-row md-container_3">
-                <textarea name="question" rows="5" cols="50" placeholder="메세지 쓰기..."></textarea>
-	        </div>
-	        <div class="md-row">
-	            <input class="area-100 md-btn" type="submit" value="메세지 보내기">
-	        </div>
-	    </form>
-	    </div>
-	    </div>
+		</div>
+		</div>
 	</div>
 </div>
 <script>
@@ -181,5 +184,5 @@ jQuery('#checkIn').datepicker({
 	constrainInput: false,
 	minDate: 0,
 	beforeShowDay: enableAllTheseDays
-});  
+});
 </script>

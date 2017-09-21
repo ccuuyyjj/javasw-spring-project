@@ -51,7 +51,6 @@ public class Message {
 	}
 
 	public Message(HttpServletRequest request) {
-		setMember_no(Integer.parseInt(request.getParameter("member_no")));
 		setRoom_no(Integer.parseInt(request.getParameter("room_no")));
 		setCheckin(request.getParameter("checkin"));
 		setCheckout(request.getParameter("checkout"));

@@ -10,6 +10,8 @@
 		감사합니다!
 	</div>
 	<div class="empty"></div>
+	<div class="empty"></div>
+	<div class="empty"></div>
 </div>	
 
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>    	

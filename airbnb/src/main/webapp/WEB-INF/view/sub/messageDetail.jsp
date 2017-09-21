@@ -60,7 +60,6 @@
                 <div class="container_2 area-58">
                     <div class="container_10">
                     	<form action="${room_no}" method="post">
-                    		<input type="hidden" name="member_no" value="1">
                     		<input type="hidden" name='name' value="${name}">
                             <input type="hidden" name="room_no" value="${room_no}">
                             <input type="hidden" name="checkin" value="${checkin}">
