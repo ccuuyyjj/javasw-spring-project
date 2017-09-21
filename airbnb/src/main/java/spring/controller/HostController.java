@@ -242,7 +242,15 @@ public class HostController {
 
 	// 2단계 시작
 	@RequestMapping("become_host2")
-	public String become_host2() {
+	public String become_host2(@RequestParam(value="room_no", required=false, defaultValue="-1") int room_no,
+			UsernamePasswordAuthenticationToken token) {
+		//마이페이지 숙소목록에서 바로 올 경우도 있으므로 추가
+		Member member = memberDao.select(token.getName());
+		session.setAttribute("room", new Room());
+		Room room = (Room) session.getAttribute("room");
+		room.setOwner_id(member.getEmail());
+		room.setNo(room_no);
+		
 		return "host/become_host2";
 	}
 

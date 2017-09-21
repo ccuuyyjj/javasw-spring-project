@@ -67,8 +67,8 @@ public class MypageController {
 		
 	//숙소 목록 - 예약관리
 	@RequestMapping("/my_reservations")
-	public String my_reservations(Model m) {
-		List<Room> host_list = roomDao.host_list_complete();
+	public String my_reservations(Model m, UsernamePasswordAuthenticationToken token) {
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
 		//Map<Room, List<Rsvp>> map = new HashMap<>();
 		Map<Integer, List<Rsvp>> map = new HashMap<>();
 		for(Room room : host_list) {

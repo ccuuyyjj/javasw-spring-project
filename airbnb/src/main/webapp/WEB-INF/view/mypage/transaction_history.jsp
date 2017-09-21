@@ -81,7 +81,12 @@ function changeTab3(){
 			  		<div class="w3-col s2 host-row1">	
 				  		<select class="host-select">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
-								<option value="${i}">종료:${i}월</option>
+				  				<c:if test="${i eq 12}">
+				  					<option value="${i}" selected>종료:${i}월</option>
+				  				</c:if>
+				  				<c:if test="${i != 12}">
+									<option value="${i}" >종료:${i}월</option>
+								</c:if>	
 							</c:forEach>
 						</select>
 			  		</div>
