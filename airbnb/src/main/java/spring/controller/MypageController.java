@@ -1,6 +1,12 @@
 package spring.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -137,15 +143,36 @@ public class MypageController {
 		return "mypage/setting";
 	}
 	
-	//대금수령내역
+	//계정관리 - 대금수령내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m) {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+        String strToday = format.format(c1.getTime());
+        
+        List r_name = new ArrayList();
+        
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
+		for(Room room : host_list) {
+			if( room.getProgress() == 4) {
+				List<Rsvp> list = rsvpDao.select(room.getNo());
+				for(Rsvp rsvp : list) {
+					Date day1 = format.parse(rsvp.getEnddate());
+					Date day2 = format.parse(strToday);
+					if(day1.compareTo(day2) > 0) {
+						r_name.add(room.getName());
+					}
+				}
+			}
+		}
+		
+		m.addAttribute("r_name"+r_name);
 		return "mypage/transaction_history";
 	}
 	
 	//여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
-	public String trips(Model m,UsernamePasswordAuthenticationToken token) {
+	public String trips(Model m, UsernamePasswordAuthenticationToken token) {
 		String id = token.getName();
 		
 		List<Rsvp> rsvp = rsvpDao.select(id);

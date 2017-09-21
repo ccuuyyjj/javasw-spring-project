@@ -231,7 +231,7 @@ public class SubController {
 	//예약 저장
 	@RequestMapping(value="/book", method=RequestMethod.POST)
 	public String book(@RequestParam (value="c_no", required=true, defaultValue="-1") int c_no,  
-			UsernamePasswordAuthenticationToken token, Model m) {
+			UsernamePasswordAuthenticationToken token, Model m) throws Exception {
 		int totalprice = 0;
 		
 		Member member = memberDao.select(token.getName());
@@ -264,8 +264,8 @@ public class SubController {
 		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
-		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		//throw new Exception();
+		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		return "redirect:/sub/book_end";
 	}
 	
