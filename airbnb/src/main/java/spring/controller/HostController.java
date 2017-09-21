@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +47,8 @@ public class HostController {
 	MemberDao memberDao;
 
 	@RequestMapping("become_host1")
-	public String become_host1(UsernamePasswordAuthenticationToken token, Model m) {
+	public String become_host1(@RequestParam(value="room_no", required=false, defaultValue="-1") int room_no, 
+			UsernamePasswordAuthenticationToken token, Model m) {
 
 		Member member = memberDao.select(token.getName());
 		log.debug("getName=" + member.getName());
@@ -55,6 +57,7 @@ public class HostController {
 		session.setAttribute("room", new Room());
 		Room room = (Room) session.getAttribute("room");
 		room.setOwner_id(member.getEmail());
+		room.setNo(room_no);
 
 		return "host/become_host1";
 	}
@@ -117,9 +120,9 @@ public class HostController {
 	@RequestMapping("become_host1_3")
 	public String become_host1_3(Model model) {
 		Room room = (Room) session.getAttribute("room");
-		if (room == null) {
-			room = new Room();
-		}
+//		if (room == null) {
+//			room = new Room();
+//		}
 		model.addAttribute("address", room.getAddress());
 
 		return "host/become_host1_3";
@@ -265,10 +268,9 @@ public class HostController {
 	@RequestMapping("become_host2_2")
 	public String become_host2_2(Model model) {
 		Room room = (Room) session.getAttribute("room");
-
-		if (room == null) {
-			room = new Room();
-		}
+//		if (room == null) {
+//			room = new Room();
+//		}
 		String photourl = room.getPhotoUrl();
 		model.addAttribute("photourl", photourl);
 
@@ -413,7 +415,7 @@ public class HostController {
 	@RequestMapping(value = "become_host3_3", method = RequestMethod.POST)
 	public String become_host3_3(HttpServletRequest request) {
 		Room room = (Room) session.getAttribute("room");
-		room.setProgress(4); // 4단계
+		room.setProgress(4); // 4단계(완료단계)
 		roomDao.update(room);
 		return "redirect:/host/become_host3_4";
 	}
