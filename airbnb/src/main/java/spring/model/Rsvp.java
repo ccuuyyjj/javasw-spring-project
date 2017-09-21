@@ -18,6 +18,8 @@ public class Rsvp {
 	private String reg;
 	private int progress;
 	private String r_id;
+//	private String address;
+//	private String owner_id;
 
 	public Rsvp() {
 	}
@@ -35,7 +37,10 @@ public class Rsvp {
 		setReg(rs.getString("reg"));
 		setProgress(rs.getInt("progress"));
 		setR_id(rs.getString("r_id"));
+//		setAddress(rs.getString("address"));
+//		setOwner_id(rs.getString("owner_id"));
 	}
+
 
 	public Rsvp(HttpServletRequest request) {
 		setNo(Integer.parseInt(request.getParameter("no")));
@@ -48,6 +53,8 @@ public class Rsvp {
 		setEtc(request.getParameter("etc"));
 		setReg(request.getParameter("reg"));
 		setR_id(request.getParameter("r_id"));
+//		setAddress(request.getParameter("address"));
+//		setOwner_id(request.getParameter("owner_id"));
 	}
 	
 	public String getR_id() {
@@ -145,4 +152,30 @@ public class Rsvp {
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
+
+//	public String getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(String address) {
+//		this.address = address;
+//	}
+
+//	public String getOwner_id() {
+//		return owner_id;
+//	}
+//
+//	public void setOwner_id(String owner_id) {
+//		this.owner_id = owner_id;
+//	}
+
+//	@Override
+//	public String toString() {
+//		return "Rsvp [no=" + no + ", room_no=" + room_no + ", guest_id=" + guest_id + ", quantity=" + quantity
+//				+ ", phone=" + phone + ", startdate=" + startdate + ", enddate=" + enddate + ", totalprice="
+//				+ totalprice + ", etc=" + etc + ", reg=" + reg + ", progress=" + progress + ", r_id=" + r_id
+//				+ ", address=" + address + ", owner_id=" + owner_id + "]";
+//	}
+	
+	
 }

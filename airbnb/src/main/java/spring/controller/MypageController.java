@@ -19,6 +19,7 @@ import spring.model.MemberDao;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.RsvpDao;
 import spring.model.WishList;
 import spring.model.WishListDao;
 
@@ -38,6 +39,9 @@ public class MypageController {
 
 	@Autowired
 	private WishListDao wishListDao;
+	
+	@Autowired
+	private RsvpDao rsvpDao;
 
 	@RequestMapping("/rooms")
 	public String rooms(Model m, UsernamePasswordAuthenticationToken token) {
@@ -72,7 +76,9 @@ public class MypageController {
 	}
 
 	@RequestMapping(value = "/trips")
-	public String trips(Model m) {
+	public String trips(Model m,UsernamePasswordAuthenticationToken token) {
+		String id = token.getName();
+		m.addAttribute("rsvp",rsvpDao.select(id));
 		return "mypage/trips";
 	}
 

@@ -108,6 +108,7 @@ function del_reg(pNo){
 				</c:forEach>
 			</ul>
 			</form>
+			
 	  	</div>
 	  
 	  	
