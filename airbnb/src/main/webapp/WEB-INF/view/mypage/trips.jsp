@@ -42,13 +42,12 @@
 			  				<th>옵션</th>
 			  			</thead>
 					  	<tbody>
-					  	<c:forEach items="${rsvp}" var="list">
-					  		<td colspan="5" align="center"><b>
-							<th>예약 완료</th>
-							<th>${list.progress }</th>
-							<th>${list.owner_id}</th>
-							
-					  	
+
+					  	<c:forEach items="${rsvp}" var="list" varStatus="status">
+					  	<td>예약 완료</td>
+						<td>${roomList[status.index].address}</td>
+						<td>${roomList[status.index].owner_id }</td>
+						<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
 					  	</c:forEach>
 					  	</tbody>
 			  		</table>
