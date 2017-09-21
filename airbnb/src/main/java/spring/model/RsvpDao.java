@@ -45,6 +45,6 @@ public class RsvpDao {
 	
 	public boolean status_update(int no, int progress) {
 		String sql = "update reservation set progress = ? where no = ?";
-		return jdbcTemplate.update(sql, new Object[] { no, progress }) > 0;
+		return jdbcTemplate.update(sql, new Object[] {progress,  no }) > 0;
 	}
 }
