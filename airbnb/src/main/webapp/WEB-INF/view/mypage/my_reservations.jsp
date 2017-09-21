@@ -30,6 +30,23 @@ function del_reg(pNo){
 			}
 	});
 }
+function chgstatus(pNo, pVal){
+	$.ajax({
+		   type: "POST",
+		   url: "${pageContext.request.contextPath}/mypage/rsvp_cng",
+		   data: { 
+			   "no" : pNo,
+			   "step" : pVal
+			   },
+		   DateType: "html",
+		   cache: false,
+		   success: function(msg){
+		   },
+		  error:function(a, b, c){
+				console.log(a, b, c);
+			}
+	});
+}
 </script>
 <div class="w3-main w3-content w3-padding" style="max-width:100%;margin-top:100px">
 	<div class="menu-wrap">
@@ -59,7 +76,7 @@ function del_reg(pNo){
 			</ul>
 		</div>
 		
-	  	<div class="w3-col l8 m3 s6 w3-white w3-center subcontent">
+	  	<div class="w3-col l6 m3 s6 w3-white w3-center subcontent">
 	  		<div class="subtab">
 				예약현황
 			</div>
@@ -86,38 +103,52 @@ function del_reg(pNo){
 							</div>
 						</div>
 						<!-- 예약이 있을 경우  -->
-<%-- 						<c:if test="${comp_list}"></c:if> --%>
+						
 						<div>
 							<table class="area-100 comple-table" align="center" >
 								<tbody>
 									<tr class="border-bottom">
-										<th>상태</th>
-										<th>게스트id</th>
-										<th>게스트이름</th>
-										<th>연락처</th>
-										<th>날짜</th>
-										<th>인원</th>
-										<th>옵션</th>
+										<th class="text-left">상태</th>
+										<th class="text-left">게스트아이디</th>
+										<th class="text-left">게스트이름</th>
+										<th class="text-left">연락처</th>
+										<th class="text-left">날짜</th>
+										<th class="text-left">인원</th>
+										<th class="text-left">상태변경</th>
 									</tr>
-									<tr class="border-bottom">
-										<td>예약요청</td>
-										<td>testid</td>
-										<td>게스트사용자명</td>
-										<td>0123544122558844411</td>
-										<td>2017.09. 30 ~ 2017.10.07</td>
-										<td>3</td>
-										<td>
-											<select>
-												<option value="">- 선택 -</option>
-												<option value="1">예약확인</option>
-												<option value="2">예약승낙</option>
-												<option value="99">예약거절</option>
-											</select>
-										</td>
-									</tr>
+									<c:forEach var="no" items="${map}">
+										<c:if test="${no.key eq room.no}">
+											<c:forEach var="rsvp" items="${no.value }">
+											<tr class="border-bottom">
+												<td>
+													<c:choose>
+														<c:when test="${rsvp.progress eq 0}">예약요청</c:when>
+														<c:when test="${rsvp.progress eq 1}">예약확인</c:when>
+														<c:when test="${rsvp.progress eq 2}">예약승낙</c:when>
+														<c:when test="${rsvp.progress eq 9}">예약거부</c:when>
+													</c:choose>
+												</td>
+												<td>${rsvp.guest_id}</td>
+												<td>${rsvp.guest_name}</td>
+												<td>${rsvp.phone}</td>
+												<td>${rsvp.getSdate()} ~ ${rsvp.getEdate()}</td>
+												<td>${rsvp.quantity}명</td>
+												<td>
+													<select class="host-select" onchange="JavaScript:chgstatus(${rsvp.no}, this.options[this.selectedIndex].value)">
+														<option value="">- 선택 -</option>
+														<option value="1">예약확인</option>
+														<option value="2">예약승낙</option>
+														<option value="9">예약거절</option>
+													</select>
+												</td>
+											</tr>
+											</c:forEach>
+										</c:if>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
+						
 				</li>
 				<li id="delcontent_${room.no}" style="display:none;" class="delcontent">
 					<h6>숙소 삭제</h6>

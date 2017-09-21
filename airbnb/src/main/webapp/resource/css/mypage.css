@@ -75,12 +75,14 @@
 .list-layout{
 	padding-left: 0;
     list-style: none;
+    margin:0px;
 }
 .subcontent{
 	border:1px solid #edefed;
 }
 .list-layout li{
-	border-bottom:1px solid #edefed;
+	margin:10px;
+	border-bottom:1px solid #ccc;
 	padding:10px;
 }
 .image-wrap{
@@ -125,6 +127,7 @@
 .delcontent{
 	height:195px;
 }
+
 tr.border-bottom td, th{
 	border-bottom:1px solid #edefed;
 	padding:10px;
