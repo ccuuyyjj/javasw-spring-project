@@ -45,5 +45,6 @@
  	</aop:config>
 	<context:component-scan base-package="spring.model"/>
     <context:component-scan base-package="spring.settings"/>
+    <context:component-scan base-package="spring.error"/>
 	
 </beans>

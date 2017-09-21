@@ -254,11 +254,14 @@ public class SubController {
 		rsvp.setGuest_id(cart.getGuest_id());
 		rsvp.setQuantity(cart.getQuantity());
 		rsvp.setPhone(member.getPhone());
-		rsvp.setStartdate(cart.getStartdate());
-		rsvp.setEnddate(cart.getEnddate());
+		rsvp.setStartdate(cart.getStartdate().substring(0, 10));
+		rsvp.setEnddate(cart.getEnddate().substring(0, 10));
 		rsvp.setTotalprice(totalprice);
 		rsvp.setProgress(0); //0:예약요청,  1:예약확인, 2:예약승낙, 9:예약거부
 		rsvp.setR_id(r_id);
+		rsvp.setAddress(room.getAddress());
+		rsvp.setOwner_id(room.getOwner_id());
+		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
 		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
@@ -267,14 +270,16 @@ public class SubController {
 	}
 	
 	//예약 확인 요청 끝
+	@RequestMapping("/book_end")
 	public String book_end() {
-		return "sun/book_end";
+		return "sub/book_end";
 	}
 	
 	// 이하 메시지 관련
 	@RequestMapping("/message")
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
-		int member_no = 1;
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
 		List no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
 		List<Message> message = new ArrayList<>();
@@ -302,20 +307,21 @@ public class SubController {
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
 		System.out.println("message = " + message.get(0).toString());
-		System.out.println("message = " + message.get(1).toString());
 		return "sub/message";
 	}
 
 	@RequestMapping("/sendMessage")
-	public String sendMessage(Message message) {
-		System.out.println(message.toString());
-		messageDao.insert(message);
+	public String sendMessage(Message message, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		messageDao.insert(message, member_no);
 		return "redirect:/";
 	}
 
 	@RequestMapping("/messageDetail/{room_no}")
-	public String messageDetail(@PathVariable("room_no") int room_no, Model m) {
-		int member_no = 1;
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
 		List<Message> message = messageDao.getMessage(member_no, room_no);
 		m.addAttribute("message", message);
 		m.addAttribute("checkin", message.get(0).getCheckin());
@@ -329,7 +335,7 @@ public class SubController {
 
 	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
 	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
-		messageDao.insert(message);
+		messageDao.insert(message, message.getMember_no());
 		m.addAttribute("message", message);
 		m.addAttribute("checkin", message.getCheckin());
 		m.addAttribute("checkout", message.getCheckout());

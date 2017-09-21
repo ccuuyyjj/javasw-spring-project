@@ -23,10 +23,9 @@
 }
 
 #popup_area .wishListWindow {
-    width:550px;
+    width:450px;
     display: none;
     background-color: #ffffff;
-    height: 600px;
     z-index:99999;
 }
 

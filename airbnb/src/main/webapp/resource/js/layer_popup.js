@@ -18,8 +18,8 @@ function wrapWindowByMask(){
  
     // css 스타일을 변경합니다.
     $('.window').css({'left':left,'top':top, 'position':'absolute'});
-    $('.messageWindow').css({'left':mLeft,'top':top-200, 'position':'absolute'});
-    $('.wishListWindow').css({'left':mLeft,'top':top-200, 'position':'absolute'});
+    $('.messageWindow').css({'left':mLeft,'top':top, 'position':'absolute'});
+    $('.wishListWindow').css({'left':mLeft,'top':top, 'position':'absolute'});
  
     // 레이어 팝업을 띄웁니다.
     //$('.window').show();

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-<title>메세지</title>
+<%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/message.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -12,15 +10,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="css/main.css"/>
-<link rel="stylesheet" type="text/css" href="css/layer_popup.css"/>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-<script src="js/datepicker.js"></script>
-<script src="js/function.js"></script>
-<script src="js/layer_popup.js"></script>
-</head>
-<%@ include file="/WEB-INF/view/template/header.jsp" %>
         <div class="container1">
             <div>
                 <div id="inbox-container" class="page-container-responsive page-container-inbox space-7 space-top-7">
@@ -105,4 +94,6 @@
                     </div>
                 </div>
             </div>
+            <div class="empty"></div>
+ </div>           
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

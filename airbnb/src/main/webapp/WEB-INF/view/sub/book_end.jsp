@@ -4,11 +4,13 @@
 <div class="w3-main w3-content w3-padding w3-center" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
 	<div class="row">
-		<h2>예약 가능 요청이 등록되었습니다!</h2>
+		<h2>예약 가능 요청이 완료되었습니다!</h2>
 	</div>
 	<div class="w3-row host-row">
 		감사합니다!
 	</div>
+	<div class="empty"></div>
+	<div class="empty"></div>
 	<div class="empty"></div>
 </div>	
 
