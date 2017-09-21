@@ -85,7 +85,6 @@
 		<div class="area-60 layer-center">
 		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
-	        <input type="hidden" name="member_no" value="1">
 	        <input type="hidden" name="name" value="${room.name}">
 	        <input type="hidden" name="price" value="${room.price}">
 	        <input type="hidden" name="room_no" value="${room.no}">
@@ -129,9 +128,9 @@
 		<div>
 	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post">
 			<div class="w-row wfont">위시리스트에 담기</div>
-		    	<div class="w-row">
-		        	<button class="wbtn">새로운 위시리스트 만들기</button>
-		        </div>
+	            <div class="w-row" id="addwl">
+	                <button class="wbtn">새로운 위시리스트 만들기</button>
+	            </div>
 		        <div class="w-add wfont_2">
 		           <div class="wlwl">
 		               <label class="w-lb" for="w-check">
@@ -147,6 +146,7 @@
 	                	관심 위시리스트 제목3
 	            </div>
 		</form>
+		<div>
 	        <div class="wl-box_3">
 	            <button class="wbtn2">
 	            <div class="wl-box">
@@ -161,6 +161,7 @@
 	                </div>
 	            </div>
 	            </button>
+	        </div>
 	        </div>
 		</div>
 		</div>
@@ -183,5 +184,5 @@ jQuery('#checkIn').datepicker({
 	constrainInput: false,
 	minDate: 0,
 	beforeShowDay: enableAllTheseDays
-});  
+});
 </script>

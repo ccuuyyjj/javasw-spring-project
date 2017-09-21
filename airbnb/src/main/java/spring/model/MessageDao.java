@@ -17,9 +17,9 @@ public class MessageDao {
 		return new Message(rs);
 	};
 
-	public void insert(Message message) {
+	public void insert(Message message, int member_no) {
 		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
-		Object[] args = new Object[] { message.getMember_no(), message.getRoom_no(), message.getCheckin(),
+		Object[] args = new Object[] { member_no, message.getRoom_no(), message.getCheckin(),
 				message.getCheckout(), message.getQuantity(), message.getQuestion(), message.getName(),
 				message.getPrice() };
 

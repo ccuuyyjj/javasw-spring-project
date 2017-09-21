@@ -26,7 +26,8 @@
 <script src="${pageContext.request.contextPath}/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
-<script src="${pageContext.request.contextPath}/js/review.js"></script> 
+<script src="${pageContext.request.contextPath}/js/review.js"></script>
+<script src="${pageContext.request.contextPath}/js/wishList.js"></script> 
 
 <!-- 리스트에 필요한것들  -->
 <link rel="stylesheet" type="text/css"
