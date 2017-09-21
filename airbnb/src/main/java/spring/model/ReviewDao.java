@@ -31,7 +31,6 @@ public class ReviewDao {
 		String sql = "select * from (select rownum rn, a.* from "
 				+ "(select * from review where room_no=? order by reg desc)"
 				+ "a) where rn between "+start+" and "+end;
-		System.out.println(start+"부터"+end);
 		return jdbcTemplate.query(sql, new Object[] {id},mapper);
 	}
 

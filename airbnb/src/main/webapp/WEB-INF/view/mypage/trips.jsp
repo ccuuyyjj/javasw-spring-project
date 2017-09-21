@@ -42,7 +42,14 @@
 			  				<th>옵션</th>
 			  			</thead>
 					  	<tbody>
-					  		<td colspan="5" align="center"><b>거래 없음</b></td>
+					  	<c:forEach items="${rsvp}" var="list">
+					  		<td colspan="5" align="center"><b>
+							<th>예약 완료</th>
+							<th>${list.progress }</th>
+							<th>${list.owner_id}</th>
+							
+					  	
+					  	</c:forEach>
 					  	</tbody>
 			  		</table>
 			  	</div>	

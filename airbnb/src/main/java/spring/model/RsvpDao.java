@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RsvpDao {
-	Logger log = LoggerFactory.getLogger(getClass());
-	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -22,7 +20,7 @@ public class RsvpDao {
 
 	public void insert(Rsvp rsvp) {
 		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, "
-				+ "to_date(?, 'YYYY-MM-DD HH24:MI:SS'), to_date(?, 'YYYY-MM-DD HH24:MI:SS'), "
+	+ "to_date(?, 'YYYY-MM-DD HH24:MI:SS'), to_date(?, 'YYYY-MM-DD HH24:MI:SS'), "
 				+ "?, ?, sysdate,?, ?,     ?, ?, ?, ?)";
 		Object[] args = new Object[] { 
 				rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), 
