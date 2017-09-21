@@ -220,7 +220,9 @@ public class RoomDao {
 	public List<Room> host_list_complite(){
 		//String sql = "select * from room where progress = 4 and owner_id = ? order by no desc";
 		//return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
-		String sql = "select * from room where progress = 4 and no=7 order by no desc";
+//		String sql = "select A.no, B.room_no from room A inner join reservation B"
+//				+ "on A.no = B.room_no where A.progress = 4 and A.no=7 order by A.no desc";
+		String sql = "select * from room where progress=4 and no=7 order by no desc";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
 	

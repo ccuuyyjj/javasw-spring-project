@@ -19,6 +19,7 @@ import spring.model.MemberDao;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
+import spring.model.RsvpDao;
 import spring.model.WishList;
 import spring.model.WishListDao;
 
@@ -29,15 +30,14 @@ public class MypageController {
 
 	@Autowired
 	private MessageDao messageDao;
-
 	@Autowired
 	private MemberDao memberDao;
-
 	@Autowired
 	private RoomDao roomDao;
-
 	@Autowired
 	private WishListDao wishListDao;
+	@Autowired
+	private RsvpDao rsvpDao;
 	
 	//숙소 목록
 	@RequestMapping("/rooms")
@@ -51,8 +51,6 @@ public class MypageController {
 	public String my_reservations(Model m) {
 		List<Room> host_list = roomDao.host_list_complite();
 		m.addAttribute("host_list", host_list);
-		
-		
 		return "mypage/my_reservations";
 	}
 	
