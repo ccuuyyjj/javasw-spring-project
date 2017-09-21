@@ -34,13 +34,9 @@
 		</form>
 </div>		
 <script>
-$(document).ready(function(){
-	$("#save").on("click", function(){
-		document.getElementById('mode').value = 'save';
-	});
+$("#save").on("click", function(){
+	document.getElementById('mode').value = 'save';
 });
-</script>		
-<script>
 var upload = document.getElementById('ex_file'),
 holder = document.getElementById('holder');
 

@@ -92,7 +92,7 @@ function del_reg(pNo){
 									<input type="button" onclick = "javascript:reg('${room.progress+1}');" value="등록 완료하기" class="w3-btn w3-round-large w3-red" >
 								</c:if>
 								<c:if test="${room.progress eq 3}">
-									<input type="button" onclick = "javascript:reg('3_3');" value="숙소 등록" class="w3-btn w3-round-large w3-red">숙소 등록
+									<input type="button" onclick = "javascript:reg('3_3');" value="숙소 등록" class="w3-btn w3-round-large w3-red">
 								</c:if>
 								&nbsp;
 <!-- 								<button class="w3-button  w3-round-large w3-white w3-border">미리보기</button> -->
@@ -108,10 +108,9 @@ function del_reg(pNo){
 				</c:forEach>
 			</ul>
 			</form>
-	  	</div>
-	  
-	  	
+	  	</div>	
 	</div>
+	<div class="empty"></div>
 </div>
 
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

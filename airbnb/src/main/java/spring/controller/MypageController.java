@@ -1,6 +1,13 @@
 package spring.controller;
 
 import java.util.ArrayList;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +24,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
@@ -68,11 +74,10 @@ public class MypageController {
 		
 	//숙소 목록 - 예약관리
 	@RequestMapping("/my_reservations")
-	public String my_reservations(Model m) {
-		List<Room> host_list = roomDao.host_list_complete();
+	public String my_reservations(Model m, UsernamePasswordAuthenticationToken token) {
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
 		//Map<Room, List<Rsvp>> map = new HashMap<>();
 		Map<Integer, List<Rsvp>> map = new HashMap<>();
-		
 		for(Room room : host_list) {
 			List<Rsvp> list = rsvpDao.select(room.getNo());
 			map.put(room.getNo(), list);
@@ -81,13 +86,16 @@ public class MypageController {
 		m.addAttribute("map", map);
 		return "mypage/my_reservations";
 	}
-	//예약관리 - 예약 상태값 변경
 	
+	//예약관리 - 예약 상태값 변경
+	@RequestMapping("/rsvp_cng")
+	@ResponseBody
 	public String rsvp_cng(HttpServletRequest request) {
 		int no = Integer.parseInt(request.getParameter("no"));
 		int progress = Integer.parseInt(request.getParameter("step"));
 		
 		boolean result = rsvpDao.status_update(no, progress);
+		log.debug("result:"+result);
 		if(result) {
 			//상태값이 변경될때 게스트에게 메시지로 알려준다.
 			String msg = "회원님이 예약 요청하신 건이 [예약";
@@ -96,7 +104,7 @@ public class MypageController {
 				case 2: msg += "승낙]"; break;
 				case 3: msg += "거절]"; break;
 			}
-			msg += "되었습니다";
+			msg += " 되었습니다";
 			
 			Rsvp rsvp = rsvpDao.select_no(no);
 			Member member = memberDao.select(rsvp.getGuest_id());
@@ -105,16 +113,19 @@ public class MypageController {
 			Message message = new Message();
 			message.setMember_no(member.getNo()); 
 			message.setRoom_no(rsvp.getRoom_no()); 
-			message.setCheckin(rsvp.getStartdate());
-			message.setCheckout(rsvp.getEnddate()); 
+			message.setCheckin(rsvp.getStartdate().substring(0, 10).replace("-", "/"));
+			message.setCheckout(rsvp.getEnddate().substring(0, 10).replace("-", "/")); 
 			message.setQuantity(rsvp.getQuantity()); 
 			message.setQuestion(msg); 
 			message.setName(room.getName());
 			message.setPrice(room.getPrice());
 			
 			messageDao.insert(message, member.getNo());
+			return "OK";
+		} 
+		else {
+			return "Fail";
 		}
-		return "메세지 전송 완료";
 	}
 	
 	@RequestMapping("/message")
@@ -133,21 +144,56 @@ public class MypageController {
 		return "mypage/setting";
 	}
 	
-	//대금수령내역
+	//계정관리 - 대금수령내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m) {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+        String strToday = format.format(c1.getTime());
+        
+        List r_name = new ArrayList();
+        
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
+		for(Room room : host_list) {
+			if( room.getProgress() == 4) {
+				List<Rsvp> list = rsvpDao.select(room.getNo());
+				for(Rsvp rsvp : list) {
+					Date day1 = format.parse(rsvp.getEnddate());
+					Date day2 = format.parse(strToday);
+					if(day1.compareTo(day2) > 0) {
+						r_name.add(room.getName());
+					}
+				}
+			}
+		}
+		
+		m.addAttribute("r_name"+r_name);
 		return "mypage/transaction_history";
 	}
 	
 	//여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
-	public String trips(Model m) {
+	public String trips(Model m, UsernamePasswordAuthenticationToken token) {
+		String id = token.getName();
+		
+		List<Rsvp> rsvp = rsvpDao.select(id);
+		List<Room> room = new ArrayList<>();
+		
+		for(Rsvp list:rsvp) {
+			room.add(roomDao.select(list.getRoom_no()));
+		}
+		
+		m.addAttribute("rsvp",rsvp);
+		m.addAttribute("roomList",room);
 		return "mypage/trips";
 	}
 	
 	//여행목록 - 지나간 여행
 	@RequestMapping("/old_trips")
-	public String old_trips(Model m) {
+	public String old_trips(Model m,UsernamePasswordAuthenticationToken token) {
+
+		
+		
 		return "mypage/old_trips";
 	}
 	

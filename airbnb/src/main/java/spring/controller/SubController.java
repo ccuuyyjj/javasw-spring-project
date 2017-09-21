@@ -145,11 +145,11 @@ public class SubController {
 	}
 
 	// 상세페이지
-	@RequestMapping("/detail/{id}")
-	public String detail(@PathVariable("id") int id, Model m,
+	@RequestMapping("/detail/{no}")
+	public String detail(@PathVariable("no") int no, Model m,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		// 페이징 네비게이터
-		int totalPost = reviewDao.count(id); // 게시물 수
+		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수  
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
 		int countPage = 3; // 화면에 출력될 페이지 수
@@ -181,12 +181,12 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 
-		m.addAttribute("room", roomDao.select(id));
-		m.addAttribute("availList", availDao.selectAvailable(id));
+		m.addAttribute("room", roomDao.select(no));
+		m.addAttribute("availList", availDao.selectAvailable(no));
 		System.out.println(pagePosts+"게시물 수");
-		m.addAttribute("review",reviewDao.select(page,pagePosts,id));
-		m.addAttribute("total",reviewDao.count(id));
-		m.addAttribute("avg",reviewDao.avg(id));
+		m.addAttribute("review",reviewDao.select(page,pagePosts,no));
+		m.addAttribute("total",reviewDao.count(no));
+		m.addAttribute("avg",reviewDao.avg(no));
 
 		return "sub/detail";
 	}
@@ -231,7 +231,7 @@ public class SubController {
 	//예약 저장
 	@RequestMapping(value="/book", method=RequestMethod.POST)
 	public String book(@RequestParam (value="c_no", required=true, defaultValue="-1") int c_no,  
-			UsernamePasswordAuthenticationToken token, Model m) {
+			UsernamePasswordAuthenticationToken token, Model m) throws Exception {
 		int totalprice = 0;
 		
 		Member member = memberDao.select(token.getName());
@@ -264,8 +264,8 @@ public class SubController {
 		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
-		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		//throw new Exception();
+		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		return "redirect:/sub/book_end";
 	}
 	
