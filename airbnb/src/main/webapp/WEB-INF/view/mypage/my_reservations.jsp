@@ -3,10 +3,6 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mypage.css"/>
 <script>
-function reg(pVal){
-	document.getElementById("rfrm").action = '${pageContext.request.contextPath}/host/become_host'+pVal;
-	document.getElementById("rfrm").submit();
-}
 function del_confirm(pNo){
 	$("#room_"+pNo).hide();
 	$("#delcontent_"+pNo).show();
@@ -83,10 +79,8 @@ function chgstatus(pNo, pVal){
 	  		<div class="subtab">
 				예약현황
 			</div>
-			<form id="rfrm" method="post">
 			<ul class="list-layout ">
 				<c:forEach var="room" items="${host_list}">
-				<input type="hidden" name="room_no" value="${room.no}">
 				<li class="w3-left" id="room_${room.no}">
 						<img src="${pageContext.request.contextPath}/img/ico_close.png" onclick="JavaScript:del_confirm(${room.no});" id="del${room.no}" class="hostclose">
 						<div class="w3-col s5 image-wrap">
@@ -104,6 +98,12 @@ function chgstatus(pNo, pVal){
 							<div class="w3-col content-update">
 								최종 업데이트 : ${room.getDate()} 
 							</div>
+							<form method="get" action="${pageContext.request.contextPath}/host/become_host1">
+							<input type="hidden" name="room_no" value="${room.no}">
+							<div class="w3-col content-update">
+								<input type="submit" value="숙소 수정하기" class="w3-btn w3-round-large w3-green">
+							</div>
+							</form>
 						</div>
 						
 						<!-- 예약이 있을 경우  -->
@@ -139,7 +139,7 @@ function chgstatus(pNo, pVal){
 												<td>
 													<select class="host-select"
 														 onchange="JavaScript:chgstatus(${rsvp.no}, this.options[this.selectedIndex].value)"
-														 <c:if test="${rsvp.progress eq 2}">disabled</c:if>>
+														<c:if test="${rsvp.progress eq 2}">disabled</c:if>>
 														<option value="">- 선택 -</option>
 														<c:if test="${rsvp.progress eq 0}">
 															<option value="1">예약확인</option>
@@ -171,7 +171,6 @@ function chgstatus(pNo, pVal){
 				
 				</c:forEach>
 			</ul>
-			</form>
 	  	</div>
 	</div>
 	<div class="empty"></div>

@@ -1,6 +1,13 @@
 package spring.controller;
 
 import java.util.ArrayList;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -70,9 +77,9 @@ public class MypageController {
 
 	// 숙소 목록 - 예약관리
 	@RequestMapping("/my_reservations")
-	public String my_reservations(Model m) {
-		List<Room> host_list = roomDao.host_list_complete();
-		// Map<Room, List<Rsvp>> map = new HashMap<>();
+	public String my_reservations(Model m, UsernamePasswordAuthenticationToken token) {
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
+		//Map<Room, List<Rsvp>> map = new HashMap<>();
 		Map<Integer, List<Rsvp>> map = new HashMap<>();
 		for (Room room : host_list) {
 			List<Rsvp> list = rsvpDao.select(room.getNo());
@@ -95,16 +102,10 @@ public class MypageController {
 		if (result) {
 			// 상태값이 변경될때 게스트에게 메시지로 알려준다.
 			String msg = "회원님이 예약 요청하신 건이 [예약";
-			switch (progress) {
-			case 1:
-				msg += "확인]";
-				break;
-			case 2:
-				msg += "승낙]";
-				break;
-			case 3:
-				msg += "거절]";
-				break;
+			switch(progress) {
+				case 1: msg += "확인]"; break;
+				case 2: msg += "승낙]"; break;
+				case 3: msg += "거절]"; break;
 			}
 			msg += " 되었습니다";
 
@@ -145,13 +146,47 @@ public class MypageController {
 		return "mypage/setting";
 	}
 
-	// 대금수령내역
+	//계정관리 - 대금수령내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m) {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c1 = Calendar.getInstance();
+        String strToday = format.format(c1.getTime());
+        
+        List r_name = new ArrayList();
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
+		try {
+			for(Room room : host_list) {
+				if( room.getProgress() == 4) {
+					List<Rsvp> list = rsvpDao.select(room.getNo());
+					for(Rsvp rsvp : list) {
+						Date day1 = format.parse(rsvp.getEnddate());
+						Date day2 = format.parse(strToday);
+						if(day1.compareTo(day2) > 0) {
+							//숙소명이 길어서 앞부분만 일부 보여줌..
+							String name = room.getName().substring(0, 10)+"...";
+							r_name.add(name);
+						}
+					}
+				}
+			}
+		} catch(ParseException e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("nameList", r_name);
 		return "mypage/transaction_history";
 	}
 
-	// 여행목록 - 예정된 여행
+	@ResponseBody
+	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
+	public String transaction_history(HttpServletRequest request) throws ParseException {
+		
+		return "OK";
+	}
+	
+	
+	//여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
 	public String trips(Model m, UsernamePasswordAuthenticationToken token) {
 		String id = token.getName();
@@ -174,20 +209,30 @@ public class MypageController {
 		return "mypage/old_trips";
 	}
 
+	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
+	public void wishlist(Model m, WishList wishList, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		wishListDao.insert(wishList, member_no);
+	}
+	
 	@RequestMapping("/wishlist")
-	public String wishlist(Model m/* , WishList wishList */) {
-		// wishListDao.insert(wishList);
+	public String wishlist(Model m, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		List<WishList> title = wishListDao.titleSelect(member_no);
+		int count = wishListDao.count(member_no);
+		List<Integer> roomcount = new ArrayList<>();
+		for(int i=0; i < count; i++) {
+			count = wishListDao.count(member_no, title.get(i).getTitle());
+			roomcount.add(count);
+		}
+		
+		m.addAttribute("title", title);
+		m.addAttribute("count", count);
+		m.addAttribute("roomcount", roomcount);
 		return "mypage/wishlist";
 	}
-
-	// @RequestMapping(value="/wishlist", method=RequestMethod.POST)
-	// public String wishlist(Model m) {
-	// int member_no=1;
-	// List<WishList> wishList = wishListDao.select(member_no);
-	// m.addAttribute("wishList", wishList);
-	// return "mypage/wishlist";
-	// }
-//	
 	
 	//예약 취소
 	@ResponseBody

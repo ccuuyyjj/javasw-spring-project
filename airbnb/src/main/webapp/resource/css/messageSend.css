@@ -107,7 +107,6 @@
                 display: inline-block;
                 width: 100%;
                 height: 100%;
-                background-image: url(https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large);
                 background-repeat: no-repeat;
                 background-size: 100%;
                 background-position: center;
@@ -136,7 +135,7 @@
             .wl-box_2{
                 display: inline-block;
                 vertical-align: top !important;
-                width: 80% !important;
+                width: 100% !important;
                 margin-top: 6px;
             }
             .wl-box_3{
@@ -184,9 +183,8 @@
                  font-weight: normal !important;
                 color: #484848 !important;
                 font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
-                margin: 0px !important;
                 word-wrap: break-word !important;
-                font-size: 19px !important;
+                font-size: 16px !important;
                 line-height: 24px !important;
                 padding-top: 0px !important;
                 padding-bottom: 0px !important;   
@@ -238,6 +236,7 @@
                 font-weight: 700 !important;
                 padding-right: 24px !important;
                 padding-left: 24px !important;
+                margin-left:5px;
                 min-width: 77.66563145999496px !important;
                 cursor: pointer;
             }

@@ -46,9 +46,11 @@ public class ImageController {
 		String photourl = "";
 		MultipartFile file = mRequest.getFile("file");
 		Room room = (Room) session.getAttribute("room");
-		if (file.getOriginalFilename() != "") {
+		String origin_file = file.getOriginalFilename();
+		
+		if (origin_file != "") {
 			log.debug("파일 업로드 요청 수신");
-			log.debug("파일 이름 = " + file.getOriginalFilename());
+			log.debug("파일 이름 = " + origin_file);
 			log.debug("파일 크기 = " + file.getSize());
 
 			/*
@@ -68,32 +70,28 @@ public class ImageController {
 			log.debug("saveFolder = " + saveFolder);
 
 			long time = System.currentTimeMillis();
-
-			String filename = file.getOriginalFilename() + time;
-
+			
+			String ext = origin_file.substring(origin_file.lastIndexOf(".")+1);
+			String filename = origin_file.split("\\.")[0]+time+"."+ext;
+			log.debug("filename : "+filename);
+			
 			File target = new File(saveFolder, filename);
 			file.transferTo(target);
 
 			// 파일명에 'local:' 구분자를 넣어 기존 url과 차별을 둔다
-			photourl = "local:" + file.getOriginalFilename();
-
+			photourl = "local:" + filename;
 			room.setPhotoUrl(photourl);
 		}
 
 		String mode = mRequest.getParameter("mode");
-
 		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
 			if (photourl != "") {
 				boolean result = roomDao.update(room);
 			}
 			return "redirect:/host/become_host2_2";
-
 		} else {
-
 			return "redirect:/host/become_host2_1";
-
 		}
-
 	}
 
 	@RequestMapping(value = "/viewPhoto/{id}")
