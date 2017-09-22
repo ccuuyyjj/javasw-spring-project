@@ -15,11 +15,11 @@ function wrapWindowByMask(){
     var mLeft = ( $(window).scrollLeft() + ( $(window).width() - $('.messageWindow').width()) / 2 );
     //var top = ( $(window).scrollTop() + ( $(window).height() - $('.window').height()) / 2 );
     var top  = ( $(window).scrollTop() + $('.window').outerHeight()/2)-150; 
- 
     // css 스타일을 변경합니다.
     $('.window').css({'left':left,'top':top, 'position':'absolute'});
     $('.messageWindow').css({'left':mLeft,'top':top, 'position':'absolute'});
     $('.wishListWindow').css({'left':mLeft,'top':top, 'position':'absolute'});
+    $('.rsv_class').css({'left':left,'top':top, 'position':'absolute'});
  
     // 레이어 팝업을 띄웁니다.
     //$('.window').show();
@@ -55,6 +55,12 @@ $(document).ready(function(){
             e.preventDefault();
             wrapWindowByMask();
 	});
+	$('.cancel_btn').click(function(e){
+		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
+			$("#rsv_id").show();
+            e.preventDefault();
+            wrapWindowByMask();
+	});
  
     // 닫기(close)를 눌렀을 때 작동합니다.
 	$('.window .close').click(function (e) {
@@ -69,6 +75,11 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('.mask, .wishListWindow').hide();
 	});
+	$('.rsv_class .close').click(function (e) {
+		e.preventDefault();
+		$('.mask, .rsv_class').hide();
+	});
+	
  
 	// 뒤 검은 마스크를 클릭시에도 모두 제거하도록 처리합니다.
 //	$('.mask').click(function () {

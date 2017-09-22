@@ -19,6 +19,8 @@
 	href="${pageContext.request.contextPath}/css/messageSend.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/list.css" />
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/cancel_rsv.css" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
@@ -26,7 +28,6 @@
 <script src="${pageContext.request.contextPath}/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
-<script src="${pageContext.request.contextPath}/js/review.js"></script>
 <script src="${pageContext.request.contextPath}/js/wishList.js"></script> 
 
 <!-- 리스트에 필요한것들  -->

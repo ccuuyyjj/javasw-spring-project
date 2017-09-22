@@ -6,7 +6,7 @@
 <div class="center">
 	<div class="empty-90"></div>
 	<div class="menu2">
-		<input type="button" value="방 유형" class="b">
+		<input type="button" value="방 유형" class="b w3-button w3-red w3-round-large">
 		<div class="add_type slider">
 			<form class="slider" action="sub_list" method="post">
 				<c:choose>
@@ -45,7 +45,7 @@
 		</div>
 
 
-		<input type="button" value="가격 범위" class="b">
+		<input type="button" value="가격 범위" class="b w3-button w3-red w3-round-large">
 		<div class="add_price slider">
 			<form class="slider" action="sub_list" method="post">
 				 <img src="${pageContext.request.contextPath}/img/home.png" width="300" height="150"> 
@@ -60,7 +60,7 @@
 		</div>
 
 
-		<input type="button" value="필터 추가" class="b">
+		<input type="button" value="필터 추가" class="b w3-button w3-red w3-round-large" >
 		<div class="add_filter slider">
 			<form class="slider" action="sub_list" method="post">
 				침실 수<input class="slider" type="number" name="filter" value="0${paramValues.filter[0]}"> <br>

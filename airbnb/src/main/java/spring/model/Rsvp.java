@@ -23,7 +23,7 @@ public class Rsvp {
 	private String address;
 	private String owner_id;
 	private String guest_name;
-
+	
 	public Rsvp() {
 	}
 
@@ -205,4 +205,6 @@ public class Rsvp {
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
+	
+	
 }

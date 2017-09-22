@@ -28,6 +28,12 @@
     background-color: #ffffff;
     z-index:99999;
 }
+#popup_area .rsv_class {
+    width:500px;
+    display: none;
+    background-color: #ffffff;
+    z-index:99999;
+}
 
 #popup_area .close{
 	cursor:pointer;
