@@ -30,7 +30,6 @@ public class MemberController {
 	MemberDao memberDao;
 
 	@RequestMapping("/login")
-
 	String login(UsernamePasswordAuthenticationToken token,
 			@RequestHeader(required = false, value = "referer", defaultValue = "/") String referer,
 			HttpServletRequest request) throws Exception {

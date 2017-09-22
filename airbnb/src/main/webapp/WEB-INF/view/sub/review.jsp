@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <script src="${pageContext.request.contextPath}/js/review.js"></script>
 <div class="reviewsContainer">
     <div class="reviews">
     	<h3>후기 ${total }개

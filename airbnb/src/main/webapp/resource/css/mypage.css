@@ -116,8 +116,12 @@
 	margin-left:35px;
 }
 .history_table th, .history_table td{
+	text-align: center;
     padding:10px;
     width:20%;
+}
+.history_table td{
+	border-top: 1px solid #edefed;
 }
 .hostclose{
 	margin-left:300px;
@@ -148,6 +152,7 @@ tr.border-bottom td, th{
 .font-red{
 	color:#FE2E2E
 }
+
 .searchbtn{
 	padding-top:5px;
 }

@@ -37,7 +37,6 @@
 		    </form>
 		    </div>	
 	</div>
-
 	<div class="window" style="display: none;" id="join">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 		<div class="empty"></div>
@@ -83,7 +82,6 @@
 			class="close">
 		<div class="empty"></div>
 		<div class="area-60 layer-center">
-		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="name" value="${room.name}">
 	        <input type="hidden" name="price" value="${room.price}">
@@ -118,8 +116,6 @@
 	    </form>
 	    </div>
 	    </div>
-	</div>
-	
 	<div class="wishListWindow" style="display: none;" id="wishList">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png"
 			class="close">
@@ -190,13 +186,26 @@
 				    		<img src="${pageContext.request.contextPath}/img/star.png"width="8" height="8" style="margin-bottom: 0px">
 			    		</c:when>
 			    	</c:choose>
-	                    <spna>후기 ${total}개</spna>
+	                    <span>후기 ${total}개</span>
 	                </div>
 	            </div>
 	            </button>
 	        </div>
 	        </div>
 		</div>
+	</div>
+</div>
+	<!-- 예약 취소시 -->
+	<div class="rsv_class" style="display: none;" id="rsv_id">
+		<img src="${pageContext.request.contextPath}/img/ico_close.png"
+			class="close">
+		<div class="refund">
+			<div class="wfont">환불 정책</div>
+			<textarea id="rsv_notice">
+        </textarea>
+			<div id="rsv_btn">
+				<button class="w3-btn w3-round-large w3-border-blue final_rsv" >예약 취소</button>
+			</div>
 		</div>
 	</div>
 </div>
