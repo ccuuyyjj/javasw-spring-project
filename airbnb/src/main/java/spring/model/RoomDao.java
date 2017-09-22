@@ -199,7 +199,7 @@ public class RoomDao {
 						}
 					}.toString() + ")");
 					WHERE("RN between " + startBlock + " AND " + endBlock);
-					ORDER_BY("no");
+					ORDER_BY("no desc");
 				}
 			}.toString();
 			return jdbcTemplate.query(sql, list.toArray(), rowMapper);
@@ -220,7 +220,7 @@ public class RoomDao {
 	public List<Room> host_list_complete(String id){
 //		String sql = "select * from room where progress = 4 and owner_id = ? order by no desc";
 //		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
-		String sql = "select * from room where progress = 4 and no in (7, 29) order by no desc";
+		String sql = "select * from room where progress = 4 and no in (1,2,3,15) order by no desc";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
 	

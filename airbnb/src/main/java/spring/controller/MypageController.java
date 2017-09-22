@@ -1,20 +1,13 @@
 package spring.controller;
 
 import java.util.ArrayList;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -23,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +31,6 @@ import spring.model.RsvpDao;
 import spring.model.WishList;
 
 import spring.model.Rsvp;
-import spring.model.RsvpDao;
 
 import spring.model.WishListDao;
 
@@ -146,23 +137,22 @@ public class MypageController {
 		return "mypage/setting";
 	}
 	
-	//계정관리 - 대금수령내역
+	//계정관리 - 대금수령내역 - 수령완료내역
 	@RequestMapping("/transaction_history")
 	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c1 = Calendar.getInstance();
         String strToday = format.format(c1.getTime());
-        
-        List r_name = new ArrayList();
+        List<String> r_name = new ArrayList<>();
 		List<Room> host_list = roomDao.host_list_complete(token.getName());
 		try {
 			for(Room room : host_list) {
 				if( room.getProgress() == 4) {
-					List<Rsvp> list = rsvpDao.select(room.getNo());
+					List<Rsvp> list = rsvpDao.select_complete(room.getNo());
 					for(Rsvp rsvp : list) {
 						Date day1 = format.parse(rsvp.getEnddate());
 						Date day2 = format.parse(strToday);
-						if(day1.compareTo(day2) > 0) {
+						if(day1.compareTo(day2) < 0) {
 							//숙소명이 길어서 앞부분만 일부 보여줌..
 							String name = room.getName().substring(0, 10)+"...";
 							r_name.add(name);
@@ -178,11 +168,30 @@ public class MypageController {
 		return "mypage/transaction_history";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
 	public String transaction_history(HttpServletRequest request) throws ParseException {
+		String roomName = request.getParameter("roomName");
+		int startMonth = Integer.parseInt(request.getParameter("startMonth"));
+		int endMonth = Integer.parseInt(request.getParameter("endMonth"));
 		
-		return "OK";
+		//rsvpDao.sum_price(roomName, startMonth, endMonth);
+		
+		
+		return "mypage/transaction_history";
+	}
+	
+	//계정관리 - 대금수령내역 - 수령 예정 내역
+	@RequestMapping("/future_transactions")
+	public String future_transactions(){
+		
+		return "mypage/future_transactions";
+	}
+	
+	
+	//계정관리 - 대금수령내역 - 총 수입
+	@RequestMapping("/tax_report")
+	public String tax_report() {
+		return "mypage/tax_report";
 	}
 	
 	
