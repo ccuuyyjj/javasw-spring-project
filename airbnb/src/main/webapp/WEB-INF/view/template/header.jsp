@@ -83,7 +83,7 @@
 								placeholder="모든 위치" name="location" value="${param.location}">
 						</div>
 						<div class="w3-col s4 w3-left" id="changDate">
-							<div class="w3-col s3 w3-left">
+							<div class="w3-col s4 w3-left">
 								<input class="w3-input width100 border_bottom0 " type="text"
 									id="startDate" name="startDate" placeholder="체크인"
 									style="text-align: right;" value="${param.startDate}">
@@ -102,7 +102,7 @@
 							<div class="w3-col s8 w3-left flex">
 								<span class="currency">인원</span> 
 								<input id="personInput"	name="amount" type="number" max="9999" maxlength="4"
-									oninput="maxLengthCheck(this)" value="${param.amount}"  value="1" /> 
+									oninput="maxLengthCheck(this)" value="${param.amount}" /> 
 								<span class="currency1">명</span>
 							</div>
 							<div class="w3-col s4 w3-center" style="padding-top: 3px;">

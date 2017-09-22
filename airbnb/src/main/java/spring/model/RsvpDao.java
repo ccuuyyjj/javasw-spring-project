@@ -67,5 +67,11 @@ public class RsvpDao {
 		return jdbcTemplate.update(sql, new Object[] {progress,  no }) > 0;
 	}
 	
+	public List<Rsvp> sum_price(int room_no, String year, String startMonth, String endMonth){
+		String sql = "select * from reservation where room_no=? and "
+				+ "TO_CHAR(to_date(enddate, 'MM/DD/YYYY'), 'YYYY-MM') >= to_date(?-?, 'yyyy-mm') "
+				+ " TO_CHAR(to_date(enddate, 'MM/DD/YYYY'), 'YYYY-MM') <= to_date(?-?, 'yyyy-mm') ";
+		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
+	}
 	
 }

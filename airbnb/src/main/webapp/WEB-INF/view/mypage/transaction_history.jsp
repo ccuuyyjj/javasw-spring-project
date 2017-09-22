@@ -44,12 +44,19 @@
 			  		<div class="w3-col s3  text-right host-row1">
 				  		<select class="host-select" name="roomName">
 							<option value="all">모든 숙소</option>
-							<c:forEach var="names"  items="${nameList}">
-								<option>${names}</option>
+							<c:forEach var="no" items="${nameList}">
+								<option value="${no.key}|${no.value}">${no.value}</option>
 							</c:forEach>
 						</select>
 		  			</div>
-			  		<div class="w3-col s3 w3-center host-row1">	
+		  			<div class="w3-col s2 w3-center host-row1">	
+				  		<select class="host-select" name="year">
+				  			<c:forEach begin="0" end="10" var="idx" step="1">
+			           			<option value="${today - idx}">${today - idx}년</option>
+				          	</c:forEach>
+			          	</select>
+			  		</div>
+			  		<div class="w3-col s2 w3-center host-row1">	
 				  		<select class="host-select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 								<option value="${i}">시작: ${i}월</option>

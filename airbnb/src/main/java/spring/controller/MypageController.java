@@ -143,8 +143,9 @@ public class MypageController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c1 = Calendar.getInstance();
         String strToday = format.format(c1.getTime());
-        List<String> r_name = new ArrayList<>();
-		List<Room> host_list = roomDao.host_list_complete(token.getName());
+        log.debug("strToday:"+strToday.substring(0, 4));
+        List<Room> host_list = roomDao.host_list_complete(token.getName());
+		Map<Integer, String> r_name = new HashMap<>();
 		try {
 			for(Room room : host_list) {
 				if( room.getProgress() == 4) {
@@ -155,7 +156,7 @@ public class MypageController {
 						if(day1.compareTo(day2) < 0) {
 							//숙소명이 길어서 앞부분만 일부 보여줌..
 							String name = room.getName().substring(0, 10)+"...";
-							r_name.add(name);
+							r_name.put(room.getNo(), name);
 						}
 					}
 				}
@@ -165,16 +166,20 @@ public class MypageController {
 		}
 		
 		m.addAttribute("nameList", r_name);
+		m.addAttribute("today", strToday.substring(0, 4));
 		return "mypage/transaction_history";
 	}
 	
 	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
 	public String transaction_history(HttpServletRequest request) throws ParseException {
-		String roomName = request.getParameter("roomName");
-		int startMonth = Integer.parseInt(request.getParameter("startMonth"));
-		int endMonth = Integer.parseInt(request.getParameter("endMonth"));
+		String[] arr 			= request.getParameter("roomName").split("|");
+		int room_no 		= Integer.parseInt(arr[0]);
+		String year 			= request.getParameter("year");
+		String sMonth		= request.getParameter("startMonth");
+		String eMonth	= request.getParameter("endMonth");
 		
-		//rsvpDao.sum_price(roomName, startMonth, endMonth);
+		
+		//rsvpDao.sum_price(room_no, year, startMonth, endMonth);
 		
 		
 		return "mypage/transaction_history";
