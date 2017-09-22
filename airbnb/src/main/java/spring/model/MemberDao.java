@@ -1,5 +1,7 @@
 package spring.model;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +68,10 @@ public class MemberDao {
 	public Member select(int no) {
 		String sql = "select * from member where no = ?";
 		return jdbcTemplate.query(sql, new Object[] { no }, rowMapper).get(0);
+	}
+
+	public List<Member> selectAll() {
+		String sql = "select * from member order by no";
+		return jdbcTemplate.query(sql, rowMapper);
 	}
 }
