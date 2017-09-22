@@ -216,6 +216,7 @@ public class MypageController {
 			count = wishListDao.count(member_no, title.get(i).getTitle());
 			roomcount.add(count);
 		}
+		
 		m.addAttribute("title", title);
 		m.addAttribute("count", count);
 		m.addAttribute("roomcount", roomcount);

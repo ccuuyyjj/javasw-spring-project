@@ -213,10 +213,10 @@
                 border-color: #008489 !important;
             }
             
-/*             .wbtn4:disabled { */
-/*                 background: rgba(0, 132, 137, 0.3) !important; */
-/*                 cursor: default !important; */
-/*             } */
+            .wbtn4:disabled {
+                background: rgba(0, 132, 137, 0.3) !important;
+                cursor: default !important;
+            }
             .wbtn4{
                 transition: background 0.3s, border-color 0.3s !important;
                 position: relative !important;

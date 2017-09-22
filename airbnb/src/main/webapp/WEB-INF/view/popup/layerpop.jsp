@@ -131,13 +131,25 @@
 			<div class="w-row wfont">위시리스트에 담기</div>
 	            <div class="w-row" id="addwl">
 	                <button class="wbtn">새로운 위시리스트 만들기</button>
+	                <div id="newwl" style="display: none">
+	                	<div class="wfont_3">이름</div>
+					    <div class="wl-box_4" >
+					        <input class="wl-input" type="text" required placeholder="위시리스트의 제목을 지정하세요">
+					    </div>
+						<div class="wl-box_5">
+						    <button class="wbtn3" >취소</button>
+						    <button class="wbtn4" disabled>목록 만들기</button>
+						</div>
+	                </div>
 	            </div>
-		        <div class="w-add wfont_2">
-		           <div class="wlwl">
-		               <label class="w-lb" for="w-check">관심 위시리스트 제목<input class="w-check" type="checkbox" id="w-check">
-		               </label>
-		           </div>
-		      	</div>
+	            <c:forEach var="wishlist" items="${title}">
+			        <div class="w-add wfont_2">
+			           <div class="wlwl">
+			               <label class="w-lb" for="w-check">${wishlist.title}<input class="w-check" type="checkbox" id="w-check">
+			               </label>
+			           </div>
+			      	</div>
+		      	</c:forEach>
 		      	<input type="submit" value="등록" class="insert">
 		</form>
 		<div style="margin-top: 70px">
