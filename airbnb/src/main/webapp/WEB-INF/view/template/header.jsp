@@ -19,14 +19,15 @@
 	href="${pageContext.request.contextPath}/css/messageSend.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/list.css" />
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/cancel_rsv.css" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${pageContext.request.contextPath}/js/datepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/function.js"></script>
 <script src="${pageContext.request.contextPath}/js/layer_popup.js"></script>
-<script src="${pageContext.request.contextPath}/js/review.js"></script>
 <script src="${pageContext.request.contextPath}/js/wishList.js"></script> 
 
 <!-- 리스트에 필요한것들  -->
@@ -106,7 +107,7 @@
 								<span class="currency1">명</span>
 							</div>
 							<div class="w3-col s4 w3-center" style="padding-top: 3px;">
-								<button class="w3-button w3-red w3-tiny">검색</button>
+								<button class="w3-button w3-red w3-small">검색</button>
 							</div>
 
 						</div>
