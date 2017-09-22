@@ -56,6 +56,7 @@ $(document).ready(function(){
             wrapWindowByMask();
 	});
 	$('.cancel_btn').click(function(e){
+			$("#rsv_btn").prev().val($(this).prev().val());
 		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
 			$("#rsv_id").show();
             e.preventDefault();

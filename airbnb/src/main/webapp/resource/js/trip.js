@@ -5,15 +5,15 @@ $(document).ready(function(){
 	
 //예약 취소
 	$(".final_rsv").on("click",function(){
+		console.log($(this).parent().prev().val());
 		$.ajax({
 			type:"POST",
 			url:"/airbnb/mypage/delete",
 			data:{
-				"no":$("#cancel_no").val()
+				"no":$(this).parent().prev().val()
 			},
 			success:function(data){
 				if(data=="true"){
-					console.log("??");
 					location.reload();
 					alert("예약 취소 완료");
 				}
@@ -26,8 +26,7 @@ $(document).ready(function(){
 	
 //지나간 여행페이지 이동
 	$(".move_rsv").on("click",function(e){
-		console.log(this);
-		console.log($(this).prev().val());
+
 		location.href="/airbnb/sub/detail/"+$(this).prev().val();
 	});
 	

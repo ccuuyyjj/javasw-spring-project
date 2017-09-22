@@ -201,8 +201,9 @@
 			class="close">
 		<div class="refund">
 			<div class="wfont">환불 정책</div>
-			<textarea id="rsv_notice">
+			<textarea id="rsv_notice" readonly="readonly">
         </textarea>
+        	<input type="hidden">
 			<div id="rsv_btn">
 				<button class="w3-btn w3-round-large w3-border-blue final_rsv" >예약 취소</button>
 			</div>
