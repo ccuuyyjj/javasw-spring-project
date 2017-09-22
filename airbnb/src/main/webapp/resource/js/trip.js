@@ -1,7 +1,7 @@
 
 
 $(document).ready(function(){
-	
+
 	
 //예약 취소
 	$(".final_rsv").on("click",function(){
@@ -25,10 +25,10 @@ $(document).ready(function(){
 	});
 	
 //지나간 여행페이지 이동
-	$("#move_rsv").on("click",function(){
-		console.log("gdgd");
-		console.log($(".move_no").val());
-//		location.href="/airbnb/sub/detail"+$(".move_no").val();
+	$(".move_rsv").on("click",function(e){
+		console.log(this);
+		console.log($(this).prev().val());
+		location.href="/airbnb/sub/detail/"+$(this).prev().val();
 	});
 	
 });

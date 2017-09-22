@@ -28,7 +28,6 @@
 						여행</a></li>
 			</ul>
 		</div>
-		<form id="rfrm" method="post">
 			<div class="w3-col l6 m3 s4w3-white w3-center subcontent">
 				<div class="subtab">지나간 여행</div>
 				<div class="w3-row">
@@ -48,11 +47,10 @@
 										<td>${list.address}</td>
 										<td>${list.owner_id }</td>
 										<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
-
-										<input id="move_no" type="hidden" name="no"
-											value="${list.room_no}">
-										<td><button id="move_rsv"class="w3-btn w3-round-large w3-red">이동
-												하기</button></td>
+										<td>
+											<input type="hidden" name="no" value="${list.room_no}">
+											<button class="move_rsv w3-btn w3-round-large w3-red" >이동 하기</button>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -60,7 +58,6 @@
 					</div>
 				</div>
 			</div>
-		</form>
 	</div>
 </div>
 <div class="empty"></div>

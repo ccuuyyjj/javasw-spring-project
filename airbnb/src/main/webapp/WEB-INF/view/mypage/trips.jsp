@@ -28,40 +28,36 @@
 						여행</a></li>
 			</ul>
 		</div>
-		<form id="rfrm" method="post">
-			<div class="w3-col l6 m3 s4w3-white w3-center subcontent">
-				<div class="subtab">예정된 여행</div>
-				<div class="w3-row">
-					<div class="host-row1 area-100">
-						<table class="history_table">
-							<thead>
+		<div class="w3-col l6 m3 s4w3-white w3-center subcontent">
+			<div class="subtab">예정된 여행</div>
+			<div class="w3-row">
+				<div class="host-row1 area-100">
+					<table class="history_table">
+						<thead>
+							<tr>
+								<th>숙소/위치</th>
+								<th>호스트</th>
+								<th>날짜</th>
+								<th>옵션</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${rsvp}" var="list">
 								<tr>
-									<th>숙소/위치</th>
-									<th>호스트</th>
-									<th>날짜</th>
-									<th>옵션</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${rsvp}" var="list">
-									<tr>
-										<td>${list.address}</td>
-										<td>${list.owner_id }</td>
-										<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
+									<td>${list.address}</td>
+									<td>${list.owner_id }</td>
+									<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
 
-										<input id="cancel_no" type="hidden" name="no"
-											value="${list.no}">
-										<td><button
-												class="cancel_btn w3-btn w3-round-large w3-red">예약
-												취소</button></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+									<td><input type="hidden" name="no" value="${list.no}">
+										<button class="cancel_btn w3-btn w3-round-large w3-red">예약
+											취소</button></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 </div>
 

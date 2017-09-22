@@ -37,7 +37,6 @@
 		    </form>
 		    </div>	
 	</div>
-</div>
 	<div class="window" style="display: none;" id="join">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png" class="close">
 		<div class="empty"></div>
@@ -83,7 +82,6 @@
 			class="close">
 		<div class="empty"></div>
 		<div class="area-60 layer-center">
-		<div>
 	    <form action="${pageContext.request.contextPath}/sub/sendMessage" method="post">
 	        <input type="hidden" name="name" value="${room.name}">
 	        <input type="hidden" name="price" value="${room.price}">
@@ -118,8 +116,6 @@
 	    </form>
 	    </div>
 	    </div>
-	</div>
-	
 	<div class="wishListWindow" style="display: none;" id="wishList">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png"
 			class="close">
@@ -197,7 +193,8 @@
 	        </div>
 	        </div>
 		</div>
-		
+	</div>
+</div>
 	<!-- 예약 취소시 -->
 	<div class="rsv_class" style="display: none;" id="rsv_id">
 		<img src="${pageContext.request.contextPath}/img/ico_close.png"
@@ -211,7 +208,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 <script>
 var enabledays = new Array();
