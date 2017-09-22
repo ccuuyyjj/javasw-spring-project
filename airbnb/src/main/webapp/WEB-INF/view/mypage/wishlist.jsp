@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-<title>메세지</title>
+<title>airbnb</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/message.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/wishlist.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +42,7 @@
 	                <div class="wl-page">
 	                <c:forEach var="wishlist" items="${title}" varStatus="status">
 	                    <div class="wl-page_list">
-	                        <a href="#">
+	                        <a href="${pageContext.request.contextPath}/mypage/wishlistdetail/${wishlist.title}/${roomcount[status.index]}">
 	                            <div class="d" style="background-image: url('https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large')">
 	                                <div class="w">
 	                                    <div class="wl">${wishlist.title}</div>

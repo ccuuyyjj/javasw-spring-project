@@ -1,0 +1,51 @@
+@charset "UTF-8";
+			.dfont{
+                font-weight: 700 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                word-wrap: break-word !important;
+                font-size: 24px !important;
+                line-height: 36px !important;
+                letter-spacing: -0.6px !important;
+            }
+            .d-row{
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .dfont_2{
+                font-weight: 300 !important;
+                color: #484848 !important;
+                font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+                word-wrap: break-word !important;
+                font-size: 13px !important;
+            }
+            .d-check{
+                float: right;
+                display: inline-block !important;
+                vertical-align: middle !important;
+            }
+            .d-img{
+                display: inline-block;
+                width: 100%;
+                background-image: url(https://a0.muscache.com/im/pictures/3246209/f4fd3d9b_original.jpg?aki_policy=large);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                background-position: top;
+            }
+            .d-box{
+                display: inline-block;
+                padding-right: 16px !important;
+                vertical-align: top !important;
+                margin-bottom: 50px;
+            }
+            .d-box_1{
+                vertical-align: top!important;
+                width: 80% !important;
+                top: 150px;
+                margin-top: 66%;
+            }
+            .d-box_2{
+                display: inline-block;
+                vertical-align: top !important;
+                width: 80% !important;
+            }

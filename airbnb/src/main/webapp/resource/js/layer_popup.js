@@ -51,8 +51,15 @@ $(document).ready(function(){
 	});
 	$('.wl-btn').click(function(e){
 		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
+		e.preventDefault();
+			$.ajax({
+				url:"/airbnb/mypage/wishlist2",
+				success:function(data){
+					console.log("data = "+data);
+				}				
+			});
+    		console.log("성공");
 			$("#wishList").show();
-            e.preventDefault();
             wrapWindowByMask();
 	});
  

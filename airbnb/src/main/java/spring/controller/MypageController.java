@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -221,5 +223,34 @@ public class MypageController {
 		m.addAttribute("count", count);
 		m.addAttribute("roomcount", roomcount);
 		return "mypage/wishlist";
+	}
+	
+	@RequestMapping("/wishlistdetail/{wltitle}/{roomcount}")
+	public String wishlistdetail(Model m, UsernamePasswordAuthenticationToken token, 
+			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		log.debug("회원 번호 = "+member_no);
+		log.debug("wltitle = "+wltitle);
+		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		List<Room> roomlist = new ArrayList<>();
+		for(int i=0; i<wishlist.size();i++) {
+			Room room = roomDao.select(wishlist.get(i).getRoom_no());
+			roomlist.add(room);
+		}
+		m.addAttribute("roomlist", roomlist);
+		m.addAttribute("wltitle", wltitle);
+		m.addAttribute("roomcount", roomcount);
+		
+		return	"mypage/wishlistdetail";
+	}
+	
+	@RequestMapping("/wishlist2")
+	public void wishlist2(Model m, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		List<WishList> title = wishListDao.titleSelect(member_no);
+		m.addAttribute("title", title);
+		log.debug("title = "+title);
 	}
 }

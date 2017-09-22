@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.AvailDao;
 import spring.model.Cart;
@@ -36,6 +37,8 @@ import spring.model.Room;
 import spring.model.RoomDao;
 import spring.model.Rsvp;
 import spring.model.RsvpDao;
+import spring.model.WishList;
+import spring.model.WishListDao;
 
 @Controller
 @RequestMapping("/sub")
@@ -174,7 +177,6 @@ public class SubController {
 				}
 			}
 		}
-		
 		
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
@@ -345,9 +347,7 @@ public class SubController {
 
 		return "redirect:/sub/messageDetail/" + room_no;
 	}
-	
-	
-	
+			
 
 	// 리뷰 작성
 	@RequestMapping(value = "/review/{room_no}", method = RequestMethod.POST)
