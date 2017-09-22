@@ -212,6 +212,7 @@
 		</div>
 	</div>
 </div>
+</div>
 <script>
 var enabledays = new Array();
 <c:forEach items="${availList}" var="avail">
