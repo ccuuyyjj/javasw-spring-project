@@ -127,7 +127,7 @@ function cngoption(pNo){
 						</select>
 			  		</div>
 			  		<div class="w3-col s2 host-row1 searchbtn">
-			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-tiny">
+			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-small">
 			  		</div>
 			  	</div>
 			  	</form>
@@ -150,7 +150,6 @@ function cngoption(pNo){
 	  		
 	  		<!-- 수령예정 내역 -->
 			<div class="area-100 tab-item"  id="menu2" style="display:none;">
-				<form id="efrm" method="post" action="#">
 				<div class="w3-row">
 			  		<div class="w3-col s3  text-right host-row1">
 				  		<select class="host-select">
@@ -158,7 +157,6 @@ function cngoption(pNo){
 						</select>
 		  			</div>
 			  	</div>
-			  	</form>
 			  	<div class="host-row1 area-100">	
 			  		<table class="history_table" >
 			  			<thead>
@@ -193,6 +191,9 @@ function cngoption(pNo){
 								<option value="${i}">종료:${i}월</option>
 							</c:forEach>
 						</select>
+			  		</div>
+			  		<div class="w3-col s2 host-row1 searchbtn">
+			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-small">
 			  		</div>
 			  	</div>
 			  	</form>

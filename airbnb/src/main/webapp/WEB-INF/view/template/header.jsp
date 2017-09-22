@@ -106,7 +106,7 @@
 								<span class="currency1">명</span>
 							</div>
 							<div class="w3-col s4 w3-center" style="padding-top: 3px;">
-								<button class="w3-button w3-red w3-tiny">검색</button>
+								<button class="w3-button w3-red w3-small">검색</button>
 							</div>
 
 						</div>
