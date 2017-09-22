@@ -139,7 +139,7 @@ function chgstatus(pNo, pVal){
 												<td>
 													<select class="host-select"
 														 onchange="JavaScript:chgstatus(${rsvp.no}, this.options[this.selectedIndex].value)"
-														 <c:if test="${rsvp.progress eq 2}">disabled</c:if>>
+														<c:if test="${rsvp.progress eq 2}">disabled</c:if>>
 														<option value="">- 선택 -</option>
 														<c:if test="${rsvp.progress eq 0}">
 															<option value="1">예약확인</option>

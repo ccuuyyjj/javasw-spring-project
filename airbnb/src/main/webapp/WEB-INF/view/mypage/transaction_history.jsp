@@ -27,6 +27,39 @@ function changeTab3(){
 	$("#menu2").hide();
 	$("#menu3").show();
 }
+function cngoption(pNo){
+	switch(pNo){
+	case 1:
+		
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	}
+	
+	var string = "no="+pNo+"&"
+	
+	$.ajax({
+		   type: "POST",
+		   url: "${pageContext.request.contextPath}/mypage/transaction_history",
+		   data: { 
+			   "no" : pNo,
+			   "step" : pVal
+			   },
+		   DateType: "html",
+		   cache: false,
+		   success: function(msg){
+			   if(msg == "OK"){
+				   window.location.reload();
+			   }
+		   },
+		  error:function(a, b, c){
+				console.log(a, b, c);
+			}
+	});
+	
+}
 </script>
 <div class="w3-main w3-content w3-padding" style="max-width:100%;margin-top:100px">
 	<div class="menu-wrap">
@@ -64,22 +97,25 @@ function changeTab3(){
 			</div>
 			<!-- 수령완료 내역 -->
 			<div class="area-100 tab-item"  id="menu1">
-				<form id="rfrm" method="post" action="#">
+				<form id="rfrm" method="post" >
 				<div class="w3-row">
 			  		<div class="w3-col s3  text-right host-row1">
-				  		<select class="host-select">
-							<option>모든 숙소</option>
+				  		<select class="host-select" name="hostName">
+							<option value="all">모든 숙소</option>
+							<c:forEach var="names"  items="${nameList}">
+								<option>${names}</option>
+							</c:forEach>
 						</select>
 		  			</div>
 			  		<div class="w3-col s3 w3-center host-row1">	
-				  		<select class="host-select">
+				  		<select class="host-select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 								<option value="${i}">시작: ${i}월</option>
 							</c:forEach>
 						</select>
 			  		</div>
 			  		<div class="w3-col s2 host-row1">	
-				  		<select class="host-select">
+				  		<select class="host-select" name="endMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 				  				<c:if test="${i eq 12}">
 				  					<option value="${i}" selected>종료:${i}월</option>
@@ -90,9 +126,12 @@ function changeTab3(){
 							</c:forEach>
 						</select>
 			  		</div>
+			  		<div class="w3-col s2 host-row1 searchbtn">
+			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-tiny">
+			  		</div>
 			  	</div>
 			  	</form>
-			  	<div class="host-row1 area-100">	
+			  	<div class="host-row1 area-100" id="sub1">	
 			  		<table class="history_table" >
 			  			<thead>
 			  				<th>날짜</th>

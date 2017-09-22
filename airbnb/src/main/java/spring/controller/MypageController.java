@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -147,30 +148,43 @@ public class MypageController {
 	
 	//계정관리 - 대금수령내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token) throws ParseException {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c1 = Calendar.getInstance();
         String strToday = format.format(c1.getTime());
         
         List r_name = new ArrayList();
-        
 		List<Room> host_list = roomDao.host_list_complete(token.getName());
-		for(Room room : host_list) {
-			if( room.getProgress() == 4) {
-				List<Rsvp> list = rsvpDao.select(room.getNo());
-				for(Rsvp rsvp : list) {
-					Date day1 = format.parse(rsvp.getEnddate());
-					Date day2 = format.parse(strToday);
-					if(day1.compareTo(day2) > 0) {
-						r_name.add(room.getName());
+		try {
+			for(Room room : host_list) {
+				if( room.getProgress() == 4) {
+					List<Rsvp> list = rsvpDao.select(room.getNo());
+					for(Rsvp rsvp : list) {
+						Date day1 = format.parse(rsvp.getEnddate());
+						Date day2 = format.parse(strToday);
+						if(day1.compareTo(day2) > 0) {
+							//숙소명이 길어서 앞부분만 일부 보여줌..
+							String name = room.getName().substring(0, 10)+"...";
+							r_name.add(name);
+						}
 					}
 				}
 			}
+		} catch(ParseException e) {
+			e.printStackTrace();
 		}
 		
-		m.addAttribute("r_name"+r_name);
+		m.addAttribute("nameList", r_name);
 		return "mypage/transaction_history";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
+	public String transaction_history(HttpServletRequest request) throws ParseException {
+		
+		return "OK";
+	}
+	
 	
 	//여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
