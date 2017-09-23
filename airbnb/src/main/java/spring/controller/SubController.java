@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,15 +8,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -177,7 +181,7 @@ public class SubController {
 				}
 			}
 		}
-		
+				
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
@@ -347,7 +351,6 @@ public class SubController {
 
 		return "redirect:/sub/messageDetail/" + room_no;
 	}
-			
 
 	// 리뷰 작성
 	@RequestMapping(value = "/review/{room_no}", method = RequestMethod.POST)

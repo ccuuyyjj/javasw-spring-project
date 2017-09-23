@@ -242,7 +242,7 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<input type="button" class="booking-width booking-height w3-white w3-round-large wl-btn" value="위시리스트에 담기">
+    		<input type="button" class="booking-width booking-height w3-white w3-round-large wl-btn2" value="위시리스트에 담기">
     	</div>
    	</div>
    </div>

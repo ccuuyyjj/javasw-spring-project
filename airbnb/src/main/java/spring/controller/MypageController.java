@@ -3,6 +3,7 @@ package spring.controller;
 import java.util.ArrayList;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -240,8 +242,6 @@ public class MypageController {
 			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
-		log.debug("회원 번호 = "+member_no);
-		log.debug("wltitle = "+wltitle);
 		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
 		List<Room> roomlist = new ArrayList<>();
 		for(int i=0; i<wishlist.size();i++) {
@@ -256,12 +256,23 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/wishlist2")
-	public void wishlist2(Model m, UsernamePasswordAuthenticationToken token) {
+	@ResponseBody
+	public HashMap<String, String> wishlist2(@RequestParam HashMap<String, String> param, 
+			Model m, UsernamePasswordAuthenticationToken token, HttpServletRequest request, 
+			HttpServletResponse response) throws IOException {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		m.addAttribute("title", title);
-		log.debug("title = "+title);
+		log.debug("ajax로 옴");
+		String ajaxCall = (String) request.getHeader("AJAX");
+		if(ajaxCall.equals("true")) {
+			response.sendError(500);
+		}
+		HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("code","1");
+	    map.put("msg", "등록하였습니다.");
+	    return map;
 	}
 	
 		//예약 취소
