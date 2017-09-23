@@ -270,7 +270,6 @@ public class SubController {
 		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
-		//throw new Exception();
 		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		return "redirect:/sub/book_end";
 	}
