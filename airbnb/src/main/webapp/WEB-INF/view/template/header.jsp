@@ -63,7 +63,7 @@
 	<%@ include file="/WEB-INF/view/popup/layerpop.jsp"%>
 
 	<!-- Navbar (sit on top) -->
-	<div class="w3-top header-z">
+	<div class="w3-top header-z" id="header">
 		<div class="w3-bar w3-white w3-padding w3-card-2"
 			style="letter-spacing: 4px;">
 			<div class="w3-twothird">
