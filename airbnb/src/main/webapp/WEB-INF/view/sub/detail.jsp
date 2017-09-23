@@ -104,7 +104,7 @@
 		<span aria-hidden="true"> · </span>
 		<a class="atag_1">${room.region}</a>
 		<span aria-hidden="true"> · </span>
-		<a class="atag_1">후기 000개</a>
+		<a class="atag_1">후기 ${total}개</a>
 	</div>
 	<div class="container_2">
 		<span aria-hidden="true"> · </span>
@@ -114,7 +114,8 @@
 		<span aria-hidden="true"> · </span>
 		<div class="content">침실 ${room.bedrooms}개</div>
 	</div>
-	<div class="content_1">숙소정보</div>
+	<hr>
+	<div class="content_1 content">숙소정보</div>
 	<div class="content_4">
 		${room.etc}
 		<br><br><br>
@@ -122,14 +123,16 @@
 	<div class="container_3">
 		<h1>${room.parsedOptions}</h1>
 		<table class="reviewTable">
+			
+				<c:forEach var="option" begin="0" end="${fn:length(room.getParsedOptions())}" items="${room.getParsedOptions()}">
 			<tr>
 				<td class="content_2">시설</td>
 				<td class="content_3">
-					엘리베이터<br>
-					반려동물 입실 가능<br>
-					가족/어린이 숙박에 적합<br>
+					${option}
 				</td>
 			</tr>
+				</c:forEach>
+			
 			<tr>
 					<td class="content_2">가격</td>
 					<td class="content_3">
