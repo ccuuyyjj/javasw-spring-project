@@ -61,4 +61,7 @@ public class AvailDao {
 		return jdbcTemplate.update(sql, args) > 0;
 	}
 
+	public int avgPrice() {
+		return jdbcTemplate.queryForObject("select avg(price) from AVAILABLE_DATE", Integer.class);
+	}
 }

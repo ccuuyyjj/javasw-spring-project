@@ -100,6 +100,9 @@ public class SubController {
 			}
 		}
 
+		int avg = availDao.avgPrice();
+
+		m.addAttribute("avg", avg);
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
