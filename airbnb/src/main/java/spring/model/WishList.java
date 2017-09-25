@@ -2,9 +2,6 @@ package spring.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +27,7 @@ public class WishList {
 		setMember_no(rs.getInt("member_no"));
 		setRoom_no(rs.getInt("room_no"));
 	}
-	
+
 	public WishList(ResultSet rs, String title) throws SQLException {
 		setTitle(rs.getString("title"));
 	}
@@ -38,8 +35,6 @@ public class WishList {
 	public WishList() {
 		super();
 	}
-
-	
 
 	public String getTitle() {
 		return title;
@@ -78,7 +73,4 @@ public class WishList {
 		return "WishList [no=" + no + ", member_no=" + member_no + ", room_no=" + room_no + ", title=" + title + "]";
 	}
 
-	
-
-	
 }

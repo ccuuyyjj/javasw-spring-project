@@ -19,9 +19,8 @@ public class MessageDao {
 
 	public void insert(Message message, int member_no) {
 		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
-		Object[] args = new Object[] { member_no, message.getRoom_no(), message.getCheckin(),
-				message.getCheckout(), message.getQuantity(), message.getQuestion(), message.getName(),
-				message.getPrice() };
+		Object[] args = new Object[] { member_no, message.getRoom_no(), message.getCheckin(), message.getCheckout(),
+				message.getQuantity(), message.getQuestion(), message.getName(), message.getPrice() };
 
 		jdbcTemplate.update(sql, args);
 	}

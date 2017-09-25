@@ -7,6 +7,7 @@ $(document).ready(function() {
 	/*메뉴 클릭, 이동 시*/
 	$(".b").on("click", function() {
 		$(".b").next().not($(this).next()).hide();
+		$(".menu2").find("div, form, p,input").addClass("slider");
 		$(this).next().toggle('fast');
 	});
 	$("html").on("click", function(a) {
