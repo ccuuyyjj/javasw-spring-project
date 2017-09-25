@@ -141,28 +141,27 @@ public class MypageController {
 
 		return "mypage/setting";
 	}
-
-
-//계정관리 - 대금수령내역 - 수령완료내역
-	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
+	
+	//숙소명 가져오기
+	private void getHostName(Model m, String id) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c1 = Calendar.getInstance();
         String strToday = format.format(c1.getTime());
-        log.debug("strToday:"+strToday.substring(0, 4));
-        List<Room> host_list = roomDao.host_list_complete(token.getName());
+        List<Room> host_list = roomDao.host_list_complete(id);
 		Map<Integer, String> r_name = new HashMap<>();
 		try {
 			for(Room room : host_list) {
 				if( room.getProgress() == 4) {
-					List<Rsvp> list = rsvpDao.select_complete(room.getNo());
+					List<Rsvp> list = rsvpDao.select_complete(id);
 					for(Rsvp rsvp : list) {
-						Date day1 = format.parse(rsvp.getEnddate());
-						Date day2 = format.parse(strToday);
-						if(day1.compareTo(day2) < 0) {
-							//숙소명이 길어서 앞부분만 일부 보여줌..
-							String name = room.getName().substring(0, 10)+"...";
-							r_name.put(room.getNo(), name);
+						if(rsvp.getRoom_no() == room.getNo()) {
+							Date day1 = format.parse(rsvp.getEnddate());
+							Date day2 = format.parse(strToday);
+							if(day1.compareTo(day2) < 0) {
+								//숙소명이 길어서 앞부분만 일부 보여줌..
+								String name = room.getName().substring(0, 10)+"...";
+								r_name.put(room.getNo(), name);
+							}
 						}
 					}
 				}
@@ -172,22 +171,48 @@ public class MypageController {
 		}
 		
 		m.addAttribute("nameList", r_name);
-		m.addAttribute("today", strToday.substring(0, 4));
-		return "mypage/transaction_history";
+		m.addAttribute("year", strToday.substring(0, 4));
 	}
 
+//계정관리 - 대금수령내역 - 수령완료내역
+	@RequestMapping("/transaction_history")
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
+		getHostName(m, token.getName());
+		return "mypage/transaction_history";
+	}
+		
 	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
-	public String transaction_history(HttpServletRequest request) throws ParseException {
-		String[] arr 			= request.getParameter("roomName").split("|");
-		int room_no 		= Integer.parseInt(arr[0]);
+	public String transaction_history(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) throws ParseException {
+		String rName		= request.getParameter("roomName");
+		int room_no = 0;
+		if(!rName.equalsIgnoreCase("all")) {
+			room_no = Integer.parseInt(request.getParameter("roomName"));
+			log.debug("room_no="+room_no);
+		}
 		String year 			= request.getParameter("year");
 		String sMonth		= request.getParameter("startMonth");
 		String eMonth	= request.getParameter("endMonth");
+		String sDate		= year + sMonth;
+		String eDate		= year + eMonth;
+		SimpleDateFormat sm = new SimpleDateFormat("yyyy-mm");
+		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
 		
+		Double sum = 0.0;
+		Map<Integer, Room> map = new HashMap<>();
+		for (Rsvp rsvp : Rsvplist) {
+			sum += rsvp.getTotalprice();
+			Room room =  roomDao.select(rsvp.getRoom_no());
+			map.put(rsvp.getRoom_no(), room);
+		}
 		
-		//rsvpDao.sum_price(room_no, year, startMonth, endMonth);
-		
-		
+		getHostName(m, token.getName());
+		m.addAttribute("cList", Rsvplist);
+		m.addAttribute("map", map);
+		m.addAttribute("room_no", room_no);
+		m.addAttribute("year", year);
+		m.addAttribute("sMonth", sMonth);
+		m.addAttribute("eMonth", eMonth);
+		m.addAttribute("total", sum);
 		return "mypage/transaction_history";
 	}
 	

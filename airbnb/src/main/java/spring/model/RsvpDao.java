@@ -1,5 +1,7 @@
 package spring.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RsvpDao {
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -69,9 +73,9 @@ public class RsvpDao {
 	}
 	
 	//예약승낙된것만 가져와야 함.
-	public List<Rsvp> select_complete(int room_no) {
-		String sql = "select * from reservation where progress=2 and room_no = ? ";
-		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
+	public List<Rsvp> select_complete(String id) {
+		String sql = "select * from reservation where progress=2 and owner_id=?";
+		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 	}
 	
 	public boolean status_update(int no, int progress) {
@@ -80,11 +84,20 @@ public class RsvpDao {
 	}
 	
 
-	public List<Rsvp> sum_price(int room_no, String year, String startMonth, String endMonth){
-		String sql = "select * from reservation where room_no=? and "
-				+ "TO_CHAR(to_date(enddate, 'MM/DD/YYYY'), 'YYYY-MM') >= to_date(?-?, 'yyyy-mm') "
-				+ " TO_CHAR(to_date(enddate, 'MM/DD/YYYY'), 'YYYY-MM') <= to_date(?-?, 'yyyy-mm') ";
-		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
+	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id){
+		
+		String sql = "select * from reservation where progress=2 and "
+				+ "enddate >= to_date(?, 'YYYYMM') and  enddate <= sysdate and "
+				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and guest_id=? ";
+		if(room_no >0) {
+			sql += "and room_no = ?";
+			log.debug("sql:"+sql);
+			Object[] args = new Object[] {sMonth,  eMonth, id,  room_no};
+			return jdbcTemplate.query(sql, args, rowMapper);
+		} else {
+			Object[] args = new Object[] {sMonth, eMonth, id};
+			return jdbcTemplate.query(sql, args, rowMapper);
+		}
 	}
 
 	public boolean delete(String id, String no) {
