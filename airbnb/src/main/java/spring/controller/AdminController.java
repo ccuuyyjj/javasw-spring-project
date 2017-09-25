@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
 import spring.model.MemberDao;
+import spring.util.PasswordGenerator;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,8 +34,23 @@ public class AdminController {
 		@RequestMapping(value="/modify", method=RequestMethod.POST)
 		@ResponseBody
 		public String modify(Member m) {
-			System.out.println(m);
 			return String.valueOf(memberDao.modify(m));
+		}
+		
+		@RequestMapping(value="/tempPw", method=RequestMethod.GET)
+		public String tempPwGet(int no, Model m) {
+			m.addAttribute("member", memberDao.select(no));
+			return "admin/member/tempPw";
+		}
+		
+		@RequestMapping(value="/tempPw", method=RequestMethod.POST)
+		@ResponseBody
+		public String tempPwPost(Member m) throws Exception {
+			String newPw = PasswordGenerator.generate();
+			m.setPw(newPw);
+			if(memberDao.modify(m))
+				 return newPw;
+			else throw new Exception("임시비밀번호 발급 실패");
 		}
 	}
 	@Controller
