@@ -99,14 +99,10 @@ public class SubController {
 				}
 			}
 		}
-<<<<<<< HEAD
-		
-		int avg = availDao.avgPrice();
-		
-		m.addAttribute("avg",avg);
-=======
 
->>>>>>> branch 'master' of https://github.com/ccuuyyjj/javasw-spring-project.git
+		int avg = availDao.avgPrice();
+
+		m.addAttribute("avg", avg);
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
