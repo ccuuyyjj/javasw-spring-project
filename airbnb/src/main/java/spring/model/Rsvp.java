@@ -23,7 +23,7 @@ public class Rsvp {
 	private String address;
 	private String owner_id;
 	private String guest_name;
-	
+
 	public Rsvp() {
 	}
 
@@ -60,7 +60,7 @@ public class Rsvp {
 		setOwner_id(request.getParameter("owner_id"));
 		setGuest_name(request.getParameter("guest_name"));
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -156,27 +156,28 @@ public class Rsvp {
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
-	
-	public String getSdate()  {
-		SimpleDateFormat originformat 	= new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat newformat 		= new SimpleDateFormat("yyyy.MM.dd");
+
+	public String getSdate() {
+		SimpleDateFormat originformat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat newformat = new SimpleDateFormat("yyyy.MM.dd");
 		String new_date = "";
 		try {
 			Date origindate = originformat.parse(startdate);
 			new_date = newformat.format(origindate);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new_date;
 	}
-	public String getEdate()  {
-		SimpleDateFormat originformat 	= new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat newformat 		= new SimpleDateFormat("yyyy.MM.dd");
+
+	public String getEdate() {
+		SimpleDateFormat originformat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat newformat = new SimpleDateFormat("yyyy.MM.dd");
 		String new_date = "";
 		try {
 			Date origindate = originformat.parse(enddate);
 			new_date = newformat.format(origindate);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new_date;
@@ -205,6 +206,5 @@ public class Rsvp {
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
-	
-	
+
 }

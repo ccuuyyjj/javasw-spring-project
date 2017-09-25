@@ -47,7 +47,7 @@ public class ImageController {
 		MultipartFile file = mRequest.getFile("file");
 		Room room = (Room) session.getAttribute("room");
 		String origin_file = file.getOriginalFilename();
-		
+
 		if (origin_file != "") {
 			log.debug("파일 업로드 요청 수신");
 			log.debug("파일 이름 = " + origin_file);
@@ -70,11 +70,11 @@ public class ImageController {
 			log.debug("saveFolder = " + saveFolder);
 
 			long time = System.currentTimeMillis();
-			
-			String ext = origin_file.substring(origin_file.lastIndexOf(".")+1);
-			String filename = origin_file.split("\\.")[0]+time+"."+ext;
-			log.debug("filename : "+filename);
-			
+
+			String ext = origin_file.substring(origin_file.lastIndexOf(".") + 1);
+			String filename = origin_file.split("\\.")[0] + time + "." + ext;
+			log.debug("filename : " + filename);
+
 			File target = new File(saveFolder, filename);
 			file.transferTo(target);
 

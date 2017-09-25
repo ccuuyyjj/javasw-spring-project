@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
@@ -21,15 +23,17 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
 				.usersByUsernameQuery("select email, pw, enabled from member where email = ?")
-				.authoritiesByUsernameQuery("select email, authority from member where email = ?");
+				.authoritiesByUsernameQuery("select email, authority from member where email = ?")
+				.passwordEncoder(passwordEncoder());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/host/**", "/mypage/**", "/sub/message/**").authenticated()
+				.antMatchers("/admin/**").hasAuthority("role_admin")
 				// .antMatchers("/권한설정 필요한 URL**")
 				// .authenticated() //모든 인증된 사용자
-				// .hasRole("권한명") // 사용자 보유 권한
+				// .hasAuthority("권한명") // 사용자 보유 권한
 				.anyRequest().permitAll().and()
 
 				.formLogin().successHandler(successHandler()).loginProcessingUrl("/loginProc")
@@ -41,7 +45,12 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
 
-	    return new CustomLoginSuccessHandler("/");
+		return new CustomLoginSuccessHandler("/");
 	}
 
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
 }

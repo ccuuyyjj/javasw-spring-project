@@ -79,8 +79,4 @@ public class Review {
 				+ room_no + ", reg=" + reg + "]";
 	}
 
-	
-	
-	
-	
 }

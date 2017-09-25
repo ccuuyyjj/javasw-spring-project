@@ -43,8 +43,8 @@
   		<aop:pointcut id="txPointcut" expression="execution(* spring.model.*.*(..))" />
   		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
  	</aop:config>
-	<context:component-scan base-package="spring.model"/>
     <context:component-scan base-package="spring.settings"/>
+	<context:component-scan base-package="spring.model"/>
     <context:component-scan base-package="spring.error"/>
 	
 </beans>

@@ -1,0 +1,88 @@
+@charset "UTF-8";
+body, h1, h2, h3, h4, h5 {
+	font-family: "Poppins", sans-serif
+}
+
+body {
+	font-size: 16px;
+}
+
+.w3-half img {
+	margin-bottom: -6px;
+	margin-top: 16px;
+	opacity: 0.8;
+	cursor: pointer
+}
+
+.w3-half img:hover {
+	opacity: 1
+}
+
+.m_table {
+	display: inline-table;
+	border: 1px solid black;
+}
+
+.m_caption {
+	display: table-caption;
+}
+
+.m_head {
+	display: table-header-group;
+}
+
+.m_body {
+	display: table-row-group;
+}
+
+.m_row {
+	display: table-row;
+}
+
+.m_head>div {
+	text-align: center;
+	font-weight: bold;
+}
+
+.m_row>div {
+	display: table-cell;
+	border: 1px solid black;
+	vertical-align: middle;
+	margin: 0;
+	padding: 1px 2px;
+}
+
+.m_no {
+	width: 40px;
+	text-align: center;
+}
+
+.m_email {
+	width: 200px;
+}
+
+.m_name {
+	width: 150px;
+}
+
+.m_phone {
+	width: 150px;
+}
+
+.m_authority {
+	width: 150px;
+}
+
+.m_reg {
+	width: 200px;
+	text-align: center;
+}
+
+.m_pwreset {
+	width: 110px;
+	text-align: center;
+}
+.m_pwreset > a {
+	text-decoration: none;
+	color: black;
+}
