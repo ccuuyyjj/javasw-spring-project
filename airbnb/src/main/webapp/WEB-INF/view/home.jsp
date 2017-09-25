@@ -61,6 +61,9 @@
 					<a href="javaScript:void(0);"
 						class="loginbtn w3-bar-item w3-button">로그인</a>
 				</sec:authorize>
+				<sec:authorize access="hasAuthority('role_admin')">
+					<a href="${pageContext.request.contextPath}/admin" class="w3-bar-item w3-button">관리페이지</a>
+				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<a href="${pageContext.request.contextPath}/member/logout" class="w3-bar-item w3-button">로그아웃</a>
 				</sec:authorize>

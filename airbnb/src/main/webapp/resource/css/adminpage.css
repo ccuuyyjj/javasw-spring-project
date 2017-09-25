@@ -18,25 +18,38 @@ body {
 	opacity: 1
 }
 
-.m_head, .m_row {
+.m_table {
+	display: inline-table;
 	border: 1px solid black;
-	border-right-style: none;
-	width: fit-content;
+}
+
+.m_caption {
+	display: table-caption;
+}
+
+.m_head {
+	display: table-header-group;
+}
+
+.m_body {
+	display: table-row-group;
 }
 
 .m_row {
-	border-top-style: none;
+	display: table-row;
 }
 
 .m_head>div {
 	text-align: center;
+	font-weight: bold;
 }
 
-.m_head>div, .m_row>div {
-	display: inline-block;
+.m_row>div {
+	display: table-cell;
+	border: 1px solid black;
+	vertical-align: middle;
 	margin: 0;
-	border-right: 1px solid black;
-	padding: 2px;
+	padding: 1px 2px;
 }
 
 .m_no {
@@ -66,7 +79,7 @@ body {
 }
 
 .m_pwreset {
-	width: 150px;
+	width: 110px;
 	text-align: center;
 }
 .m_pwreset > a {

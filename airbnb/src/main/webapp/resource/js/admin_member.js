@@ -12,7 +12,7 @@ function toggleEdit(target) {
 		var edit = $("<input>");
 		edit.attr("type", "text");
 		edit.attr("id", target.className.substring(2));
-		edit.css("width", (parseInt($(target).css("width")) - 58));
+		edit.css("width", (parseInt($(target).css("width")) - 54));
 		edit.val($(target).text());
 		$(target).empty();
 		$(target).append(edit);
