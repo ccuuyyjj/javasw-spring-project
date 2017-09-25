@@ -55,33 +55,6 @@ $(document).ready(function(){
 			$("#wishList").show();
             wrapWindowByMask();
 	});
-	$('.wl-btn2').click(function(e){
-		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
-			$.ajax({
-				url:"/airbnb/mypage/wishlist2",
-				type:"GET",
-				datatype:"json",
-//				beforeSend : function(xmlHttpRequest){
-//					console.log("xmlHttpRequest = "+xmlHttpRequest);
-//					xmlHttpRequest.setRequestHeader("AJAX", "true"); // ajax 호출을  header에 기록
-//					console.log("HttpSecurity = "+HttpSecurity.csrf());
-//				},
-//				error:function(xhr, textStatus, error){
-//					if(xhr.status=="500"){
-//						alert("로그인 하세요");
-//						location.href = "/airbnb/member/login";
-//					}
-//				},
-				success:function(res, status, obj){
-					console.log("res = "+res);
-                    console.log("status = "+status);
-                    console.log("obj = "+obj);
-					$("#wishList").show();
-					wrapWindowByMask();
-				}				
-			});
-			e.preventDefault();
-	});
 	$('.cancel_btn').click(function(e){
 			$("#rsv_btn").prev().val($(this).prev().val());
 		// preventDefault는 href의 링크 기본 행동을 막는 기능입니다.
