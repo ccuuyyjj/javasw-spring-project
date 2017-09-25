@@ -2,42 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mypage.css"/>
-<script>
-
-function cngoption(pNo){
-	switch(pNo){
-	case 1:
-		
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
-	}
-	
-	var string = "no="+pNo+"&"
-	
-	$.ajax({
-		   type: "POST",
-		   url: "${pageContext.request.contextPath}/mypage/transaction_history",
-		   data: { 
-			   "no" : pNo,
-			   "step" : pVal
-			   },
-		   DateType: "html",
-		   cache: false,
-		   success: function(msg){
-			   if(msg == "OK"){
-				   window.location.reload();
-			   }
-		   },
-		  error:function(a, b, c){
-				console.log(a, b, c);
-			}
-	});
-	
-}
-</script>
 <div class="w3-main w3-content w3-padding" style="max-width:100%;margin-top:100px">
 	<div class="menu-wrap">
 	    <ul class="w3-center">
@@ -91,7 +55,7 @@ function cngoption(pNo){
 						</select>
 			  		</div>
 			  		<div class="w3-col s2 host-row1 searchbtn">
-			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-small">
+			  			<input type="submit"  value="검색" class="w3-button w3-gray w3-small">
 			  		</div>
 			  	</div>
 			  	</form>
@@ -104,7 +68,7 @@ function cngoption(pNo){
 			  				<th>총 수입</th>
 			  			</thead>
 			  			<tbody>
-			  				<td colspan="4" align="center"><b>거래 없음</b></td>
+			  				
 			  			</tbody>
 			  		</table>
 			  	</div>	
