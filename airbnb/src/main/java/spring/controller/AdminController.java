@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
 import spring.model.MemberDao;
@@ -13,9 +15,13 @@ import spring.model.MemberDao;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Autowired
+	private MemberDao memberDao;
 	
-	@RequestMapping(value= {"/home", "/", ""})
-	public String home() {
+	@RequestMapping(value= {"/home", "/", "", "/member/home", "/member/", "/member"})
+	public String home(Model m) {
+		List<Member> list = memberDao.selectAll();
+		m.addAttribute("memberList", list);
 		return "admin/member/home";
 	}
 	@Controller
@@ -24,11 +30,11 @@ public class AdminController {
 		@Autowired
 		private MemberDao memberDao;
 		
-		@RequestMapping(value= {"/home", "/", ""})
-		public String home(Model m) {
-			List<Member> list = memberDao.selectAll();
-			m.addAttribute("memberList", list);
-			return "admin/member/home";
+		@RequestMapping(value="/modify", method=RequestMethod.POST)
+		@ResponseBody
+		public String modify(Member m) {
+			System.out.println(m);
+			return String.valueOf(memberDao.modify(m));
 		}
 	}
 	@Controller

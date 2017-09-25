@@ -79,4 +79,54 @@ public class MemberDao {
 		String sql = "select * from member order by no";
 		return jdbcTemplate.query(sql, rowMapper);
 	}
+	
+	public boolean modify(Member m) {
+		try {
+			if(m.getNo() != 0) {
+				Member orig = select(m.getNo());
+				if(m.getEmail() != null 
+						&& !m.getEmail().isEmpty() 
+						&& !orig.getEmail().equals(m.getEmail())) {
+					return false;	//수정불가
+				}
+				if(m.getPw() != null 
+						&& !m.getPw().isEmpty() 
+						&& !orig.getPw().equals(m.getPw())) {
+					String sql = "update member set pw = ? where no = ?";
+					if(jdbcTemplate.update(sql, m.getPw(), m.getNo()) < 0)
+						return false;
+				}
+				if(m.getName() != null 
+						&& !m.getName().isEmpty() 
+						&& !orig.getName().equals(m.getName())) {
+					String sql = "update member set name = ? where no = ?";
+					if(jdbcTemplate.update(sql, m.getName(), m.getNo()) < 0)
+						return false;
+				}
+				if(m.getPhone() != null 
+						&& !m.getPhone().isEmpty() 
+						&& !orig.getPhone().equals(m.getPhone())) {
+					String sql = "update member set phone = ? where no = ?";
+					if(jdbcTemplate.update(sql, m.getPhone(), m.getNo()) < 0)
+						return false;
+				}
+				if(m.getAuthority() != null 
+						&& !m.getAuthority().isEmpty() 
+						&& !orig.getAuthority().equals(m.getAuthority())) {
+					String sql = "update member set authority = ? where no = ?";
+					if(jdbcTemplate.update(sql, m.getAuthority(), m.getNo()) < 0)
+						return false;
+				}
+				if(m.getReg() != null 
+						&& !m.getReg().isEmpty() 
+						&& !orig.getReg().equals(m.getReg())) {
+					return false;	//수정불가
+				}
+				return true;	//수정완료
+			}
+			return false;
+		} catch(Exception e) {
+			return false;
+		}
+	}
 }
