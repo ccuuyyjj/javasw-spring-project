@@ -1,18 +1,18 @@
 package spring.controller;
 
-import java.util.ArrayList;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +33,9 @@ import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
-
+import spring.model.Rsvp;
 import spring.model.RsvpDao;
 import spring.model.WishList;
-
-import spring.model.Rsvp;
-
 import spring.model.WishListDao;
 
 @Controller
