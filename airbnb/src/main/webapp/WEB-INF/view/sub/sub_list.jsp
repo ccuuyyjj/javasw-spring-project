@@ -12,8 +12,7 @@
 			<form action="sub_list" method="post">
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '전체')}">
-						<input type="checkbox" name="type" value="전체"
-							checked>
+						<input type="checkbox" name="type" value="전체" checked>
 					</c:when>
 					<c:otherwise>
 						<input type="checkbox" name="type" value="전체">
@@ -23,8 +22,7 @@
 				<p>&nbsp;&nbsp;&nbsp;나 혼자 사용할 수 있는 숙소</p>
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '개인실')}">
-						<input  type="checkbox" name="type" value="개인실"
-							checked>
+						<input type="checkbox" name="type" value="개인실" checked>
 					</c:when>
 					<c:otherwise>
 						<input type="checkbox" name="type" value="개인실">
@@ -34,11 +32,10 @@
 				<p>&nbsp;&nbsp;&nbsp;개인실이 있고 공동 공간은 함께 사용하는 숙소</p>
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '다인실')}">
-						<input  type="checkbox" name="type" value="다인실"
-							checked>
+						<input type="checkbox" name="type" value="다인실" checked>
 					</c:when>
 					<c:otherwise>
-						<input  type="checkbox" name="type" value="다인실">
+						<input type="checkbox" name="type" value="다인실">
 					</c:otherwise>
 				</c:choose>
 				다인실
@@ -54,8 +51,9 @@
 		<div class="add_price">
 			<form action="sub_list" method="post">
 				<img src="${pageContext.request.contextPath}/img/home.png"
-					width="300" height="150" class="slider"> <br>평균 1박 요금은 ₩91,174입니다. <input
-					data-addui='slider' data-min='10000' data-formatter='usd'
+					width="300" height="150" class="slider"> <br>
+					평균 1박당 
+				<input data-addui='slider' data-min='10000' data-formatter='usd'
 					data-fontsize='12' data-step='5' data-range='true'
 					data-timeout='50000' value='${param.price}' data-max='1000000'
 					name='price' /> <br>
