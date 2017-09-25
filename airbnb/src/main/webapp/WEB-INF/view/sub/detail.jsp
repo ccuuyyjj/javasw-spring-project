@@ -124,14 +124,14 @@
 		<h1>${room.parsedOptions}</h1>
 		<table class="reviewTable">
 			
-				<c:forEach var="option" begin="0" end="${fn:length(room.getParsedOptions())}" items="${room.getParsedOptions()}">
+<%-- 				<c:forEach var="option" begin="0" end="${fn:length(room.getParsedOptions())}" items="${room.getParsedOptions()}"> --%>
 			<tr>
 				<td class="content_2">시설</td>
 				<td class="content_3">
-					${option}
+					
 				</td>
 			</tr>
-				</c:forEach>
+<%-- 				</c:forEach> --%>
 			
 			<tr>
 					<td class="content_2">가격</td>
