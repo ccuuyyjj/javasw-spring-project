@@ -84,23 +84,50 @@ body {
 </style>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+	function toggleEdit(target) {
+		console.log(target.tagName);
+		console.log(target.className);
+		if (target.tagName == "BUTTON") {
+			//var value = $(target).val();
+			//$(target).parent().text(value);
+		} else if ($(target).find("input[type=text]").length != 0) {
+			var value = $(target).find("input[type=text]").val();
+			$(target).text(value);
+		} else if(target.className == "m_name" ||
+				target.className == "m_phone" ||
+				target.className == "m_authority" ){
+			var edit = $("<input>");
+			edit.attr("type", "text");
+			edit.attr("id", target.className.substring(2));
+			edit.css("width", (parseInt($(target).css("width")) - 58));
+			edit.val($(target).text());
+			$(target).empty();
+			$(target).append(edit);
+			var submit = $("<button>");
+			submit.attr("onclick", "modify(this);");
+			submit.text("저장");
+			$(target).append(submit);
+		}
+	}
+	function modify(target) {
+		var id = $(target).parent().parent().find(".m_no").text();
+		var type = $(target).parent().find("input[type=text]").attr("id");
+		var value = $(target).parent().find("input[type=text]").val();
+		var data = "no=" + id + "&" + type + "=" + value;
+		$.ajax({
+			url : "${pageContext.request.contextPath}/admin/member/modify",
+			type : "post",
+			data : data,
+			success : function(res) {
+				if(res == "true") $(target).parent().text(value);
+				else $(target).parent().find("input[type=text]").css("border-color", "red");
+			}
+		});
+	}
 	$(document).ready(function() {
 		$(".m_row").on("click", function(e) {
 			toggleEdit(e.target);
 		});
-
-		function toggleEdit(target) {
-			if ($(target).children()) {
-				var edit = $("<input>");
-				edit.attr("type", "text");
-				edit.attr("id", target.className.substring(2));
-				edit.val($(target).text());
-				$(target).empty();
-				$(target).append(edit);
-			} else {
-
-			}
-		}
 	});
 </script>
 </head>
