@@ -280,7 +280,7 @@ public class MypageController {
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		m.addAttribute("title", title);
 		log.debug("ajax로 옴");
-		String ajaxCall = (String) request.getHeader("AJAX");
+		String ajaxCall = request.getHeader("AJAX");
 		if (ajaxCall.equals("true")) {
 			response.sendError(500);
 		}
