@@ -29,20 +29,35 @@ $(document).ready(function(){
 		
 	});
 	
-	//상세페이지 메뉴 상단 고정
-    var jbOffset = $( '.w3-top' ).offset();
-    $( window ).scroll( function() {
-    	$( '.btnFixed' ).fadeIn();
-    	if($( document ).scrollTop()==0 &&  jbOffset.top==0){
-       	  	//$( '.btnFixed' ).css("top", 600);
-    		$( '.btnFixed' ).fadeOut();
-    	}		
-    	else if ( $(window).scrollTop() >= jbOffset.top ) {
-    		$( '.btnFixed' ).css("top", "130px");
-      }
-      else {
-    	  $( '.btnFixed' ).css("top", 600);
-      }
-    	
-    });	
+	scrollController();
+     
+    // 스크롤을 하는 경우에만 실행됨
+    $(window).on('scroll', function() {
+        scrollController();
+    });
+
 });
+//메인 메뉴의 위치를 제어하는 함수
+function scrollController() {
+    currentScrollTop = $(window).scrollTop();
+    console.log("currentScrollTop:"+currentScrollTop)
+    if ( currentScrollTop < 800) {
+    	$('#header').css('top', -(currentScrollTop));
+        $('#menu').css('top', 700-(currentScrollTop));
+        $('#menu').removeClass('menu_top');
+        $('#btnFixed').removeClass('btnFixed_top');
+        $('#btnFixed').addClass('btnFixed');
+        $('#btnFixed').css('top', $( '.menu' ).offset().top);
+        
+    } else {
+    	$("#header").removeClass("w3-top");
+  	  	$("#header").removeClass("header-z");
+  	  	$('#btnFixed').removeClass('btnFixed');	
+  	  	$('#menu').addClass('menu_top');
+  	  	$('#btnFixed').addClass('btnFixed_top');
+  	  	$('#btnFixed').css("top", "0px");
+    	  
+    }
+}
+
+

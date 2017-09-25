@@ -123,7 +123,7 @@
 		<div class="area-80 layer-center">
 		<div>
 	    <form action="${pageContext.request.contextPath}/mypage/wishlist" method="post" id="wishform">
-	    	<input type="hidden" name="room_no" value="${id}">
+	    	<input type="hidden" name="room_no" value="${no}">
 			<div class="w-row wfont">위시리스트에 담기</div>
 	            <div class="w-row" id="addwl">
 	                <button class="wbtn">새로운 위시리스트 만들기</button>
@@ -201,8 +201,9 @@
 			class="close">
 		<div class="refund">
 			<div class="wfont">환불 정책</div>
-			<textarea id="rsv_notice">
+			<textarea id="rsv_notice" readonly="readonly">
         </textarea>
+        	<input type="hidden">
 			<div id="rsv_btn">
 				<button class="w3-btn w3-round-large w3-border-blue final_rsv" >예약 취소</button>
 			</div>

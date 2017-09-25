@@ -37,7 +37,11 @@ public class MemberController {
 			throw new Exception("이미 로그인된 상태입니다.");
 		log.debug("referer:" + referer);
 
+		if(referer.indexOf("login")>=0) {
+			referer = "http://localhost:8080/airbnb/home";
+		}
 		request.getSession().setAttribute("prevPage", referer);
+		
 		return "member/login";
 	}
 

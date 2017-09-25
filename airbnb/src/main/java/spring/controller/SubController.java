@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,21 +8,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.AvailDao;
 import spring.model.Cart;
@@ -36,6 +41,8 @@ import spring.model.Room;
 import spring.model.RoomDao;
 import spring.model.Rsvp;
 import spring.model.RsvpDao;
+import spring.model.WishList;
+import spring.model.WishListDao;
 
 @Controller
 @RequestMapping("/sub")
@@ -174,8 +181,7 @@ public class SubController {
 				}
 			}
 		}
-		
-		
+				
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
@@ -264,7 +270,6 @@ public class SubController {
 		rsvp.setGuest_name(member.getName());
 		
 		rsvpDao.insert(rsvp);
-		//throw new Exception();
 		cartDao.delete(c_no); //예약 가능 요청이 완료되었기에 cart테이블에선 삭제해준다.
 		return "redirect:/sub/book_end";
 	}
@@ -345,9 +350,6 @@ public class SubController {
 
 		return "redirect:/sub/messageDetail/" + room_no;
 	}
-	
-	
-	
 
 	// 리뷰 작성
 	@RequestMapping(value = "/review/{room_no}", method = RequestMethod.POST)

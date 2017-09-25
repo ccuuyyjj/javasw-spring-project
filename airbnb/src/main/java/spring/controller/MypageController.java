@@ -1,6 +1,8 @@
 package spring.controller;
 
 import java.util.ArrayList;
+import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -250,7 +254,45 @@ public class MypageController {
 		return "mypage/wishlist";
 	}
 	
-	//예약 취소
+	@RequestMapping("/wishlistdetail/{wltitle}/{roomcount}")
+	public String wishlistdetail(Model m, UsernamePasswordAuthenticationToken token, 
+			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		List<Room> roomlist = new ArrayList<>();
+		for(int i=0; i<wishlist.size();i++) {
+			Room room = roomDao.select(wishlist.get(i).getRoom_no());
+			roomlist.add(room);
+		}
+		m.addAttribute("roomlist", roomlist);
+		m.addAttribute("wltitle", wltitle);
+		m.addAttribute("roomcount", roomcount);
+		
+		return	"mypage/wishlistdetail";
+	}
+	
+	@RequestMapping("/wishlist2")
+	@ResponseBody
+	public HashMap<String, String> wishlist2(@RequestParam HashMap<String, String> param, 
+			Model m, UsernamePasswordAuthenticationToken token, HttpServletRequest request, 
+			HttpServletResponse response) throws IOException {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		List<WishList> title = wishListDao.titleSelect(member_no);
+		m.addAttribute("title", title);
+		log.debug("ajax로 옴");
+		String ajaxCall = (String) request.getHeader("AJAX");
+		if(ajaxCall.equals("true")) {
+			response.sendError(500);
+		}
+		HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("code","1");
+	    map.put("msg", "등록하였습니다.");
+	    return map;
+	}
+	
+		//예약 취소
 	@ResponseBody
 	@RequestMapping(value="/delete",method = RequestMethod.POST)
 	public String delete(@RequestParam(value="no")String no,UsernamePasswordAuthenticationToken token) {
@@ -260,5 +302,4 @@ public class MypageController {
 		System.out.println("a ="+ a);
 		return String.valueOf(a);
 	}
-
 }

@@ -22,7 +22,7 @@ public class RsvpDao {
 		return new Rsvp(rs);
 	};
 
-	public void insert(Rsvp rsvp) {
+	public void insert(Rsvp rsvp) throws Exception {
 		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, "
 	+ "to_date(?, 'YYYY-MM-DD HH24:MI:SS'), to_date(?, 'YYYY-MM-DD HH24:MI:SS'), "
 				+ "?, ?, sysdate,?, ?,     ?, ?, ?, ?)";
@@ -31,7 +31,6 @@ public class RsvpDao {
 				rsvp.getStartdate(), rsvp.getEnddate(),  
 				rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id(), 
 				rsvp.getR_id(), rsvp.getAddress(), rsvp.getOwner_id(), rsvp.getGuest_name() };
-
 		jdbcTemplate.update(sql, args);
 	}
 

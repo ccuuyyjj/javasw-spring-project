@@ -40,7 +40,7 @@
   		</tx:attributes>
  	</tx:advice>
  	<aop:config>
-  		<aop:pointcut id="txPointcut" expression="execution(* com.test.web.*.service.*ServiceImpl.*(..))" />
+  		<aop:pointcut id="txPointcut" expression="execution(* spring.model.*.*(..))" />
   		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
  	</aop:config>
 	<context:component-scan base-package="spring.model"/>

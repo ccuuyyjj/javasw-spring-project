@@ -48,7 +48,7 @@
 									<td>${list.owner_id }</td>
 									<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
 
-									<td><input type="hidden" name="no" value="${list.no}">
+									<td><input type="hidden" value="${list.no}">
 										<button class="cancel_btn w3-btn w3-round-large w3-red">예약
 											취소</button></td>
 								</tr>

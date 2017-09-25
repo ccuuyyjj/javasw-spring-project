@@ -93,12 +93,15 @@ public class HostController {
 		String bed_type = request.getParameter("bed_type");
 
 		Room room = (Room) session.getAttribute("room");
-		room.setCapacity(capacity);
-		room.setBeds(beds);
-		room.setBedrooms(bedrooms);
-		room.setBed_type(bed_type);
-
-		return "redirect:/host/become_host1_2";
+		if(room != null) {
+			room.setCapacity(capacity);
+			room.setBeds(beds);
+			room.setBedrooms(bedrooms);
+			room.setBed_type(bed_type);
+			return "redirect:/host/become_host1_2";
+		} else {
+			return "redirect:/";
+		}		
 	}
 
 	@RequestMapping("become_host1_2")
@@ -112,47 +115,56 @@ public class HostController {
 		log.debug(address);
 
 		Room room = (Room) session.getAttribute("room");
-		room.setAddress(address);
+		if(room != null) {
+			room.setAddress(address);
+			return "redirect:/host/become_host1_3";
+		} else {
+			return "redirect:/";
+		}
 
-		return "redirect:/host/become_host1_3";
+		
 	}
 
 	@RequestMapping("become_host1_3")
 	public String become_host1_3(Model model) {
 		Room room = (Room) session.getAttribute("room");
-//		if (room == null) {
-//			room = new Room();
-//		}
-		model.addAttribute("address", room.getAddress());
-
-		return "host/become_host1_3";
+		if (room != null) {
+			model.addAttribute("address", room.getAddress());
+			return "host/become_host1_3";
+		} else {
+			return "redirect:/";
+		}		
 	}
 
 	@RequestMapping(value = "become_host1_3", method = RequestMethod.POST)
 	public String become_host1_3(HttpServletRequest request) {
 		String mode = request.getParameter("mode");
 		Room room = (Room) session.getAttribute("room");
-		double lat = Double.parseDouble(request.getParameter("lat"));
-		double lng = Double.parseDouble(request.getParameter("lng"));
-		log.debug("lat : " + lat + ", lng : " + lng);
-		room.setLat(lat);
-		room.setLng(lng);
-
-		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
-			if (room.getNo() > 0) {
-				// 호스팅 수정
-				roomDao.update(room);
-
+		if(room != null) {
+			double lat = Double.parseDouble(request.getParameter("lat"));
+			double lng = Double.parseDouble(request.getParameter("lng"));
+			log.debug("lat : " + lat + ", lng : " + lng);
+			room.setLat(lat);
+			room.setLng(lng);
+	
+			if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
+				if (room.getNo() > 0) {
+					// 호스팅 수정
+					roomDao.update(room);
+	
+				} else {
+					// 호스팅 새로 등록
+					room.setProgress(1); // 1단계
+					int room_no = roomDao.insert(room);
+					room.setNo(room_no);
+				}
+	
+				return "redirect:/host/become_host1_6";
 			} else {
-				// 호스팅 새로 등록
-				room.setProgress(1); // 1단계
-				int room_no = roomDao.insert(room);
-				room.setNo(room_no);
+				return "redirect:/host/become_host1_4";
 			}
-
-			return "redirect:/host/become_host1_6";
 		} else {
-			return "redirect:/host/become_host1_4";
+			return "redirect:/";
 		}
 
 	}
@@ -165,32 +177,38 @@ public class HostController {
 	@RequestMapping(value = "become_host1_4", method = RequestMethod.POST)
 	public String become_host1_4(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Room room = (Room) session.getAttribute("room");
-		String options = "";
-		String[] option = request.getParameterValues("options");
-		if (option != null) {
-			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "|";
-			}
-			log.debug("options =>" + options);
-			room.setOptions(options);
-		}
-
-		String mode = request.getParameter("mode");
-		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
-
-			if (room.getNo() > 0) {
+		if(room != null) {
+			
+			String options = "";
+			String[] option = request.getParameterValues("options");
+			if (option != null) {
+				for (int i = 0; i < option.length; i++) {
+					options += option[i] + "|";
+				}
+				log.debug("options =>" + options);
 				room.setOptions(options);
-				roomDao.update(room);
-			} else {
-				// 호스팅 새로 등록
-				room.setProgress(1); // 1단계
-				int room_no = roomDao.insert(room);
-				room.setNo(room_no);
 			}
-			return "redirect:/host/become_host1_6";
-
+	
+			String mode = request.getParameter("mode");
+			if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
+	
+				if (room.getNo() > 0) {
+					room.setOptions(options);
+					roomDao.update(room);
+				} else {
+					// 호스팅 새로 등록
+					room.setProgress(1); // 1단계
+					int room_no = roomDao.insert(room);
+					room.setNo(room_no);
+				}
+				return "redirect:/host/become_host1_6";
+	
+			} else {
+				return "redirect:/host/become_host1_5";
+			}
+			
 		} else {
-			return "redirect:/host/become_host1_5";
+			return "redirect:/";
 		}
 	}
 
@@ -202,25 +220,30 @@ public class HostController {
 	@RequestMapping(value = "become_host1_5", method = RequestMethod.POST)
 	public String become_host1_5(HttpServletRequest request) {
 		Room room = (Room) session.getAttribute("room");
-		String options = room.getOptions();
-		String[] option = request.getParameterValues("options");
-		if (option != null) {
-			for (int i = 0; i < option.length; i++) {
-				options += option[i] + "|";
+		if(room != null) {
+			String options = room.getOptions();
+			String[] option = request.getParameterValues("options");
+			if (option != null) {
+				for (int i = 0; i < option.length; i++) {
+					options += option[i] + "|";
+				}
+				log.debug("options =>" + options);
 			}
-			log.debug("options =>" + options);
-		}
-		if (room.getNo() > 0) {
-			room.setOptions(options);
-			roomDao.update(room);
+			if (room.getNo() > 0) {
+				room.setOptions(options);
+				roomDao.update(room);
+			} else {
+				// 호스팅 새로 등록
+				room.setProgress(1); // 1단계
+				int room_no = roomDao.insert(room);
+				room.setNo(room_no);
+			}
+			return "redirect:/host/become_host1_6";
+			
 		} else {
-			// 호스팅 새로 등록
-			room.setProgress(1); // 1단계
-			int room_no = roomDao.insert(room);
-			room.setNo(room_no);
+			return "redirect:/";
 		}
-
-		return "redirect:/host/become_host1_6";
+		
 	}
 
 	@RequestMapping("become_host1_6")
@@ -245,11 +268,13 @@ public class HostController {
 	public String become_host2(@RequestParam(value="room_no", required=false, defaultValue="-1") int room_no,
 			UsernamePasswordAuthenticationToken token) {
 		//마이페이지 숙소목록에서 바로 올 경우도 있으므로 추가
-		Member member = memberDao.select(token.getName());
-		session.setAttribute("room", new Room());
-		Room room = (Room) session.getAttribute("room");
-		room.setOwner_id(member.getEmail());
-		room.setNo(room_no);
+		if(room_no > 0) {
+			Member member = memberDao.select(token.getName());
+			session.setAttribute("room", new Room());
+			Room room = (Room) session.getAttribute("room");
+			room.setOwner_id(member.getEmail());
+			room.setNo(room_no);
+		}
 		
 		return "host/become_host2";
 	}
@@ -262,27 +287,33 @@ public class HostController {
 	@RequestMapping(value = "become_host2_1", method = RequestMethod.POST)
 	public String become_host2_1(HttpServletRequest request) {
 		Room room = (Room) session.getAttribute("room");
-		String etc = request.getParameter("etc");
-		String name = request.getParameter("name");
-
-		room.setEtc(etc);
-		room.setName(name);
-		room.setProgress(2); // 2단계
-		roomDao.update(room);
-
-		return "redirect:/host/become_host2_2";
+		if(room != null) {
+			
+			String etc = request.getParameter("etc");
+			String name = request.getParameter("name");
+			room.setEtc(etc);
+			room.setName(name);
+			room.setProgress(2); // 2단계
+			roomDao.update(room);
+			return "redirect:/host/become_host2_2";
+			
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping("become_host2_2")
 	public String become_host2_2(Model model) {
 		Room room = (Room) session.getAttribute("room");
-//		if (room == null) {
-//			room = new Room();
-//		}
-		String photourl = room.getPhotoUrl();
-		model.addAttribute("photourl", photourl);
-
-		return "host/become_host2_2";
+		if (room != null) {
+		
+			String photourl = room.getPhotoUrl();
+			model.addAttribute("photourl", photourl);
+			return "host/become_host2_2";
+			
+		} else {
+			return "redirect:/";
+		}
 	}
 
 	@RequestMapping(value = "become_host2_2", method = RequestMethod.POST)
@@ -316,38 +347,51 @@ public class HostController {
 	@RequestMapping(value = "become_host3_1", method = RequestMethod.POST)
 	public String become_host3_1(HttpServletRequest request, Model m) {
 		Room room = (Room) session.getAttribute("room");
+		if(room != null) {
+			
+			int price = Integer.parseInt(request.getParameter("price"));
+			session.setAttribute("price", price);
 
-		int price = Integer.parseInt(request.getParameter("price"));
-		session.setAttribute("price", price);
+			// 체크인시간은 options 테이블에 추가
+			String check_in = request.getParameter("check_in");
+			log.debug("check_in=>" + check_in);
+			String options = room.getOptions();
+			if (options != null) {
+				options += check_in;
+			} else {
+				options = check_in;
+			}
+			log.debug("options=>" + options);
+			room.setOptions(options);
 
-		// 체크인시간은 options 테이블에 추가
-		String check_in = request.getParameter("check_in");
-		log.debug("check_in=>" + check_in);
-		String options = room.getOptions();
-		if (options != null) {
-			options += check_in;
-		} else {
-			options = check_in;
+			String mode = request.getParameter("mode");
+			if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
+				room.setProgress(3); // 3단계
+				roomDao.update(room);
+				return "redirect:/host/become_host3_3";
+			} else {
+				return "redirect:/host/become_host3_2";
+			}
+			
 		}
-		log.debug("options=>" + options);
-		room.setOptions(options);
-
-		String mode = request.getParameter("mode");
-		if (mode != null && mode.equalsIgnoreCase("save")) { // 임시 저장
-			room.setProgress(3); // 3단계
-			roomDao.update(room);
-			return "redirect:/host/become_host3_3";
-		} else {
-			return "redirect:/host/become_host3_2";
+		else {
+			return "redirect:/";
 		}
+		
 	}
 
 	@RequestMapping("become_host3_2")
 	public String become_host3_2(Model m) {
 		// 달력에 available_date의 available이 true이면 달력에 표시해주기 위해 데이터를 가져온다
 		Room room = (Room) session.getAttribute("room");
-		List<Avail> list = availDao.selectAvailable(room.getNo());
-		m.addAttribute("availList", list);
+		if(room != null) {
+			
+			List<Avail> list = availDao.selectAvailable(room.getNo());
+			m.addAttribute("availList", list);
+			
+		} else {
+			return "redirect:/";
+		}
 
 		return "host/become_host3_2";
 	}
@@ -423,9 +467,16 @@ public class HostController {
 	@RequestMapping(value = "become_host3_3", method = RequestMethod.POST)
 	public String become_host3_3(HttpServletRequest request) {
 		Room room = (Room) session.getAttribute("room");
-		room.setProgress(4); // 4단계(완료단계)
-		roomDao.update(room);
-		return "redirect:/host/become_host3_4";
+		if(room != null) {
+			
+			room.setProgress(4); // 4단계(완료단계)
+			roomDao.update(room);
+			return "redirect:/host/become_host3_4";
+			
+		} else {
+			return "redirect:/";
+		}
+		
 	}
 
 	@RequestMapping("become_host3_4")

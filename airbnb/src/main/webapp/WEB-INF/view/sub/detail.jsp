@@ -87,10 +87,10 @@
  <div class="photo">
      <img src="${pageContext.request.contextPath}/viewPhoto/${room.no}" alt="${room.name}" width="100%" height="80%">
  </div>
-<div class="container_1">
-	<div class="container">
+ <div class="container_1" id="summary">
+	<div class="container"  id="menu">
 		<div class="menu">
-			<a class="atag" href="#">개요</a>
+			<a class="atag" href="#summary">개요</a>
             <a class="atag" href="#">후기</a>
 			<a class="atag" href="#">호스트</a>
 			<a class="atag" href="#">위치</a>
@@ -178,9 +178,7 @@
 	
 	
 	<!-- fixed 예약(S) -->
-	
-	
-	<div class="btnFixed">
+	<div class="btnFixed" id="btnFixed">
    	<div class="w3-row content_1 booking-title w3-center">
    		최소 : <span>\</span><span><fmt:formatNumber value="${room.price}" pattern="#,###" /></span> /박
    	</div>
@@ -242,7 +240,7 @@
     	</div>
     	<hr>
     	<div class="w3-row w3-center">
-    		<input type="button" class="booking-width booking-height w3-white w3-round-large wl-btn" value="위시리스트에 담기">
+    		<input type="button" class="booking-width booking-height w3-white w3-round-large wl-btn2" value="위시리스트에 담기">
     	</div>
    	</div>
    </div>
