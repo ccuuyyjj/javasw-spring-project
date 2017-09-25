@@ -71,17 +71,11 @@ public class MemberController {
 			@RequestParam(value = "pw") String pw, @RequestParam(value = "pw_confirm") String pw_confirm) {
 		String email = token.getName();
 
-		System.out.println();
 		System.out.println("email " + email);
-
-		String a = "a";
-		String b = "a";
-
-		System.out.println(a == b);
 
 		// 이전 비밀번호 확인
 		boolean result = memberDao.pw_check(email, pre_pw);
-		if (result) {
+		if (!result) {
 			System.out.println("여기");
 			return "redirect:../mypage/setting?result=pre_pw";
 		}
@@ -102,13 +96,14 @@ public class MemberController {
 	// 계정 삭제
 	@RequestMapping("/delete")
 	String delete(UsernamePasswordAuthenticationToken token, @RequestParam(required = false, value = "pw") String pw) {
-		if(token != null) {
-			String email = token.getName();
-			log.debug(((User)token.getPrincipal()).toString());
+		String email = token.getName();
+		boolean result = memberDao.delete(email, pw);
+		if(result) {
+			return "redirect:../mypage/setting?result=delete";
+		}else{
+		System.out.println("여기?");
+		return "redirect:/logout";
 		}
-		// memberDao.delete(email, pw);
-		return "home";
-
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

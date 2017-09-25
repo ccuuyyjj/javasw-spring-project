@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,12 +18,11 @@ public class MemberDao {
 	private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	private BCryptPasswordEncoder encoder;
+	private PasswordEncoder encoder;
 
 	// 회원가입
 	public void insert(Member member) {
 		int no = jdbcTemplate.queryForObject("select member_seq.nextval from dual", Integer.class);
-
 		String sql = "insert into member values(?,?,?,?,?,'true','role_member',sysdate)";
 		String securepw = encoder.encode(member.getPw());
 		Object[] args = new Object[] { no, member.getEmail(),securepw, member.getName(), member.getPhone(), };
@@ -40,24 +39,27 @@ public class MemberDao {
 
 	// 이전 비밀번호 확인
 	public boolean pw_check(String email, String pre_pw) {
-		String sql = "select count(*) from member where email=? and pw=? ";
-
+		String origin = jdbcTemplate.queryForObject("select pw from member where email=?",String.class, email);
 		// 조회가 있다고 뜬다면 ==0 로 false 가 반환된다
-		return jdbcTemplate.queryForObject(sql, new Object[] { email, pre_pw }, Integer.class) == 0;
+		return encoder.matches(pre_pw, origin);
 	}
 
 	// 비밀 번호 변경
 	public void pwchange(String pw, String email) {
 		String sql = "update member set pw=? where email=?";
-
-		jdbcTemplate.update(sql, new Object[] { pw, email });
+		jdbcTemplate.update(sql, new Object[] { encoder.encode(pw), email });
 	}
 
 	// 계정 해지
-	public void delete(String email, String pw) {
-		String sql = "delete member where email=? and pw=?";
-
-		jdbcTemplate.update(sql, new Object[] { email, pw });
+	public boolean delete(String email, String pw) {
+		String origin = jdbcTemplate.queryForObject("select pw from member where email=?",String.class, email);
+		
+		if(encoder.matches(pw,origin)) {
+			jdbcTemplate.update("delete member where email=?", new Object[] {email});
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 	private RowMapper<Member> rowMapper = (rs, i) -> {
@@ -82,6 +84,7 @@ public class MemberDao {
 	
 	public boolean modify(Member m) {
 		try {
+			
 			if(m.getNo() != 0) {
 				Member orig = select(m.getNo());
 				if(m.getEmail() != null 
@@ -91,9 +94,9 @@ public class MemberDao {
 				}
 				if(m.getPw() != null 
 						&& !m.getPw().isEmpty() 
-						&& !orig.getPw().equals(m.getPw())) {
+						&& !encoder.matches(m.getPw(),orig.getPw())) {
 					String sql = "update member set pw = ? where no = ?";
-					if(jdbcTemplate.update(sql, m.getPw(), m.getNo()) < 0)
+					if(jdbcTemplate.update(sql, encoder.encode(m.getPw()), m.getNo()) < 0)
 						return false;
 				}
 				if(m.getName() != null 

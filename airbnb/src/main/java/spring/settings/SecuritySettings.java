@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
@@ -21,7 +23,8 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
 				.usersByUsernameQuery("select email, pw, enabled from member where email = ?")
-				.authoritiesByUsernameQuery("select email, authority from member where email = ?");
+				.authoritiesByUsernameQuery("select email, authority from member where email = ?")
+				.passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -41,7 +44,12 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
 
-	    return new CustomLoginSuccessHandler("/");
+		return new CustomLoginSuccessHandler("/");
 	}
 
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
 }
