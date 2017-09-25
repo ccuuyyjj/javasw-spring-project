@@ -24,16 +24,15 @@ public class ReviewDao {
 				new Object[] { review.getEmail(), review.getDetail(), review.getRating(), review.getRoom_no() });
 	}
 
-	//리뷰 리스트
-	public List<Review> select(int page,int pagePosts,int id) {
+	// 리뷰 리스트
+	public List<Review> select(int page, int pagePosts, int id) {
 		int start = (page - 1) * pagePosts + 1;
 		int end = start + pagePosts - 1;
 		String sql = "select * from (select rownum rn, a.* from "
-				+ "(select * from review where room_no=? order by reg desc)"
-				+ "a) where rn between "+start+" and "+end;
-		return jdbcTemplate.query(sql, new Object[] {id},mapper);
+				+ "(select * from review where room_no=? order by reg desc)" + "a) where rn between " + start + " and "
+				+ end;
+		return jdbcTemplate.query(sql, new Object[] { id }, mapper);
 	}
-
 
 	// 리뷰 갯수, 등급 평균
 	public int count(int id) {
