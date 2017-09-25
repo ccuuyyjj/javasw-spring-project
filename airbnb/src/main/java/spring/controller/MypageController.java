@@ -1,15 +1,15 @@
 package spring.controller;
 
-import java.util.ArrayList;
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,12 +31,9 @@ import spring.model.Message;
 import spring.model.MessageDao;
 import spring.model.Room;
 import spring.model.RoomDao;
-
+import spring.model.Rsvp;
 import spring.model.RsvpDao;
 import spring.model.WishList;
-
-import spring.model.Rsvp;
-
 import spring.model.WishListDao;
 
 @Controller
@@ -75,7 +72,7 @@ public class MypageController {
 	@RequestMapping("/my_reservations")
 	public String my_reservations(Model m, UsernamePasswordAuthenticationToken token) {
 		List<Room> host_list = roomDao.host_list_complete(token.getName());
-		//Map<Room, List<Rsvp>> map = new HashMap<>();
+		// Map<Room, List<Rsvp>> map = new HashMap<>();
 		Map<Integer, List<Rsvp>> map = new HashMap<>();
 		for (Room room : host_list) {
 			List<Rsvp> list = rsvpDao.select(room.getNo());
@@ -98,10 +95,16 @@ public class MypageController {
 		if (result) {
 			// 상태값이 변경될때 게스트에게 메시지로 알려준다.
 			String msg = "회원님이 예약 요청하신 건이 [예약";
-			switch(progress) {
-				case 1: msg += "확인]"; break;
-				case 2: msg += "승낙]"; break;
-				case 3: msg += "거절]"; break;
+			switch (progress) {
+			case 1:
+				msg += "확인]";
+				break;
+			case 2:
+				msg += "승낙]";
+				break;
+			case 3:
+				msg += "거절]";
+				break;
 			}
 			msg += " 되었습니다";
 
@@ -142,78 +145,73 @@ public class MypageController {
 		return "mypage/setting";
 	}
 
-
-//계정관리 - 대금수령내역 - 수령완료내역
+	// 계정관리 - 대금수령내역 - 수령완료내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c1 = Calendar.getInstance();
-        String strToday = format.format(c1.getTime());
-        log.debug("strToday:"+strToday.substring(0, 4));
-        List<Room> host_list = roomDao.host_list_complete(token.getName());
+		Calendar c1 = Calendar.getInstance();
+		String strToday = format.format(c1.getTime());
+		log.debug("strToday:" + strToday.substring(0, 4));
+		List<Room> host_list = roomDao.host_list_complete(token.getName());
 		Map<Integer, String> r_name = new HashMap<>();
 		try {
-			for(Room room : host_list) {
-				if( room.getProgress() == 4) {
+			for (Room room : host_list) {
+				if (room.getProgress() == 4) {
 					List<Rsvp> list = rsvpDao.select_complete(room.getNo());
-					for(Rsvp rsvp : list) {
+					for (Rsvp rsvp : list) {
 						Date day1 = format.parse(rsvp.getEnddate());
 						Date day2 = format.parse(strToday);
-						if(day1.compareTo(day2) < 0) {
-							//숙소명이 길어서 앞부분만 일부 보여줌..
-							String name = room.getName().substring(0, 10)+"...";
+						if (day1.compareTo(day2) < 0) {
+							// 숙소명이 길어서 앞부분만 일부 보여줌..
+							String name = room.getName().substring(0, 10) + "...";
 							r_name.put(room.getNo(), name);
 						}
 					}
 				}
 			}
-		} catch(ParseException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		m.addAttribute("nameList", r_name);
 		m.addAttribute("today", strToday.substring(0, 4));
 		return "mypage/transaction_history";
 	}
 
-	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
+	@RequestMapping(value = "/transaction_history", method = RequestMethod.POST)
 	public String transaction_history(HttpServletRequest request) throws ParseException {
-		String[] arr 			= request.getParameter("roomName").split("|");
-		int room_no 		= Integer.parseInt(arr[0]);
-		String year 			= request.getParameter("year");
-		String sMonth		= request.getParameter("startMonth");
-		String eMonth	= request.getParameter("endMonth");
-		
-		
-		//rsvpDao.sum_price(room_no, year, startMonth, endMonth);
-		
-		
+		String[] arr = request.getParameter("roomName").split("|");
+		int room_no = Integer.parseInt(arr[0]);
+		String year = request.getParameter("year");
+		String sMonth = request.getParameter("startMonth");
+		String eMonth = request.getParameter("endMonth");
+
+		// rsvpDao.sum_price(room_no, year, startMonth, endMonth);
+
 		return "mypage/transaction_history";
 	}
-	
-	//계정관리 - 대금수령내역 - 수령 예정 내역
+
+	// 계정관리 - 대금수령내역 - 수령 예정 내역
 	@RequestMapping("/future_transactions")
-	public String future_transactions(){
-		
+	public String future_transactions() {
+
 		return "mypage/future_transactions";
 	}
-	
-	
-	//계정관리 - 대금수령내역 - 총 수입
+
+	// 계정관리 - 대금수령내역 - 총 수입
 	@RequestMapping("/tax_report")
 	public String tax_report() {
 		return "mypage/tax_report";
 	}
-	
-	
-	//여행목록 - 예정된 여행
+
+	// 여행목록 - 예정된 여행
 	@RequestMapping(value = "/trips")
 	public String trips(Model m, UsernamePasswordAuthenticationToken token) {
 		String id = token.getName();
 
-		List<Rsvp> rsvp = rsvpDao.select(id,1);
+		List<Rsvp> rsvp = rsvpDao.select(id, 1);
 		m.addAttribute("rsvp", rsvp);
-		
+
 		return "mypage/trips";
 	}
 
@@ -222,20 +220,20 @@ public class MypageController {
 	public String old_trips(Model m, UsernamePasswordAuthenticationToken token) {
 		String id = token.getName();
 
-		List<Rsvp> rsvp = rsvpDao.select(id,2);
-		
+		List<Rsvp> rsvp = rsvpDao.select(id, 2);
+
 		m.addAttribute("rsvp", rsvp);
-		
+
 		return "mypage/old_trips";
 	}
 
-	@RequestMapping(value="/wishlist", method=RequestMethod.POST)
+	@RequestMapping(value = "/wishlist", method = RequestMethod.POST)
 	public void wishlist(Model m, WishList wishList, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		wishListDao.insert(wishList, member_no);
 	}
-	
+
 	@RequestMapping("/wishlist")
 	public String wishlist(Model m, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
@@ -243,63 +241,63 @@ public class MypageController {
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		int count = wishListDao.count(member_no);
 		List<Integer> roomcount = new ArrayList<>();
-		for(int i=0; i < count; i++) {
+		for (int i = 0; i < count; i++) {
 			count = wishListDao.count(member_no, title.get(i).getTitle());
 			roomcount.add(count);
 		}
-		
+
 		m.addAttribute("title", title);
 		m.addAttribute("count", count);
 		m.addAttribute("roomcount", roomcount);
 		return "mypage/wishlist";
 	}
-	
+
 	@RequestMapping("/wishlistdetail/{wltitle}/{roomcount}")
-	public String wishlistdetail(Model m, UsernamePasswordAuthenticationToken token, 
+	public String wishlistdetail(Model m, UsernamePasswordAuthenticationToken token,
 			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
 		List<Room> roomlist = new ArrayList<>();
-		for(int i=0; i<wishlist.size();i++) {
+		for (int i = 0; i < wishlist.size(); i++) {
 			Room room = roomDao.select(wishlist.get(i).getRoom_no());
 			roomlist.add(room);
 		}
 		m.addAttribute("roomlist", roomlist);
 		m.addAttribute("wltitle", wltitle);
 		m.addAttribute("roomcount", roomcount);
-		
-		return	"mypage/wishlistdetail";
+
+		return "mypage/wishlistdetail";
 	}
-	
+
 	@RequestMapping("/wishlist2")
 	@ResponseBody
-	public HashMap<String, String> wishlist2(@RequestParam HashMap<String, String> param, 
-			Model m, UsernamePasswordAuthenticationToken token, HttpServletRequest request, 
-			HttpServletResponse response) throws IOException {
+	public HashMap<String, String> wishlist2(@RequestParam HashMap<String, String> param, Model m,
+			UsernamePasswordAuthenticationToken token, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		m.addAttribute("title", title);
 		log.debug("ajax로 옴");
-		String ajaxCall = (String) request.getHeader("AJAX");
-		if(ajaxCall.equals("true")) {
+		String ajaxCall = request.getHeader("AJAX");
+		if (ajaxCall.equals("true")) {
 			response.sendError(500);
 		}
 		HashMap<String, String> map = new HashMap<String, String>();
-	    map.put("code","1");
-	    map.put("msg", "등록하였습니다.");
-	    return map;
+		map.put("code", "1");
+		map.put("msg", "등록하였습니다.");
+		return map;
 	}
-	
-		//예약 취소
+
+	// 예약 취소
 	@ResponseBody
-	@RequestMapping(value="/delete",method = RequestMethod.POST)
-	public String delete(@RequestParam(value="no")String no,UsernamePasswordAuthenticationToken token) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(@RequestParam(value = "no") String no, UsernamePasswordAuthenticationToken token) {
 		System.out.println("들어옴");
 		String id = token.getName();
 		boolean a = rsvpDao.delete(id, no);
-		System.out.println("a ="+ a);
+		System.out.println("a =" + a);
 		return String.valueOf(a);
 	}
 }

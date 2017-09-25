@@ -30,9 +30,10 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/host/**", "/mypage/**", "/sub/message/**").authenticated()
+				.antMatchers("/admin/**").hasAuthority("role_admin")
 				// .antMatchers("/권한설정 필요한 URL**")
 				// .authenticated() //모든 인증된 사용자
-				// .hasRole("권한명") // 사용자 보유 권한
+				// .hasAuthority("권한명") // 사용자 보유 권한
 				.anyRequest().permitAll().and()
 
 				.formLogin().successHandler(successHandler()).loginProcessingUrl("/loginProc")

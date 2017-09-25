@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -37,11 +36,11 @@ public class MemberController {
 			throw new Exception("이미 로그인된 상태입니다.");
 		log.debug("referer:" + referer);
 
-		if(referer.indexOf("login")>=0) {
+		if (referer.indexOf("login") >= 0) {
 			referer = "http://localhost:8080/airbnb/home";
 		}
 		request.getSession().setAttribute("prevPage", referer);
-		
+
 		return "member/login";
 	}
 
@@ -98,11 +97,11 @@ public class MemberController {
 	String delete(UsernamePasswordAuthenticationToken token, @RequestParam(required = false, value = "pw") String pw) {
 		String email = token.getName();
 		boolean result = memberDao.delete(email, pw);
-		if(result) {
+		if (result) {
 			return "redirect:../mypage/setting?result=delete";
-		}else{
-		System.out.println("여기?");
-		return "redirect:/logout";
+		} else {
+			System.out.println("여기?");
+			return "redirect:/logout";
 		}
 	}
 
