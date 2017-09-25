@@ -39,25 +39,27 @@ $(document).ready(function(){
 });
 //메인 메뉴의 위치를 제어하는 함수
 function scrollController() {
-    currentScrollTop = $(window).scrollTop();
-    console.log("currentScrollTop:"+currentScrollTop)
-    if ( currentScrollTop < 800) {
-    	$('#header').css('top', -(currentScrollTop));
-        $('#menu').css('top', 700-(currentScrollTop));
-        $('#menu').removeClass('menu_top');
-        $('#btnFixed').removeClass('btnFixed_top');
-        $('#btnFixed').addClass('btnFixed');
-        $('#btnFixed').css('top', $( '.menu' ).offset().top);
-        
-    } else {
-    	$("#header").removeClass("w3-top");
-  	  	$("#header").removeClass("header-z");
-  	  	$('#btnFixed').removeClass('btnFixed');	
-  	  	$('#menu').addClass('menu_top');
-  	  	$('#btnFixed').addClass('btnFixed_top');
-  	  	$('#btnFixed').css("top", "0px");
-    	  
-    }
+	var menu = $( '.menu' ).offset();
+	if(menu != null){
+	    currentScrollTop = $(window).scrollTop();
+	    console.log("currentScrollTop:"+currentScrollTop)
+	    if ( currentScrollTop < 800) {
+	    	$('#header').css('top', -(currentScrollTop));
+	        $('#menu').css('top', 700-(currentScrollTop));
+	        $('#menu').removeClass('menu_top');
+	        $('#btnFixed').removeClass('btnFixed_top');
+	        $('#btnFixed').addClass('btnFixed');
+	        $('#btnFixed').css('top', menu.top);
+	        
+	    } else {
+	    	$("#header").removeClass("w3-top");
+	  	  	$("#header").removeClass("header-z");
+	  	  	$('#btnFixed').removeClass('btnFixed');	
+	  	  	$('#menu').addClass('menu_top');
+	  	  	$('#btnFixed').addClass('btnFixed_top');
+	  	  	$('#btnFixed').css("top", "0px");
+	    }
+	}
 }
 
 
