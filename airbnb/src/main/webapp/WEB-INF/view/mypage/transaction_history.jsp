@@ -45,52 +45,86 @@
 				  		<select class="host-select" name="roomName">
 							<option value="all">모든 숙소</option>
 							<c:forEach var="no" items="${nameList}">
-								<option value="${no.key}|${no.value}">${no.value}</option>
+								<c:if test="${room_no eq no.key }"><option value="${no.key}"  selected>${no.value}</option></c:if>
+								<c:if test="${room_no != no.key }"><option value="${no.key}" >${no.value}</option></c:if>
 							</c:forEach>
 						</select>
 		  			</div>
 		  			<div class="w3-col s2 w3-center host-row1">	
 				  		<select class="host-select" name="year">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
-			           			<option value="${today - idx}">${today - idx}년</option>
+				  				<c:if test="${year eq idx }"><option value="${year - idx}" selected>${year}년</option></c:if>
+			           			<c:if test="${year != idx }"><option value="${year - idx}">${year - idx}년</option></c:if>
 				          	</c:forEach>
 			          	</select>
 			  		</div>
 			  		<div class="w3-col s2 w3-center host-row1">	
 				  		<select class="host-select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
-								<option value="${i}">시작: ${i}월</option>
+				  			  	<c:if test="${sMonth eq i }">
+				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
+									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
+								</c:if>
+								<c:if test="${sMonth != i }">
+									<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
+									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
+								</c:if>	
 							</c:forEach>
 						</select>
 			  		</div>
 			  		<div class="w3-col s2 host-row1">	
 				  		<select class="host-select" name="endMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
-				  				<c:if test="${i eq 12}">
-				  					<option value="${i}" selected>종료:${i}월</option>
-				  				</c:if>
-				  				<c:if test="${i != 12}">
-									<option value="${i}" >종료:${i}월</option>
-								</c:if>	
+				  				<c:choose>
+				  					<c:when test="${eMonth != null}">
+				  						<c:if test="${eMonth eq i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
+				  						<c:if test="${eMonth != i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>">종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
+				  					</c:when>
+				  					<c:otherwise>
+				  						<c:if test="${i eq 12}">
+						  					<option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
+						  				</c:if>
+						  				<c:if test="${i != 12}">
+											<option value="<fmt:formatNumber value='${i}' pattern='00'/>" >종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
+										</c:if>	
+				  					</c:otherwise>
+				  				</c:choose>
 							</c:forEach>
 						</select>
 			  		</div>
 			  		<div class="w3-col s2 host-row1 searchbtn">
-			  			<input type="button" onClick="JavaScript:cngoption(1)" value="검색" class="w3-button w3-gray w3-small">
+			  			<input type="submit"  value="검색" class="w3-button w3-gray w3-small">
 			  		</div>
 			  	</div>
 			  	</form>
-			  	<div class="host-row1 area-100" id="sub1">	
+			  	<div class="host-row1 area-90" id="sub1">	
 			  		<table class="history_table" >
 			  			<thead>
-			  				<th>날짜</th>
-			  				<th>종류</th>
-			  				<th>상세정보</th>
-			  				<th>금액</th>
-			  				<th>수령 완료 금액</th>
+			  				<tr>
+				  				<th>날짜</th>
+				  				<th>숙소명</th>
+				  				<th>수령 완료 금액</th>
+				  			</tr>	
 			  			</thead>
 			  			<tbody>
-			  				<td colspan="5" align="center"><b>거래 없음</b></td>
+			  				<c:forEach var="rsvp" items="${cList}">
+				  				<tr> 
+				  					<td>${rsvp.getEdate()} </td>
+				  					<td>
+				  						<c:forEach var="no" items="${map}">
+						  				<c:if test="${no.key == rsvp.room_no}">
+							  				<c:set value="${no.value}" var="room"/>
+					  						${room.name}
+				  						</c:if>
+				  						</c:forEach>
+				  					</td>
+				  					<td style="text-align:right;"><fmt:formatNumber value="${rsvp.totalprice}" pattern="#,###" /></td>
+			  					</tr>
+			  				</c:forEach>
+			  				<tr>
+			  					<td colspan="2"><b>총합계</b></td>
+			  					<td style="text-align:right;"><b><fmt:formatNumber value="${total}" pattern="#,###" /></b></td>
+			  				</tr>
 			  			</tbody>
 			  		</table>
 			  	</div>

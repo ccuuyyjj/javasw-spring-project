@@ -38,24 +38,52 @@
 			</div>
 			<!-- 수령예정 내역 -->
 			<div class="area-100 tab-item"  id="menu2">
+				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/mypage/future_transactions">
 				<div class="w3-row">
 			  		<div class="w3-col s3  text-right host-row1">
-				  		<select class="host-select">
-							<option>모든 숙소</option>
+				  		<select class="host-select" name="roomName">
+							<option value="all">모든 숙소</option>
+							<c:forEach var="no" items="${nameList}">
+								<c:if test="${room_no eq no.key }"><option value="${no.key}"  selected>${no.value}</option></c:if>
+								<c:if test="${room_no != no.key }"><option value="${no.key}" >${no.value}</option></c:if>
+							</c:forEach>
 						</select>
 		  			</div>
+		  			<div class="w3-col s2 host-row1 searchbtn">
+			  			<input type="submit"  value="검색" class="w3-button w3-gray w3-small">
+			  		</div>
 			  	</div>
-			  	<div class="host-row1 area-100">	
+			  	</form>
+			  	<div class="host-row1 area-90">	
 			  		<table class="history_table" >
 			  			<thead>
-			  				<th>날짜</th>
-			  				<th>종류</th>
-			  				<th>상세정보</th>
-			  				<th>입금처</th>
-			  				<th>금액</th>
+			  				<tr>
+				  				<th>날짜</th>
+				  				<th>숙박명</th>
+				  				<th>입금처</th>
+				  				<th>금액</th>
+				  			</tr>	
 			  			</thead>
 			  			<tbody>
-			  				<td colspan="5" align="center"><b>거래 없음</b></td>
+			  				<c:forEach var="rsvp" items="${fList}">
+			  				<tr>
+			  					<td>${rsvp.getEdate()}</td>
+			  					<td>
+			  						<c:forEach var="no" items="${map}">
+						  				<c:if test="${no.key == rsvp.room_no}">
+							  				<c:set value="${no.value}" var="room"/>
+					  						${room.name}
+				  						</c:if>
+				  					</c:forEach>
+			  					</td>
+			  					<td>${rsvp.guest_id }</td>
+			  					<td style="text-align:right;"><fmt:formatNumber value="${rsvp.totalprice}" pattern="#,###" /></td>
+			  				</tr>
+			  				</c:forEach>
+			  				<tr>
+			  					<td colspan="3"><b>총합계</b></td>
+			  					<td style="text-align:right;"><b><fmt:formatNumber value="${total}" pattern="#,###" /></b></td>
+			  				</tr>
 			  			</tbody>
 			  		</table>
 			  	</div>	

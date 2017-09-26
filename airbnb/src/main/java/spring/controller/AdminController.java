@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.Member;
@@ -20,10 +21,12 @@ public class AdminController {
 	private MemberDao memberDao;
 
 	@RequestMapping(value = { "/home", "/", "", "/member/home", "/member/", "/member" })
-	public String home(Model m) {
-		List<Member> list = memberDao.selectAll();
+	public String home(Model m, @RequestParam(value = "query", defaultValue = "") String query) {
+		List<Member> list;
+		// if(!query.isEmpty())
+		list = memberDao.selectAll();
 		m.addAttribute("memberList", list);
-		return "admin/member/home";
+		return "admin/member/list";
 	}
 
 	@Controller
