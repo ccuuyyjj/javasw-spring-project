@@ -50,48 +50,14 @@ body {font-size:16px;}
 					<h2>월매출현황</h2>
 				</div>
 				<div class="m_caption_center">
-				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/admin/sales">
-			  		<div class="w3-col s3 w3-center row1">	
-				  		<select class="select" name="year">
+				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/admin/sales/month_sales">
+			  		<div class="w3-col s1 w3-center row1">	
+				  		<select class="select" name="syear">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
-				  				<c:if test="${year eq idx }"><option value="${year - idx}" selected>${year}년</option></c:if>
-			           			<c:if test="${year != idx }"><option value="${year - idx}">${year - idx}년</option></c:if>
+				  				<c:if test="${syear eq (year - idx) }"><option value="${syear}" selected>${syear}년</option></c:if>
+			           			<c:if test="${syear != (year - idx) }"><option value="${year - idx}">${year - idx}년</option></c:if>
 				          	</c:forEach>
 			          	</select>
-			  		</div>
-			  		<div class="w3-col s4 w3-center row1">	
-				  		<select class="select" name="startMonth">
-				  			<c:forEach begin="1" end="12" step="1" var="i">
-				  			  	<c:if test="${sMonth eq i }">
-				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
-									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
-								</c:if>
-								<c:if test="${sMonth != i }">
-									<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
-									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
-								</c:if>	
-							</c:forEach>
-						</select>
-			  		</div>
-			  		<div class="w3-col s3 row1">	
-				  		<select class="select" name="endMonth">
-				  			<c:forEach begin="1" end="12" step="1" var="i">
-				  				<c:choose>
-				  					<c:when test="${eMonth != null}">
-				  						<c:if test="${eMonth eq i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
-				  						<c:if test="${eMonth != i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>">종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
-				  					</c:when>
-				  					<c:otherwise>
-				  						<c:if test="${i eq 12}">
-						  					<option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
-						  				</c:if>
-						  				<c:if test="${i != 12}">
-											<option value="<fmt:formatNumber value='${i}' pattern='00'/>" >종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
-										</c:if>	
-				  					</c:otherwise>
-				  				</c:choose>
-							</c:forEach>
-						</select>
 			  		</div>
 			  		<div class="w3-col s2 row1 searchbtn">
 			  			<input type="submit"  value="검색" class="w3-button w3-gray w3-small">
@@ -101,33 +67,25 @@ body {font-size:16px;}
 			</div>
 			
 			<div class="m_head">
-				<div class="m_row">
-					<div class="m_no">번호</div>
-					<div class="m_name">숙박명</div>
-					<div class="m_email">체크아웃날짜</div>
-					<div class="m_phone">호스트id</div>
-					<div class="m_phone">게스트id</div>
-					<div class="m_authority">금액</div>
+				<div class="m_row div_row">
+					<div class="m_no">날짜</div>
+					<div class="m_no">건수</div>
+					<div class="m_no">금액</div>
 				</div>
 			</div>
 			<div class="m_body">
-			<c:forEach var="rsvp" items="${rsvpList}">
-				<div class="m_row">
-					<div class="m_no">${rsvp.no}</div>
-					<div class="m_email">
-						<c:forEach var="no" items="${map}">
-		  				<c:if test="${no.key == rsvp.room_no}">
-			  				<c:set value="${no.value}" var="room"/>
-	  						${room.name}
-  						</c:if>
-  						</c:forEach>
-					</div>
-					<div class="m_name">${rsvp.getEdate()} </div>
-					<div class="m_phone">${rsvp.owner_id}</div>
-					<div class="m_phone">${rsvp.guest_id}</div>
-					<div class="m_authority">${rsvp.totalprice}</div>
+			<c:forEach var="sale" items="${mList}">
+				<div class="m_row div_row">
+					<div class="m_no">${sale.dt}월</div>
+					<div class="m_no">${sale.cnt}</div>
+					<div class="m_no text-right"><fmt:formatNumber value="${sale.amount}" pattern="#,###" /></div>
 				</div>
 			</c:forEach>
+				<div class="m_row div_row">
+					<div class="m_no"><b>총합계</b></div>
+					<div class="m_no"><b><fmt:formatNumber value="${total_cnt}" pattern="#,###" /></b></div>
+					<div class="m_no text-right"><b><fmt:formatNumber value="${total_amount}" pattern="#,###" /></b></div>
+				</div>
 			</div>
 		</div>
   </div>

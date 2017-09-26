@@ -152,6 +152,7 @@ public class MypageController {
 		Calendar c1 = Calendar.getInstance();
 		String strToday = format.format(c1.getTime());
 		m.addAttribute("year", strToday.substring(0, 4));
+		log.debug("year:" + strToday.substring(0, 4));
 		return strToday;
 	}
 
@@ -199,11 +200,11 @@ public class MypageController {
 		if (!rName.equalsIgnoreCase("all")) {
 			room_no = Integer.parseInt(rName);
 		}
-		String year = request.getParameter("year");
+		String syear = request.getParameter("syear");
 		String sMonth = request.getParameter("startMonth");
 		String eMonth = request.getParameter("endMonth");
-		String sDate = year + sMonth;
-		String eDate = year + eMonth;
+		String sDate = syear + sMonth;
+		String eDate = syear + eMonth;
 		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
 
 		int sum = 0;
@@ -219,7 +220,7 @@ public class MypageController {
 		m.addAttribute("cList", Rsvplist);
 		m.addAttribute("map", map);
 		m.addAttribute("room_no", room_no);
-		m.addAttribute("year", year);
+		m.addAttribute("syear", syear);
 		m.addAttribute("sMonth", sMonth);
 		m.addAttribute("eMonth", eMonth);
 		m.addAttribute("total", sum);
@@ -296,11 +297,11 @@ public class MypageController {
 
 	@RequestMapping(value = "/tax_report", method = RequestMethod.POST)
 	public String tax_report(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) {
-		String year = request.getParameter("year");
+		String syear = request.getParameter("syear");
 		String sMonth = request.getParameter("startMonth");
 		String eMonth = request.getParameter("endMonth");
-		String sDate = year + sMonth;
-		String eDate = year + eMonth;
+		String sDate = syear + sMonth;
+		String eDate = syear + eMonth;
 		List<Rsvp> Rsvplist = rsvpDao.tax_report(sDate, eDate, token.getName());
 
 		String strToday = getToday(m);
@@ -327,7 +328,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 
-		m.addAttribute("year", year);
+		m.addAttribute("syear", syear);
 		m.addAttribute("sMonth", sMonth);
 		m.addAttribute("eMonth", eMonth);
 		m.addAttribute("tList", Rsvplist);

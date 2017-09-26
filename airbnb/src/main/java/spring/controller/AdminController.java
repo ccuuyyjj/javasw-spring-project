@@ -99,19 +99,21 @@ public class AdminController {
 			String year = strToday.split("-")[0];
 			String month = strToday.split("-")[1];
 			String day = strToday.split("-")[2];
-
-			m.addAttribute("syear", year);
-			m.addAttribute("smonth", month);
-			// m.addAttribute("sday", day);
-			m.addAttribute("eyear", year);
-			m.addAttribute("emonth", month);
-			m.addAttribute("eday", day);
+			m.addAttribute("year", year);
 			return strToday;
 		}
 
 		@RequestMapping(value = { "/home", "/", "" })
 		public String home(Model m) {
 			String strToday = getToday(m);
+			String year = strToday.split("-")[0];
+			String month = strToday.split("-")[1];
+			String day = strToday.split("-")[2];
+			m.addAttribute("syear", year);
+			m.addAttribute("smonth", month);
+			m.addAttribute("eyear", year);
+			m.addAttribute("emonth", month);
+			m.addAttribute("eday", day);
 			return "admin/sales/home";
 		}
 
@@ -149,9 +151,35 @@ public class AdminController {
 		}
 
 		@RequestMapping("/month_sales")
-		public String month_sales() {
+		public String month_sales(Model m) {
+			String strToday = getToday(m);
+
 			return "admin/sales/month_sales";
 		}
+
+		@RequestMapping(value = "/month_sales", method = RequestMethod.POST)
+		public String month_sales(Model m, HttpServletRequest request) {
+			String strToday = getToday(m);
+			String syear = request.getParameter("syear");
+			String sDate = syear + "0101";
+			String eDate = syear + "1231";
+
+			int total_cnt = 0;
+			int total_amount = 0;
+			List<Sales> mList = salesDao.sales_month_history(sDate, eDate);
+			for (Sales list : mList) {
+				total_cnt += list.getCnt();
+				total_amount += list.getAmount();
+			}
+			log.debug("syear:" + syear);
+			m.addAttribute("syear", syear);
+			m.addAttribute("mList", mList);
+			m.addAttribute("total_cnt", total_cnt);
+			m.addAttribute("total_amount", total_amount);
+
+			return "admin/sales/month_sales";
+		}
+
 	}
 
 }

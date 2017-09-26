@@ -54,8 +54,8 @@ body {font-size:16px;}
 			  		<div class="w3-col s1 w3-center row1">	
 				  		<select class="select" name="syear">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
-				  				<c:if test="${syear eq idx }"><option value="${syear - idx}" selected>${syear}년</option></c:if>
-			           			<c:if test="${syear != idx }"><option value="${syear - idx}">${syear - idx}년</option></c:if>
+				  				<c:if test="${syear eq (year - idx)}"><option value="${syear}" selected>${syear}년</option></c:if>
+			           			<c:if test="${syear != (year - idx) }"><option value="${year - idx}">${year - idx}년</option></c:if>
 				          	</c:forEach>
 			          	</select>
 			  		</div>
@@ -97,8 +97,8 @@ body {font-size:16px;}
 			  			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~&nbsp;	
 				  		<select class="select" name="eyear">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
-				  				<c:if test="${eyear eq idx }"><option value="${eyear - idx}" selected>${eyear}년</option></c:if>
-			           			<c:if test="${eyear != idx }"><option value="${eyear - idx}">${eyear - idx}년</option></c:if>
+				  				<c:if test="${eyear eq (year - idx) }"><option value="${eyear}" selected>${eyear}년</option></c:if>
+			           			<c:if test="${eyear != (year - idx) }"><option value="${year - idx}">${year - idx}년</option></c:if>
 				          	</c:forEach>
 			          	</select>
 			  		</div>
