@@ -5,7 +5,17 @@
 <div class="w3-container" id="member" style="margin-top: 75px">
 	<div class="m_table">
 		<div class="m_caption">
-			<h2>회원 목록</h2>
+			<div class="m_flex">
+				<div class="m_title">
+					<h2>회원 목록</h2>
+				</div>
+				<div class="m_searchbox">
+					<form id="m_search" method="post">
+						<input type="text" name="query" placeholder="검색어">
+						<input type="submit" value="검색">
+					</form>
+				</div>
+			</div>
 		</div>
 		<div class="m_head">
 			<div class="m_row">

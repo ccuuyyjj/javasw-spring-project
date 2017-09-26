@@ -27,6 +27,21 @@ body {
 	display: table-caption;
 }
 
+.m_flex {
+	display: flex;
+}
+
+.m_caption .m_title {
+	display:inline-block;
+}
+
+.m_caption .m_searchbox {
+	display:inline-block;
+	margin: auto 0;
+	flex-grow: 1;
+	text-align: right;
+}
+
 .m_head {
 	display: table-header-group;
 }
