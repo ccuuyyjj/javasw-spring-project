@@ -36,12 +36,13 @@ $(document).ready(function(){
                 	console.log("title = "+title);
                 	$.ajax({
                 		type:"POST",
+                		async: false,
 						url:"/airbnb/mypage/wishlist",
 						data:{title},
-						before:function(){
-							
+						beforeSend:wishlist,
+						success:function(){
+							alert("새로운 위시리스트가 추가되었습니다");
 						},
-						success:wishlist
                 	})
                 });
             });
@@ -56,6 +57,7 @@ function wishlist() {
 		$.ajax({
 			url : '/airbnb/mypage/wishlist2',
 			type:"GET",
+			async: false,
 			dataType: "json",
 			success:function(res, code){
 				console.log(res, code);
@@ -104,6 +106,7 @@ function insert(roomno) {
 		$.ajax({
 			type:"POST",
 			url:"/airbnb/mypage/wishlist",
+			async: false,
 			data:{room_no, title},
 			error:function(request,status,error){
 			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

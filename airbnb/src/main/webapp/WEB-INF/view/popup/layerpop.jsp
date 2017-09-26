@@ -144,7 +144,7 @@
 							</div>
 							<div class="wl-box_5">
 								<button class="wbtn3">취소</button>
-								<button class="wbtn4" disabled>목록 만들기</button>									
+								<input type="button" class="wbtn4" disabled value="목록 만들기">									
 							</div>
 						</div>
 					</div>

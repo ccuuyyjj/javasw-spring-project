@@ -97,6 +97,7 @@ $(document).ready(
 			});
 			$('.wishListWindow .close').click(function(e) {
 				e.preventDefault();
+				$(".wl-input").val('');
 				$(".w-add").remove();
 				$('.wbtn').show();
 				$('#newwl').hide();

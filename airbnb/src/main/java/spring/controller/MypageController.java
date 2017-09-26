@@ -144,6 +144,7 @@ public class MypageController {
 
 		return "mypage/setting";
 	}
+
 	// 오늘 날짜 가져오기
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -372,15 +373,14 @@ public class MypageController {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
-		int count = wishListDao.count(member_no);
 		List<Integer> roomcount = new ArrayList<>();
-		for (int i = 0; i < count; i++) {
-			count = wishListDao.count(member_no, title.get(i).getTitle());
+		for (int i = 0; i < title.size(); i++) {
+			int count = wishListDao.count(member_no, title.get(i).getTitle());
 			roomcount.add(count);
 		}
 
 		m.addAttribute("title", title);
-		m.addAttribute("count", count);
+		m.addAttribute("count", title.size());
 		m.addAttribute("roomcount", roomcount);
 		return "mypage/wishlist";
 	}
@@ -391,14 +391,20 @@ public class MypageController {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		log.debug("wishlist 수" + wishlist.size());
+		log.debug("wishlist = " + wishlist.toString());
 		List<Room> roomlist = new ArrayList<>();
 		for (int i = 0; i < wishlist.size(); i++) {
-			Room room = roomDao.select(wishlist.get(i).getRoom_no());
-			roomlist.add(room);
+			int room_no = wishlist.get(i).getRoom_no();
+			if (room_no > 0) {
+				Room room = roomDao.select(room_no);
+				roomlist.add(room);
+				log.debug("room = " + room.toString());
+			}
 		}
 		m.addAttribute("roomlist", roomlist);
 		m.addAttribute("wltitle", wltitle);
-		m.addAttribute("roomcount", roomcount);
+		m.addAttribute("roomcount", roomlist.size());
 
 		return "mypage/wishlistdetail";
 	}
@@ -415,7 +421,7 @@ public class MypageController {
 		for (int i = 0; i < title.size(); i++) {
 			buffer.append("{");
 			buffer.append("\"title\":\"");
-			buffer.append(title.get(i).getTitle().trim());
+			buffer.append(title.get(i).getTitle());
 			buffer.append("\"},");
 		}
 		buffer.deleteCharAt(buffer.length() - 1);

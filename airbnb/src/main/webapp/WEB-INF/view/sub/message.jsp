@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/message.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mypage.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
@@ -10,7 +12,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <div class="container1">
+<div class="w3-main w3-content w3-padding"
+	style="max-width: 100%; margin-top: 100px">
+	<div class="menu-wrap">
+		<ul class="w3-center">
+			<li><a href="${pageContext.request.contextPath}/sub/message">메시지</a>
+			</li>
+			<li><a href="${pageContext.request.contextPath}/mypage/rooms">숙소
+					목록</a></li>
+			<li class="hover"><a
+				href="${pageContext.request.contextPath}/mypage/trips">여행 목록</a></li>
+			<li><a href="${pageContext.request.contextPath}/mypage/setting">계정
+					관리</a></li>
+		</ul>
+	</div>
+	<div class="w3-row">
+        <div class="container1" style="margin-top: 0">
             <div>
                 <div id="inbox-container" class="page-container-responsive page-container-inbox space-7 space-top-7">
                     <div class="row1 inbox-nav">
@@ -95,5 +112,6 @@
                 </div>
             </div>
             <div class="empty"></div>
- </div>           
+    	</div>
+ 	</div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>
