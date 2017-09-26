@@ -52,7 +52,7 @@
 				  		<select class="host-select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 				  			  	<c:if test="${sMonth eq i }">
-				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
+				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  selected>
 									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
 								</c:if>
 								<c:if test="${sMonth != i }">

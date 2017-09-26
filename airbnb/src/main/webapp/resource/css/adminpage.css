@@ -116,7 +116,7 @@ body {
 }
 .m_caption_center{
 	text-align:center; 
-	width:700px;
+	width:900px;
 	margin-left:500px;
 }
 .searchbtn{
@@ -143,4 +143,16 @@ body {
     font-size:16px;
     color:white;
     font-weight:bold;
+}
+.text-right{
+	text-align:right;
+	padding-right:5px;
+}
+.div_row > div {
+	display: table-cell;
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	margin: 0;
+	height:30px;
+	padding: 1px 2px;
 }

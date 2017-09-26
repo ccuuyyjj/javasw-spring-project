@@ -144,6 +144,7 @@ public class MypageController {
 
 		return "mypage/setting";
 	}
+
 	// 오늘 날짜 가져오기
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -205,7 +206,7 @@ public class MypageController {
 		String eDate = year + eMonth;
 		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
 
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		// 숙박명 가져오기 위해
 		for (Rsvp rsvp : Rsvplist) {
@@ -269,7 +270,7 @@ public class MypageController {
 			room_no = Integer.parseInt(rName);
 		}
 		List<Rsvp> Rsvplist = rsvpDao.future_transactions(token.getName(), room_no);
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		// 숙박명 가져오기 위해
 		for (Rsvp rsvp : Rsvplist) {
@@ -303,7 +304,7 @@ public class MypageController {
 		List<Rsvp> Rsvplist = rsvpDao.tax_report(sDate, eDate, token.getName());
 
 		String strToday = getToday(m);
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		Map<Integer, String> str = new HashMap<>();
 		// 숙박명 가져오기 위해

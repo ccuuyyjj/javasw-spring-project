@@ -20,6 +20,8 @@ import spring.model.Member;
 import spring.model.MemberDao;
 import spring.model.RoomDao;
 import spring.model.RsvpDao;
+import spring.model.Sales;
+import spring.model.SalesDao;
 import spring.util.PasswordGenerator;
 
 @Controller
@@ -84,6 +86,8 @@ public class AdminController {
 		private RsvpDao rsvpDao;
 		@Autowired
 		private RoomDao roomDao;
+		@Autowired
+		private SalesDao salesDao;
 
 		// 오늘 날짜 가져오기
 		private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -91,7 +95,17 @@ public class AdminController {
 		private String getToday(Model m) {
 			Calendar c1 = Calendar.getInstance();
 			String strToday = format.format(c1.getTime());
-			m.addAttribute("year", strToday.substring(0, 4));
+
+			String year = strToday.split("-")[0];
+			String month = strToday.split("-")[1];
+			String day = strToday.split("-")[2];
+
+			m.addAttribute("syear", year);
+			m.addAttribute("smonth", month);
+			// m.addAttribute("sday", day);
+			m.addAttribute("eyear", year);
+			m.addAttribute("emonth", month);
+			m.addAttribute("eday", day);
 			return strToday;
 		}
 
@@ -104,23 +118,33 @@ public class AdminController {
 		@RequestMapping(value = { "/home", "/", "" }, method = RequestMethod.POST)
 		public String home(Model m, HttpServletRequest request) {
 			String strToday = getToday(m);
-			String year = request.getParameter("year");
-			String month = request.getParameter("month");
+			String syear = request.getParameter("syear");
+			String smonth = request.getParameter("smonth");
 			String sday = request.getParameter("sday");
+			String sDate = syear + smonth + sday;
+			String eyear = request.getParameter("eyear");
+			String emonth = request.getParameter("emonth");
 			String eday = request.getParameter("eday");
-			String sDate = year + month + sday;
-			String eDate = year + month + eday;
-			// Map<String, Integer> map = rsvpDao.sales_day_history(sDate, eDate);
-			Double sum = 0.0;
+			String eDate = eyear + emonth + eday;
 
-			// 숙박명 가져오기 위해
-			// for (Rsvp rsvp : Rsvplist) {
-			// sum += rsvp.getTotalprice();
-			// Room room = roomDao.select(rsvp.getRoom_no());
-			// map.put(rsvp.getRoom_no(), room);
-			// }
-			// m.addAttribute("rsvpList", Rsvplist);
-			// m.addAttribute("map", map);
+			int total_cnt = 0;
+			int total_amount = 0;
+			List<Sales> dList = salesDao.sales_day_history(sDate, eDate);
+			for (Sales list : dList) {
+				total_cnt += list.getCnt();
+				total_amount += list.getAmount();
+			}
+
+			m.addAttribute("syear", syear);
+			m.addAttribute("smonth", smonth);
+			m.addAttribute("sday", sday);
+			m.addAttribute("eyear", eyear);
+			m.addAttribute("emonth", emonth);
+			m.addAttribute("eday", eday);
+			m.addAttribute("dList", dList);
+			m.addAttribute("total_cnt", total_cnt);
+			m.addAttribute("total_amount", total_amount);
+
 			return "admin/sales/home";
 		}
 
