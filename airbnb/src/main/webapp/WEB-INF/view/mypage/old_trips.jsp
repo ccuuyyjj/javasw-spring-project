@@ -49,7 +49,7 @@
 										<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
 										<td>
 											<input type="hidden" value="${list.room_no}">
-											<button class="move_rsv w3-btn w3-round-large w3-red" >이동 하기</button>
+											<button class="move_rsv w3-btn w3-round-large w3-green" >이동 하기</button>
 										</td>
 									</tr>
 								</c:forEach>

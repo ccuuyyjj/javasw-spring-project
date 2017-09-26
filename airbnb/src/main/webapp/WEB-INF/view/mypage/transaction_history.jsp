@@ -97,12 +97,14 @@
 			  		</div>
 			  	</div>
 			  	</form>
-			  	<div class="host-row1 area-100" id="sub1">	
+			  	<div class="host-row1 area-90" id="sub1">	
 			  		<table class="history_table" >
 			  			<thead>
-			  				<th>날짜</th>
-			  				<th>숙소명</th>
-			  				<th>수령 완료 금액</th>
+			  				<tr>
+				  				<th>날짜</th>
+				  				<th>숙소명</th>
+				  				<th>수령 완료 금액</th>
+				  			</tr>	
 			  			</thead>
 			  			<tbody>
 			  				<c:forEach var="rsvp" items="${cList}">
@@ -116,12 +118,12 @@
 				  						</c:if>
 				  						</c:forEach>
 				  					</td>
-				  					<td>${rsvp.totalprice}</td>
+				  					<td style="text-align:right;"><fmt:formatNumber value="${rsvp.totalprice}" pattern="#,###" /></td>
 			  					</tr>
 			  				</c:forEach>
 			  				<tr>
 			  					<td colspan="2"><b>총합계</b></td>
-			  					<td><b><fmt:formatNumber value="${total}" pattern="#,###" /></b></td>
+			  					<td style="text-align:right;"><b><fmt:formatNumber value="${total}" pattern="#,###" /></b></td>
 			  				</tr>
 			  			</tbody>
 			  		</table>

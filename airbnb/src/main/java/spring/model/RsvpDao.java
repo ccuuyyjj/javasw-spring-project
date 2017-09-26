@@ -1,11 +1,5 @@
 package spring.model;
 
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RsvpDao {
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -44,7 +38,6 @@ public class RsvpDao {
 	// 예정된 여행 목록 추출 예약 날짜가 오늘 기준으로 이상 인것만
 	public List<Rsvp> select(String id, int type) {
 		String sql;
-		id = "aaa@a";
 		if (type == 1) {
 			sql = " select a.*,b.address,b.owner_id from" + "(select * from reservation where guest_id=? "
 					+ "and progress=2 and startdate > (select sysdate from dual)order by reg desc)a " + "inner join"
@@ -63,8 +56,7 @@ public class RsvpDao {
 		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
 	}
 
-	
-	//예약승낙된것만 가져와야 함.
+	// 예약승낙된것만 가져와야 함.
 	public List<Rsvp> select_complete(String id) {
 		String sql = "select * from reservation where progress=2 and owner_id=?";
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
@@ -74,28 +66,70 @@ public class RsvpDao {
 		String sql = "update reservation set progress = ? where no = ?";
 		return jdbcTemplate.update(sql, new Object[] { progress, no }) > 0;
 	}
-	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id){
-		
+
+	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id) {
 		String sql = "select * from reservation where progress=2 and "
 				+ "enddate >= to_date(?, 'YYYYMM') and  enddate <= sysdate and "
-				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and guest_id=? ";
-		if(room_no >0) {
-			sql += "and room_no = ?";
-			log.debug("sql:"+sql);
-			Object[] args = new Object[] {sMonth,  eMonth, id,  room_no};
+				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and owner_id=? ";
+		if (room_no > 0) {
+			sql += "and room_no = ? order by enddate desc";
+			Object[] args = new Object[] { sMonth, eMonth, id, room_no };
 			return jdbcTemplate.query(sql, args, rowMapper);
+
 		} else {
-			Object[] args = new Object[] {sMonth, eMonth, id};
+			sql += "order by enddate desc";
+			Object[] args = new Object[] { sMonth, eMonth, id };
 			return jdbcTemplate.query(sql, args, rowMapper);
 		}
 	}
 
-	public boolean delete(String id, String no) {
-		id = "aaa@a";
-		String sql = "delete reservation where guest_id=? and no=?";
+	public List<Rsvp> future_transactions(String id, int room_no) {
+		String sql = "select * from reservation where progress=2 and enddate > sysdate and owner_id=? ";
+		if (room_no > 0) {
+			sql += "and room_no = ? order by enddate desc";
+			Object[] args = new Object[] { id, room_no };
+			return jdbcTemplate.query(sql, args, rowMapper);
 
-		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
-
+		} else {
+			sql += "order by enddate desc";
+			Object[] args = new Object[] { id };
+			return jdbcTemplate.query(sql, args, rowMapper);
+		}
 	}
+
+	public List<Rsvp> tax_report(String sDate, String eDate, String id) {
+		String sql = "select * from reservation where progress=2 and "
+				+ "enddate >= to_date(?, 'YYYYMM') and enddate < add_months(to_date(?, 'YYYYMM'), +1) "
+				+ "and owner_id=? order by enddate desc ";
+		Object[] args = new Object[] { sDate, eDate, id };
+		return jdbcTemplate.query(sql, args, rowMapper);
+	}
+
+	public boolean delete(String id, String no) {
+		String sql = "delete reservation where guest_id=? and no=?";
+		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
+	}
+
+	// public Map<String, Integer> sales_day_history(String sDate, String eDate) {
+	// RowMapper<String, Integer> mapper = new RowMapper<>() {
+	// @Override
+	// public Map<String, Integer> mapRow(ResultSet rs, int rowNum) throws
+	// SQLException {
+	// log.debug("rs:" + rs.getString("dt"));
+	// Map<String, Integer> map = new HashMap<>();
+	// map.put(rs.getString("dt"), rs.getInt("amount"));
+	// return map;
+	// }
+	// };
+	// log.debug("sDate:" + sDate);
+	// log.debug("eDate:" + eDate);
+	// String sql = "SELECT TO_CHAR(enddate,'dd') AS dt, SUM(totalprice) AS amount
+	// FROM reservation"
+	// + " where enddate >= to_date(?, 'yyyymmdd') and enddate < to_date(?,
+	// 'yyyymmdd')+ 1/24"
+	// + " GROUP BY TO_CHAR(enddate,'dd') order by dt";
+	// Object[] args = new Object[] { sDate, eDate };
+	// return jdbcTemplate.query(sql, args, mapper);
+	// }
 
 }

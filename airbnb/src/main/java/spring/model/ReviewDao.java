@@ -46,6 +46,10 @@ public class ReviewDao {
 			return 0;
 		else
 			return jdbcTemplate.queryForObject(sql, new Object[] { id }, Integer.class);
+	}
 
+	// 리스트 페이지 평점
+	public List<Review> avg() {
+		return jdbcTemplate.query("select * from review", mapper);
 	}
 }
