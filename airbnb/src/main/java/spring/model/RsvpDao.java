@@ -107,9 +107,29 @@ public class RsvpDao {
 
 	public boolean delete(String id, String no) {
 		String sql = "delete reservation where guest_id=? and no=?";
-
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
-
 	}
+
+	// public Map<String, Integer> sales_day_history(String sDate, String eDate) {
+	// RowMapper<String, Integer> mapper = new RowMapper<>() {
+	// @Override
+	// public Map<String, Integer> mapRow(ResultSet rs, int rowNum) throws
+	// SQLException {
+	// log.debug("rs:" + rs.getString("dt"));
+	// Map<String, Integer> map = new HashMap<>();
+	// map.put(rs.getString("dt"), rs.getInt("amount"));
+	// return map;
+	// }
+	// };
+	// log.debug("sDate:" + sDate);
+	// log.debug("eDate:" + eDate);
+	// String sql = "SELECT TO_CHAR(enddate,'dd') AS dt, SUM(totalprice) AS amount
+	// FROM reservation"
+	// + " where enddate >= to_date(?, 'yyyymmdd') and enddate < to_date(?,
+	// 'yyyymmdd')+ 1/24"
+	// + " GROUP BY TO_CHAR(enddate,'dd') order by dt";
+	// Object[] args = new Object[] { sDate, eDate };
+	// return jdbcTemplate.query(sql, args, mapper);
+	// }
 
 }

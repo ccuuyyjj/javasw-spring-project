@@ -35,10 +35,10 @@ body {font-size:16px;}
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
 	<div class="menu-wrap w3-blue">
 	    <ul>
-	        <li class="hover">
+	        <li>
 	            <a href="${pageContext.request.contextPath}/admin/sales">일매출현황</a>
 	        </li>
-	        <li>
+	        <li class="w3-gray">
 	            <a href="${pageContext.request.contextPath}/admin/sales/month_sales">월매출현황</a>
 	        </li>
 	    </ul>
@@ -47,11 +47,11 @@ body {font-size:16px;}
 		<div class="m_table">
 			<div class="w3-row m_caption">
 				<div class="w3-col s2  w3-left">
-					<h2>일매출현황</h2>
+					<h2>월매출현황</h2>
 				</div>
 				<div class="m_caption_center">
 				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/admin/sales">
-			  		<div class="w3-col s2 w3-center row1">	
+			  		<div class="w3-col s3 w3-center row1">	
 				  		<select class="select" name="year">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
 				  				<c:if test="${year eq idx }"><option value="${year - idx}" selected>${year}년</option></c:if>
@@ -59,61 +59,41 @@ body {font-size:16px;}
 				          	</c:forEach>
 			          	</select>
 			  		</div>
-			  		<div class="w3-col s2 w3-center row1">	
-				  		<select class="select" name="month">
+			  		<div class="w3-col s4 w3-center row1">	
+				  		<select class="select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 				  			  	<c:if test="${sMonth eq i }">
 				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
-									<fmt:formatNumber value='${i}' pattern='00'/>월</option>
+									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
 								</c:if>
 								<c:if test="${sMonth != i }">
 									<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
-									<fmt:formatNumber value='${i}' pattern='00'/>월</option>
+									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
 								</c:if>	
 							</c:forEach>
 						</select>
 			  		</div>
-			  		<div class="w3-col s2 row1">	
-				  		<select class="select" name="sday">
-				  			<c:forEach begin="1" end="31" step="1" var="i">
-				  				<c:choose>
-				  					<c:when test="${eMonth != null}">
-				  						<c:if test="${eMonth eq i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
-				  						<c:if test="${eMonth != i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>">종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
-				  					</c:when>
-				  					<c:otherwise>
-				  						<c:if test="${i eq 1}">
-						  					<option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>시작:<fmt:formatNumber value='${i}' pattern='00'/>일</option>
-						  				</c:if>
-						  				<c:if test="${i != 1}">
-											<option value="<fmt:formatNumber value='${i}' pattern='00'/>" >시작:<fmt:formatNumber value='${i}' pattern='00'/>일</option>
-										</c:if>	
-				  					</c:otherwise>
-				  				</c:choose>
-							</c:forEach>
-						</select>
-			  		</div>
 			  		<div class="w3-col s3 row1">	
-				  		<select class="select" name="eday">
-				  			<c:forEach begin="1" end="31" step="1" var="i">
+				  		<select class="select" name="endMonth">
+				  			<c:forEach begin="1" end="12" step="1" var="i">
 				  				<c:choose>
 				  					<c:when test="${eMonth != null}">
 				  						<c:if test="${eMonth eq i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
 				  						<c:if test="${eMonth != i}"><option value="<fmt:formatNumber value='${i}' pattern='00'/>">종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option></c:if>
 				  					</c:when>
 				  					<c:otherwise>
-				  						<c:if test="${i eq 31}">
-						  					<option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>일</option>
+				  						<c:if test="${i eq 12}">
+						  					<option value="<fmt:formatNumber value='${i}' pattern='00'/>" selected>종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
 						  				</c:if>
-						  				<c:if test="${i != 31}">
-											<option value="<fmt:formatNumber value='${i}' pattern='00'/>" >종료:<fmt:formatNumber value='${i}' pattern='00'/>일</option>
+						  				<c:if test="${i != 12}">
+											<option value="<fmt:formatNumber value='${i}' pattern='00'/>" >종료:<fmt:formatNumber value='${i}' pattern='00'/>월</option>
 										</c:if>	
 				  					</c:otherwise>
 				  				</c:choose>
 							</c:forEach>
 						</select>
 			  		</div>
-			  		<div class="w3-col s1 row1 searchbtn">
+			  		<div class="w3-col s2 row1 searchbtn">
 			  			<input type="submit"  value="검색" class="w3-button w3-gray w3-small">
 			  		</div>
 			  	</form>
@@ -123,8 +103,8 @@ body {font-size:16px;}
 			<div class="m_head">
 				<div class="m_row">
 					<div class="m_no">번호</div>
-					<div class="m_email">체크아웃일자</div>
 					<div class="m_name">숙박명</div>
+					<div class="m_email">체크아웃날짜</div>
 					<div class="m_phone">호스트id</div>
 					<div class="m_phone">게스트id</div>
 					<div class="m_authority">금액</div>
@@ -133,7 +113,6 @@ body {font-size:16px;}
 			<div class="m_body">
 			<c:forEach var="rsvp" items="${rsvpList}">
 				<div class="m_row">
-					<div class="m_name">${rsvp.getEdate()} </div>
 					<div class="m_no">${rsvp.no}</div>
 					<div class="m_email">
 						<c:forEach var="no" items="${map}">
@@ -143,6 +122,7 @@ body {font-size:16px;}
   						</c:if>
   						</c:forEach>
 					</div>
+					<div class="m_name">${rsvp.getEdate()} </div>
 					<div class="m_phone">${rsvp.owner_id}</div>
 					<div class="m_phone">${rsvp.guest_id}</div>
 					<div class="m_authority">${rsvp.totalprice}</div>
