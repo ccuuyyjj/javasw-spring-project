@@ -1,11 +1,5 @@
 package spring.model;
 
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RsvpDao {
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -63,8 +57,7 @@ public class RsvpDao {
 		return jdbcTemplate.query(sql, new Object[] { room_no }, rowMapper);
 	}
 
-	
-	//예약승낙된것만 가져와야 함.
+	// 예약승낙된것만 가져와야 함.
 	public List<Rsvp> select_complete(String id) {
 		String sql = "select * from reservation where progress=2 and owner_id=?";
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
@@ -74,24 +67,38 @@ public class RsvpDao {
 		String sql = "update reservation set progress = ? where no = ?";
 		return jdbcTemplate.update(sql, new Object[] { progress, no }) > 0;
 	}
-	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id){
-		
+
+	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id) {
+
 		String sql = "select * from reservation where progress=2 and "
 				+ "enddate >= to_date(?, 'YYYYMM') and  enddate <= sysdate and "
-				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and guest_id=? ";
-		if(room_no >0) {
+				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and owner_id=? ";
+		if (room_no > 0) {
+
 			sql += "and room_no = ?";
-			log.debug("sql:"+sql);
-			Object[] args = new Object[] {sMonth,  eMonth, id,  room_no};
+			Object[] args = new Object[] { sMonth, eMonth, id, room_no };
 			return jdbcTemplate.query(sql, args, rowMapper);
+
 		} else {
-			Object[] args = new Object[] {sMonth, eMonth, id};
+			Object[] args = new Object[] { sMonth, eMonth, id };
+			return jdbcTemplate.query(sql, args, rowMapper);
+		}
+	}
+
+	public List<Rsvp> future_transactions(String id, int room_no) {
+		String sql = "select * from reservation where progress=2 and enddate > sysdate and owner_id=? ";
+		if (room_no > 0) {
+			sql += "and room_no = ?";
+			Object[] args = new Object[] { id, room_no };
+			return jdbcTemplate.query(sql, args, rowMapper);
+
+		} else {
+			Object[] args = new Object[] { id };
 			return jdbcTemplate.query(sql, args, rowMapper);
 		}
 	}
 
 	public boolean delete(String id, String no) {
-		id = "aaa@a";
 		String sql = "delete reservation where guest_id=? and no=?";
 
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
