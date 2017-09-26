@@ -145,12 +145,19 @@ public class MypageController {
 		return "mypage/setting";
 	}
 
-	// 수령완료 숙소명 가져오기
-	private void getHostName_history(Model m, String id) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	// 오늘 날짜 가져오기
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+	private String getToday(Model m) {
 		Calendar c1 = Calendar.getInstance();
 		String strToday = format.format(c1.getTime());
+		m.addAttribute("year", strToday.substring(0, 4));
+		return strToday;
+	}
+
+	// 수령완료 숙소명 가져오기
+	private void getHostName_history(Model m, String id) {
+		String strToday = getToday(m);
 		List<Room> host_list = roomDao.host_list_complete(id);
 		Map<Integer, String> r_name = new HashMap<>();
 		try {
@@ -175,7 +182,6 @@ public class MypageController {
 		}
 
 		m.addAttribute("nameList", r_name);
-		m.addAttribute("year", strToday.substring(0, 4));
 	}
 
 	// 계정관리 - 대금수령내역 - 수령완료내역
@@ -198,7 +204,6 @@ public class MypageController {
 		String eMonth = request.getParameter("endMonth");
 		String sDate = year + sMonth;
 		String eDate = year + eMonth;
-		SimpleDateFormat sm = new SimpleDateFormat("yyyy-mm");
 		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
 
 		Double sum = 0.0;
@@ -223,10 +228,7 @@ public class MypageController {
 
 	// 수령예정 숙소명 가져오기
 	private void getHostName_future(Model m, String id) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-		Calendar c1 = Calendar.getInstance();
-		String strToday = format.format(c1.getTime());
+		String strToday = getToday(m);
 		List<Room> host_list = roomDao.host_list_complete(id);
 		Map<Integer, String> r_name = new HashMap<>();
 		try {
@@ -287,7 +289,52 @@ public class MypageController {
 
 	// 계정관리 - 대금수령내역 - 총 수입
 	@RequestMapping("/tax_report")
-	public String tax_report() {
+	public String tax_report(Model m) {
+		String strToday = getToday(m);
+		return "mypage/tax_report";
+	}
+
+	@RequestMapping(value = "/tax_report", method = RequestMethod.POST)
+	public String tax_report(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) {
+		String year = request.getParameter("year");
+		String sMonth = request.getParameter("startMonth");
+		String eMonth = request.getParameter("endMonth");
+		String sDate = year + sMonth;
+		String eDate = year + eMonth;
+		List<Rsvp> Rsvplist = rsvpDao.tax_report(sDate, eDate, token.getName());
+
+		String strToday = getToday(m);
+		Double sum = 0.0;
+		Map<Integer, Room> map = new HashMap<>();
+		Map<Integer, String> str = new HashMap<>();
+		// 숙박명 가져오기 위해
+		try {
+			for (Rsvp rsvp : Rsvplist) {
+				sum += rsvp.getTotalprice();
+				Room room = roomDao.select(rsvp.getRoom_no());
+				map.put(rsvp.getRoom_no(), room);
+
+				Date day1 = format.parse(rsvp.getEnddate());
+				Date day2 = format.parse(strToday);
+				if (day1.compareTo(day2) > 0) { // 수령예정
+					str.put(rsvp.getRoom_no(), "수령예정");
+				} else { // 수령완료
+					str.put(rsvp.getRoom_no(), "수령완료");
+				}
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		m.addAttribute("year", year);
+		m.addAttribute("sMonth", sMonth);
+		m.addAttribute("eMonth", eMonth);
+		m.addAttribute("tList", Rsvplist);
+		m.addAttribute("map", map);
+		m.addAttribute("str", str);
+		m.addAttribute("total", sum);
+
 		return "mypage/tax_report";
 	}
 

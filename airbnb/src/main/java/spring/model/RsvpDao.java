@@ -98,6 +98,14 @@ public class RsvpDao {
 		}
 	}
 
+	public List<Rsvp> tax_report(String sDate, String eDate, String id) {
+		String sql = "select * from reservation where progress=2 and "
+				+ "enddate >= to_date(?, 'YYYYMM') and enddate < add_months(to_date(?, 'YYYYMM'), +1) "
+				+ "and owner_id=? ";
+		Object[] args = new Object[] { sDate, eDate, id };
+		return jdbcTemplate.query(sql, args, rowMapper);
+	}
+
 	public boolean delete(String id, String no) {
 		String sql = "delete reservation where guest_id=? and no=?";
 
