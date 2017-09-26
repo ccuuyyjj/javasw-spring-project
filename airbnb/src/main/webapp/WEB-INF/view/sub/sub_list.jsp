@@ -9,6 +9,7 @@
 		<input type="button" value="방 유형"
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_type">
+			<form action="sub_list" method="post">
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '전체')}">
 						<input type="checkbox" name="type" value="전체" checked>
@@ -39,35 +40,49 @@
 				</c:choose>
 				다인실
 				<p>&nbsp;&nbsp;&nbsp;다인실과 같은 공유 공간을 이용하는 숙소</p>
-				<button id="cancel">취소</button>
-				<button id="send1">적용</button>
+			<button class="cancel w3-btn w3-round-large w3-green">취소</button>
+			<button class="send w3-btn w3-round-large w3-green">적용</button>
+		</form>
 		</div>
 
 
 		<input type="button" value="가격 범위"
 			class="b w3-button w3-red w3-round-large">
-		<div class="add_price">
-				<img src="${pageContext.request.contextPath}/img/home.png"
-					width="300" height="150" class="slider"> <br>
-				<p style="color: dimgray;">평균 1박 요금은 ${avg}원 입니다.</p>
+		<div class="add_price ">
+		<form action="sub_list" method="post">
+			<img src="${pageContext.request.contextPath}/img/house.png"
+				width="200" height="130" class="slider" style="margin-left: 80px;">
+			<br>
+			<p style="color: dimgray;">평균 1박 요금은 ${avg}원 입니다.</p>
+			<div id="value">
 				<input data-addui='slider' data-min='10000' data-formatter='usd'
 					data-fontsize='12' data-step='5' data-range='true'
 					data-timeout='50000' value='${param.price}' data-max='1000000'
-					name='price' /> <br>
-				<button id="cancel">취소</button>
-				<button id="send2">적용</button>
+					name='price'  id="ak"/>
+			</div>
+			<br>
+			<button class=" cancel  w3-btn w3-round-large w3-green">취소</button>
+			<button class=" send  w3-btn w3-round-large w3-green">적용</button>
+			</form>
 		</div>
 
 
 		<input type="button" value="필터 추가"
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_filter">
-				침실 수<input class="slider" type="number" name="filter"
-					value="0${paramValues.filter[0]}"> <br> <br> 침대 수<input
-					class="slider" type="number" name="filter"
-					value="0${paramValues.filter[1]}"> <br>
-				<button id="cancel">취소</button>
-				<button id="send3">적용</button>
+		<form action="sub_list" method="post">
+			<img src="${pageContext.request.contextPath}/img/bed.png" width="150"
+				height="130" class="slider" style="margin-left: 100px;">
+				<div class="filter">
+				침실 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
+					value="0${paramValues.filter[0]}"><br> <br>
+				침대 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
+					value="0${paramValues.filter[1]}">
+				</div>
+			<br>
+			<button class="cancel w3-btn w3-round-large w3-green">취소</button>
+			<button class="send w3-btn w3-round-large w3-green">적용</button>
+			</form>
 		</div>
 	</div>
 
@@ -76,11 +91,10 @@
 			<div class="page_list">
 				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}"><img
 					src="${room.photoUrl}"> <br>
-					<div class="font1">
 						\
 						<!--  -->${room.price}
 						부터 | ${room.name}
-					</div> <br> ${room.type} - 침대 ${room.beds}개 </a>
+					<br> ${room.type} - 침대 ${room.beds}개 </a>
 			</div>
 		</c:forEach>
 	</div>
@@ -92,7 +106,7 @@
 	<!-- 처음  페이지 -->
 	<c:if test="${page >= 4 }">
 		<a href="${pageContext.request.contextPath }/sub/sub_list?page=${1}">${1}</a>
-		<span> &nbsp &nbsp··· &nbsp</span>
+		<span> &nbsp; &nbsp;··· &nbsp;</span>
 	</c:if>
 
 	<c:forEach var="i" begin="${start }" end="${end }" step="1">
@@ -109,7 +123,7 @@
 
 	<!-- 끝 페이지 -->
 	<c:if test="${page < totalPage - 1 && end < totalPage}">
-		<span>&nbsp&nbsp···&nbsp </span>
+		<span>&nbsp;&nbsp;···&nbsp; </span>
 		<a
 			href="${pageContext.request.contextPath }/sub/sub_list?page=${totalPage}">${totalPage}</a>
 	</c:if>

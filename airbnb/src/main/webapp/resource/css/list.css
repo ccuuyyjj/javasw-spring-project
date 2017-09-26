@@ -105,7 +105,7 @@
 		padding: 20px;
 	}
 	.add_type p {
-		margin-bottom: 30px;
+		margin-bottom: 26px;
 	}
 	#b {
 		margin-left: 80;
@@ -182,3 +182,13 @@
 	display: none;
 	height:100px;
 }
+.filter{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 50px;
+	color: dimgray;
+}
+.cancel{
+	margin-right: 220px;
+}
+

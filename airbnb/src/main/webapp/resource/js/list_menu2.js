@@ -3,14 +3,10 @@
  */
 /*메뉴 */
 $(document).ready(function() {
-	
-	//각 메뉴바 데이터 전송, 취소
-	$("#cancel").on("click",function(){
-		$(this).parent().hide("fast");
-	});
-
-	
-	
+	$(".cancel").on("click", function() {
+		event.preventDefault();
+		$(this).next().toggle('fast');
+	});	
 	/*메뉴 클릭, 이동 시*/
 	$(".b").on("click", function() {
 		$(".b").next().not($(this).next()).hide();
