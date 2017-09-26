@@ -23,7 +23,7 @@ public class AdminController {
 	public String home(Model m) {
 		List<Member> list = memberDao.selectAll();
 		m.addAttribute("memberList", list);
-		return "admin/member/home";
+		return "admin/member/list";
 	}
 
 	@Controller

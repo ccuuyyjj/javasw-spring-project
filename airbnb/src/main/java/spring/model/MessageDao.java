@@ -58,13 +58,10 @@ public class MessageDao {
 		return count;
 	}
 
-	public List getRoom_no(int member_no) {
+	public List<Integer> getRoom_no(int member_no) {
 		String sql = "select DISTINCT room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
-		List room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
-		System.out.println("room_no = " + room_no);
-		System.out.println("room_no = " + room_no.size());
-		System.out.println("room_no = " + room_no.get(0));
+		List<Integer> room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
 		return room_no;
 	}
 

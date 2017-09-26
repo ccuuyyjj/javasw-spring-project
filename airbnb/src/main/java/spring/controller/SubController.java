@@ -149,9 +149,10 @@ public class SubController {
 	// 상세페이지
 	@RequestMapping("/detail/{no}")
 	public String detail(@PathVariable("no") int no, Model m,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, UsernamePasswordAuthenticationToken token) {
-		log.debug("token = "+token);
-		if(token != null) {			
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			UsernamePasswordAuthenticationToken token) {
+		log.debug("token = " + token);
+		if (token != null) {
 			m.addAttribute("username", token.getName());
 		}
 		// 페이징 네비게이터
@@ -202,6 +203,7 @@ public class SubController {
 			UsernamePasswordAuthenticationToken token, Model m) {
 		log.debug("id: " + id);
 		String email = token.getName();
+		@SuppressWarnings("unused")
 		Member member = memberDao.select(email);
 		Cart cart = new Cart();
 		cart.setRoom_no(id);
@@ -283,16 +285,16 @@ public class SubController {
 	public String message(Model m, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
-		List no = messageDao.getRoom_no(member_no);
+		List<Integer> no = messageDao.getRoom_no(member_no);
 		List<Room> roomList = new ArrayList<>();
 		List<Message> message = new ArrayList<>();
 		for (int i = 0; i < no.size(); i++) {
-			Room room = roomDao.select((int) no.get(i));
+			Room room = roomDao.select(no.get(i));
 			roomList.add(room);
 			System.out.println("room = " + roomList.get(i));
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
 					roomList.get(i).getNo());
-			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
+			Message getMessage = messageDao.Message(member_no, no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
 
@@ -310,7 +312,6 @@ public class SubController {
 		}
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
-		System.out.println("message = " + message.get(0).toString());
 		return "sub/message";
 	}
 
