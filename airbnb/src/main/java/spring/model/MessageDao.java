@@ -3,6 +3,8 @@ package spring.model;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.SQL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MessageDao {
+	private Logger log = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 

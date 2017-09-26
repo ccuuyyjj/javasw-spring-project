@@ -101,3 +101,23 @@ body {
 	text-decoration: none;
 	color: black;
 }
+
+
+/* 매출현황 */
+.select {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 2em;
+    text-align-last:center;
+}
+.row1{
+    display:block;
+    margin:15px 0px;
+}
+.m_caption_right{
+	text-align:right; width:500px;margin-left:700px;
+}
+.searchbtn{
+	padding-top:5px;
+}
+

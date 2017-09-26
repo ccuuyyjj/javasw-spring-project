@@ -291,7 +291,6 @@ public class SubController {
 		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select(no.get(i));
 			roomList.add(room);
-			System.out.println("room = " + roomList.get(i));
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
 					roomList.get(i).getNo());
 			Message getMessage = messageDao.Message(member_no, no.get(i));
