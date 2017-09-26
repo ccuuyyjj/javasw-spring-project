@@ -149,9 +149,10 @@ public class SubController {
 	// 상세페이지
 	@RequestMapping("/detail/{no}")
 	public String detail(@PathVariable("no") int no, Model m,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, UsernamePasswordAuthenticationToken token) {
-		log.debug("token = "+token);
-		if(token != null) {			
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			UsernamePasswordAuthenticationToken token) {
+		log.debug("token = " + token);
+		if (token != null) {
 			m.addAttribute("username", token.getName());
 		}
 		// 페이징 네비게이터
@@ -185,6 +186,7 @@ public class SubController {
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
+		m.addAttribute("exist", "true");
 
 		m.addAttribute("room", roomDao.select(no));
 		m.addAttribute("availList", availDao.selectAvailable(no));

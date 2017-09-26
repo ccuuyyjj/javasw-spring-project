@@ -82,44 +82,6 @@
 		}
 
 	});
-	function wishlist() {
-		var email = $("#email").val();
-		console.log(email);
-		console.log(email != '');
-		console.log(email == '');
-		console.log(email === '');
-		if (email != '') {
-			$.ajax({
-				url : '/airbnb/mypage/wishlist2',
-				type:"GET",
-				dataType: "json",
-				success:function(res, code){
-					console.log(res, code);
-					$("#wishList").show();
-					wrapWindowByMask();
-    				//반복문을 통하여 데이터를 화면에 출력
-    				$.each(res, function(i,d){
-    					console.log(d);
-    					createRow(d.title, i+1).appendTo($(".appendhere"));
-    				});
-				}				
-			});
-            function createRow(title, idx){
-            	var div1 = $("<div/>").addClass("w-add wfont_2");
-            	var div2 = $("<div/>").addClass("wlwl");
-            	var label = $("<label/>").addClass("w-lb").attr("for", "w-check" + idx).text(title);
-            	var input = $("<input>").attr("type", "checkbox").addClass("w-check")
-            						.attr("id","w-check" + idx);
-            	label.append(input);
-            	div2.append(label);
-            	div1.append(div2);
-            	
-            	return div1;
-            }
-		}else if(email === ''){
-			location.href='/airbnb/member/login';
-		}
-	}
 </script>
 <input type="hidden" name="email" value="${username}">
 <div class="photo">

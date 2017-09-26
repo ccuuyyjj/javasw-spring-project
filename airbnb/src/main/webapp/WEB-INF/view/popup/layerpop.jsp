@@ -133,7 +133,6 @@
 			<div>
 				<form action="${pageContext.request.contextPath}/mypage/wishlist"
 					method="post" id="wishform">
-					<input type="hidden" name="room_no" value="${no}">
 					<div class="w-row wfont">위시리스트에 담기</div>
 					<div class="w-row" id="addwl">
 						<button class="wbtn">새로운 위시리스트 만들기</button>
@@ -145,13 +144,16 @@
 							</div>
 							<div class="wl-box_5">
 								<button class="wbtn3">취소</button>
-								<button class="wbtn4" disabled>목록 만들기</button>
+								<button class="wbtn4" disabled>목록 만들기</button>									
 							</div>
 						</div>
 					</div>
+					<c:if test="${exist == true}">
 					<div class="appendhere"></div>
-					<input type="submit" value="등록" class="insert">
+					<input type="button" value="등록" class="insert" onclick="insert(${room.no});">
+					</c:if>
 				</form>
+				<c:if test="${exist == true}">
 				<div style="margin-top: 70px">
 					<div class="wl-box_3">
 						<button class="wbtn2">
@@ -212,6 +214,7 @@
 						</button>
 					</div>
 				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

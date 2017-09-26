@@ -1,7 +1,6 @@
 package spring.controller;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.annotation.SessionScope;
 
 import spring.model.Member;
 import spring.model.MemberDao;
@@ -147,26 +145,25 @@ public class MypageController {
 		return "mypage/setting";
 	}
 
-	
-	//숙소명 가져오기
-	private void getHostName(Model m, String id) {		
+	// 숙소명 가져오기
+	private void getHostName(Model m, String id) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        Calendar c1 = Calendar.getInstance();
-        String strToday = format.format(c1.getTime());
-        List<Room> host_list = roomDao.host_list_complete(id);
+		Calendar c1 = Calendar.getInstance();
+		String strToday = format.format(c1.getTime());
+		List<Room> host_list = roomDao.host_list_complete(id);
 		Map<Integer, String> r_name = new HashMap<>();
 		try {
-			for(Room room : host_list) {
-				if( room.getProgress() == 4) {
+			for (Room room : host_list) {
+				if (room.getProgress() == 4) {
 					List<Rsvp> list = rsvpDao.select_complete(id);
-					for(Rsvp rsvp : list) {
-						if(rsvp.getRoom_no() == room.getNo()) {
+					for (Rsvp rsvp : list) {
+						if (rsvp.getRoom_no() == room.getNo()) {
 							Date day1 = format.parse(rsvp.getEnddate());
 							Date day2 = format.parse(strToday);
-							if(day1.compareTo(day2) < 0) {
-								//숙소명이 길어서 앞부분만 일부 보여줌..
-								String name = room.getName().substring(0, 10)+"...";
+							if (day1.compareTo(day2) < 0) {
+								// 숙소명이 길어서 앞부분만 일부 보여줌..
+								String name = room.getName().substring(0, 10) + "...";
 								r_name.put(room.getNo(), name);
 							}
 						}
@@ -181,36 +178,38 @@ public class MypageController {
 		m.addAttribute("year", strToday.substring(0, 4));
 	}
 
-//계정관리 - 대금수령내역 - 수령완료내역
+	// 계정관리 - 대금수령내역 - 수령완료내역
 	@RequestMapping("/transaction_history")
-	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token)  {
+	public String transaction_history(Model m, UsernamePasswordAuthenticationToken token) {
 		getHostName(m, token.getName());
 		return "mypage/transaction_history";
 	}
-	@RequestMapping(value="/transaction_history", method=RequestMethod.POST)
-	public String transaction_history(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) throws ParseException {
-		String rName		= request.getParameter("roomName");
+
+	@RequestMapping(value = "/transaction_history", method = RequestMethod.POST)
+	public String transaction_history(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token)
+			throws ParseException {
+		String rName = request.getParameter("roomName");
 		int room_no = 0;
-		if(!rName.equalsIgnoreCase("all")) {
+		if (!rName.equalsIgnoreCase("all")) {
 			room_no = Integer.parseInt(request.getParameter("roomName"));
-			log.debug("room_no="+room_no);
+			log.debug("room_no=" + room_no);
 		}
-		String year 			= request.getParameter("year");
-		String sMonth		= request.getParameter("startMonth");
-		String eMonth	= request.getParameter("endMonth");
-		String sDate		= year + sMonth;
-		String eDate		= year + eMonth;
+		String year = request.getParameter("year");
+		String sMonth = request.getParameter("startMonth");
+		String eMonth = request.getParameter("endMonth");
+		String sDate = year + sMonth;
+		String eDate = year + eMonth;
 		SimpleDateFormat sm = new SimpleDateFormat("yyyy-mm");
 		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
-		
+
 		Double sum = 0.0;
 		Map<Integer, Room> map = new HashMap<>();
 		for (Rsvp rsvp : Rsvplist) {
 			sum += rsvp.getTotalprice();
-			Room room =  roomDao.select(rsvp.getRoom_no());
+			Room room = roomDao.select(rsvp.getRoom_no());
 			map.put(rsvp.getRoom_no(), room);
 		}
-		
+
 		getHostName(m, token.getName());
 		m.addAttribute("cList", Rsvplist);
 		m.addAttribute("map", map);
@@ -262,6 +261,8 @@ public class MypageController {
 	public void wishlist(Model m, WishList wishList, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
+		System.out.println("wl = " + wishList.toString());
+		System.out.println("member_no = " + member_no);
 		wishListDao.insert(wishList, member_no);
 	}
 
@@ -269,14 +270,16 @@ public class MypageController {
 	public String wishlist(Model m, UsernamePasswordAuthenticationToken token) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
+		log.debug("member_no = " + member_no);
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		int count = wishListDao.count(member_no);
+		log.debug("count = " + count);
 		List<Integer> roomcount = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			count = wishListDao.count(member_no, title.get(i).getTitle());
 			roomcount.add(count);
 		}
-
+		log.debug("roomcount = " + roomcount);
 		m.addAttribute("title", title);
 		m.addAttribute("count", count);
 		m.addAttribute("roomcount", roomcount);
@@ -302,7 +305,8 @@ public class MypageController {
 	}
 
 	@RequestMapping("/wishlist2")
-	public void wishlist2(Model m, UsernamePasswordAuthenticationToken token, HttpServletResponse response) throws IOException {
+	public void wishlist2(Model m, UsernamePasswordAuthenticationToken token, HttpServletResponse response)
+			throws IOException {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
@@ -319,7 +323,7 @@ public class MypageController {
 		buffer.append("]");
 		String result = buffer.toString();
 		log.debug("buffer = " + result);
-		
+
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().print(result);
 	}
