@@ -149,9 +149,10 @@ public class SubController {
 	// 상세페이지
 	@RequestMapping("/detail/{no}")
 	public String detail(@PathVariable("no") int no, Model m,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, UsernamePasswordAuthenticationToken token) {
-		log.debug("token = "+token);
-		if(token != null) {			
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			UsernamePasswordAuthenticationToken token) {
+		log.debug("token = " + token);
+		if (token != null) {
 			m.addAttribute("username", token.getName());
 		}
 		// 페이징 네비게이터
@@ -289,7 +290,6 @@ public class SubController {
 		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select((int) no.get(i));
 			roomList.add(room);
-			System.out.println("room = " + roomList.get(i));
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
 					roomList.get(i).getNo());
 			Message getMessage = messageDao.Message(member_no, (int) no.get(i));
@@ -310,7 +310,6 @@ public class SubController {
 		}
 		m.addAttribute("count", messageDao.count(member_no));
 		m.addAttribute("message", message);
-		System.out.println("message = " + message.get(0).toString());
 		return "sub/message";
 	}
 

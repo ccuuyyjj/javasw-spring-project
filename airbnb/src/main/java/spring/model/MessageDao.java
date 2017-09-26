@@ -3,6 +3,8 @@ package spring.model;
 import java.util.List;
 
 import org.apache.ibatis.jdbc.SQL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MessageDao {
+	private Logger log = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -62,9 +66,9 @@ public class MessageDao {
 		String sql = "select DISTINCT room_no from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
 		List room_no = jdbcTemplate.queryForList(sql, args, Integer.class);
-		System.out.println("room_no = " + room_no);
-		System.out.println("room_no = " + room_no.size());
-		System.out.println("room_no = " + room_no.get(0));
+		// log.debug("room_no = " + room_no);
+		// log.debug("room_no = " + room_no.size());
+		// log.debug("room_no = " + room_no.get(0));
 		return room_no;
 	}
 

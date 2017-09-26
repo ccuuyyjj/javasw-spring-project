@@ -38,7 +38,6 @@ public class RsvpDao {
 	// 예정된 여행 목록 추출 예약 날짜가 오늘 기준으로 이상 인것만
 	public List<Rsvp> select(String id, int type) {
 		String sql;
-		id = "aaa@a";
 		if (type == 1) {
 			sql = " select a.*,b.address,b.owner_id from" + "(select * from reservation where guest_id=? "
 					+ "and progress=2 and startdate > (select sysdate from dual)order by reg desc)a " + "inner join"
@@ -69,17 +68,16 @@ public class RsvpDao {
 	}
 
 	public List<Rsvp> transaction_history(int room_no, String sMonth, String eMonth, String id) {
-
 		String sql = "select * from reservation where progress=2 and "
 				+ "enddate >= to_date(?, 'YYYYMM') and  enddate <= sysdate and "
 				+ "enddate < add_months(to_date(?, 'YYYYMM'), +1) and owner_id=? ";
 		if (room_no > 0) {
-
-			sql += "and room_no = ?";
+			sql += "and room_no = ? order by enddate desc";
 			Object[] args = new Object[] { sMonth, eMonth, id, room_no };
 			return jdbcTemplate.query(sql, args, rowMapper);
 
 		} else {
+			sql += "order by enddate desc";
 			Object[] args = new Object[] { sMonth, eMonth, id };
 			return jdbcTemplate.query(sql, args, rowMapper);
 		}
@@ -88,11 +86,12 @@ public class RsvpDao {
 	public List<Rsvp> future_transactions(String id, int room_no) {
 		String sql = "select * from reservation where progress=2 and enddate > sysdate and owner_id=? ";
 		if (room_no > 0) {
-			sql += "and room_no = ?";
+			sql += "and room_no = ? order by enddate desc";
 			Object[] args = new Object[] { id, room_no };
 			return jdbcTemplate.query(sql, args, rowMapper);
 
 		} else {
+			sql += "order by enddate desc";
 			Object[] args = new Object[] { id };
 			return jdbcTemplate.query(sql, args, rowMapper);
 		}
@@ -101,7 +100,7 @@ public class RsvpDao {
 	public List<Rsvp> tax_report(String sDate, String eDate, String id) {
 		String sql = "select * from reservation where progress=2 and "
 				+ "enddate >= to_date(?, 'YYYYMM') and enddate < add_months(to_date(?, 'YYYYMM'), +1) "
-				+ "and owner_id=? ";
+				+ "and owner_id=? order by enddate desc ";
 		Object[] args = new Object[] { sDate, eDate, id };
 		return jdbcTemplate.query(sql, args, rowMapper);
 	}
