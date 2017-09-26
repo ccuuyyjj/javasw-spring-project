@@ -87,13 +87,46 @@
 	</div>
 
 	<div class="page">
-		<c:forEach var="room" items="${list}">
+		<c:forEach var="room" items="${list}" varStatus="status">
 			<div class="page_list">
 				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}">
 				<img	src="${room.photoUrl}">
 					<span>\ ${room.price}&nbsp;-&nbsp; ${room.name}</span>
 					<br>
-					 ${room.type} - 침대 ${room.beds}개 </a>
+					 ${room.type} - 침대 ${room.beds}개
+					 <br>
+
+    	평점 
+    	<c:choose>
+    	<c:when test="${room.no==rating{status.index}.room_no">
+    	<c:when test="${rating==1 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
+    		<c:when test="${rating==2 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
+    		<c:when test="${rating==3 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
+    		<c:when test="${rating==4 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
+    		<c:when test="${rating==5 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
+    	</c:when>
+    	</c:choose>
+					  </a>
 			</div>
 		</c:forEach>
 	</div>
