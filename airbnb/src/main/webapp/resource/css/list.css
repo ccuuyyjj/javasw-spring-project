@@ -22,7 +22,6 @@
 .page_list {
 	width: 30%;
 	height: 45%;
-	margin-bottom: 2%;
 }
 
 
@@ -40,7 +39,6 @@
 	.page_list {
 		width: 95%;
 		height: 50%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -61,7 +59,6 @@
 	}
 	.page_list {
 		width: 45%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -105,7 +102,7 @@
 		padding: 20px;
 	}
 	.add_type p {
-		margin-bottom: 30px;
+		margin-bottom: 26px;
 	}
 	#b {
 		margin-left: 80;
@@ -141,7 +138,6 @@
 	.page_list {
 		width: 30%;
 		height: 45%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -181,4 +177,23 @@
 .empty-90{
 	display: none;
 	height:100px;
+}
+.filter{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 50px;
+	color: dimgray;
+}
+.cancel{
+	margin-right: 220px;
+}
+
+.page_list a{
+	text-decoration: none;
+}
+.page_list a span{
+	font-weight: bold;
+}
+.page_list  img{
+	margin-bottom: 5px;
 }
