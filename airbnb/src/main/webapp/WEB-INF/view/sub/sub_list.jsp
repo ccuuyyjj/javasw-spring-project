@@ -9,7 +9,6 @@
 		<input type="button" value="방 유형"
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_type">
-			<form action="sub_list" method="post">
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '전체')}">
 						<input type="checkbox" name="type" value="전체" checked>
@@ -40,40 +39,35 @@
 				</c:choose>
 				다인실
 				<p>&nbsp;&nbsp;&nbsp;다인실과 같은 공유 공간을 이용하는 숙소</p>
-				<button id="b">취소</button>
-				<input type="submit" value="적용">
-			</form>
+				<button id="cancel">취소</button>
+				<button id="send1">적용</button>
 		</div>
 
 
 		<input type="button" value="가격 범위"
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_price">
-			<form action="sub_list" method="post">
 				<img src="${pageContext.request.contextPath}/img/home.png"
 					width="300" height="150" class="slider"> <br>
-					평균 1박당 
+				<p style="color: dimgray;">평균 1박 요금은 ${avg}원 입니다.</p>
 				<input data-addui='slider' data-min='10000' data-formatter='usd'
 					data-fontsize='12' data-step='5' data-range='true'
 					data-timeout='50000' value='${param.price}' data-max='1000000'
 					name='price' /> <br>
-				<button id="b">취소</button>
-				<input type="submit" value="적용">
-			</form>
+				<button id="cancel">취소</button>
+				<button id="send2">적용</button>
 		</div>
 
 
 		<input type="button" value="필터 추가"
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_filter">
-			<form action="sub_list" method="post">
 				침실 수<input class="slider" type="number" name="filter"
 					value="0${paramValues.filter[0]}"> <br> <br> 침대 수<input
 					class="slider" type="number" name="filter"
 					value="0${paramValues.filter[1]}"> <br>
-				<button id="b">취소</button>
-				<input type="submit" value="적용">
-			</form>
+				<button id="cancel">취소</button>
+				<button id="send3">적용</button>
 		</div>
 	</div>
 

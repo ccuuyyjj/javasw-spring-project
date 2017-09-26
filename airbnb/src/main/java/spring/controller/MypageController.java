@@ -1,6 +1,7 @@
 package spring.controller;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import spring.model.Member;
 import spring.model.MemberDao;
@@ -300,23 +302,26 @@ public class MypageController {
 	}
 
 	@RequestMapping("/wishlist2")
-	@ResponseBody
-	public HashMap<String, String> wishlist2(@RequestParam HashMap<String, String> param, Model m,
-			UsernamePasswordAuthenticationToken token, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
+	public void wishlist2(Model m, UsernamePasswordAuthenticationToken token, HttpServletResponse response) throws IOException {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
-		m.addAttribute("title", title);
 		log.debug("ajax로 옴");
-		String ajaxCall = (String) request.getHeader("AJAX");
-		if (ajaxCall.equals("true")) {
-			response.sendError(500);
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("[");
+		for (int i = 0; i < title.size(); i++) {
+			buffer.append("{");
+			buffer.append("\"title\":\"");
+			buffer.append(title.get(i).getTitle().trim());
+			buffer.append("\"},");
 		}
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("code", "1");
-		map.put("msg", "등록하였습니다.");
-		return map;
+		buffer.deleteCharAt(buffer.length() - 1);
+		buffer.append("]");
+		String result = buffer.toString();
+		log.debug("buffer = " + result);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 	// 예약 취소

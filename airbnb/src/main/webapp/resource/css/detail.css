@@ -7,11 +7,10 @@
 .menu {
 	padding-top:20px;
 	display: inline-block;
-	font-size: 9px;
 }
 .menu a{
 	text-decoration:none;
-	font-size:14px;
+	font-size:16px;
 	font-weight:bold;
 }
 
@@ -58,6 +57,7 @@ td, tr {
 }
 
 .content {
+	font-size:18px;
 	display: inline-block;
 	padding-right: 5px;
 }
@@ -91,7 +91,7 @@ td, tr {
 }
 
 .atag_1 {
-	font-size: 11px;
+	font-size: 16px;
 	color: #767676;
 }
 
