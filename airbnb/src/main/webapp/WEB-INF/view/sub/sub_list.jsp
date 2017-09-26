@@ -89,12 +89,11 @@
 	<div class="page">
 		<c:forEach var="room" items="${list}">
 			<div class="page_list">
-				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}"><img
-					src="${room.photoUrl}"> <br>
-						\
-						<!--  -->${room.price}
-						부터 | ${room.name}
-					<br> ${room.type} - 침대 ${room.beds}개 </a>
+				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}">
+				<img	src="${room.photoUrl}">
+					<span>\ ${room.price}&nbsp;-&nbsp; ${room.name}</span>
+					<br>
+					 ${room.type} - 침대 ${room.beds}개 </a>
 			</div>
 		</c:forEach>
 	</div>

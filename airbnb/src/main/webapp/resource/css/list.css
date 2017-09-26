@@ -22,7 +22,6 @@
 .page_list {
 	width: 30%;
 	height: 45%;
-	margin-bottom: 2%;
 }
 
 
@@ -40,7 +39,6 @@
 	.page_list {
 		width: 95%;
 		height: 50%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -61,7 +59,6 @@
 	}
 	.page_list {
 		width: 45%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -141,7 +138,6 @@
 	.page_list {
 		width: 30%;
 		height: 45%;
-		margin-bottom: 2%;
 		margin-left: 2%;
 	}
 	.page_list img {
@@ -192,3 +188,12 @@
 	margin-right: 220px;
 }
 
+.page_list a{
+	text-decoration: none;
+}
+.page_list a span{
+	font-weight: bold;
+}
+.page_list  img{
+	margin-bottom: 5px;
+}

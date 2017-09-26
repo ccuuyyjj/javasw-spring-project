@@ -76,8 +76,8 @@
                 <textarea  name="detail" placeholder="후기를 남겨주세요."rows="7" id="detail_board" ></textarea>
                 
                 <div id="btn">
-                <input id="cancel_write" type="button" value="취소">
-                <input type="submit" value="작성하기">
+                <input class="w3-btn w3-round-large w3-green cancel_write " type="button" value="취소">
+                <input class="w3-btn w3-round-large w3-green"type="submit" value="작성하기">
                 </div>
               </form>
 			<br>
@@ -108,7 +108,7 @@
 		<a
 			href="${pageContext.request.contextPath }/sub/detail/${room.no}?page=${totalPage}">${totalPage}</a>
 	</c:if>
-		<button id="show_write"  style="float: right">후기 쓰기</button>
+		<button class="w3-btn w3-round-large w3-green"id="show_write"  style="float: right">후기 쓰기</button>
 </div>
 	 </div>
 </div>    
