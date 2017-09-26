@@ -5,7 +5,6 @@
 $(document).ready(function() {
 	$(".cancel").on("click", function() {
 		event.preventDefault();
-		$(this).next().toggle('fast');
 	});	
 	/*메뉴 클릭, 이동 시*/
 	$(".b").on("click", function() {

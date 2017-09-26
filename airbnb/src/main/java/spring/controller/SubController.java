@@ -68,9 +68,6 @@ public class SubController {
 			@RequestParam(value = "filter", required = false, defaultValue = "0,0") int[] filter)
 			throws ParseException {
 		// System.out.println("sub");
-		System.out.println("type!!!" + types);
-		System.out.println("pricee!!!" + price);
-		System.out.println("filter!!" + filter);
 		/*
 		 * type = 방 유형 price = 숙박 가격 filter = 침실, 침대, 욕실 순
 		 */
