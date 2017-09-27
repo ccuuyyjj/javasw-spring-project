@@ -13,6 +13,7 @@
 		<h3>회원님의 숙소 유형은 무엇인가요?</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1">
+	<sec:csrfInput/>
 	<div class="host-row host-label">
 		숙소의 건물 유형을 알려주세요.
 	</div>

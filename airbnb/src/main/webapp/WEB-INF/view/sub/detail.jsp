@@ -159,8 +159,9 @@
 		<div class="booking-wrap">
 			<form name="bfrm" method="post"
 				action="${pageContext.request.contextPath}/sub/detail/${room.no}">
-				<input type="hidden" name="totalprice" id="totalprice"> <input
-					type="hidden" name="diffdays" id="diffdays">
+				<sec:csrfInput/>
+				<input type="hidden" name="totalprice" id="totalprice"> 
+				<input type="hidden" name="diffdays" id="diffdays">
 				<div class="w3-row content_1">
 					<div class="w3-col s3">
 						<label class="booking-menu">체크인</label>

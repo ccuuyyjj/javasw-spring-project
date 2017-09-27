@@ -48,39 +48,40 @@
 	    </div>
 		</c:forEach>
 	     <form id="write"  action="${pageContext.request.contextPath}/sub/review/${room.no}" method="POST">
-                <input id ="star"type="radio" name="rating"  value="1"checked>
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                
-                <input id ="star"type="radio" name="rating" value="2"  >
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15"> 
-                
-               <input id ="star"type="radio" name="rating" value="3">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png" width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                                                          
-                <input id ="star"type="radio" name="rate" value="4" >
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png" width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                
-                <input id ="star"type="radio" name="rating" value="5" >
-                 <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15"/>
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-                <br><br>
-                <textarea  name="detail" placeholder="후기를 남겨주세요."rows="7" id="detail_board" ></textarea>
-                
-                <div id="btn">
-                <input class="w3-btn w3-round-large w3-green cancel_write " type="button" value="취소">
-                <input class="w3-btn w3-round-large w3-green"type="submit" value="작성하기">
-                </div>
-              </form>
-			<br>
+	     	<sec:csrfInput/>
+               <input id ="star"type="radio" name="rating"  value="1" checked>
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               
+               <input id ="star"type="radio" name="rating" value="2"  >
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15"> 
+               
+              <input id ="star"type="radio" name="rating" value="3">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png" width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+                                                         
+               <input id ="star"type="radio" name="rate" value="4" >
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png" width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               
+               <input id ="star"type="radio" name="rating" value="5" >
+                <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15"/>
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+               <br><br>
+               <textarea  name="detail" placeholder="후기를 남겨주세요."rows="7" id="detail_board" ></textarea>
+               
+               <div id="btn">
+               <input class="w3-btn w3-round-large w3-green cancel_write " type="button" value="취소">
+               <input class="w3-btn w3-round-large w3-green"type="submit" value="작성하기">
+               </div>
+		</form>
+		<br>
 <div class="row" style="text-align: left;">
 	<!-- 번호 출력 -->
 

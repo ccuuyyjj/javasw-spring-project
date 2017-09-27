@@ -8,8 +8,8 @@
 			class="close">
 		<div class="empty"></div>
 		<div class="area-60  layer-center">
-			<form action="${pageContext.request.contextPath}/loginProc"
-				method="post">
+			<form action="${pageContext.request.contextPath}/loginProc" method="post">
+				<sec:csrfInput/>
 				<div>
 					<input type="email" name="email" placeholder="Email"
 						class="w3-input" required>
@@ -49,6 +49,7 @@
 			<form id="a_join"
 				action="${pageContext.request.contextPath}/member/join"
 				method="post">
+				<sec:csrfInput/>
 				<div>
 					<input type="email" id="a_email" name="email" placeholder="Email"
 						class="w3-input resource" required>
@@ -89,9 +90,10 @@
 		<div class="area-60 layer-center">
 			<form action="${pageContext.request.contextPath}/sub/sendMessage"
 				method="post">
-				<input type="hidden" name="name" value="${room.name}"> <input
-					type="hidden" name="price" value="${room.price}"> <input
-					type="hidden" name="room_no" value="${room.no}">
+				<sec:csrfInput/>
+				<input type="hidden" name="name" value="${room.name}"> 
+				<input type="hidden" name="price" value="${room.price}"> 
+				<input type="hidden" name="room_no" value="${room.no}">
 				<div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
 				<div class="md-container_2">언제 여행하실 계획인가요?</div>
 				<div class="md-row md-container md-checkin">
@@ -133,6 +135,7 @@
 			<div>
 				<form action="${pageContext.request.contextPath}/mypage/wishlist"
 					method="post" id="wishform">
+					<sec:csrfInput/>
 					<div class="w-row wfont">위시리스트에 담기</div>
 					<div class="w-row" id="addwl">
 						<button class="wbtn">새로운 위시리스트 만들기</button>

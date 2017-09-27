@@ -9,6 +9,7 @@
 		<h3>숙소에 얼마나 많은 인원이 숙박할 수 있나요?</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_1">
+	<sec:csrfInput/>
 	<div class="host-row1 host-label">
 		최대 숙박 인원
 	</div>

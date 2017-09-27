@@ -53,6 +53,7 @@
 	</div>
 	<div class="empty"></div>
 	<form method="post" id="hfrm" action = "${pageContext.request.contextPath}/host/become_host1_3">
+		<sec:csrfInput/>
 		<input type="hidden" id="lat" name="lat" value="0">
 		<input type="hidden" id="lng" name="lng" value="0">
 		<input type="hidden" id="mode" name="mode" >

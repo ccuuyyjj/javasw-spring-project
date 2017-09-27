@@ -10,6 +10,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_type">
 			<form action="sub_list" method="post">
+				<sec:csrfInput/>
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '전체')}">
 						<input type="checkbox" name="type" value="전체" checked>
@@ -50,6 +51,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_price ">
 		<form action="sub_list" method="post">
+			<sec:csrfInput/>
 			<img src="${pageContext.request.contextPath}/img/house.png"
 				width="200" height="130" class="slider" style="margin-left: 80px;">
 			<br>
@@ -71,6 +73,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_filter">
 		<form action="sub_list" method="post">
+			<sec:csrfInput/>
 			<img src="${pageContext.request.contextPath}/img/bed.png" width="150"
 				height="130" class="slider" style="margin-left: 100px;">
 				<div class="filter">
