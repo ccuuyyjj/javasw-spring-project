@@ -35,7 +35,9 @@ public class RoomDao {
 			String sql = "select avg(rating) as r, count(*) as c from review where room_no = ?";
 			SqlRowSet srs = jdbcTemplate.queryForRowSet(sql, room.getNo());
 			if (srs.next()) {
-				room.setRating(srs.getInt("r"));
+				float a = srs.getFloat("r");
+				int b = (int) a * 10 / 10;
+				room.setRating(b);
 				room.setCount(srs.getInt("c"));
 			}
 		}
@@ -252,16 +254,17 @@ public class RoomDao {
 	}
 
 	// 평점
-	public List<Room> rating(List<Room> list) {
-		String sql = "select avg(rating) as r, count(*) as c from review where room_no = ?";
-		for (Room r : list) {
-			SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, r.getNo());
-			if (rs.next()) {
-				r.setRating(rs.getInt("r"));
-				r.setCount(rs.getInt("c"));
-			}
-		}
-		return list;
-	}
+	// public List<Room> rating(List<Room> list) {
+	// String sql = "select avg(rating) as r, count(*) as c from review where
+	// room_no = ?";
+	// for (Room r : list) {
+	// SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, r.getNo());
+	// if (rs.next()) {
+	// r.setRating(rs.getInt("r"));
+	// r.setCount(rs.getInt("c"));
+	// }
+	// }
+	// return list;
+	// }
 
 }

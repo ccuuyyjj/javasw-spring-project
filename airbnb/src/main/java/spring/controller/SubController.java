@@ -272,8 +272,6 @@ public class SubController {
 		rsvp.setTotalprice(totalprice);
 		rsvp.setProgress(0); // 0:예약요청, 1:예약확인, 2:예약승낙,3:예약취소 9:예약거부
 		rsvp.setR_id(r_id);
-		rsvp.setAddress(room.getAddress());
-		rsvp.setOwner_id(room.getOwner_id());
 		rsvp.setGuest_name(member.getName());
 
 		rsvpDao.insert(rsvp);

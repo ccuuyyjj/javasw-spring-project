@@ -45,7 +45,7 @@
 							<c:forEach items="${rsvp}" var="list">
 								<tr>
 									<td>${list.address}</td>
-									<td>${list.owner_id }</td>
+									<td>${list.host_name }</td>
 									<td>${list.startdate.substring(0,10)}<br>${list.enddate.substring(0,10)}</td>
 
 									<td><input type="hidden" value="${list.no}">

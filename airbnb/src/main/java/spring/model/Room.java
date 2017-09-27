@@ -50,9 +50,6 @@ public class Room {
 		this.etc = etc;
 		this.progress = progress;
 		this.options = options;
-		this.rating = rating;
-		this.count = count;
-		this.host_name = host_name;
 	}
 
 	public Room(ResultSet rs) throws SQLException {

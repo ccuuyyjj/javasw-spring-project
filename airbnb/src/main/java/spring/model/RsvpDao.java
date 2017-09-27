@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,10 +24,10 @@ public class RsvpDao {
 	public void insert(Rsvp rsvp) throws Exception {
 		String sql = "insert into reservation values(reservation_seq.nextval, ? ,?, ?, "
 				+ "to_date(?, 'YYYY-MM-DD HH24:MI:SS'), to_date(?, 'YYYY-MM-DD HH24:MI:SS'), "
-				+ "?, ?, sysdate,?, ?,     ?, ?, ?, ?)";
+				+ "?, ?, sysdate,?, ?,?, ?)";
 		Object[] args = new Object[] { rsvp.getRoom_no(), rsvp.getQuantity(), rsvp.getPhone(), rsvp.getStartdate(),
 				rsvp.getEnddate(), rsvp.getTotalprice(), rsvp.getEtc(), rsvp.getProgress(), rsvp.getGuest_id(),
-				rsvp.getR_id(), rsvp.getAddress(), rsvp.getOwner_id(), rsvp.getGuest_name() };
+				rsvp.getR_id(), rsvp.getGuest_name() };
 		jdbcTemplate.update(sql, args);
 	}
 
@@ -37,6 +38,20 @@ public class RsvpDao {
 
 	// 예정된 여행 목록 추출 예약 날짜가 오늘 기준으로 이상 인것만
 	public List<Rsvp> select(String id, int type) {
+
+		RowMapper<Rsvp> rowMapper = (rs, index) -> {
+			Rsvp rsvp = new Rsvp(rs);
+			rsvp.setAddress(rs.getString("address"));
+			{
+				String email = rs.getString("owner_id");
+				String sql = "select name from member where email=?";
+				SqlRowSet srs = jdbcTemplate.queryForRowSet(sql, email);
+				if (srs.next()) {
+					rsvp.setHost_name(srs.getString("name"));
+				}
+			}
+			return rsvp;
+		};
 		String sql;
 		if (type == 1) {
 			sql = " select a.*,b.address,b.owner_id from" + "(select * from reservation where guest_id=? "
