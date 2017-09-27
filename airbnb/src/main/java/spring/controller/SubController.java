@@ -101,7 +101,6 @@ public class SubController {
 		}
 
 		int avg = availDao.avgPrice();
-		m.addAttribute("rating", reviewDao.avg());
 		m.addAttribute("avg", avg);
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
@@ -141,7 +140,10 @@ public class SubController {
 			args_list.add(filter);
 		}
 
-		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+		List<Room> list1 = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+
+		// 평점
+		List<Room> list = roomDao.rating(list1);
 
 		m.addAttribute("list", list);
 		return "sub/sub_list";
