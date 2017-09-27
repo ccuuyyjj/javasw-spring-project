@@ -78,9 +78,9 @@
 				height="130" class="slider" style="margin-left: 100px;">
 				<div class="filter">
 				침실 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
-					value="0${paramValues.filter[0]}"><br> <br>
+					value="0${paramValues.filter[0]}" min="0"><br> <br>
 				침대 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
-					value="0${paramValues.filter[1]}">
+					value="0${paramValues.filter[1]}" min="0">
 				</div>
 			<br>
 			<button class="cancel w3-btn w3-round-large w3-blue">취소</button>
