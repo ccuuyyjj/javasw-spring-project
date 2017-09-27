@@ -159,6 +159,7 @@ public class SubController {
 			Member member = memberDao.select(token.getName());
 			m.addAttribute("username", token.getName());
 		}
+
 		// 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수
@@ -193,10 +194,9 @@ public class SubController {
 		m.addAttribute("exist", "true");
 		Room room = roomDao.select(no);
 		Member host = memberDao.select(room.getOwner_id());
-		m.addAttribute("hostReg", host.getDetailReg());
+		m.addAttribute("host", host);
 		m.addAttribute("room", room);
 		m.addAttribute("availList", availDao.selectAvailable(no));
-		System.out.println(pagePosts + "게시물 수");
 		m.addAttribute("review", reviewDao.select(page, pagePosts, no));
 		m.addAttribute("total", reviewDao.count(no));
 		m.addAttribute("avg", reviewDao.avg(no));

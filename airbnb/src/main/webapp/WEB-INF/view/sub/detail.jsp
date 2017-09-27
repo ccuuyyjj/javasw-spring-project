@@ -236,11 +236,11 @@
 
 
 	<div class="host" id="host">
-		<div>호스트: ${room.host_name}님</div>
+		<div>호스트: ${host.name}님</div>
 	</div>
 	<div class="host_1">
 		<span>${room.region}</span> <span>·</span> 
-		<span>회원가입 : ${hostReg}</span>
+		<span>회원가입 : ${host.detailReg}</span>
 	</div>
 	<div class="host_2">
 		<div>${room.etc}</div>
