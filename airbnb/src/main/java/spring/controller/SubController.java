@@ -297,7 +297,7 @@ public class SubController {
 			Room room = roomDao.select(no.get(i));
 			roomList.add(room);
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo(),
-					roomList.get(i).gethost_name);
+					roomList.get(i).getHost_name());
 			Message getMessage = messageDao.Message(member_no, no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
