@@ -11,6 +11,7 @@
 				</div>
 				<div class="m_searchbox">
 					<form id="m_search" method="post">
+						<sec:csrfInput/>
 						<input type="text" name="query" placeholder="검색어">
 						<sec:csrfInput/>
 						<input type="submit" value="검색">

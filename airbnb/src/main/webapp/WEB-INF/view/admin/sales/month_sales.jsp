@@ -3,11 +3,11 @@
 <%@include file="/WEB-INF/view/admin/template/header.jsp"%>
 <div class="menu-wrap w3-blue">
 	<ul>
-		<li><a href="${pageContext.request.contextPath}/admin/sales">일 매출 현황</a>
-		</li>
+		<li><a href="${pageContext.request.contextPath}/admin/sales">일
+				매출 현황</a></li>
 		<li class="w3-gray"><a
-			href="${pageContext.request.contextPath}/admin/sales/month_sales">월 매출 현황</a>
-		</li>
+			href="${pageContext.request.contextPath}/admin/sales/month_sales">월
+				매출 현황</a></li>
 	</ul>
 </div>
 <div class="w3-container" id="sales" style="margin-top: 75px">
@@ -20,6 +20,7 @@
 				<div class="m_searchbox">
 					<form id="rfrm" method="post"
 						action="${pageContext.request.contextPath}/admin/sales/month_sales">
+						<sec:csrfInput />
 						<select class="select" name="syear">
 							<c:forEach begin="0" end="10" var="idx" step="1">
 								<c:if test="${syear eq (year - idx) }">

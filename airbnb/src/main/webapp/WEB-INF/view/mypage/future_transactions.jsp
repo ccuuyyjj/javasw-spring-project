@@ -39,6 +39,7 @@
 			<!-- 수령예정 내역 -->
 			<div class="area-100 tab-item"  id="menu2">
 				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/mypage/future_transactions">
+				<sec:csrfInput/>
 				<div class="w3-row">
 			  		<div class="w3-col s3  text-right host-row1">
 				  		<select class="host-select" name="roomName">

@@ -10,6 +10,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_type">
 			<form action="sub_list" method="post">
+				<sec:csrfInput/>
 				<c:choose>
 					<c:when test="${fn:contains(param.type, '전체')}">
 						<input type="checkbox" name="type" value="전체" checked>
@@ -50,6 +51,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_price ">
 		<form action="sub_list" method="post">
+			<sec:csrfInput/>
 			<img src="${pageContext.request.contextPath}/img/house.png"
 				width="200" height="130" class="slider" style="margin-left: 80px;">
 			<br>
@@ -71,6 +73,7 @@
 			class="b w3-button w3-red w3-round-large">
 		<div class="add_filter">
 		<form action="sub_list" method="post">
+			<sec:csrfInput/>
 			<img src="${pageContext.request.contextPath}/img/bed.png" width="150"
 				height="130" class="slider" style="margin-left: 100px;">
 				<div class="filter">
@@ -96,36 +99,35 @@
 					 ${room.type} - 침대 ${room.beds}개
 					 <br>
 
-    	평점 
+ 		<!--  평점 -->
     	<c:choose>
-    	<c:when test="${room.no==rating{status.index}.room_no">
-    	<c:when test="${rating==1 }">
+    	<c:when test="${room.rating ==  1 }">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		</c:when>
-    		<c:when test="${rating==2 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${rating==3 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<c:when test="${room.rating ==2 }">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		</c:when>
-    		<c:when test="${rating==4 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<c:when test="${room.rating ==3 }">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		</c:when>
-    		<c:when test="${rating==5 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<c:when test="${room.rating ==4 }">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		</c:when>
-    	</c:when>
+    		<c:when test="${room.rating == 5 }">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:when>
     	</c:choose>
+    		후기 ${room.count }
 					  </a>
 			</div>
 		</c:forEach>

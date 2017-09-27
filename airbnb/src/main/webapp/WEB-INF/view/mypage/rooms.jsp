@@ -64,6 +64,7 @@ function del_reg(pNo){
 				등록 진행 중
 			</div>
 			<form id="rfrm" method="post">
+			<sec:csrfInput/>
 			<ul class="list-layout ">
 				<c:forEach var="room" items="${host_list}">
 				<input type="hidden" name="room_no" value="${room.no}">
@@ -102,8 +103,8 @@ function del_reg(pNo){
 				<li id="delcontent_${room.no}" style="display:none;" class="delcontent">
 					<h6>숙소 삭제</h6>
 					이 숙소를 삭제하시겠습니까? 삭제하면 되돌릴 수 없습니다<br><br>
-					<button class="w3-button w3-round w3-green" onclick="JavaScript:del_reg(${room.no})">삭제</button>
-					<button class="w3-button w3-round w3-white" onclick="JavaScript:back_reg(${room.no})">뒤로</button>
+					<button class="w3-button w3-round w3-green" onclick="javascript:del_reg('${room.no}');">삭제</button>
+					<button class="w3-button w3-round w3-white" onclick="javascript:back_reg('${room.no}');">뒤로</button>
 				</li>
 				</c:forEach>
 			</ul>

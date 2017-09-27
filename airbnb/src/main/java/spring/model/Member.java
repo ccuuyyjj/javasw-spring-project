@@ -88,6 +88,13 @@ public class Member {
 		return reg;
 	}
 
+	public String getDetailReg() {
+		String year = reg.split("-")[0];
+		String month = reg.split("-")[1];
+
+		return month + "월 " + year;
+	}
+
 	public void setReg(String reg) {
 		this.reg = reg;
 	}

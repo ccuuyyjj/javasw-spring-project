@@ -217,9 +217,8 @@ public class RoomDao {
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 	}
 
-	
-	//마이페이지 숙소목록 - 예약관리 리스트
-	public List<Room> host_list_complete(String id){
+	// 마이페이지 숙소목록 - 예약관리 리스트
+	public List<Room> host_list_complete(String id) {
 		String sql = "select * from room where progress = 4 and owner_id = ? order by no desc";
 		return jdbcTemplate.query(sql, new Object[] { id }, rowMapper);
 	}
@@ -242,6 +241,36 @@ public class RoomDao {
 	public boolean delete(String room_no) {
 		String sql = "delete room where no = ?";
 		return jdbcTemplate.update(sql, new Object[] { room_no }) > 0;
+	}
+
+	// 평점
+	public List<Room> rating(List<Room> list1) {
+		System.out.println(list1.size());
+		String sql1 = "select count(*) from(select * from room where no=?)a " + "inner join"
+				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
+
+		String sql2 = "select a.* , b.rating from(select * from room where no=?)a " + "inner join "
+				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
+
+		List<Room> list = new ArrayList<Room>();
+
+		for (Room r : list1) {
+			int a = jdbcTemplate.queryForObject(sql1, new Object[] { r.getNo(), r.getNo() }, Integer.class);
+			if (a != 0) {
+				list.add(jdbcTemplate.query(sql2, new Object[] { r.getNo(), r.getNo() }, rowMapper).get(0));
+			} else {
+				list.add(r);
+			}
+		}
+
+		for (Room r : list) {
+			if (r.getRating() > 0) {
+				String sql = "select count(*) from review where room_no=?";
+				r.setCount(jdbcTemplate.queryForObject(sql, new Object[] { r.getNo() }, Integer.class));
+			}
+		}
+
+		return list;
 	}
 
 }

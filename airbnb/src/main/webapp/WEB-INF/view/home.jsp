@@ -86,8 +86,7 @@
 		style="max-width: 1200px; margin-top: 100px">
 		<div class="empty"></div>
 		<div class="empty"></div>
-		<form method="post"
-			action="${pageContext.request.contextPath}/sub/sub_list">
+		<form method="post" action="${pageContext.request.contextPath}/sub/sub_list">
 			<sec:csrfInput/>
 			<input type="hidden" id="from"> <input type="hidden" id="to">
 			<div class="w3-row w3-border">

@@ -33,6 +33,7 @@
 	</div>
 	<div class="empty"></div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_6">
+	<sec:csrfInput/>
 	<input type="hidden" name="urlNo" value="${urlNo}">
 	<div class="w3-row host-row">
 		<c:choose>

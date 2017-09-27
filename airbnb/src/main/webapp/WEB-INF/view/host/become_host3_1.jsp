@@ -11,6 +11,7 @@
 		기본 요금은 회원님이 정한 기본 1박당 요금입니다.
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host3_1">	
+	<sec:csrfInput/>
 	<div class="host-row1  host-row">
 		<label>기본 요금</label>
 		<span class="currency"></span>

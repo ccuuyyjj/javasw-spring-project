@@ -10,6 +10,7 @@
 		</div>
 		
 		<form method="post" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
+			<sec:csrfInput/>
 			<input type="hidden" name="mode" id="mode">
 			<div class="filebox"> 
 				<label for="ex_file">업로드</label> 

@@ -8,7 +8,7 @@
 		<h3>숙소 설명 수정하기</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host2_1">
-		
+		<sec:csrfInput/>
 		<div class="host-row1 host-row">
 			요약 (500자)
 		</div>

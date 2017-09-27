@@ -9,6 +9,7 @@
 		<h3>숙소의 위치를 알려주세요.</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_2">
+	<sec:csrfInput/>
 	<div class="host-row1 host-label">
 		<input class="area-50 host-input" type="text" name="address"  placeholder="전체주소">
 	</div>

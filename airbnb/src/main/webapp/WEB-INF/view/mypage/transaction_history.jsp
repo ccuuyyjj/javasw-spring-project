@@ -40,6 +40,7 @@
 			<!-- 수령완료 내역 -->
 			<div class="area-100 tab-item"  id="menu1">
 				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/mypage/transaction_history">
+				<sec:csrfInput/>
 				<div class="w3-row">
 			  		<div class="w3-col s3  text-right host-row1">
 				  		<select class="host-select" name="roomName">
