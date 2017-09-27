@@ -147,7 +147,7 @@ body {font-size:16px;}
 			<div class="m_head">
 				<div class="m_row div_row">
 					<div class="m_no">일자</div>
-					<div class="m_no">건수</div>
+					<div class="m_no">예약승낙건수</div>
 					<div class="m_no">금액</div>
 				</div>
 			</div>

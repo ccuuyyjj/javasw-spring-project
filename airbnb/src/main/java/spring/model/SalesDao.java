@@ -17,10 +17,6 @@ public class SalesDao {
 	private JdbcTemplate jdbcTemplate;
 
 	private RowMapper<Sales> rowMapper = (rs, index) -> {
-		log.debug("여기");
-		log.debug("cnt:" + rs.getInt("cnt"));
-		log.debug("amount:" + rs.getInt("amount"));
-		log.debug("dt:" + rs.getString("dt"));
 		return new Sales(rs);
 	};
 
@@ -35,8 +31,6 @@ public class SalesDao {
 	}
 
 	public List<Sales> sales_month_history(String sDate, String eDate) {
-		log.debug("sDate:" + sDate);
-		log.debug("eDate:" + eDate);
 		String sql = "select x.dt as dt, count(x.rid) as cnt, sum(x.price) as amount " + "from ("
 				+ "    select TO_CHAR(enddate,'yyyymm') AS dt, r_id as rid, sum(totalprice) as price  "
 				+ "    from reservation where progress=2 and enddate >= to_date(?, 'yyyymmdd') "
