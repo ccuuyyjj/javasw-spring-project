@@ -100,6 +100,7 @@
 					 <br>
 
  		<!--  평점 -->
+		후기 ${room.count }개
     	<c:choose>
     	<c:when test="${room.rating ==  1 }">
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
@@ -127,7 +128,7 @@
     		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
     		</c:when>
     	</c:choose>
-    		후기 ${room.count }
+    		
 					  </a>
 			</div>
 		</c:forEach>

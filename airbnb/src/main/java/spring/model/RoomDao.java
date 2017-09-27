@@ -249,15 +249,16 @@ public class RoomDao {
 		String sql1 = "select count(*) from(select * from room where no=?)a " + "inner join"
 				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
 
-		String sql2 = "select a.* , b.rating from(select * from room where no=?)a " + "inner join "
-				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
+		String sql2 = "select a.*,b.rating from(select * from room where no=?)a " + "inner join "
+				+ "(select * from review)b" + " on a.no = b.room_no";
 
 		List<Room> list = new ArrayList<Room>();
 
 		for (Room r : list1) {
 			int a = jdbcTemplate.queryForObject(sql1, new Object[] { r.getNo(), r.getNo() }, Integer.class);
-			if (a != 0) {
-				list.add(jdbcTemplate.query(sql2, new Object[] { r.getNo(), r.getNo() }, rowMapper).get(0));
+			if (a > 0) {
+				list.add(jdbcTemplate.query(sql2, new Object[] { r.getNo() }, rowMapper).get(0));
+				System.out.println("얍" + list.toString());
 			} else {
 				list.add(r);
 			}

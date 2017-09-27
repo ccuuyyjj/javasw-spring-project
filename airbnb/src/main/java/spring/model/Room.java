@@ -33,7 +33,7 @@ public class Room {
 
 	public Room(String name, String type, String photoUrl, String region, double lat, double lng, String address,
 			int capacity, int beds, int bathrooms, String shared, String bed_type, String owner_id, String etc,
-			int progress, String options) {
+			int progress, String options, int rating, int count, String host_name) {
 		this.name = name;
 		this.type = type;
 		this.photoUrl = photoUrl;
@@ -50,6 +50,9 @@ public class Room {
 		this.etc = etc;
 		this.progress = progress;
 		this.options = options;
+		this.rating = rating;
+		this.count = count;
+		this.host_name = host_name;
 	}
 
 	public Room(ResultSet rs) throws SQLException {
@@ -73,6 +76,7 @@ public class Room {
 		this.progress = rs.getInt("progress");
 		this.options = rs.getString("options");
 		this.rating = rs.getInt("rating");
+		this.count = rs.getInt("count");
 		this.host_name = rs.getString("host_name");
 	}
 
