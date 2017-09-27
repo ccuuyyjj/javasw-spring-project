@@ -105,8 +105,10 @@ public class RsvpDao {
 		return jdbcTemplate.query(sql, args, rowMapper);
 	}
 
+	// 예약 취소
 	public boolean delete(String id, String no) {
-		String sql = "delete reservation where guest_id=? and no=?";
+		String sql = "update reservation set PROGRESS = 3 where guest_id=? and no=?";
+
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
 	}
 

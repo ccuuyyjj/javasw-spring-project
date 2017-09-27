@@ -24,6 +24,9 @@ public class Room {
 	private int progress;
 	private String options;
 	private int price;
+	private int rating;
+	private int count;
+	private String host_name;
 
 	public Room() {
 	}
@@ -69,6 +72,8 @@ public class Room {
 		this.reg = rs.getString("reg");
 		this.progress = rs.getInt("progress");
 		this.options = rs.getString("options");
+		this.rating = rs.getInt("rating");
+		this.host_name = rs.getString("host_name");
 	}
 
 	public int getNo() {
@@ -256,12 +261,37 @@ public class Room {
 		this.price = price;
 	}
 
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getHost_name() {
+		return host_name;
+	}
+
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
+	}
+
 	@Override
 	public String toString() {
 		return "Room [no=" + no + ", name=" + name + ", type=" + type + ", photoUrl=" + photoUrl + ", region=" + region
 				+ ", lat=" + lat + ", lng=" + lng + ", address=" + address + ", capacity=" + capacity + ", beds=" + beds
 				+ ", bedrooms=" + bedrooms + ", shared=" + shared + ", bed_type=" + bed_type + ", owner_id=" + owner_id
 				+ ", etc=" + etc + ", read=" + read + ", reg=" + reg + ", progress=" + progress + ", options=" + options
-				+ ", price=" + price + "]";
+				+ ", price=" + price + ", rating=" + rating + ", count=" + count + ", host_name=" + host_name + "]";
 	}
+
 }
