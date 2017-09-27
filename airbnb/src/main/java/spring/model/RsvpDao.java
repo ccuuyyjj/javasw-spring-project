@@ -107,9 +107,7 @@ public class RsvpDao {
 
 	public boolean delete(String id, String no) {
 		String sql = "delete reservation where guest_id=? and no=?";
-
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
-
 	}
 
 }

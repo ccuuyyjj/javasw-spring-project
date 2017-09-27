@@ -133,7 +133,6 @@
 			<div>
 				<form action="${pageContext.request.contextPath}/mypage/wishlist"
 					method="post" id="wishform">
-					<input type="hidden" name="room_no" value="${no}">
 					<div class="w-row wfont">위시리스트에 담기</div>
 					<div class="w-row" id="addwl">
 						<button class="wbtn">새로운 위시리스트 만들기</button>
@@ -145,13 +144,16 @@
 							</div>
 							<div class="wl-box_5">
 								<button class="wbtn3">취소</button>
-								<button class="wbtn4" disabled>목록 만들기</button>
+								<input type="button" class="wbtn4" disabled value="목록 만들기">									
 							</div>
 						</div>
 					</div>
+					<c:if test="${exist == true}">
 					<div class="appendhere"></div>
-					<input type="submit" value="등록" class="insert">
+					<input type="button" value="등록" class="insert" onclick="insert(${room.no});">
+					</c:if>
 				</form>
+				<c:if test="${exist == true}">
 				<div style="margin-top: 70px">
 					<div class="wl-box_3">
 						<button class="wbtn2">
@@ -212,6 +214,7 @@
 						</button>
 					</div>
 				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -221,11 +224,14 @@
 			class="close">
 		<div class="refund">
 			<div class="wfont">환불 정책</div>
-			<textarea id="rsv_notice" readonly="readonly">
-        </textarea>
+			<div id="rsv_policy">
+<p>체크인 30일 전까지 취소: 모든 수수료를 포함한 전액 환불</p>
+<p>체크인 30일 전부터 체크인 전까지 취소: 체크인 당일 오후 12시까지 취소하면 총 숙박 요금의 50% 및 수수료, 청소비 전액 환불</p>
+<p>숙박 중 취소: 현지 시간으로 오후 12시 전까지 취소하면 남은 숙박일에 대한 숙박 요금은 50% 환불되지만 수수료, 청소비는 환불 불가. 현지 시간으로 오후 12시 이후에 취소하면 당일 숙박 요금과 수수료, 청소비는 환불되지 않으며, 남은 숙박일에 대한 숙박 요금의 50% 환불</p>
+			</div>
 			<input type="hidden">
 			<div id="rsv_btn">
-				<button class="w3-btn w3-round-large w3-border-blue final_rsv">예약
+				<button class="w3-btn w3-round-large w3-green final_rsv">예약
 					취소</button>
 			</div>
 		</div>

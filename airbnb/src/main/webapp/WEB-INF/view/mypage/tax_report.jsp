@@ -41,10 +41,10 @@
 				<form id="afrm" method="post"  action="${pageContext.request.contextPath}/mypage/tax_report">
 				<div class="w3-row">
 			  		<div class="w3-col s2 w3-center host-row1">	
-				  		<select class="host-select" name="year">
+				  		<select class="host-select" name="syear">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
-				  				<c:if test="${year eq idx }"><option value="${year - idx}" selected>${year}년</option></c:if>
-			           			<c:if test="${year != idx }"><option value="${year - idx}">${year - idx}년</option></c:if>
+				  				<c:if test="${syear eq (year - idx) }"><option value="${syear}" selected>${syear}년</option></c:if>
+			           			<c:if test="${syear != (year - idx) }"><option value="${year - idx}">${year - idx}년</option></c:if>
 				          	</c:forEach>
 			          	</select>
 			  		</div>
@@ -52,7 +52,7 @@
 				  		<select class="host-select" name="startMonth">
 				  			<c:forEach begin="1" end="12" step="1" var="i">
 				  			  	<c:if test="${sMonth eq i }">
-				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  >
+				  			  		<option  value="<fmt:formatNumber value='${i}' pattern='00'/>"  selected>
 									시작: <fmt:formatNumber value='${i}' pattern='00'/>월</option>
 								</c:if>
 								<c:if test="${sMonth != i }">

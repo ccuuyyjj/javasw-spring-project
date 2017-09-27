@@ -101,7 +101,7 @@ public class SubController {
 		}
 
 		int avg = availDao.avgPrice();
-
+		m.addAttribute("rating", reviewDao.avg());
 		m.addAttribute("avg", avg);
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
@@ -142,6 +142,7 @@ public class SubController {
 		}
 
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+
 		m.addAttribute("list", list);
 		return "sub/sub_list";
 	}
@@ -186,6 +187,7 @@ public class SubController {
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
+		m.addAttribute("exist", "true");
 
 		m.addAttribute("room", roomDao.select(no));
 		m.addAttribute("availList", availDao.selectAvailable(no));

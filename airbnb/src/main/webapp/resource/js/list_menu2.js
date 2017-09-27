@@ -3,6 +3,8 @@
  */
 /*메뉴 */
 $(document).ready(function() {
+	
+	/*소메뉴 취소 버튼*/
 	$(".cancel").on("click", function() {
 		event.preventDefault();
 	});	
