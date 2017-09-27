@@ -81,16 +81,18 @@ function check_date(startDate, diff){
 			   },
 		   DateType: "html",
 		   cache: false,
+	       beforeSend : function(xhr) {
+	          var token = $("meta[name='_csrf']").attr("content");
+	          var header = $("meta[name='_csrf_header']").attr("content");
+	          if (token != undefined)
+	             xhr.setRequestHeader(header, token);
+	       },
 		   success: function(msg){
-			console.log(msg);
 			var arr = msg.split("@");
 			for(var i=0; i<arr.length; i++){
 				var subArr = arr[i].split("|");
 				var day = subArr[0].split("/")[2]+"-"+subArr[0].split("/")[0]+"-"+subArr[0].split("/")[1];
 				var available = subArr[1];
-				console.log("s=>"+day);
-				console.log("a=>"+available);
-				
 				var eventData = {
 					id:day,	
 					start: day
@@ -100,9 +102,7 @@ function check_date(startDate, diff){
 				} else {
 					$('#calendar').fullCalendar('removeEvents', day);
 				}
-				
 			}
-			
 		  },
 		  error:function(a, b, c){
 				console.log(a, b, c);
