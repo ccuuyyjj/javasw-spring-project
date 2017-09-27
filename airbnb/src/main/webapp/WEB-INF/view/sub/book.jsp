@@ -71,10 +71,11 @@
 		<div class="empty"></div>
 		<div class="empty"></div>
 		<form method="post" action="${pageContext.request.contextPath}/sub/book">
-		<input type="hidden" name="c_no" value="${cart.no}">
-		<div>
-			<input type="submit" id="continue" value="계속" class="w3-btn w3-round-large w3-green" >
-		</div>
+			<sec:csrfInput/>
+			<input type="hidden" name="c_no" value="${cart.no}">
+			<div>
+				<input type="submit" id="continue" value="계속" class="w3-btn w3-round-large w3-green" >
+			</div>
 		</form>
 	</div>
 </body>

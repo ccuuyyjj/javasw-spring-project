@@ -34,6 +34,7 @@
 	
 	<div class="empty"></div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host2_2">
+		<sec:csrfInput/>
 		<div class="w3-row host-row">
 			<a href="${pageContext.request.contextPath}/host/become_host2_1" >뒤로</a>
 			<span class="space">&nbsp;</span>

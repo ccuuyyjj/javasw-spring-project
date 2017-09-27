@@ -121,6 +121,7 @@ function check_date(startDate, diff){
 		<div id='calendar'></div>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host3_2">	
+		<sec:csrfInput/>
 		<div class="w3-row host-row">
 			<a href="${pageContext.request.contextPath}/host/become_host3_1"" >뒤로</a>
 			<span class="space">&nbsp;</span>

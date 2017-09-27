@@ -156,7 +156,8 @@ public class SubController {
 			UsernamePasswordAuthenticationToken token) {
 		log.debug("token = " + token);
 		if (token != null) {
-			m.addAttribute("username", token.getName());
+			Member member = memberDao.select(token.getName());
+			m.addAttribute("member", member);
 		}
 		// 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
@@ -189,6 +190,7 @@ public class SubController {
 		m.addAttribute("end", end);
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
+		m.addAttribute("exist", "true");
 
 		m.addAttribute("room", roomDao.select(no));
 		m.addAttribute("availList", availDao.selectAvailable(no));
@@ -266,7 +268,7 @@ public class SubController {
 		rsvp.setStartdate(cart.getStartdate().substring(0, 10));
 		rsvp.setEnddate(cart.getEnddate().substring(0, 10));
 		rsvp.setTotalprice(totalprice);
-		rsvp.setProgress(0); // 0:예약요청, 1:예약확인, 2:예약승낙, 9:예약거부
+		rsvp.setProgress(0); // 0:예약요청, 1:예약확인, 2:예약승낙,3:예약취소 9:예약거부
 		rsvp.setR_id(r_id);
 		rsvp.setAddress(room.getAddress());
 		rsvp.setOwner_id(room.getOwner_id());

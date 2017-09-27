@@ -107,10 +107,13 @@ public class RsvpDao {
 
 	// 예약 취소
 	public boolean delete(String id, String no) {
+<<<<<<< HEAD
 		String sql = "update reservation set PROGRESS = 3 where guest_id=? and no=?";
 
+=======
+		String sql = "delete reservation where guest_id=? and no=?";
+>>>>>>> branch 'master' of https://github.com/ccuuyyjj/javasw-spring-project.git
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
-
 	}
 
 }

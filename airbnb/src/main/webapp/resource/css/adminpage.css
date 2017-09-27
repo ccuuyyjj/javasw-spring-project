@@ -114,10 +114,45 @@ body {
     display:block;
     margin:15px 0px;
 }
-.m_caption_right{
-	text-align:right; width:500px;margin-left:700px;
+.m_caption_center{
+	text-align:center; 
+	width:900px;
+	margin-left:500px;
 }
 .searchbtn{
 	padding-top:5px;
 }
-
+.menu-wrap > ul{
+	width:80%;
+    list-style: none;
+    display:block;
+}
+.menu-wrap > ul > li{
+    display:inline-block;
+    width:15%;
+	padding:10px;
+}
+.menu-wrap .hover{
+	background-color:#bbb;
+}
+.menu-wrap li:hover{
+    background-color:#bbb;
+}
+.menu-wrap a{
+    text-decoration: none;
+    font-size:16px;
+    color:white;
+    font-weight:bold;
+}
+.text-right{
+	text-align:right;
+	padding-right:5px;
+}
+.div_row > div {
+	display: table-cell;
+	border: 1px solid #ccc;
+	vertical-align: middle;
+	margin: 0;
+	height:30px;
+	padding: 1px 2px;
+}

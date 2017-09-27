@@ -39,12 +39,6 @@ public class WishListDao {
 		return jdbcTemplate.query(sql, args, rowMapper);
 	}
 
-	public int count(int member_no) {
-		String sql = "select count(DISTINCT title) from wishlist where member_no = ?";
-		Object[] args = new Object[] { member_no };
-		return jdbcTemplate.queryForObject(sql, args, Integer.class);
-	}
-
 	public int count(int member_no, String title) {
 		String sql = "select count(room_no) from wishlist where member_no = ? and title = ?";
 		Object[] args = new Object[] { member_no, title };

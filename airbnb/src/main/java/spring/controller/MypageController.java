@@ -94,6 +94,7 @@ public class MypageController {
 		log.debug("result:" + result);
 		if (result) {
 			// 상태값이 변경될때 게스트에게 메시지로 알려준다.
+			String addMsg = "";
 			String msg = "회원님이 예약 요청하신 건이 [예약";
 			switch (progress) {
 			case 1:
@@ -101,12 +102,13 @@ public class MypageController {
 				break;
 			case 2:
 				msg += "승낙]";
+				addMsg += " 정확한 숙소 위치는 마이페이지 - 여행 목록에서 확인 가능합니다.";
 				break;
 			case 3:
 				msg += "거절]";
 				break;
 			}
-			msg += " 되었습니다";
+			msg += " 되었습니다" + addMsg;
 
 			Rsvp rsvp = rsvpDao.select_no(no);
 			Member member = memberDao.select(rsvp.getGuest_id());
@@ -152,6 +154,7 @@ public class MypageController {
 		Calendar c1 = Calendar.getInstance();
 		String strToday = format.format(c1.getTime());
 		m.addAttribute("year", strToday.substring(0, 4));
+		log.debug("year:" + strToday.substring(0, 4));
 		return strToday;
 	}
 
@@ -199,14 +202,14 @@ public class MypageController {
 		if (!rName.equalsIgnoreCase("all")) {
 			room_no = Integer.parseInt(rName);
 		}
-		String year = request.getParameter("year");
+		String syear = request.getParameter("syear");
 		String sMonth = request.getParameter("startMonth");
 		String eMonth = request.getParameter("endMonth");
-		String sDate = year + sMonth;
-		String eDate = year + eMonth;
+		String sDate = syear + sMonth;
+		String eDate = syear + eMonth;
 		List<Rsvp> Rsvplist = rsvpDao.transaction_history(room_no, sDate, eDate, token.getName());
 
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		// 숙박명 가져오기 위해
 		for (Rsvp rsvp : Rsvplist) {
@@ -219,7 +222,7 @@ public class MypageController {
 		m.addAttribute("cList", Rsvplist);
 		m.addAttribute("map", map);
 		m.addAttribute("room_no", room_no);
-		m.addAttribute("year", year);
+		m.addAttribute("syear", syear);
 		m.addAttribute("sMonth", sMonth);
 		m.addAttribute("eMonth", eMonth);
 		m.addAttribute("total", sum);
@@ -270,7 +273,7 @@ public class MypageController {
 			room_no = Integer.parseInt(rName);
 		}
 		List<Rsvp> Rsvplist = rsvpDao.future_transactions(token.getName(), room_no);
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		// 숙박명 가져오기 위해
 		for (Rsvp rsvp : Rsvplist) {
@@ -296,15 +299,15 @@ public class MypageController {
 
 	@RequestMapping(value = "/tax_report", method = RequestMethod.POST)
 	public String tax_report(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) {
-		String year = request.getParameter("year");
+		String syear = request.getParameter("syear");
 		String sMonth = request.getParameter("startMonth");
 		String eMonth = request.getParameter("endMonth");
-		String sDate = year + sMonth;
-		String eDate = year + eMonth;
+		String sDate = syear + sMonth;
+		String eDate = syear + eMonth;
 		List<Rsvp> Rsvplist = rsvpDao.tax_report(sDate, eDate, token.getName());
 
 		String strToday = getToday(m);
-		Double sum = 0.0;
+		int sum = 0;
 		Map<Integer, Room> map = new HashMap<>();
 		Map<Integer, String> str = new HashMap<>();
 		// 숙박명 가져오기 위해
@@ -327,7 +330,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 
-		m.addAttribute("year", year);
+		m.addAttribute("syear", syear);
 		m.addAttribute("sMonth", sMonth);
 		m.addAttribute("eMonth", eMonth);
 		m.addAttribute("tList", Rsvplist);
@@ -373,15 +376,14 @@ public class MypageController {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
-		int count = wishListDao.count(member_no);
 		List<Integer> roomcount = new ArrayList<>();
-		for (int i = 0; i < count; i++) {
-			count = wishListDao.count(member_no, title.get(i).getTitle());
+		for (int i = 0; i < title.size(); i++) {
+			int count = wishListDao.count(member_no, title.get(i).getTitle());
 			roomcount.add(count);
 		}
 
 		m.addAttribute("title", title);
-		m.addAttribute("count", count);
+		m.addAttribute("count", title.size());
 		m.addAttribute("roomcount", roomcount);
 		return "mypage/wishlist";
 	}
@@ -392,14 +394,20 @@ public class MypageController {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
 		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		log.debug("wishlist 수" + wishlist.size());
+		log.debug("wishlist = " + wishlist.toString());
 		List<Room> roomlist = new ArrayList<>();
 		for (int i = 0; i < wishlist.size(); i++) {
-			Room room = roomDao.select(wishlist.get(i).getRoom_no());
-			roomlist.add(room);
+			int room_no = wishlist.get(i).getRoom_no();
+			if (room_no > 0) {
+				Room room = roomDao.select(room_no);
+				roomlist.add(room);
+				log.debug("room = " + room.toString());
+			}
 		}
 		m.addAttribute("roomlist", roomlist);
 		m.addAttribute("wltitle", wltitle);
-		m.addAttribute("roomcount", roomcount);
+		m.addAttribute("roomcount", roomlist.size());
 
 		return "mypage/wishlistdetail";
 	}
@@ -416,7 +424,7 @@ public class MypageController {
 		for (int i = 0; i < title.size(); i++) {
 			buffer.append("{");
 			buffer.append("\"title\":\"");
-			buffer.append(title.get(i).getTitle().trim());
+			buffer.append(title.get(i).getTitle());
 			buffer.append("\"},");
 		}
 		buffer.deleteCharAt(buffer.length() - 1);

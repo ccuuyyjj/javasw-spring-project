@@ -3,8 +3,7 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
 <div class="center">
 	<div class="area-30 middle">
-		<form action="${pageContext.request.contextPath}/loginProc"
-			method="post">
+		<form action="${pageContext.request.contextPath}/loginProc" method="post">
 			<sec:csrfInput/>
 			<div class="row_login">
 				<input type="email" name="email" placeholder="Email" class="w3-input"

@@ -234,7 +234,7 @@ public class Room {
 
 	public String[] getParsedOptions() {
 		if (options != null)
-			return options.split("|");
+			return options.split("\\|");
 		else
 			return null;
 	}

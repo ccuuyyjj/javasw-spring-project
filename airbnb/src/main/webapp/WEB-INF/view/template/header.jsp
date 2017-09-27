@@ -75,8 +75,7 @@
 						src="${pageContext.request.contextPath}/img/paper.png" width="50">
 					</a>
 				</div>
-				<form id="mainSearchForm" method="post"
-					action="${pageContext.request.contextPath}/sub/sub_list">
+				<form id="mainSearchForm" method="post" action="${pageContext.request.contextPath}/sub/sub_list">
 					<sec:csrfInput />
 					<input type="hidden" id="from"> 
 					<input type="hidden" id="to">

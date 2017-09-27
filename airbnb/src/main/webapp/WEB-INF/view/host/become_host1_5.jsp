@@ -9,6 +9,7 @@
 		<h3>게스트에게 회원님의 공간에 대해 설명해주세요.</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_5">
+	<sec:csrfInput/>
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" value="개인 거실" id="private-living-room">&nbsp;
 		<label for="private-living-room">개인 거실</label>
