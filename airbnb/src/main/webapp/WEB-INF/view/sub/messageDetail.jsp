@@ -27,7 +27,7 @@
 	<div class="container_1">
                 <div class="area-33">
                         <div class="d-container">
-                            <div class="d-container_9">호스트 아이디</div>
+                            <div class="d-container_9">${owner_id}</div>
                             <div class="d-container_1">여행 세부정보</div>
                             <div class="d-container_2">${name}</div>
                             <div class="d-container_6">
@@ -67,6 +67,7 @@
                             <input type="hidden" name="checkout" value="${checkout}">
                             <input type="hidden" name="quantity" value="${quantity}">
                             <input type="hidden" name="price" value="${price}">
+                            <input type="hidden" name="owner_id" value="${owner_id}">
 	                        <textarea rows="6" cols="50" name="question"></textarea>
 	                        <div class="container_3">
 	                            <div class="container_4">
@@ -80,7 +81,7 @@
                     <div class="container_6"></div>
                     <c:forEach var="message" items="${message}">
                     <div class="container_8">
-                        <div class="container_7">아이디</div>
+                        <div class="container_7">${message.owner_id}</div>
                         <div>${message.question}
                         </div>
                         <div class="container_9">${message.date}

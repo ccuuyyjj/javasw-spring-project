@@ -16,6 +16,15 @@ public class Message {
 	private String reg;
 	private String name;
 	private int price;
+	private String host_name;
+
+	public String getHost_name() {
+		return host_name;
+	}
+
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
+	}
 
 	public String getName() {
 		return name;
@@ -48,6 +57,7 @@ public class Message {
 		setReg(rs.getString("reg"));
 		setName(rs.getString("name"));
 		setPrice(rs.getInt("price"));
+		setHost_name(rs.getString("host_name"));
 	}
 
 	public Message(HttpServletRequest request) {
@@ -57,6 +67,7 @@ public class Message {
 		setQuantity(Integer.parseInt(request.getParameter("quantity")));
 		setQuestion(request.getParameter("question"));
 		setReg(request.getParameter("reg"));
+		setHost_name(request.getParameter("host_name"));
 	}
 
 	public int getNo() {
@@ -131,6 +142,7 @@ public class Message {
 	public String toString() {
 		return "Message [no=" + no + ", member_no=" + member_no + ", room_no=" + room_no + ", checkin=" + checkin
 				+ ", checkout=" + checkout + ", quantity=" + quantity + ", question=" + question + ", reg=" + reg
-				+ ", name=" + name + ", price=" + price + "]";
+				+ ", name=" + name + ", price=" + price + ", host_name=" + host_name + "]";
 	}
+
 }

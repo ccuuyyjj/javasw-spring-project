@@ -77,7 +77,7 @@
 	                                            <span>여행을 준비하며 호스트에게 받는 메시지가 여기에 표시됩니다.
 	                                            </span>
 	                                        </p>
-	                                        <a href="/search" class="btn btn-primary btn-large">
+	                                        <a href="/airbnb/sub/sub_list" class="btn btn-primary btn-large">
 	                                            <span>숙소 둘러보기
 	                                            </span>
 	                                        </a>
@@ -94,11 +94,16 @@
 	                                        <c:forEach var="message" items="${message}">
 												<table class="m_table">
 		                                            <tr>
-		                                              	<td class="m_padding m_area-10">호스트 이름</td>
+		                                              	<td class="m_padding m_area-10">${message.owner_id}</td>
 		                                                <td class="m_padding m_area-20">${message.name}<br>${message.date}</td>
 		                                                <td class="m_padding m_area-50"><a href="messageDetail/${message.room_no}">${message.question}</a></td>
 		                                                <td class="m_padding m_area-10">￦${message.price}</td>
-		                                                <td class="m_padding m_area-10">5</td>
+		                                                <td class="m_padding m_area-10">
+			                                                <form action="messagedelete">
+			                                                	<input type="hidden" name="room_no" value="${message.room_no}">
+			                                                	<input type="submit" value="삭제" class="w3-btn w3-round w3-red">		                                                
+			                                                </form>
+		                                                </td>
 		                                            </tr>
 	                                           	</table>
 	                                           	<div class="m_border"></div>
