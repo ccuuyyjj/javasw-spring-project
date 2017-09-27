@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <div class="mask"></div>
 <div id="popup_area">
 	<div class="window" style="display: none;" id="login">
@@ -10,6 +12,7 @@
 		<div class="area-60  layer-center">
 			<form action="${pageContext.request.contextPath}/loginProc"
 				method="post">
+				<sec:csrfInput />
 				<div>
 					<input type="email" name="email" placeholder="Email"
 						class="w3-input" required>
@@ -49,6 +52,7 @@
 			<form id="a_join"
 				action="${pageContext.request.contextPath}/member/join"
 				method="post">
+				<sec:csrfInput />
 				<div>
 					<input type="email" id="a_email" name="email" placeholder="Email"
 						class="w3-input resource" required>
@@ -89,6 +93,7 @@
 		<div class="area-60 layer-center">
 			<form action="${pageContext.request.contextPath}/sub/sendMessage"
 				method="post">
+				<sec:csrfInput />
 				<input type="hidden" name="name" value="${room.name}"> <input
 					type="hidden" name="price" value="${room.price}"> <input
 					type="hidden" name="room_no" value="${room.no}">
@@ -133,6 +138,7 @@
 			<div>
 				<form action="${pageContext.request.contextPath}/mypage/wishlist"
 					method="post" id="wishform">
+					<sec:csrfInput />
 					<div class="w-row wfont">위시리스트에 담기</div>
 					<div class="w-row" id="addwl">
 						<button class="wbtn">새로운 위시리스트 만들기</button>
@@ -144,76 +150,77 @@
 							</div>
 							<div class="wl-box_5">
 								<button class="wbtn3">취소</button>
-								<input type="button" class="wbtn4" disabled value="목록 만들기">									
+								<input type="button" class="wbtn4" disabled value="목록 만들기">
 							</div>
 						</div>
 					</div>
 					<c:if test="${exist == true}">
-					<div class="appendhere"></div>
-					<input type="button" value="등록" class="insert" onclick="insert(${room.no});">
+						<div class="appendhere"></div>
+						<input type="button" value="등록" class="insert"
+							onclick="insert(${room.no});">
 					</c:if>
 				</form>
 				<c:if test="${exist == true}">
-				<div style="margin-top: 70px">
-					<div class="wl-box_3">
-						<button class="wbtn2">
-							<div class="wl-box">
-								<div class="wl-img"
-									style="background-image: url('${pageContext.request.contextPath}/viewPhoto/${room.no}')">
+					<div style="margin-top: 70px">
+						<div class="wl-box_3">
+							<button class="wbtn2">
+								<div class="wl-box">
+									<div class="wl-img"
+										style="background-image: url('${pageContext.request.contextPath}/viewPhoto/${room.no}')">
+									</div>
 								</div>
-							</div>
-							<div class="wl-box_1">
-								<div class="wl-box_2 wfont_3">${room.name}</div>
-								<div class="wl-box_2 wfont_2">${room.region}</div>
-								<div class="wl-box_2 wfont_2" style="margin-bottom: 0px">
-									<c:choose>
-										<c:when test="${avg==1 }">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-										</c:when>
-										<c:when test="${avg==2 }">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-										</c:when>
-										<c:when test="${avg==3 }">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-										</c:when>
-										<c:when test="${avg==4 }">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-										</c:when>
-										<c:when test="${avg==5 }">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-											<img src="${pageContext.request.contextPath}/img/star.png"
-												width="8" height="8" style="margin-bottom: 0px">
-										</c:when>
-									</c:choose>
-									<span>후기 ${total}개</span>
+								<div class="wl-box_1">
+									<div class="wl-box_2 wfont_3">${room.name}</div>
+									<div class="wl-box_2 wfont_2">${room.region}</div>
+									<div class="wl-box_2 wfont_2" style="margin-bottom: 0px">
+										<c:choose>
+											<c:when test="${avg==1 }">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+											</c:when>
+											<c:when test="${avg==2 }">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+											</c:when>
+											<c:when test="${avg==3 }">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+											</c:when>
+											<c:when test="${avg==4 }">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+											</c:when>
+											<c:when test="${avg==5 }">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+												<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+											</c:when>
+										</c:choose>
+										<span>후기 ${total}개</span>
+									</div>
 								</div>
-							</div>
-						</button>
+							</button>
+						</div>
 					</div>
-				</div>
 				</c:if>
 			</div>
 		</div>
@@ -225,9 +232,12 @@
 		<div class="refund">
 			<div class="wfont">환불 정책</div>
 			<div id="rsv_policy">
-<p>체크인 30일 전까지 취소: 모든 수수료를 포함한 전액 환불</p>
-<p>체크인 30일 전부터 체크인 전까지 취소: 체크인 당일 오후 12시까지 취소하면 총 숙박 요금의 50% 및 수수료, 청소비 전액 환불</p>
-<p>숙박 중 취소: 현지 시간으로 오후 12시 전까지 취소하면 남은 숙박일에 대한 숙박 요금은 50% 환불되지만 수수료, 청소비는 환불 불가. 현지 시간으로 오후 12시 이후에 취소하면 당일 숙박 요금과 수수료, 청소비는 환불되지 않으며, 남은 숙박일에 대한 숙박 요금의 50% 환불</p>
+				<p>체크인 30일 전까지 취소: 모든 수수료를 포함한 전액 환불</p>
+				<p>체크인 30일 전부터 체크인 전까지 취소: 체크인 당일 오후 12시까지 취소하면 총 숙박 요금의 50% 및
+					수수료, 청소비 전액 환불</p>
+				<p>숙박 중 취소: 현지 시간으로 오후 12시 전까지 취소하면 남은 숙박일에 대한 숙박 요금은 50% 환불되지만
+					수수료, 청소비는 환불 불가. 현지 시간으로 오후 12시 이후에 취소하면 당일 숙박 요금과 수수료, 청소비는 환불되지
+					않으며, 남은 숙박일에 대한 숙박 요금의 50% 환불</p>
 			</div>
 			<input type="hidden">
 			<div id="rsv_btn">

@@ -45,7 +45,7 @@ public class AdminController {
 		@Autowired
 		private MemberDao memberDao;
 
-		@RequestMapping(value = "/modify", method = RequestMethod.POST)
+		@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 		@ResponseBody
 		public String modify(Member m) {
 			return String.valueOf(memberDao.modify(m));
@@ -57,7 +57,7 @@ public class AdminController {
 			return "admin/member/tempPw";
 		}
 
-		@RequestMapping(value = "/tempPw", method = RequestMethod.POST)
+		@RequestMapping(value = "/tempPw", method = RequestMethod.POST, produces = "text/plain; charset=utf-8")
 		@ResponseBody
 		public String tempPwPost(Member m) throws Exception {
 			String newPw = PasswordGenerator.generate();
