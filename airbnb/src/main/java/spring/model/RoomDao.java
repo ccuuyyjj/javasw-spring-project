@@ -35,9 +35,7 @@ public class RoomDao {
 			String sql = "select avg(rating) as r, count(*) as c from review where room_no = ?";
 			SqlRowSet srs = jdbcTemplate.queryForRowSet(sql, room.getNo());
 			if (srs.next()) {
-				float a = srs.getFloat("r");
-				int b = (int) a * 10 / 10;
-				room.setRating(b);
+				room.setRating((int) srs.getDouble("r"));
 				room.setCount(srs.getInt("c"));
 			}
 		}
