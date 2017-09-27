@@ -17,6 +17,8 @@
 	        <li class="hover">
 	            <a href="${pageContext.request.contextPath}/mypage/setting">계정 관리</a>
 	        </li>
+	        <li><a href="${pageContext.request.contextPath}/mypage/wishlist">위시
+					리스트</a></li>
 	    </ul>
 	</div>
 	<div class="w3-row">

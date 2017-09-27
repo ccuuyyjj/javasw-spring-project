@@ -71,9 +71,6 @@ public class Room {
 		this.read = rs.getInt("read");
 		this.reg = rs.getString("reg");
 		this.progress = rs.getInt("progress");
-		this.options = rs.getString("options");
-		this.rating = rs.getInt("rating");
-		this.host_name = rs.getString("host_name");
 	}
 
 	public int getNo() {

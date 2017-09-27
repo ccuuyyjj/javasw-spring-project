@@ -12,18 +12,31 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+function button_event(){
+	if (confirm("정말 삭제하시겠습니까??") == false){    //취소
+		event.preventDefault();
+		alert("취소 되었습니다.");		
+	}else{   //확인
+		document.form.submit();
+	}
+}
+</script>
 <div class="w3-main w3-content w3-padding"
 	style="max-width: 100%; margin-top: 100px">
 	<div class="menu-wrap">
 		<ul class="w3-center">
-			<li><a href="${pageContext.request.contextPath}/sub/message">메시지</a>
+			<li class="hover"><a
+				href="${pageContext.request.contextPath}/sub/message">메시지</a>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/mypage/rooms">숙소
 					목록</a></li>
-			<li class="hover"><a
+			<li><a
 				href="${pageContext.request.contextPath}/mypage/trips">여행 목록</a></li>
 			<li><a href="${pageContext.request.contextPath}/mypage/setting">계정
 					관리</a></li>
+			<li><a href="${pageContext.request.contextPath}/mypage/wishlist">위시
+					리스트</a></li>
 		</ul>
 	</div>
 	<div class="w3-row">
@@ -94,14 +107,14 @@
 	                                        <c:forEach var="message" items="${message}">
 												<table class="m_table">
 		                                            <tr>
-		                                              	<td class="m_padding m_area-10">${message.owner_id}</td>
+		                                              	<td class="m_padding m_area-10">${message.host_name}</td>
 		                                                <td class="m_padding m_area-20">${message.name}<br>${message.date}</td>
 		                                                <td class="m_padding m_area-50"><a href="messageDetail/${message.room_no}">${message.question}</a></td>
 		                                                <td class="m_padding m_area-10">￦${message.price}</td>
 		                                                <td class="m_padding m_area-10">
 			                                                <form action="messagedelete">
 			                                                	<input type="hidden" name="room_no" value="${message.room_no}">
-			                                                	<input type="submit" value="삭제" class="w3-btn w3-round w3-red">		                                                
+			                                                	<input type="submit" value="삭제" class="w3-btn w3-round w3-red" onclick="button_event();">		                                                
 			                                                </form>
 		                                                </td>
 		                                            </tr>

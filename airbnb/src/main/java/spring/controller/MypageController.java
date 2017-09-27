@@ -393,7 +393,7 @@ public class MypageController {
 			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
-		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		List<WishList> wishlist = wishListDao.SelectRoom_no(member_no, wltitle);
 		log.debug("wishlist 수" + wishlist.size());
 		log.debug("wishlist = " + wishlist.toString());
 		List<Room> roomlist = new ArrayList<>();
@@ -420,18 +420,22 @@ public class MypageController {
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		log.debug("ajax로 옴");
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("[");
-		for (int i = 0; i < title.size(); i++) {
-			buffer.append("{");
-			buffer.append("\"title\":\"");
-			buffer.append(title.get(i).getTitle());
-			buffer.append("\"},");
+		if (title.size() == 0) {
+			buffer.append("[");
+			buffer.append("]");
+		} else {
+			buffer.append("[");
+			for (int i = 0; i < title.size(); i++) {
+				buffer.append("{");
+				buffer.append("\"title\":\"");
+				buffer.append(title.get(i).getTitle());
+				buffer.append("\"},");
+			}
+			buffer.deleteCharAt(buffer.length() - 1);
+			buffer.append("]");
 		}
-		buffer.deleteCharAt(buffer.length() - 1);
-		buffer.append("]");
 		String result = buffer.toString();
 		log.debug("buffer = " + result);
-
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().print(result);
 	}

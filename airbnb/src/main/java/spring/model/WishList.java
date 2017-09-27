@@ -32,6 +32,10 @@ public class WishList {
 		setTitle(rs.getString("title"));
 	}
 
+	public WishList(ResultSet rs, int room_no) throws SQLException {
+		setRoom_no(rs.getInt("room_no"));
+	}
+
 	public WishList() {
 		super();
 	}

@@ -236,7 +236,7 @@
 
 
 	<div class="host" id="host">
-		<div>호스트: ${member.name}님</div>
+		<div>호스트: ${room.host_name}님</div>
 	</div>
 	<div class="host_1">
 		<span>${room.region}</span> <span>·</span> 
