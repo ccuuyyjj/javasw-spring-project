@@ -94,6 +94,7 @@ public class MypageController {
 		log.debug("result:" + result);
 		if (result) {
 			// 상태값이 변경될때 게스트에게 메시지로 알려준다.
+			String addMsg = "";
 			String msg = "회원님이 예약 요청하신 건이 [예약";
 			switch (progress) {
 			case 1:
@@ -101,12 +102,13 @@ public class MypageController {
 				break;
 			case 2:
 				msg += "승낙]";
+				addMsg += " 정확한 숙소 위치는 마이페이지 - 여행 목록에서 확인 가능합니다.";
 				break;
 			case 3:
 				msg += "거절]";
 				break;
 			}
-			msg += " 되었습니다";
+			msg += " 되었습니다" + addMsg;
 
 			Rsvp rsvp = rsvpDao.select_no(no);
 			Member member = memberDao.select(rsvp.getGuest_id());

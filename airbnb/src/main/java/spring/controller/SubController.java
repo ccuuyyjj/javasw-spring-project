@@ -154,7 +154,8 @@ public class SubController {
 			UsernamePasswordAuthenticationToken token) {
 		log.debug("token = " + token);
 		if (token != null) {
-			m.addAttribute("username", token.getName());
+			Member member = memberDao.select(token.getName());
+			m.addAttribute("member", member);
 		}
 		// 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수

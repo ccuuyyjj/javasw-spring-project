@@ -351,7 +351,7 @@ public class HostController {
 			session.setAttribute("price", price);
 
 			// 체크인시간은 options 테이블에 추가
-			String check_in = request.getParameter("check_in");
+			String check_in = "체크인: " + request.getParameter("check_in");
 			log.debug("check_in=>" + check_in);
 			String options = room.getOptions();
 			if (options != null) {
