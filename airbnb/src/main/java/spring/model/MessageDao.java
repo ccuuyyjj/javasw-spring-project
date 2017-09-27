@@ -22,9 +22,10 @@ public class MessageDao {
 	};
 
 	public void insert(Message message, int member_no) {
-		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
+		String sql = "insert into message values(message_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?)";
 		Object[] args = new Object[] { member_no, message.getRoom_no(), message.getCheckin(), message.getCheckout(),
-				message.getQuantity(), message.getQuestion(), message.getName(), message.getPrice() };
+				message.getQuantity(), message.getQuestion(), message.getName(), message.getPrice(),
+				message.getHost_name() };
 
 		jdbcTemplate.update(sql, args);
 	}
@@ -56,7 +57,7 @@ public class MessageDao {
 	}
 
 	public int count(int member_no) {
-		String sql = "select count(*) from message where member_no = ?";
+		String sql = "select count(DISTINCT room_no) from message where member_no = ?";
 		Object[] args = new Object[] { member_no };
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
@@ -69,9 +70,15 @@ public class MessageDao {
 		return room_no;
 	}
 
-	public void update(String name, int price, int member_no, int room_no) {
-		String sql = "update message set name = ?, price = ? where member_no = ? and room_no = ?";
-		Object[] args = new Object[] { name, price, member_no, room_no };
+	public void update(String name, int price, int member_no, int room_no, String host_name) {
+		String sql = "update message set name = ?, price = ?, host_name = ? where member_no = ? and room_no = ?";
+		Object[] args = new Object[] { name, price, host_name, member_no, room_no };
+		jdbcTemplate.update(sql, args);
+	}
+
+	public void delete(int member_no, int room_no) {
+		String sql = "delete message where member_no = ? and room_no = ?";
+		Object[] args = new Object[] { member_no, room_no };
 		jdbcTemplate.update(sql, args);
 	}
 }

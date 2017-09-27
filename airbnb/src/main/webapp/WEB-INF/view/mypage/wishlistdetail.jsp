@@ -48,7 +48,7 @@
 							                                선호하는 숙소를 저장하여 위시리스트를 만들어 보세요.<br>
 		                               </span>
 		                           </p>
-		                           <a href="/search" class="btn btn-primary2 btn-large">
+		                           <a href="/airbnb/sub/sub_list" class="btn btn-primary2 btn-large">
 		                               <span>숙소 둘러보기
 		                               </span>
 		                           </a>
