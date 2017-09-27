@@ -20,7 +20,7 @@ function toggleEdit(target) {
 		submit.attr("onclick", "modify(this);");
 		submit.text("저장");
 		$(target).append(submit);
-	} else if(target.className == "m_pwreset") {
+	} else if (target.className == "m_pwreset") {
 		var no = $(target).parent().find(".m_no").text();
 		var url = "/airbnb/admin/member/tempPw?no=" + no;
 		location.href(url);
@@ -35,8 +35,14 @@ function modify(target) {
 		url : "/airbnb/admin/member/modify",
 		type : "post",
 		data : data,
+		beforeSend : function(xhr) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			if (token != undefined)
+				xhr.setRequestHeader(header, token);
+		},
 		success : function(res) {
-			if (res == "true")
+			if (res)
 				$(target).parent().text(value);
 			else
 				$(target).parent().find("input[type=text]").css("border-color",
@@ -44,12 +50,18 @@ function modify(target) {
 		}
 	});
 }
-function tempPw(no){
+function tempPw(no) {
 	var data = "no=" + no;
 	$.ajax({
 		url : "/airbnb/admin/member/tempPw",
 		type : "post",
 		data : data,
+		beforeSend : function(xhr) {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			if (token != undefined)
+				xhr.setRequestHeader(header, token);
+		},
 		success : function(res) {
 			$(".tempPw").html("<h3>새 비밀번호 : " + res + "</h3>");
 			$(".gen").remove();
