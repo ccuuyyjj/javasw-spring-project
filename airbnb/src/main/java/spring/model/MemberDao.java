@@ -69,7 +69,11 @@ public class MemberDao {
 
 	public Member select(String username) {
 		String sql = "select * from member where email = ?";
-		return jdbcTemplate.query(sql, new Object[] { username }, rowMapper).get(0);
+		List<Member> list = jdbcTemplate.query(sql, new Object[] { username }, rowMapper);
+		if (list.isEmpty())
+			return select(3);
+		else
+			return list.get(0);
 	}
 
 	public Member select(int no) {

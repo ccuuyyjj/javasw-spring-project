@@ -6,34 +6,10 @@
 <div class="reviewsContainer" id="review">
     <div class="reviews">
     	<h3>후기 ${total }개
-    	<c:choose>
-    	<c:when test="${avg==1 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${avg==2 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${avg==3 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${avg==4 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${avg==5 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    	</c:choose>
-    		
+    	<c:forEach begin="1" end="${avg }">
+    	<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    	</c:forEach>
+    	
     	</h3>
     	
     </div>

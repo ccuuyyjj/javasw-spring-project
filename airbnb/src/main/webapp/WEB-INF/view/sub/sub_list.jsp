@@ -41,8 +41,8 @@
 				</c:choose>
 				다인실
 				<p>&nbsp;&nbsp;&nbsp;다인실과 같은 공유 공간을 이용하는 숙소</p>
-			<button class="cancel w3-btn w3-round-large w3-green">취소</button>
-			<button class="send w3-btn w3-round-large w3-green">적용</button>
+			<button class="cancel w3-btn w3-round-large w3-blue">취소</button>
+			<button class="send w3-btn w3-round-large w3-blue">적용</button>
 		</form>
 		</div>
 
@@ -63,8 +63,8 @@
 					name='price'  id="ak"/>
 			</div>
 			<br>
-			<button class=" cancel  w3-btn w3-round-large w3-green">취소</button>
-			<button class=" send  w3-btn w3-round-large w3-green">적용</button>
+			<button class=" cancel  w3-btn w3-round-large w3-blue">취소</button>
+			<button class=" send  w3-btn w3-round-large w3-blue">적용</button>
 			</form>
 		</div>
 
@@ -78,13 +78,13 @@
 				height="130" class="slider" style="margin-left: 100px;">
 				<div class="filter">
 				침실 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
-					value="0${paramValues.filter[0]}"><br> <br>
+					value="0${paramValues.filter[0]}" min="0"><br> <br>
 				침대 수&nbsp; &nbsp;<input class="slider" type="number" name="filter"
-					value="0${paramValues.filter[1]}">
+					value="0${paramValues.filter[1]}" min="0">
 				</div>
 			<br>
-			<button class="cancel w3-btn w3-round-large w3-green">취소</button>
-			<button class="send w3-btn w3-round-large w3-green">적용</button>
+			<button class="cancel w3-btn w3-round-large w3-blue">취소</button>
+			<button class="send w3-btn w3-round-large w3-blue">적용</button>
 			</form>
 		</div>
 	</div>
@@ -93,41 +93,19 @@
 		<c:forEach var="room" items="${list}" varStatus="status">
 			<div class="page_list">
 				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}">
-				<img	src="${room.photoUrl}">
+				<img	class="list_img" src="${room.photoUrl}">
 					<span>\ ${room.price}&nbsp;-&nbsp; ${room.name}</span>
 					<br>
 					 ${room.type} - 침대 ${room.beds}개
 					 <br>
 
  		<!--  평점 -->
-    	<c:choose>
-    	<c:when test="${room.rating ==  1 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==2 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==3 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==4 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating == 5 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    	</c:choose>
-    		후기 ${room.count }
+ 			
+			후기 ${room.count }개
+    		<c:forEach begin="1" end="${room.rating}">
+    		<img class="star_size" src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:forEach>
+    		
 					  </a>
 			</div>
 		</c:forEach>

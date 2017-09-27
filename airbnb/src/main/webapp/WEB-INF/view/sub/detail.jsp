@@ -83,7 +83,7 @@
 
 	});
 </script>
-<input type="hidden" name="email" value="${member.email}">
+<input type="hidden" name="email" value="${username}">
 <div class="photo">
 	<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}"
 		alt="${room.name}" width="100%" height="80%">

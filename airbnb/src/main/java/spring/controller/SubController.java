@@ -140,10 +140,10 @@ public class SubController {
 			args_list.add(filter);
 		}
 
-		List<Room> list1 = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
 
 		// 평점
-		List<Room> list = roomDao.rating(list1);
+		// List<Room> list = roomDao.rating(list1);
 
 		m.addAttribute("list", list);
 		return "sub/sub_list";
@@ -157,8 +157,9 @@ public class SubController {
 		log.debug("token = " + token);
 		if (token != null) {
 			Member member = memberDao.select(token.getName());
-			m.addAttribute("member", member);
+			m.addAttribute("username", token.getName());
 		}
+
 		// 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수
@@ -191,10 +192,11 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 		m.addAttribute("exist", "true");
-
-		m.addAttribute("room", roomDao.select(no));
+		Room room = roomDao.select(no);
+		Member host = memberDao.select(room.getOwner_id());
+		m.addAttribute("host", host);
+		m.addAttribute("room", room);
 		m.addAttribute("availList", availDao.selectAvailable(no));
-		System.out.println(pagePosts + "게시물 수");
 		m.addAttribute("review", reviewDao.select(page, pagePosts, no));
 		m.addAttribute("total", reviewDao.count(no));
 		m.addAttribute("avg", reviewDao.avg(no));
@@ -270,8 +272,6 @@ public class SubController {
 		rsvp.setTotalprice(totalprice);
 		rsvp.setProgress(0); // 0:예약요청, 1:예약확인, 2:예약승낙,3:예약취소 9:예약거부
 		rsvp.setR_id(r_id);
-		rsvp.setAddress(room.getAddress());
-		rsvp.setOwner_id(room.getOwner_id());
 		rsvp.setGuest_name(member.getName());
 
 		rsvpDao.insert(rsvp);

@@ -21,8 +21,9 @@ public class Rsvp {
 	private int progress;
 	private String r_id;
 	private String address;
-	private String owner_id;
+	private String host_name;
 	private String guest_name;
+	private String owner_id;
 
 	public Rsvp() {
 	}
@@ -40,8 +41,6 @@ public class Rsvp {
 		setReg(rs.getString("reg"));
 		setProgress(rs.getInt("progress"));
 		setR_id(rs.getString("r_id"));
-		setAddress(rs.getString("address"));
-		setOwner_id(rs.getString("owner_id"));
 		setGuest_name(rs.getString("guest_name"));
 	}
 
@@ -56,8 +55,6 @@ public class Rsvp {
 		setEtc(request.getParameter("etc"));
 		setReg(request.getParameter("reg"));
 		setR_id(request.getParameter("r_id"));
-		setAddress(request.getParameter("address"));
-		setOwner_id(request.getParameter("owner_id"));
 		setGuest_name(request.getParameter("guest_name"));
 	}
 
@@ -69,12 +66,12 @@ public class Rsvp {
 		this.address = address;
 	}
 
-	public String getOwner_id() {
-		return owner_id;
+	public String getHost_name() {
+		return host_name;
 	}
 
-	public void setOwner_id(String owner_id) {
-		this.owner_id = owner_id;
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
 	}
 
 	public String getGuest_name() {
@@ -205,6 +202,14 @@ public class Rsvp {
 
 	public void setReg(String reg) {
 		this.reg = reg;
+	}
+
+	public String getOwner_id() {
+		return owner_id;
+	}
+
+	public void setOwner_id(String owner_id) {
+		this.owner_id = owner_id;
 	}
 
 }

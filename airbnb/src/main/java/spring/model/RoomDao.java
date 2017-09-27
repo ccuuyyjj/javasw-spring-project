@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,12 +24,19 @@ public class RoomDao {
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<Room> rowMapper = (rs, i) -> {
 		Room room = new Room(rs);
-
 		if (room.getProgress() == 4) {
 			Integer price = jdbcTemplate.queryForObject("select min(price) from available_date where room_no = ?",
 					new Object[] { room.getNo() }, Integer.class);
 			if (price != null) {
 				room.setPrice(price);
+			}
+		}
+		{
+			String sql = "select avg(rating) as r, count(*) as c from review where room_no = ?";
+			SqlRowSet srs = jdbcTemplate.queryForRowSet(sql, room.getNo());
+			if (srs.next()) {
+				room.setRating((int) srs.getDouble("r"));
+				room.setCount(srs.getInt("c"));
 			}
 		}
 		return room;
@@ -244,33 +252,17 @@ public class RoomDao {
 	}
 
 	// 평점
-	public List<Room> rating(List<Room> list1) {
-		System.out.println(list1.size());
-		String sql1 = "select count(*) from(select * from room where no=?)a " + "inner join"
-				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
-
-		String sql2 = "select a.* , b.rating from(select * from room where no=?)a " + "inner join "
-				+ "(select * from review where room_no=?)b " + "on a.no = b.room_no";
-
-		List<Room> list = new ArrayList<Room>();
-
-		for (Room r : list1) {
-			int a = jdbcTemplate.queryForObject(sql1, new Object[] { r.getNo(), r.getNo() }, Integer.class);
-			if (a != 0) {
-				list.add(jdbcTemplate.query(sql2, new Object[] { r.getNo(), r.getNo() }, rowMapper).get(0));
-			} else {
-				list.add(r);
-			}
-		}
-
-		for (Room r : list) {
-			if (r.getRating() > 0) {
-				String sql = "select count(*) from review where room_no=?";
-				r.setCount(jdbcTemplate.queryForObject(sql, new Object[] { r.getNo() }, Integer.class));
-			}
-		}
-
-		return list;
-	}
+	// public List<Room> rating(List<Room> list) {
+	// String sql = "select avg(rating) as r, count(*) as c from review where
+	// room_no = ?";
+	// for (Room r : list) {
+	// SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, r.getNo());
+	// if (rs.next()) {
+	// r.setRating(rs.getInt("r"));
+	// r.setCount(rs.getInt("c"));
+	// }
+	// }
+	// return list;
+	// }
 
 }

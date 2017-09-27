@@ -33,7 +33,7 @@ public class Room {
 
 	public Room(String name, String type, String photoUrl, String region, double lat, double lng, String address,
 			int capacity, int beds, int bathrooms, String shared, String bed_type, String owner_id, String etc,
-			int progress, String options) {
+			int progress, String options, int rating, int count, String host_name) {
 		this.name = name;
 		this.type = type;
 		this.photoUrl = photoUrl;
@@ -71,6 +71,7 @@ public class Room {
 		this.read = rs.getInt("read");
 		this.reg = rs.getString("reg");
 		this.progress = rs.getInt("progress");
+		this.options = rs.getString("options");
 	}
 
 	public int getNo() {
