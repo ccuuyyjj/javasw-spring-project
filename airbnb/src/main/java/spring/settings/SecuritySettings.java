@@ -37,8 +37,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 				.anyRequest().permitAll().and()
 
 				.formLogin().successHandler(successHandler()).loginProcessingUrl("/loginProc")
-				.usernameParameter("email").passwordParameter("pw").loginPage("/member/login");
-		// .csrf().disable();
+				.usernameParameter("email").passwordParameter("pw").loginPage("/member/login").and().csrf().disable();
 	}
 
 	@Bean
