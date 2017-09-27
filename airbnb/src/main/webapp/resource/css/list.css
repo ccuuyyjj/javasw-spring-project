@@ -41,7 +41,7 @@
 		height: 50%;
 		margin-left: 2%;
 	}
-	.page_list img {
+	.page_list img.list_img {
 		width: 100%;
 		height: 70%;
 	}
@@ -61,7 +61,7 @@
 		width: 45%;
 		margin-left: 2%;
 	}
-	.page_list img {
+	.page_list img.list_img {
 		width: 100%;
 		height: 70%;
 	}
@@ -140,7 +140,7 @@
 		height: 45%;
 		margin-left: 2%;
 	}
-	.page_list img {
+	.page_list img.list_img {
 		width: 100%;
 		height: 70%;
 	}
@@ -194,6 +194,9 @@
 .page_list a span{
 	font-weight: bold;
 }
-.page_list  img{
+.page_list img.list_img {
 	margin-bottom: 5px;
+}
+.page_list img.star_size{
+	margin: auto 0;
 }

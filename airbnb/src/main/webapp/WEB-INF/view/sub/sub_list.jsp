@@ -93,41 +93,18 @@
 		<c:forEach var="room" items="${list}" varStatus="status">
 			<div class="page_list">
 				<a href="${pageContext.request.contextPath}/sub/detail/${room.no}">
-				<img	src="${room.photoUrl}">
+				<img	class="list_img" src="${room.photoUrl}">
 					<span>\ ${room.price}&nbsp;-&nbsp; ${room.name}</span>
 					<br>
 					 ${room.type} - 침대 ${room.beds}개
 					 <br>
 
  		<!--  평점 -->
-		후기 ${room.count }개
-    	<c:choose>
-    	<c:when test="${room.rating ==  1 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==2 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==3 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating ==4 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    		<c:when test="${room.rating == 5 }">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		<img src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
-    		</c:when>
-    	</c:choose>
+ 			
+			후기 ${room.count }개
+    		<c:forEach begin="1" end="${room.rating}">
+    		<img class="star_size" src="${pageContext.request.contextPath}/img/star.png"width="15" height="15">
+    		</c:forEach>
     		
 					  </a>
 			</div>
