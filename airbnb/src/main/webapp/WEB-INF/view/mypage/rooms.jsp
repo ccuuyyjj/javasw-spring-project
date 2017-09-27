@@ -23,6 +23,12 @@ function del_reg(pNo){
 		   data: { "room_no" : pNo },
 		   DateType: "html",
 		   cache: false,
+	       beforeSend : function(xhr) {
+	          var token = $("meta[name='_csrf']").attr("content");
+	          var header = $("meta[name='_csrf_header']").attr("content");
+	          if (token != undefined)
+	             xhr.setRequestHeader(header, token);
+	       },
 		   success: function(msg){
 		   },
 		  error:function(a, b, c){

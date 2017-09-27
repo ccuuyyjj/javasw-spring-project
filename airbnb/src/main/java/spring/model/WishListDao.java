@@ -40,7 +40,7 @@ public class WishListDao {
 	}
 
 	public int count(int member_no, String title) {
-		String sql = "select count(room_no) from wishlist where member_no = ? and title = ?";
+		String sql = "select count(DISTINCT room_no) from wishlist where member_no = ? and title = ?";
 		Object[] args = new Object[] { member_no, title };
 		return jdbcTemplate.queryForObject(sql, args, Integer.class);
 	}

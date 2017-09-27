@@ -157,8 +157,9 @@ public class SubController {
 		log.debug("token = " + token);
 		if (token != null) {
 			Member member = memberDao.select(token.getName());
-			m.addAttribute("member", member);
+			m.addAttribute("username", token.getName());
 		}
+
 		// 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수
@@ -191,10 +192,11 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 		m.addAttribute("exist", "true");
-
-		m.addAttribute("room", roomDao.select(no));
+		Room room = roomDao.select(no);
+		Member host = memberDao.select(room.getOwner_id());
+		m.addAttribute("host", host);
+		m.addAttribute("room", room);
 		m.addAttribute("availList", availDao.selectAvailable(no));
-		System.out.println(pagePosts + "게시물 수");
 		m.addAttribute("review", reviewDao.select(page, pagePosts, no));
 		m.addAttribute("total", reviewDao.count(no));
 		m.addAttribute("avg", reviewDao.avg(no));
@@ -296,8 +298,8 @@ public class SubController {
 		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select(no.get(i));
 			roomList.add(room);
-			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no,
-					roomList.get(i).getNo());
+			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo(),
+					roomList.get(i).getHost_name());
 			Message getMessage = messageDao.Message(member_no, no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
@@ -339,6 +341,7 @@ public class SubController {
 		m.addAttribute("name", message.get(0).getName());
 		m.addAttribute("quantity", message.get(0).getQuantity());
 		m.addAttribute("price", message.get(0).getPrice());
+		m.addAttribute("host_name", message.get(0).getHost_name());
 
 		return "sub/messageDetail";
 	}
@@ -352,8 +355,17 @@ public class SubController {
 		m.addAttribute("name", message.getName());
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
+		m.addAttribute("host_name", message.getHost_name());
 
 		return "redirect:/sub/messageDetail/" + room_no;
+	}
+
+	@RequestMapping("/messagedelete")
+	public String delete(int room_no, UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		messageDao.delete(member_no, room_no);
+		return "redirect:/sub/message";
 	}
 
 	// 리뷰 작성

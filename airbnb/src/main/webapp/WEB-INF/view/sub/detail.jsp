@@ -83,7 +83,7 @@
 
 	});
 </script>
-<input type="hidden" name="email" value="${member.email}">
+<input type="hidden" name="email" value="${username}">
 <div class="photo">
 	<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}"
 		alt="${room.name}" width="100%" height="80%">
@@ -236,11 +236,11 @@
 
 
 	<div class="host" id="host">
-		<div>호스트: ${member.name}님</div>
+		<div>호스트: ${host.name}님</div>
 	</div>
 	<div class="host_1">
 		<span>${room.region}</span> <span>·</span> 
-		<span>회원가입 : ${member.getDetailReg()}</span>
+		<span>회원가입 : ${host.detailReg}</span>
 	</div>
 	<div class="host_2">
 		<div>${room.etc}</div>
