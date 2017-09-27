@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/admin/template/header.jsp"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div class="menu-wrap w3-blue">
 	<ul>
 		<li class="hover"><a
@@ -119,8 +120,10 @@
 		<div class="m_head">
 			<div class="m_row div_row">
 				<div>일자</div>
-				<div>건수</div>
-				<div>금액</div>
+				<div>예약승낙건수</div>
+				<div>예약승낙금액</div>
+				<div>예약취소건수</div>
+				<div>예약취소금액</div>
 			</div>
 		</div>
 		<div class="m_body">
@@ -130,6 +133,10 @@
 					<div class="text-center">${sale.cnt}</div>
 					<div class="text-right">
 						<fmt:formatNumber value="${sale.amount}" pattern="#,###" />
+					</div>
+					<div class="text-center">${sale.cancel_cnt}</div>
+					<div class="text-right">
+						<fmt:formatNumber value="${sale.cancel_amount}" pattern="#,###" />
 					</div>
 				</div>
 			</c:forEach>
@@ -145,7 +152,27 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
+<!-- http://blog.naver.com/redcrow/221096699767 -->	
+<script type="text/javascript">
+google.charts.load('current', {'packages' :['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+	var data = google.visualization.arrayToDataTable([
+	'${dList}'
+]);
+
+var options = {
+	title: '일일 매출 현황',
+	width: 1000,
+	height: 300
+};
+
+var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+};
+</script>
+	<div id="chart_div"></div>
 </div>
 <%@include file="/WEB-INF/view/admin/template/footer.jsp"%>

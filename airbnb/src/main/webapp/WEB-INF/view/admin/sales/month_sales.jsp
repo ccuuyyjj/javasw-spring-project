@@ -39,9 +39,11 @@
 
 		<div class="m_head">
 			<div class="m_row div_row">
-				<div>월</div>
-				<div>건수</div>
-				<div>금액</div>
+				<div>일자</div>
+				<div>예약승낙건수</div>
+				<div>예약승낙금액</div>
+				<div>예약취소건수</div>
+				<div>예약취소금액</div>
 			</div>
 		</div>
 		<div class="m_body">
@@ -51,6 +53,10 @@
 					<div class="text-center">${sale.cnt}</div>
 					<div class="text-right">
 						<fmt:formatNumber value="${sale.amount}" pattern="#,###" />
+					</div>
+					<div class="text-center">${sale.cancel_cnt}</div>
+					<div class="text-right">
+						<fmt:formatNumber value="${sale.cancel_amount}" pattern="#,###" />
 					</div>
 				</div>
 			</c:forEach>
