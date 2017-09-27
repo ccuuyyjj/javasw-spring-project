@@ -9,6 +9,7 @@
 		<h3>어떤 편의시설을 제공하시나요?</h3>
 	</div>
 	<form method="post" action="${pageContext.request.contextPath}/host/become_host1_4">
+	<sec:csrfInput/>
 	<input type="hidden" id="mode" name="mode" >
 	<div class="host-row1 host-label">
 		<input type="checkbox" name="options" value="필수 품목<br>수건, 침대시트, 비누, 화장지" id="essentials">&nbsp;

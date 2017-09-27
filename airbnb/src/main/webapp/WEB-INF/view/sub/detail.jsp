@@ -83,7 +83,7 @@
 
 	});
 </script>
-<input type="hidden" name="email" value="${username}">
+<input type="hidden" name="email" value="${member.email}">
 <div class="photo">
 	<img src="${pageContext.request.contextPath}/viewPhoto/${room.no}"
 		alt="${room.name}" width="100%" height="80%">
@@ -91,8 +91,8 @@
 <div class="container_1" id="summary">
 	<div class="container" id="menu">
 		<div class="menu">
-			<a class="atag" href="#summary">개요</a> <a class="atag" href="#">후기</a>
-			<a class="atag" href="#">호스트</a> <a class="atag" href="#">위치</a>
+			<a class="atag" href="#summary">개요</a> <a class="atag" href="#review">후기</a>
+			<a class="atag" href="#host">호스트</a> <a class="atag" href="#map">위치</a>
 		</div>
 	</div>
 	<div>
@@ -119,50 +119,33 @@
 		${room.etc} <br> <br> <br>
 	</div>
 	<div class="container_3">
-		<h1>${room.parsedOptions}</h1>
+		<h1>숙소</h1>
 		<table class="reviewTable">
+			<tr>
+				<td class="content_2">숙박 가능 인원: ${room.capacity} </td>
+			</tr>
+			<tr>
+				<td class="content_2">침대종류: ${room.bed_type}</td>
+			</tr>
+			<tr>
+				<td class="content_2">건물유형, 숙소유형: ${room.type}</td>
+			</tr>
+			<tr>
+				<td class="content_2">침실: ${room.bedrooms}</td>
+			</tr>
+			<tr>
+				<td class="content_2">침대: ${room.beds}</td>
+			</tr>
 			
-<%-- 				<c:forEach var="option" begin="0" end="${fn:length(room.getParsedOptions())}" items="${room.getParsedOptions()}"> --%>
+		</table>
+		<table class="reviewTable">
+			<c:forEach var="option"  items="${room.parsedOptions}">
 			<tr>
-				<td class="content_2">시설</td>
-
-				<td class="content_3">
-				</td>
+<!-- 				<td class="content_2">시설</td> -->
+					<td class="content_3">${option}</td>
 			</tr>
-<%-- 				</c:forEach> --%>
+			</c:forEach>
 			
-			<tr>
-				<td class="content_2">가격</td>
-				<td class="content_3">추가 인원 요금 ₩23144 / 박 (2명 초과 시)<br>
-					언제나 에어비앤비를 통해 대화를 나누세요.<br> 안전한 결제를 위해 에어비앤비 웹사이트나 앱 외부에서
-					송금하거나 대화를 나누지 마세요.<br>
-				</td>
-			</tr>
-			<tr>
-				<td class="content_2">침대/침구</td>
-				<td class="content_3">공용 공간<br> 퀸 베드 1개, 에어 메트리스 1개<br>
-				</td>
-			</tr>
-			<tr>
-				<td class="content_2">숙소 이용규칙</td>
-				<td class="content_3">흡연 금지<br> 반려동물 동반에 적합하지 않음<br>
-					파티나 이벤트 금지<br> 어린이(만 2-12세)에게 안전하거나 적합하지 않음<br> 체크인 가능
-					시간은 15:00 - 20:00입니다<br> 12:00까지 체크아웃하세요<br>
-				</td>
-			</tr>
-			<tr>
-				<td class="content_2">환불정책</td>
-				<td class="content_3">이 호스트는 엄격 환불 정책을 시행합니다<br> 체크인 30일
-					전까지 예약을 취소하면 전액 환불받을 수 있습니다.<br> 30일이 남지 않은 시점에서 취소하면 1박 요금의
-					50%와 수수료 전액을 환불받을 수 있습니다<br>
-				</td>
-			</tr>
-			<tr>
-				<td class="content_2">안전기능</td>
-				<td class="content_3">화재 감지기<br> 구급 상자<br> 안전 카드<br>
-					소화기<br>
-				</td>
-			</tr>
 		</table>
 	</div>
 
@@ -176,8 +159,9 @@
 		<div class="booking-wrap">
 			<form name="bfrm" method="post"
 				action="${pageContext.request.contextPath}/sub/detail/${room.no}">
-				<input type="hidden" name="totalprice" id="totalprice"> <input
-					type="hidden" name="diffdays" id="diffdays">
+				<sec:csrfInput/>
+				<input type="hidden" name="totalprice" id="totalprice"> 
+				<input type="hidden" name="diffdays" id="diffdays">
 				<div class="w3-row content_1">
 					<div class="w3-col s3">
 						<label class="booking-menu">체크인</label>
@@ -251,29 +235,21 @@
 	<%@ include file="/WEB-INF/view/sub/review.jsp"%>
 
 
-	<div class="host">
-		<div>호스트: Stephanie And Jay님</div>
+	<div class="host" id="host">
+		<div>호스트: ${member.name}님</div>
 	</div>
 	<div class="host_1">
-		<span>죠슈아 트리(Joshua Tree), 캘리포니아, 미국</span> <span>·</span> <span>회원가입:
-			1월 2010</span>
+		<span>${room.region}</span> <span>·</span> 
+		<span>회원가입 : ${member.getDetailReg()}</span>
 	</div>
 	<div class="host_2">
-		<div>어쩌구저쩌꾸 We are creative types who left Los Angeles in 2010
-			seeking a richer, more serene lifestyle inside nature. Stephanie is
-			an architect, Jay is founder/editor of Arthur Magazine. We live in
-			Joshua Tree full-time and rent out our three restored homestead
-			cabins (with a fourth on the way). We're active in the local
-			community and we also maintain ties to friends and colleagues in LA
-			and beyond. We're excited to meet you and we offer you a warm
-			welcome. 어쩌구저쩌구</div>
+		<div>${room.etc}</div>
 	</div>
 
 	<sec:authorize access="!isAuthenticated()">
-		<a href="${pageContext.request.contextPath}/member/login"><button
-				class="host_3">
-				<div>호스트에게 연락하기</div>
-			</button></a>
+		<a href="${pageContext.request.contextPath}/member/login">
+			<button class="host_3"><div>호스트에게 연락하기</div></button>
+		</a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<button class="messagebtn host_3">

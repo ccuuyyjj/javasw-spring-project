@@ -39,6 +39,7 @@
 			<!-- 총 수입 내역 -->
 			<div class="area-100 tab-item"  id="menu3" >
 				<form id="afrm" method="post"  action="${pageContext.request.contextPath}/mypage/tax_report">
+				<sec:csrfInput/>
 				<div class="w3-row">
 			  		<div class="w3-col s2 w3-center host-row1">	
 				  		<select class="host-select" name="syear">

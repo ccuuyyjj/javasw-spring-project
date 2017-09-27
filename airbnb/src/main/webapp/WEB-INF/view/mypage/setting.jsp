@@ -29,6 +29,7 @@
 			</ul>
 		</div>
 		<form id="rfrm" method="post" action="/airbnb/member/pw_update">
+		<sec:csrfInput/>
 		  	<div class="w3-col l6 m3 s4 w3-white w3-center subcontent">
 		  		<div class="subtab">
 					비밀번호 변경
@@ -69,6 +70,7 @@
 	  	</form>
 	 </div> 	
 	 	<form id="dfrm" method="post" action="/airbnb/member/delete">
+	 	<sec:csrfInput/>
 	 	<div class="w3-row">
 	  		<div class="w3-row host-row1">
 	  			<div class="w3-col s4" >&nbsp;</div>

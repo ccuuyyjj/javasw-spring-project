@@ -51,6 +51,7 @@ body {font-size:16px;}
 				</div>
 				<div class="m_caption_center">
 				<form id="rfrm" method="post" action="${pageContext.request.contextPath}/admin/sales">
+					<sec:csrfInput/>
 			  		<div class="w3-col s1 w3-center row1">	
 				  		<select class="select" name="syear">
 				  			<c:forEach begin="0" end="10" var="idx" step="1">
@@ -146,7 +147,7 @@ body {font-size:16px;}
 			<div class="m_head">
 				<div class="m_row div_row">
 					<div class="m_no">일자</div>
-					<div class="m_no">건수</div>
+					<div class="m_no">예약승낙건수</div>
 					<div class="m_no">금액</div>
 				</div>
 			</div>
