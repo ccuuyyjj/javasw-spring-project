@@ -97,7 +97,7 @@
 				<input type="hidden" name="name" value="${room.name}"> <input
 					type="hidden" name="price" value="${room.price}"> <input
 					type="hidden" name="room_no" value="${room.no}">
-					<input type="hidden" name="host_name" value="${room.host_name}">
+					<input type="hidden" name="host_name" value="${host.name}">
 				<div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
 				<div class="md-container_2">언제 여행하실 계획인가요?</div>
 				<div class="md-row md-container md-checkin">
@@ -118,7 +118,7 @@
 				<div class="md-container_2">호스트에게 메세지 보내기</div>
 				<div class="md-row md-container_3">
 					<textarea name="question" rows="5" cols="50"
-						placeholder="메세지 쓰기..."></textarea>
+						placeholder="메세지 쓰기..." required></textarea>
 				</div>
 				<div class="md-row">
 					<input class="area-100 md-btn" type="submit" value="메세지 보내기">
@@ -217,6 +217,7 @@
 	</c:forEach>
 	jQuery('#checkIn').datepicker({
 		dateFormat : 'yy/mm/dd',
+		defaultDate: "+1w",
 		minDate : 0,
 		constrainInput : false,
 		beforeShowDay : enableAllTheseDays
@@ -225,6 +226,7 @@
 	jQuery('#checkOut').datepicker({
 		dateFormat : 'yy/mm/dd',
 		constrainInput : false,
+		defaultDate: "+1w",
 		minDate : 0,
 		beforeShowDay : enableAllTheseDays
 	});

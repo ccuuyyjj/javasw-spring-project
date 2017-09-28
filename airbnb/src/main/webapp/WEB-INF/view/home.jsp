@@ -8,7 +8,10 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <html>
+<head>
 <title>airbnb</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico">
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -80,7 +83,7 @@
 				style="cursor: pointer" title="close side menu" id="myOverlay"></div>
 
 			<div class="w3-center w3-padding-16">
-				<img src="img/paper.png" width="50"> airbnb
+				<img src="img/paper.png" width="50"> paperbnb
 			</div>
 		</div>
 	</div>
@@ -139,7 +142,7 @@
 						<div class="flex1">
 							<span class="currency">&nbsp;</span> 
 							<input id="personInput" name="amount" type="number" max="9999" maxlength="4" value ="1"
-								oninput="maxLengthCheck(this)" style="width: 150px;"> 
+								min="1" oninput="maxLengthCheck(this)" style="width: 150px;"> 
 							<span class="currency1">명</span>
 						</div>
 					</div>

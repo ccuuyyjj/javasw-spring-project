@@ -5,7 +5,6 @@
 	href="${pageContext.request.contextPath}/css/detail.css" />
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
-<script src="${pageContext.request.contextPath}/js/wishList.js"></script>
 
 
 <script>
@@ -33,6 +32,7 @@
 
 		jQuery('#checkin').datepicker({
 			dateFormat : 'yy/mm/dd',
+			defaultDate: "+1w",
 			minDate : 0,
 			constrainInput : false,
 			beforeShowDay : enableAllTheseDays,
@@ -43,6 +43,7 @@
 
 		jQuery('#checkout').datepicker({
 			dateFormat : 'yy/mm/dd',
+			defaultDate: "+1w",
 			constrainInput : false,
 			minDate : 0,
 			beforeShowDay : enableAllTheseDays,
@@ -80,7 +81,7 @@
 			$("#totalprice").val(total);
 			$("#diffdays").val(diffDays);
 		}
-
+		
 	});
 </script>
 <input type="hidden" name="email" value="${username}">
@@ -236,11 +237,11 @@
 
 
 	<div class="host" id="host">
-		<div>호스트: ${room.host_name}님</div>
+		<div>호스트: ${host.name}님</div>
 	</div>
 	<div class="host_1">
 		<span>${room.region}</span> <span>·</span> 
-		<span>회원가입 : ${member.getDetailReg()}</span>
+		<span>회원가입 : ${host.detailReg}</span>
 	</div>
 	<div class="host_2">
 		<div>${room.etc}</div>

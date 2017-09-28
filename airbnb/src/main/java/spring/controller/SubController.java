@@ -73,9 +73,51 @@ public class SubController {
 		 */
 		List<String> type_list = new ArrayList<String>();
 		List<Object> args_list = new ArrayList<>();
+
 		// 페이징 네비게이터
-		int totalPost = roomDao.count(); // 게시물 수
 		int pagePosts = 21; // 현재 페이지 출력될 게시물 수
+
+		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+			type_list.add("date");
+			args_list.add(startDate + "~" + endDate);
+		}
+
+		if (location != null && !location.isEmpty()) {
+			System.out.println("gd" + location);
+			type_list.add("region");
+			args_list.add(location);
+		}
+
+		if (amount != null) {
+			type_list.add("capacity");
+			args_list.add(amount);
+		}
+
+		if (types != null && !types.isEmpty()) {
+			String[] type = types.split(",");
+			type_list.add("type");
+			for (String str : type)
+				System.out.println("type = " + str);
+			args_list.add(type);
+		}
+
+		if (price != null && price.length != 0) {
+			type_list.add("price");
+			args_list.add(price);
+		}
+
+		if (filter != null && filter.length != 0) {
+			type_list.add("filter");
+			args_list.add(filter);
+		}
+
+		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+		m.addAttribute("list", list);
+
+		// 페이징 처리
+
+		int totalPost = roomDao.count(type_list.toArray(), args_list.toArray()); // 게시물 수
+
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
 		int countPage = 3; // 화면에 출력될 페이지 수
 		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
@@ -107,45 +149,6 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 
-		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
-			type_list.add("date");
-			args_list.add(startDate + "~" + endDate);
-		}
-
-		if (location != null && !location.isEmpty()) {
-			type_list.add("region");
-			args_list.add(location);
-		}
-
-		if (amount != null) {
-			type_list.add("capacity");
-			args_list.add(amount);
-		}
-
-		if (types != null && !types.isEmpty()) {
-			String[] type = types.split(",");
-			type_list.add("type");
-			for (String str : type)
-				System.out.println("type = " + str);
-			args_list.add(type);
-		}
-
-		if (price != null && price.length != 0) {
-			type_list.add("price");
-			args_list.add(price);
-		}
-
-		if (filter != null && filter.length != 0) {
-			type_list.add("filter");
-			args_list.add(filter);
-		}
-
-		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
-
-		// 평점
-		// List<Room> list = roomDao.rating(list1);
-
-		m.addAttribute("list", list);
 		return "sub/sub_list";
 	}
 
@@ -160,7 +163,7 @@ public class SubController {
 			m.addAttribute("username", token.getName());
 		}
 
-		// 페이징 네비게이터
+		// 리뷰 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
@@ -295,9 +298,10 @@ public class SubController {
 		List<Message> message = new ArrayList<>();
 		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select(no.get(i));
+			Member host = memberDao.select(room.getOwner_id());
 			roomList.add(room);
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo(),
-					roomList.get(i).getHost_name());
+					host.getName());
 			Message getMessage = messageDao.Message(member_no, no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
@@ -345,8 +349,11 @@ public class SubController {
 	}
 
 	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
-	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
-		messageDao.insert(message, message.getMember_no());
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message,
+			UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		messageDao.insert(message, member_no);
 		m.addAttribute("message", message);
 		m.addAttribute("checkin", message.getCheckin());
 		m.addAttribute("checkout", message.getCheckout());
@@ -354,6 +361,7 @@ public class SubController {
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
 		m.addAttribute("host_name", message.getHost_name());
+		log.debug("message = " + message.toString());
 
 		return "redirect:/sub/messageDetail/" + room_no;
 	}
