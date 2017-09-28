@@ -72,9 +72,19 @@ public class AdminController {
 	@Controller
 	@RequestMapping(value = { "/admin/reservations" })
 	public static class ReservationsController {
+		@Autowired
+		private RsvpDao rsvpDao;
+
 		@RequestMapping(value = { "/home", "/", "" })
-		public String home() {
+		public String home(Model m) {
+			m.addAttribute("list", rsvpDao.progressStat("MM/DD", ""));
 			return "admin/reservations/home";
+		}
+
+		@RequestMapping(value = { "/monthly" })
+		public String monthly(Model m) {
+			m.addAttribute("list", rsvpDao.progressStat("YY/MM", ""));
+			return "admin/reservations/monthly";
 		}
 	}
 

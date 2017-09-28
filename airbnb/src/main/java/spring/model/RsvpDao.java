@@ -1,5 +1,6 @@
 package spring.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -127,4 +128,18 @@ public class RsvpDao {
 		return jdbcTemplate.update(sql, new Object[] { id, no }) == 1;
 	}
 
+	public List<String> progressStat(String type, String constraint) {
+		String sql = "select r, count(decode(p, 0, '1')) as p0, count(decode(p, 1, '1')) as p1, count(decode(p, 2, '1')) as p2, count(decode(p, 3, '1')) as p3, count(decode(p, 9, '1')) as p9, count(*) as sum from (select to_char(reg, ?) as r, progress as p from reservation) group by r order by r"
+				+ constraint;
+		SqlRowSet srs = jdbcTemplate.queryForRowSet(sql, type);
+		List<String> list = new ArrayList<>();
+
+		while (srs.next()) {
+			String item = srs.getString("r") + "|" + srs.getString("p0") + "|" + srs.getString("p1") + "|"
+					+ srs.getString("p2") + "|" + srs.getString("p3") + "|" + srs.getString("p9") + "|"
+					+ srs.getString("sum");
+			list.add(item);
+		}
+		return list;
+	}
 }
