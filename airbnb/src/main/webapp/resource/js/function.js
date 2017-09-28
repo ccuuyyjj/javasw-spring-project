@@ -25,7 +25,7 @@ $(document).ready(function() {
 	// 인원 자릿수 체크
 	$(".inputNum").on("blur ", function() {
 		if ($(".inputNum").val() != null && $(".inputNum").val() <= 0) {
-			$(".inputNum").val('');
+			$(".inputNum").val(1);
 		}
 
 	});

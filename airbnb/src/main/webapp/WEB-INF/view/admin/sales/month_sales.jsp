@@ -70,8 +70,41 @@
 				<div class="text-right">
 					<b><fmt:formatNumber value="${total_amount}" pattern="#,###" /></b>
 				</div>
+				<div class="text-center">
+					<b><fmt:formatNumber value="${total_cancel_cnt}" pattern="#,###" /></b>
+				</div>
+				<div class="text-right">
+					<b><fmt:formatNumber value="${total_cancel_amount}" pattern="#,###" /></b>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+google.charts.load('current', {'packages' :['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+	var data = new google.visualization.DataTable();
+    data.addColumn('string', 'name');
+    data.addColumn('number', '예약승낙금액');
+    <c:forEach var="sale" items="${mList}">
+        var name = '${sale.dt}';
+        var empid = '${sale.amount}';
+        data.addRows([
+            [name,parseInt(empid)]
+        ]);
+    </c:forEach>
+
+var options = {
+	title: '월 매출 현황',
+	width: 1000,
+	height: 300
+};
+
+var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+};
+</script>
+	<div id="chart_div"></div>
 </div>
 <%@include file="/WEB-INF/view/admin/template/footer.jsp"%>

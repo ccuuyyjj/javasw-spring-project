@@ -41,9 +41,13 @@
 		<a href="host/become_host1" onclick="w3_close()" class="w3-bar-item w3-button">호스팅하기</a> 
 		<a href="sub/message" onclick="w3_close()" class="w3-bar-item w3-button">메세지</a> 
 		<a href="mypage/rooms" onclick="w3_close()" class="w3-bar-item w3-button">마이페이지</a> 
+		<sec:authorize access="!isAuthenticated()">
 		<a href="javaScript:void(0);" onclick="w3_close()" class="joinbtn w3-bar-item w3-button">회원가입</a> 
-		<a href="javaScript:void(0);" onclick="w3_close()" class="loginbtn w3-bar-item w3-button">로그인</a> 
+		<a href="javaScript:void(0);" onclick="w3_close()" class="loginbtn w3-bar-item w3-button">로그인</a>
+		</sec:authorize> 
+		<sec:authorize access="isAuthenticated()">
 		<a href="${pageContext.request.contextPath}/member/logout" onclick="w3_close()" class="w3-bar-item w3-button">로그아웃</a>
+		</sec:authorize>
 	</nav>
 
 	<%@ include file="/WEB-INF/view/popup/layerpop.jsp"%>

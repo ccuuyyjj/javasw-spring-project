@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/view/admin/template/header.jsp"%>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div class="menu-wrap w3-blue">
 	<ul>
 		<li class="hover"><a
@@ -150,21 +149,33 @@
 				<div class="text-right">
 					<b><fmt:formatNumber value="${total_amount}" pattern="#,###" /></b>
 				</div>
+				<div class="text-center">
+					<b><fmt:formatNumber value="${total_cancel_cnt}" pattern="#,###" /></b>
+				</div>
+				<div class="text-right">
+					<b><fmt:formatNumber value="${total_cancel_amount}" pattern="#,###" /></b>
+				</div>
 			</div>
 		</div>
 	</div>
-<!-- http://blog.naver.com/redcrow/221096699767 -->	
 <script type="text/javascript">
 google.charts.load('current', {'packages' :['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-	var data = google.visualization.arrayToDataTable([
-	'${dList}'
-]);
+	var data = new google.visualization.DataTable();
+    data.addColumn('string', 'name');
+    data.addColumn('number', '예약승낙금액');
+    <c:forEach var="sale" items="${dList}">
+        var name = '${sale.dt}';
+        var empid = '${sale.amount}';
+        data.addRows([
+            [name,parseInt(empid)]
+        ]);
+    </c:forEach>
 
 var options = {
-	title: '일일 매출 현황',
+	title: '일 매출 현황',
 	width: 1000,
 	height: 300
 };
