@@ -112,7 +112,6 @@ public class SubController {
 		}
 
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
-		System.out.println("사이즈" + list.size());
 		m.addAttribute("list", list);
 
 		// 페이징 처리
@@ -164,7 +163,7 @@ public class SubController {
 			m.addAttribute("username", token.getName());
 		}
 
-		// 페이징 네비게이터
+		// 리뷰 페이징 네비게이터
 		int totalPost = reviewDao.count(no); // 게시물 수
 		int pagePosts = 5; // 현재 페이지 출력될 게시물 수
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
