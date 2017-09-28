@@ -73,9 +73,52 @@ public class SubController {
 		 */
 		List<String> type_list = new ArrayList<String>();
 		List<Object> args_list = new ArrayList<>();
+
 		// 페이징 네비게이터
-		int totalPost = roomDao.count(); // 게시물 수
 		int pagePosts = 21; // 현재 페이지 출력될 게시물 수
+
+		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+			type_list.add("date");
+			args_list.add(startDate + "~" + endDate);
+		}
+
+		if (location != null && !location.isEmpty()) {
+			System.out.println("gd" + location);
+			type_list.add("region");
+			args_list.add(location);
+		}
+
+		if (amount != null) {
+			type_list.add("capacity");
+			args_list.add(amount);
+		}
+
+		if (types != null && !types.isEmpty()) {
+			String[] type = types.split(",");
+			type_list.add("type");
+			for (String str : type)
+				System.out.println("type = " + str);
+			args_list.add(type);
+		}
+
+		if (price != null && price.length != 0) {
+			type_list.add("price");
+			args_list.add(price);
+		}
+
+		if (filter != null && filter.length != 0) {
+			type_list.add("filter");
+			args_list.add(filter);
+		}
+
+		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
+		System.out.println("사이즈" + list.size());
+		m.addAttribute("list", list);
+
+		// 페이징 처리
+
+		int totalPost = roomDao.count(type_list.toArray(), args_list.toArray()); // 게시물 수
+
 		int totalPage = (totalPost + pagePosts - 1) / pagePosts; // 총 페이지 수
 		int countPage = 3; // 화면에 출력될 페이지 수
 		int start = (page - 1) / countPage * countPage + 1; // 현재페이지에서 시작 페이지
@@ -107,45 +150,6 @@ public class SubController {
 		m.addAttribute("page", page);
 		m.addAttribute("totalPage", totalPage);
 
-		if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
-			type_list.add("date");
-			args_list.add(startDate + "~" + endDate);
-		}
-
-		if (location != null && !location.isEmpty()) {
-			type_list.add("region");
-			args_list.add(location);
-		}
-
-		if (amount != null) {
-			type_list.add("capacity");
-			args_list.add(amount);
-		}
-
-		if (types != null && !types.isEmpty()) {
-			String[] type = types.split(",");
-			type_list.add("type");
-			for (String str : type)
-				System.out.println("type = " + str);
-			args_list.add(type);
-		}
-
-		if (price != null && price.length != 0) {
-			type_list.add("price");
-			args_list.add(price);
-		}
-
-		if (filter != null && filter.length != 0) {
-			type_list.add("filter");
-			args_list.add(filter);
-		}
-
-		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
-
-		// 평점
-		// List<Room> list = roomDao.rating(list1);
-
-		m.addAttribute("list", list);
 		return "sub/sub_list";
 	}
 
