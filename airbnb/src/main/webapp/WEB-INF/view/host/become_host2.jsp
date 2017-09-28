@@ -50,7 +50,6 @@ upload.onchange = function (e) {
 	reader.onload = function (event) {
 		
 		var filename = upload.value;
-		console.log("name=>"+filename);
 		var fileName = filename.slice(filename.indexOf(".") + 1).toLowerCase();
 
 		if(fileName != "jpg" && fileName != "png" &&  fileName != "gif"){
