@@ -112,7 +112,6 @@ public class SubController {
 		}
 
 		List<Room> list = roomDao.search(page, pagePosts, type_list.toArray(), args_list.toArray());
-		System.out.println("사이즈" + list.size());
 		m.addAttribute("list", list);
 
 		// 페이징 처리
