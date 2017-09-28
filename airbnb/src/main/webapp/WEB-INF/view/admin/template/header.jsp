@@ -18,6 +18,7 @@
 	href="${pageContext.request.contextPath}/css/adminpage.css" />
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="${pageContext.request.contextPath}/js/admin_common.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 	<!-- menu -->

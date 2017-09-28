@@ -39,11 +39,13 @@
                          <span>${count}개의 리스트</span>
                     </div>
                 </div>
+	                <c:choose>
+					<c:when test="${count > 0}">
 	                <div class="wl-page">
 	                <c:forEach var="wishlist" items="${title}" varStatus="status">
 	                    <div class="wl-page_list">
 	                        <a href="${pageContext.request.contextPath}/mypage/wishlistdetail/${wishlist.title}/${roomcount[status.index]}">
-	                            <div class="d" style="background-image: url('https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large')">
+	                            <div class="d" style="background-image: url(${photo[status.index]})">
 	                                <div class="w">
 	                                    <div class="wl">${wishlist.title}</div>
 	                                    <div class="wl2">${roomcount[status.index]}개</div>
@@ -52,6 +54,27 @@
 	                        </a>
 	                    </div>
 			    	</c:forEach>
-		           </div>
+	                </div>
+					    	</c:when>
+		            	<c:otherwise>
+				           <div style="margin-right: 6%">
+				               <div class="panel">
+				                   <div class="row1">
+				                       <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center space-8 space-top-8">
+				                           <h3>
+				                               <span>아직 등록된 위시리스트가 없습니다.</span>
+				                           </h3>
+				                           <p class="text-lead text-muted">
+				                               <span>마음에 드는 숙소를 발견하셨다면 위시리스트를 만들어 저장하실 수 있어요.<br>
+									                                여행을 준비 중이라면 위시리스트에 이용해 보세요.<br>
+									                                선호하는 숙소를 저장하여 위시리스트를 만들어 보세요.<br>
+				                               </span>
+				                           </p>
+				                       </div>
+				                   </div>
+				               </div>
+				           </div>
+			            </c:otherwise>
+		            </c:choose>
 			</div>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %>

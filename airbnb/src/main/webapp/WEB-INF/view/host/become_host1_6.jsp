@@ -7,7 +7,7 @@
 <div class="w3-main w3-content w3-padding" style="max-width:800px;margin-top:100px">
 	<div class="empty"></div>
 	<div class="host-row1">
-		<h2>지현님, 좋아요!</h2>
+		<h2>${member.name}님, 좋아요!</h2>
 	</div>
 	<div class="host-row1 host-label">
 		이제 숙소를 등록할 수 있도록 몇 가지 세부정보를 추가하도록 하겠습니다.

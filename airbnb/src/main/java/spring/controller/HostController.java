@@ -245,13 +245,13 @@ public class HostController {
 	}
 
 	@RequestMapping("become_host1_6")
-	public String become_host1_6(HttpServletRequest request, Model model) {
+	public String become_host1_6(HttpServletRequest request, Model m, UsernamePasswordAuthenticationToken token) {
 		// 1_3에서 왔는지 1_5에서 왔는지 구분값이 필요함.
 		String referer = request.getHeader("referer");
-		log.debug("referer =" + referer);
 		String urlNo = referer.substring(referer.length() - 1);
-		log.debug("urlNo =" + urlNo);
-		model.addAttribute("urlNo", urlNo);
+		m.addAttribute("urlNo", urlNo);
+		Member member = memberDao.select(token.getName());
+		m.addAttribute("member", member);
 
 		return "host/become_host1_6";
 	}

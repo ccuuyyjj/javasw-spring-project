@@ -377,14 +377,25 @@ public class MypageController {
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		List<Integer> roomcount = new ArrayList<>();
+		List<String> photo = new ArrayList<>();
+		List<WishList> wishlist = new ArrayList<>();
 		for (int i = 0; i < title.size(); i++) {
 			int count = wishListDao.count(member_no, title.get(i).getTitle());
+			String photourl = null;
+			wishlist = wishListDao.SelectRoom_no(member_no, title.get(i).getTitle());
+			if (wishlist.get(wishlist.size() - 1).getRoom_no() > 0) {
+				Room room = roomDao.select(wishlist.get(wishlist.size() - 1).getRoom_no());
+				photourl = room.getPhotoUrl();
+				log.debug("photourl = " + photourl);
+			}
+			photo.add(photourl);
 			roomcount.add(count);
 		}
 
 		m.addAttribute("title", title);
 		m.addAttribute("count", title.size());
 		m.addAttribute("roomcount", roomcount);
+		m.addAttribute("photo", photo);
 		return "mypage/wishlist";
 	}
 
@@ -393,7 +404,7 @@ public class MypageController {
 			@PathVariable("wltitle") String wltitle, @PathVariable("roomcount") int roomcount) {
 		Member member = memberDao.select(token.getName());
 		int member_no = member.getNo();
-		List<WishList> wishlist = wishListDao.Select(member_no, wltitle);
+		List<WishList> wishlist = wishListDao.SelectRoom_no(member_no, wltitle);
 		log.debug("wishlist 수" + wishlist.size());
 		log.debug("wishlist = " + wishlist.toString());
 		List<Room> roomlist = new ArrayList<>();
@@ -420,18 +431,22 @@ public class MypageController {
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		log.debug("ajax로 옴");
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("[");
-		for (int i = 0; i < title.size(); i++) {
-			buffer.append("{");
-			buffer.append("\"title\":\"");
-			buffer.append(title.get(i).getTitle());
-			buffer.append("\"},");
+		if (title.size() == 0) {
+			buffer.append("[");
+			buffer.append("]");
+		} else {
+			buffer.append("[");
+			for (int i = 0; i < title.size(); i++) {
+				buffer.append("{");
+				buffer.append("\"title\":\"");
+				buffer.append(title.get(i).getTitle());
+				buffer.append("\"},");
+			}
+			buffer.deleteCharAt(buffer.length() - 1);
+			buffer.append("]");
 		}
-		buffer.deleteCharAt(buffer.length() - 1);
-		buffer.append("]");
 		String result = buffer.toString();
 		log.debug("buffer = " + result);
-
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().print(result);
 	}

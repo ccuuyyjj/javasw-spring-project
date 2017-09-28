@@ -21,6 +21,11 @@ public class WishListDao {
 		return new WishList(rs, title);
 	};
 
+	private RowMapper<WishList> rowMapper3 = (rs, index) -> {
+		int room_no = 0;
+		return new WishList(rs, room_no);
+	};
+
 	public void insert(WishList wishList, int member_no) {
 		String sql = "insert into wishlist values(wishlist_seq.nextval, ?, ?, ?)";
 		Object[] args = new Object[] { member_no, wishList.getRoom_no(), wishList.getTitle() };
@@ -37,6 +42,12 @@ public class WishListDao {
 		String sql = "select * from wishlist where member_no = ? and title = ?";
 		Object[] args = new Object[] { member_no, title };
 		return jdbcTemplate.query(sql, args, rowMapper);
+	}
+
+	public List<WishList> SelectRoom_no(int member_no, String title) {
+		String sql = "select DISTINCT room_no from wishlist where member_no = ? and title = ?";
+		Object[] args = new Object[] { member_no, title };
+		return jdbcTemplate.query(sql, args, rowMapper3);
 	}
 
 	public int count(int member_no, String title) {

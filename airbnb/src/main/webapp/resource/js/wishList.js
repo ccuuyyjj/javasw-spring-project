@@ -3,7 +3,6 @@
  */
 $(document).ready(function(){
 	
-				
 								
                 $(".wbtn").on("click", function(){
                     event.preventDefault();
@@ -29,7 +28,7 @@ $(document).ready(function(){
                 	$(".wl-input").val('');
                 });
                 
-                $(".wbtn4").on("click", function(){
+                $("#wbtn4").on("click", function(){
                 	event.preventDefault();
                 	$(".appendhere").children("div").remove();
                 	var title = $(".wl-input").val();
@@ -42,10 +41,26 @@ $(document).ready(function(){
 						beforeSend:wishlist,
 						success:function(){
 							alert("새로운 위시리스트가 추가되었습니다");
-						},
+						}
+                	})
+                });
+                
+                $("#wldetail").on("click", function(){
+                	event.preventDefault();
+                	var title = $(".wl-input").val();
+                	$.ajax({
+                		type:"POST",
+                		async: false,
+						url:"/airbnb/mypage/wishlist",
+						data:{title},
+						success:function(){
+							alert("새로운 위시리스트가 추가되었습니다");
+							location.href = '/airbnb/mypage/wishlist';
+						}
                 	})
                 });
             });
+
 
 function wishlist() {
 	var email = $("#email").val();
@@ -59,14 +74,18 @@ function wishlist() {
 			type:"GET",
 			async: false,
 			dataType: "json",
+			error:function(a,b,c){
+				console.log("a = "+a+"b = "+b+"c = "+c);
+				location.href='/airbnb/member/login';
+			},
 			success:function(res, code){
-				console.log(res, code);
+				console.log("res = "+res,"code = "+code);
 				$("#wishList").show();
 				wrapWindowByMask();
 				// 반복문을 통하여 데이터를 화면에 출력
 				$.each(res, function(i,d){
-					console.log(d);
-					createRow(d.title, i+1).appendTo($(".appendhere"));
+						console.log(d);
+						createRow(d.title, i+1).appendTo($(".appendhere"));						
 				});
 			}				
 		});

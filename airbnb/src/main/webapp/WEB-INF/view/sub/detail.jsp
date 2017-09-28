@@ -187,7 +187,7 @@
 					</div>
 					<div class="w3-col s5">
 						<input type="number" name="qty" id="qty" value="1"
-							class="area-80 booking-height inputNum text-center"> <span>명</span>
+							min="1" class="area-80 booking-height inputNum text-center"> <span>명</span>
 					</div>
 				</div>
 				<div class="w3-row content_1" id="divOption" style="display: none;">
@@ -236,11 +236,11 @@
 
 
 	<div class="host" id="host">
-		<div>호스트: ${host.name}님</div>
+		<div>호스트: ${room.host_name}님</div>
 	</div>
 	<div class="host_1">
 		<span>${room.region}</span> <span>·</span> 
-		<span>회원가입 : ${host.detailReg}</span>
+		<span>회원가입 : ${member.getDetailReg()}</span>
 	</div>
 	<div class="host_2">
 		<div>${room.etc}</div>

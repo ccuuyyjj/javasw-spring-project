@@ -131,10 +131,15 @@ public class AdminController {
 
 			int total_cnt = 0;
 			int total_amount = 0;
+			int total_cancel_cnt = 0;
+			int total_cancel_amount = 0;
 			List<Sales> dList = salesDao.sales_day_history(sDate, eDate);
+
 			for (Sales list : dList) {
 				total_cnt += list.getCnt();
 				total_amount += list.getAmount();
+				total_cancel_cnt += list.getCancel_cnt();
+				total_cancel_amount += list.getCancel_amount();
 			}
 
 			m.addAttribute("syear", syear);
@@ -146,6 +151,8 @@ public class AdminController {
 			m.addAttribute("dList", dList);
 			m.addAttribute("total_cnt", total_cnt);
 			m.addAttribute("total_amount", total_amount);
+			m.addAttribute("total_cancel_cnt", total_cancel_cnt);
+			m.addAttribute("total_cancel_amount", total_cancel_amount);
 
 			return "admin/sales/home";
 		}
@@ -166,16 +173,22 @@ public class AdminController {
 
 			int total_cnt = 0;
 			int total_amount = 0;
+			int total_cancel_cnt = 0;
+			int total_cancel_amount = 0;
 			List<Sales> mList = salesDao.sales_month_history(sDate, eDate);
 			for (Sales list : mList) {
 				total_cnt += list.getCnt();
 				total_amount += list.getAmount();
+				total_cancel_cnt += list.getCancel_cnt();
+				total_cancel_amount += list.getCancel_amount();
 			}
 			log.debug("syear:" + syear);
 			m.addAttribute("syear", syear);
 			m.addAttribute("mList", mList);
 			m.addAttribute("total_cnt", total_cnt);
 			m.addAttribute("total_amount", total_amount);
+			m.addAttribute("total_cancel_cnt", total_cancel_cnt);
+			m.addAttribute("total_cancel_amount", total_cancel_amount);
 
 			return "admin/sales/month_sales";
 		}

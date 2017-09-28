@@ -97,26 +97,22 @@
 				<input type="hidden" name="name" value="${room.name}"> <input
 					type="hidden" name="price" value="${room.price}"> <input
 					type="hidden" name="room_no" value="${room.no}">
+					<input type="hidden" name="host_name" value="${room.host_name}">
 				<div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
 				<div class="md-container_2">언제 여행하실 계획인가요?</div>
 				<div class="md-row md-container md-checkin">
-					<div class="area-45 md-checkin">
-						<span>체크인</span>
+					<div class="md-checkin">
+						<input type=text name="checkin" id="checkIn"
+						placeholder="체크인" style="border: 0">
 					</div>
-					<div class="area-45 md-checkout">
-						<span>체크아웃</span>
-					</div>
-					<div class="area-45 md-checkin">
-						<input type=text name="checkin" id="checkIn" placeholder="체크인">
-					</div>
-					<div class="area-45 md-checkout">
+					<div class="md-checkout">
 						<input type="text" name="checkout" id="checkOut"
-							placeholder="체크아웃">
+							placeholder="체크아웃" style="border: 0">
 					</div>
 				</div>
 				<div class="md-container_2">인원</div>
 				<div class="md-row md-container_3">
-					<input class="area-90" type="number" name="quantity" max="9999"
+					<input class="area-90" type="number" name="quantity" min="1" max="9999"
 						maxlength="4" /><span>명</span>
 				</div>
 				<div class="md-container_2">호스트에게 메세지 보내기</div>
@@ -150,13 +146,18 @@
 							</div>
 							<div class="wl-box_5">
 								<button class="wbtn3">취소</button>
-								<input type="button" class="wbtn4" disabled value="목록 만들기">
+								<c:if test="${exist == true}">
+								<input type="button" class="wbtn4" id="wbtn4" disabled value="목록 만들기">
+								</c:if>
+								<c:if test="${exist != true}">
+								<input type="button" class="wbtn4" id="wldetail" disabled value="목록 만들기">
+								</c:if>
 							</div>
 						</div>
 					</div>
 					<c:if test="${exist == true}">
 						<div class="appendhere"></div>
-						<input type="button" value="등록" class="insert"
+						<input type="button" value="등록" class="insert wbtn5"
 							onclick="insert(${room.no});">
 					</c:if>
 				</form>
@@ -173,48 +174,10 @@
 									<div class="wl-box_2 wfont_3">${room.name}</div>
 									<div class="wl-box_2 wfont_2">${room.region}</div>
 									<div class="wl-box_2 wfont_2" style="margin-bottom: 0px">
-										<c:choose>
-											<c:when test="${avg==1 }">
-												<img src="${pageContext.request.contextPath}/img/star.png"
+										<c:forEach begin="1" end="${avg}">
+											<img src="${pageContext.request.contextPath}/img/star.png"
 													width="8" height="8" style="margin-bottom: 0px">
-											</c:when>
-											<c:when test="${avg==2 }">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-											</c:when>
-											<c:when test="${avg==3 }">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-											</c:when>
-											<c:when test="${avg==4 }">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-											</c:when>
-											<c:when test="${avg==5 }">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-												<img src="${pageContext.request.contextPath}/img/star.png"
-													width="8" height="8" style="margin-bottom: 0px">
-											</c:when>
-										</c:choose>
+										</c:forEach>
 										<span>후기 ${total}개</span>
 									</div>
 								</div>
