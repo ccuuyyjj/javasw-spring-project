@@ -117,18 +117,24 @@
 
 	<!-- 처음  페이지 -->
 	<c:if test="${page >= 4 }">
-		<a href="${pageContext.request.contextPath }/sub/sub_list?page=${1}">${1}</a>
+		<a href="${pageContext.request.contextPath }/sub/sub_list?page=1&location=${param.location}
+		&startDate=${param.startDate}&endDate=${param.endDate}&amount=${param.amount}
+		&type=${param.type}&price=${pram.price}&filter=${param.filter}">1</a>
 		<span> &nbsp; &nbsp;··· &nbsp;</span>
 	</c:if>
 
 	<c:forEach var="i" begin="${start }" end="${end }" step="1">
 		<c:choose>
 			<c:when test="${i == page}">
-				<a href="${pageContext.request.contextPath}/sub/sub_list?page=${i}"
+				<a href="${pageContext.request.contextPath}/sub/sub_list?page=${i}&location=${param.location}
+				&startDate=${param.startDate}&endDate=${param.endDate}
+				&amount=${param.amount}&type=${param.type}&price=${pram.price}&filter=${param.filter}"
 					class="this">${i}</a>
 			</c:when>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/sub/sub_list?page=${i}">${i}</a>
+				<a href="${pageContext.request.contextPath}/sub/sub_list?page=${i}&location=${param.location}
+				&startDate=${param.startDate}&endDate=${param.endDate}&amount=${param.amount}&type=${param.type}
+				&price=${pram.price}&filter=${param.filter}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -137,7 +143,9 @@
 	<c:if test="${page < totalPage - 1 && end < totalPage}">
 		<span>&nbsp;&nbsp;···&nbsp; </span>
 		<a
-			href="${pageContext.request.contextPath }/sub/sub_list?page=${totalPage}">${totalPage}</a>
+			href="${pageContext.request.contextPath }/sub/sub_list?page=${totalPage}&location=${param.location}
+			&startDate=${param.startDate}&endDate=${param.endDate}&amount=${param.amount}
+			&type=${param.type}&price=${pram.price}&filter=${param.filter}">${totalPage}</a>
 	</c:if>
 </div>
 <%@ include file="/WEB-INF/view/template/footer.jsp"%>

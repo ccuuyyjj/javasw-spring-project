@@ -219,6 +219,100 @@ public class RoomDao {
 		return jdbcTemplate.queryForObject("select count(*) from room", Integer.class);
 	}
 
+	public int count(Object[] arg_types, Object[] args) {
+		if (arg_types.length != args.length)
+			return 0;
+		else {
+			List<Object> list = new ArrayList<>();
+			String sql = new SQL() {
+				{
+					SELECT("count(*)");
+					FROM("(" + new SQL() {
+						{
+							SELECT("rownum RN", "room.*");
+							FROM("room");
+							for (int i = 0; i < arg_types.length; i++) {
+								String type = (String) arg_types[i];
+								Object arg = args[i];
+								if (type.equalsIgnoreCase("date")) {
+									try {
+										String[] date = ((String) arg).split("~");
+
+										Date start = dateFormat.parse(date[0]);
+										Date end = dateFormat.parse(date[1]);
+										int length = ((int) ((end.getTime() - start.getTime()) / 1000L / 60L / 60L
+												/ 24L) + 1);
+
+										WHERE("no = any(select n from (select count(*) as c, room_no as n from available_date where day between ? and ? and available = 'true' group by room_no) where c = ?)");
+										list.add(start);
+										list.add(end);
+										list.add(length);
+									} catch (ParseException e) {
+									}
+								} else if (type.equalsIgnoreCase("name") || type.equalsIgnoreCase("region")) {
+									// name
+									WHERE(type + " like ?");
+									list.add("%" + arg + "%");
+									// } else if(type.equalsIgnoreCase("none")) {
+									// break;
+								} else if (type.equalsIgnoreCase("type")) {
+									// type
+									String[] types = (String[]) arg;
+									for (int j = 0; j < types.length; j++) {
+										if (j > 0)
+											OR();
+										WHERE("type like ?");
+										list.add("%" + types[j]);
+									}
+								} else if (type.equalsIgnoreCase("price")) {
+									// price
+									Integer price_min = ((int[]) arg)[0];
+									Integer price_max = ((int[]) arg)[1];
+									WHERE("no = any(select no from (select room_no as no, min(price) as min from available_date group by room_no) where min between ? and ?)");
+									list.add(price_min);
+									list.add(price_max);
+								} else if (type.equalsIgnoreCase("filter")) {
+									// filter
+									try {
+										Integer bedrooms = ((int[]) arg)[0];
+										if (bedrooms != null) {
+											WHERE("bedrooms >= ?");
+											list.add(bedrooms);
+										}
+									} catch (Exception e) {
+									}
+									try {
+										Integer beds = ((int[]) arg)[1];
+										if (beds != null) {
+											WHERE("beds >= ?");
+											list.add(beds);
+										}
+									} catch (Exception e) {
+									}
+								} else if (type.equalsIgnoreCase("capacity")) {
+									// amount
+									try {
+										Integer amount = (Integer) arg;
+										if (amount != null) {
+											WHERE("capacity >= ?");
+											list.add(amount);
+										}
+									} catch (Exception e) {
+									}
+								} else {
+									WHERE(type + " = ?");
+									list.add(arg);
+								}
+							}
+						}
+					}.toString() + ")");
+					ORDER_BY("no desc");
+				}
+			}.toString();
+			return jdbcTemplate.queryForObject(sql, list.toArray(), Integer.class);
+		}
+	}
+
 	// 마이페이지 숙소 목록 리스트
 	public List<Room> host_list(String id) {
 		String sql = "select * from room where progress < 4 and owner_id = ? order by no desc ";
