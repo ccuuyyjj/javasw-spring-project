@@ -27,7 +27,11 @@
 		                        <div class="d-box_2"><span>${room.price}</span>${room.name}</div>
 		                        <div class="d-box_2 dfont_2">${room.type}</div>
 		                        <div class="d-box_2 dfont_2" style="margin-bottom: 0px">
-		                            <spna>★</spna><spna>★</spna><spna>후기 ???개</spna>
+		                            <c:forEach begin="1" end="${avg}">
+											<img src="${pageContext.request.contextPath}/img/star.png"
+													width="8" height="8" style="margin-bottom: 0px">
+									</c:forEach>
+									<spna>후기 ???개</spna>
 		                        </div>
 		                    </div>
 		                </div>

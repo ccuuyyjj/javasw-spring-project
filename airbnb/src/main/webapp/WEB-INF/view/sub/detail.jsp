@@ -187,7 +187,7 @@
 					</div>
 					<div class="w3-col s5">
 						<input type="number" name="qty" id="qty" value="1"
-							class="area-80 booking-height inputNum text-center"> <span>명</span>
+							min="1" class="area-80 booking-height inputNum text-center"> <span>명</span>
 					</div>
 				</div>
 				<div class="w3-row content_1" id="divOption" style="display: none;">

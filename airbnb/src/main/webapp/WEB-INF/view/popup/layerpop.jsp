@@ -101,17 +101,18 @@
 				<div class="md-row md-container_1">※체크인 및 체크아웃 날짜를 정해주세요</div>
 				<div class="md-container_2">언제 여행하실 계획인가요?</div>
 				<div class="md-row md-container md-checkin">
-					<div class="area-45 md-checkin">
-						<input type=text name="checkin" id="checkIn" placeholder="체크인">
+					<div class="md-checkin">
+						<input type=text name="checkin" id="checkIn"
+						placeholder="체크인" style="border: 0">
 					</div>
-					<div class="area-45 md-checkout">
+					<div class="md-checkout">
 						<input type="text" name="checkout" id="checkOut"
-							placeholder="체크아웃">
+							placeholder="체크아웃" style="border: 0">
 					</div>
 				</div>
 				<div class="md-container_2">인원</div>
 				<div class="md-row md-container_3">
-					<input class="area-90" type="number" name="quantity" max="9999"
+					<input class="area-90" type="number" name="quantity" min="1" max="9999"
 						maxlength="4" /><span>명</span>
 				</div>
 				<div class="md-container_2">호스트에게 메세지 보내기</div>
