@@ -67,8 +67,8 @@
                             <input type="hidden" name="checkout" value="${checkout}">
                             <input type="hidden" name="quantity" value="${quantity}">
                             <input type="hidden" name="price" value="${price}">
-                            <input type="hidden" name="owner_id" value="${host_name}">
-	                        <textarea rows="6" cols="50" name="question"></textarea>
+                            <input type="hidden" name="host_name" value="${host_name}">
+	                        <textarea rows="6" cols="50" name="question" required></textarea>
 	                        <div class="container_3">
 	                            <div class="container_4">
 	                                <div class="container_5">

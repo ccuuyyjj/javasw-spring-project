@@ -299,9 +299,10 @@ public class SubController {
 		List<Message> message = new ArrayList<>();
 		for (int i = 0; i < no.size(); i++) {
 			Room room = roomDao.select(no.get(i));
+			Member host = memberDao.select(room.getOwner_id());
 			roomList.add(room);
 			messageDao.update(roomList.get(i).getName(), roomList.get(i).getPrice(), member_no, roomList.get(i).getNo(),
-					roomList.get(i).getHost_name());
+					host.getName());
 			Message getMessage = messageDao.Message(member_no, no.get(i));
 			message.add(getMessage);
 			Collections.sort(message, new Comparator<Message>() {
@@ -349,8 +350,11 @@ public class SubController {
 	}
 
 	@RequestMapping(value = "/messageDetail/{room_no}", method = RequestMethod.POST)
-	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message) {
-		messageDao.insert(message, message.getMember_no());
+	public String messageDetail(@PathVariable("room_no") int room_no, Model m, Message message,
+			UsernamePasswordAuthenticationToken token) {
+		Member member = memberDao.select(token.getName());
+		int member_no = member.getNo();
+		messageDao.insert(message, member_no);
 		m.addAttribute("message", message);
 		m.addAttribute("checkin", message.getCheckin());
 		m.addAttribute("checkout", message.getCheckout());
@@ -358,6 +362,7 @@ public class SubController {
 		m.addAttribute("quantity", message.getQuantity());
 		m.addAttribute("price", message.getPrice());
 		m.addAttribute("host_name", message.getHost_name());
+		log.debug("message = " + message.toString());
 
 		return "redirect:/sub/messageDetail/" + room_no;
 	}

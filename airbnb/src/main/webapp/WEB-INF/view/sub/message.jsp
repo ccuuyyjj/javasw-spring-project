@@ -104,7 +104,7 @@ function button_event(){
 	                            <div class="panel">
 	                                <div class="row1">
 	                                    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-4 text-center">
-	                                        <c:forEach var="message" items="${message}">
+	                                        <c:forEach var="message" items="${message}" varStatus="status">
 												<table class="m_table">
 		                                            <tr>
 		                                              	<td class="m_padding m_area-10">${message.host_name}</td>
