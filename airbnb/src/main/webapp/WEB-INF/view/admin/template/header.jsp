@@ -38,6 +38,10 @@
 			<a href="${pageContext.request.contextPath}/admin/sales"
 				onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">매출 현황</a>
 		</div>
+		<br>
+		<br>
+		<a href="${pageContext.request.contextPath}"
+			onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">돌아가기</a>
 	</nav>
 	<!-- !PAGE CONTENT! -->
 	<div class="w3-main" style="margin-left: 340px; margin-right: 40px">
