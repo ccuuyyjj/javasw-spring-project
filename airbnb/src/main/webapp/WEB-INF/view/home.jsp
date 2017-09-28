@@ -80,7 +80,7 @@
 				style="cursor: pointer" title="close side menu" id="myOverlay"></div>
 
 			<div class="w3-center w3-padding-16">
-				<img src="img/paper.png" width="50"> airbnb
+				<img src="img/paper.png" width="50"> paperbnb
 			</div>
 		</div>
 	</div>

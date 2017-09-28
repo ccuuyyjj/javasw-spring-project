@@ -217,6 +217,7 @@
 	</c:forEach>
 	jQuery('#checkIn').datepicker({
 		dateFormat : 'yy/mm/dd',
+		defaultDate: "+1w",
 		minDate : 0,
 		constrainInput : false,
 		beforeShowDay : enableAllTheseDays
@@ -225,6 +226,7 @@
 	jQuery('#checkOut').datepicker({
 		dateFormat : 'yy/mm/dd',
 		constrainInput : false,
+		defaultDate: "+1w",
 		minDate : 0,
 		beforeShowDay : enableAllTheseDays
 	});
