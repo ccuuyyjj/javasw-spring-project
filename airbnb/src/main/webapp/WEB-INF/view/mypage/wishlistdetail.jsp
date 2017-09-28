@@ -19,6 +19,7 @@
             <div class="d-row">${roomcount}개</div>
 	            <c:forEach var="room" items="${roomlist}">
 		            <div class="d-box">
+		            <a href="${pageContext.request.contextPath}/sub/detail/${room.no}">
 		                <div class="d-img" style="background-image: url(${room.photoUrl})">
 		                    <label>
 		                        <input class="d-check" type="checkbox" id="d-check">
@@ -27,14 +28,15 @@
 		                        <div class="d-box_2"><span>${room.price}</span>${room.name}</div>
 		                        <div class="d-box_2 dfont_2">${room.type}</div>
 		                        <div class="d-box_2 dfont_2" style="margin-bottom: 0px">
-		                            <c:forEach begin="1" end="${avg}">
+		                            <c:forEach begin="1" end="${room.rating}">
 											<img src="${pageContext.request.contextPath}/img/star.png"
 													width="8" height="8" style="margin-bottom: 0px">
 									</c:forEach>
-									<spna>후기 ???개</spna>
+									<spna>후기 ${room.count}개</spna>
 		                        </div>
 		                    </div>
 		                </div>
+		            </a>
 		            </div>
 		        </c:forEach>
 		        </c:when>

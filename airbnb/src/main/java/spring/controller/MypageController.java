@@ -377,14 +377,25 @@ public class MypageController {
 		int member_no = member.getNo();
 		List<WishList> title = wishListDao.titleSelect(member_no);
 		List<Integer> roomcount = new ArrayList<>();
+		List<String> photo = new ArrayList<>();
+		List<WishList> wishlist = new ArrayList<>();
 		for (int i = 0; i < title.size(); i++) {
 			int count = wishListDao.count(member_no, title.get(i).getTitle());
+			String photourl = null;
+			wishlist = wishListDao.SelectRoom_no(member_no, title.get(i).getTitle());
+			if (wishlist.get(wishlist.size() - 1).getRoom_no() > 0) {
+				Room room = roomDao.select(wishlist.get(wishlist.size() - 1).getRoom_no());
+				photourl = room.getPhotoUrl();
+				log.debug("photourl = " + photourl);
+			}
+			photo.add(photourl);
 			roomcount.add(count);
 		}
 
 		m.addAttribute("title", title);
 		m.addAttribute("count", title.size());
 		m.addAttribute("roomcount", roomcount);
+		m.addAttribute("photo", photo);
 		return "mypage/wishlist";
 	}
 

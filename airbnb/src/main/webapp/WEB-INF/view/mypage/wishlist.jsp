@@ -45,7 +45,7 @@
 	                <c:forEach var="wishlist" items="${title}" varStatus="status">
 	                    <div class="wl-page_list">
 	                        <a href="${pageContext.request.contextPath}/mypage/wishlistdetail/${wishlist.title}/${roomcount[status.index]}">
-	                            <div class="d" style="background-image: url('https://a0.muscache.com/im/pictures/35836380/a9a49e5f_original.jpg?aki_policy=large')">
+	                            <div class="d" style="background-image: url(${photo[status.index]})">
 	                                <div class="w">
 	                                    <div class="wl">${wishlist.title}</div>
 	                                    <div class="wl2">${roomcount[status.index]}개</div>
