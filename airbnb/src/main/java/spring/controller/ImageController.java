@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +45,9 @@ public class ImageController {
 		String photourl = "";
 		MultipartFile file = mRequest.getFile("file");
 		Room room = (Room) session.getAttribute("room");
+		if (room == null) {
+			return "redirect:/";
+		}
 		String origin_file = file.getOriginalFilename();
 
 		if (origin_file != "") {
@@ -53,14 +55,11 @@ public class ImageController {
 			log.debug("파일 이름 = " + origin_file);
 			log.debug("파일 크기 = " + file.getSize());
 
-			/*
-			 * String mime = Magic.getMagicMatch(file.getBytes()).getMimeType();
-			 * log.debug("mime = "+mime); if(Arrays.binarySearch(typeFilter, mime) < 0) {
-			 * 
-			 * throw new MagicMatchNotFoundException("GIF, JPG, PNG만 업로드가 가능합니다");
-			 * 
-			 * }
-			 */
+			// String mime = Magic.getMagicMatch(file.getBytes()).getMimeType();
+			// log.debug("mime = " + mime);
+			// if (Arrays.binarySearch(typeFilter, mime) < 0) {
+			// throw new MagicMatchNotFoundException("GIF, JPG, PNG만 업로드가 가능합니다");
+			// }
 
 			// 저장 위치를 외부? 내부? 어디로 잡을것인가?
 			// 외부 - 링크가 불가능(외부에서 주소를 통한 접근이 불가)
@@ -118,9 +117,5 @@ public class ImageController {
 	 * @ExceptionHandler(MagicMatchNotFoundException.class) public String
 	 * typeError() { return "error/typeError"; }
 	 */
-	@ExceptionHandler(Exception.class)
-	public String otherError() {
-		return "error/otherError";
-	}
 
 }
