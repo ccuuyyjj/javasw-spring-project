@@ -135,7 +135,7 @@
 						<div class="flex1">
 							<span class="currency">&nbsp;</span> 
 							<input id="personInput" name="amount" type="number" max="9999" maxlength="4" value ="1"
-								oninput="maxLengthCheck(this)" style="width: 150px;"> 
+								min="1" oninput="maxLengthCheck(this)" style="width: 150px;"> 
 							<span class="currency1">명</span>
 						</div>
 					</div>

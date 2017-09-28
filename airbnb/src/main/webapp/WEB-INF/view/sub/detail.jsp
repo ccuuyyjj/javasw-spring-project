@@ -5,7 +5,6 @@
 	href="${pageContext.request.contextPath}/css/detail.css" />
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
-<script src="${pageContext.request.contextPath}/js/wishList.js"></script>
 
 
 <script>
@@ -80,7 +79,7 @@
 			$("#totalprice").val(total);
 			$("#diffdays").val(diffDays);
 		}
-
+		
 	});
 </script>
 <input type="hidden" name="email" value="${username}">

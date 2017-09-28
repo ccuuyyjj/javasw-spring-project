@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-	
+				
 								
                 $(".wbtn").on("click", function(){
                     event.preventDefault();
@@ -42,7 +42,10 @@ $(document).ready(function(){
 						success:function(){
 							alert("새로운 위시리스트가 추가되었습니다");
 						}
-                	})
+                	});
+                	$("#newwl").hide();
+                	$(".wbtn").show();
+                	$(".wl-input").val('');
                 });
                 
                 $("#wldetail").on("click", function(){
@@ -93,8 +96,8 @@ function wishlist() {
         	var div1 = $("<div/>").addClass("w-add wfont_2");
         	var div2 = $("<div/>").addClass("wlwl");
         	var label = $("<label/>").addClass("w-lb").attr("for", "w-check" + idx).text(title);
-        	var input = $("<input>").attr("type", "checkbox").addClass("w-check")
-        						.attr("id","w-check" + idx);
+        	var input = $("<input>").attr("type", "radio").addClass("w-check")
+        						.attr("id","w-check" + idx).attr("name", "group");
         	label.append(input);
         	div2.append(label);
         	div1.append(div2);
@@ -106,12 +109,10 @@ function wishlist() {
 	}
 }
 
-
 function insert(roomno) {
 	var check='';
     $.each($(".w-check"), function(){
     	check = $(this).is(":checked");
-    	console.log("반복문 check = "+check)
     	if(check == true){
     		result = $(this).parent("label").text();
     		return result;
