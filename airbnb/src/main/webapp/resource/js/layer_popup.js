@@ -127,7 +127,7 @@ $(document).ready(
 							},
 							success : function(data) {
 								if (data == "false") {
-									alert("중복된 아이디 입니다!!")
+									alert("중복된 아이디 입니다!!");
 									$("#a_email").addClass("cant");
 								} else {
 									$("#a_email").removeClass("cant");
